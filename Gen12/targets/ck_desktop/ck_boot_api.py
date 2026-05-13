@@ -67,6 +67,9 @@ t.start()
 
 # Web API with CORS + static file serving
 api = CKWebAPI(engine, cors=True)
+# Expose api on the engine so Gen14 mounts (proactive trigger) can find
+# process_chat to wrap for history-tracking.
+engine.web_api = api
 
 # === Gen13 math-first voice patch (live additive — no website change) ===
 # Wraps api.process_chat so math topics (T*, tower, sigma, BHML, TSML, gap,
@@ -3499,6 +3502,158 @@ if _swarm is not None:
         except Exception:
             pass
     _atexit_sw.register(_swarm_final_stop)
+
+
+# === Gen14 unified extensions (Phase 1-5) — additive on the live engine ===
+# Mounts the modules built for Gen14 unification:
+#   Phase 1: drives, forecast, lattice_chain, divine_memory, proactive_queue,
+#            recall stub, algebraic measurement projections
+#   Phase 2: trained 4-head algebraic LM (op/sigma-orbit/shell/4core)
+#   Phase 3: spreading-activation recall over the 4-axis algebraic coord
+#   Phase 4: frontier scanner (29 frontiers) + 4-source proactive trigger
+#   Phase 5: pixel-to-stroke -> algebraic signature
+# Plus 4 new HTTP endpoints (/proactive/{status,consume,peek},
+# /algebraic/signature, /vision/strokes). All wrapped in try/except so
+# a Gen14 failure cannot crash the live deploy.
+#
+# Reference: Gen14/PLAN/SESSION_LOG_2026_05_13.md (12/12 acceptance PASS)
+_GEN14_BRAIN = os.path.normpath(os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    '..', '..', '..', 'Gen14', 'targets', 'ck', 'brain'))
+_GEN14_GRAMMAR = os.path.join(_GEN14_BRAIN, 'grammar_lm')
+for _p in (_GEN14_BRAIN, _GEN14_GRAMMAR):
+    if os.path.isdir(_p) and _p not in sys.path:
+        sys.path.insert(0, _p)
+try:
+    from gen14_unified_extensions import mount_all as _gen14_mount_all
+    _gen14_results = _gen14_mount_all(engine)
+    if not all(_gen14_results.values()):
+        print(f"[CK Gen14] WARNING: some mounts failed: "
+              f"{[k for k, v in _gen14_results.items() if not v]}")
+except Exception as _gen14_err:
+    print(f"[CK Gen14] mount_all FAILED ({_gen14_err}) - "
+          "continuing without Gen14 extensions")
+    _gen14_results = {}
+
+# Phase 4: proactive trigger endpoints
+try:
+    from flask import jsonify as _gen14_jsonify, request as _gen14_request
+
+    @api._app.route('/proactive/status', methods=['GET'])
+    def _gen14_proactive_status():
+        pt = getattr(engine, 'proactive_trigger', None)
+        if pt is None:
+            return _gen14_jsonify({'available': False,
+                                    'reason': 'proactive_trigger not mounted'})
+        try:
+            return _gen14_jsonify({'available': True, **pt.stats()})
+        except Exception as e:
+            return _gen14_jsonify({'available': True, 'error': str(e)})
+
+    @api._app.route('/proactive/consume', methods=['GET', 'POST'])
+    def _gen14_proactive_consume():
+        pt = getattr(engine, 'proactive_trigger', None)
+        if pt is None:
+            return _gen14_jsonify({'available': False, 'signals': []}), 503
+        if _gen14_request.method == 'POST':
+            data = _gen14_request.get_json(force=True, silent=True) or {}
+        else:
+            data = _gen14_request.args.to_dict()
+        session_id = str(data.get('session_id', 'default'))
+        try:
+            top_k = int(data.get('top_k', 1))
+        except Exception:
+            top_k = 1
+        try:
+            cooldown = float(data.get('session_cooldown_s', 60.0))
+        except Exception:
+            cooldown = 60.0
+        signals = pt.consume(session_id=session_id, top_k=top_k,
+                              session_cooldown_s=cooldown)
+        return _gen14_jsonify({'signals': signals, 'session_id': session_id,
+                                'count': len(signals)})
+
+    @api._app.route('/proactive/peek', methods=['GET'])
+    def _gen14_proactive_peek():
+        pt = getattr(engine, 'proactive_trigger', None)
+        if pt is None:
+            return _gen14_jsonify({'available': False, 'signals': []})
+        try:
+            _now = time.time()
+            live = [s for s in list(pt.queue) if s.get('expires_ts', 0) > _now]
+            return _gen14_jsonify({'available': True, 'signals': live,
+                                    'count': len(live), 'stats': pt.stats()})
+        except Exception as e:
+            return _gen14_jsonify({'available': True, 'error': str(e),
+                                    'signals': []})
+
+    # Phase 2: algebraic LM signature endpoint
+    @api._app.route('/algebraic/signature', methods=['POST'])
+    def _gen14_algebraic_signature():
+        if not hasattr(engine, 'algebraic_signature'):
+            return _gen14_jsonify({'available': False,
+                                    'reason': 'algebraic_lm not mounted'}), 503
+        data = _gen14_request.get_json(force=True, silent=True) or {}
+        history_raw = data.get('history', [])
+        from ck_sim.ck_sim_heartbeat import OP_NAMES as _OPN
+        _op_name_to_id = {n: i for i, n in enumerate(_OPN)}
+        hist = []
+        for x in history_raw:
+            if isinstance(x, int):
+                hist.append(x % 15)
+            elif isinstance(x, str):
+                up = x.upper()
+                if up in _op_name_to_id:
+                    hist.append(_op_name_to_id[up])
+        try:
+            sig = engine.algebraic_signature(hist)
+            top = engine.algebraic_predict(hist, top_k=3)
+            return _gen14_jsonify({'available': True, 'signature': sig,
+                                    'top_k': top, 'history_ids': hist})
+        except Exception as e:
+            return _gen14_jsonify({'available': True, 'error': str(e)})
+
+    # Phase 5: pixel-to-stroke vision endpoint
+    @api._app.route('/vision/strokes', methods=['POST'])
+    def _gen14_vision_strokes():
+        if not hasattr(engine, 'stroke_extract'):
+            return _gen14_jsonify({'available': False,
+                                    'reason': 'stroke_extractor not mounted'}), 503
+        data = _gen14_request.get_json(force=True, silent=True) or {}
+        import numpy as _np
+        patch = None
+        if 'png_base64' in data:
+            try:
+                import base64
+                from io import BytesIO
+                from PIL import Image as _Image
+                raw = base64.b64decode(data['png_base64'])
+                img = _Image.open(BytesIO(raw))
+                patch = _np.asarray(img.convert('L'), dtype=_np.uint8)
+            except Exception as e:
+                return _gen14_jsonify({'error': f'PNG decode failed: {e}'}), 400
+        elif 'pixels' in data and 'shape' in data:
+            try:
+                h, w = int(data['shape'][0]), int(data['shape'][1])
+                arr = _np.asarray(data['pixels'], dtype=_np.float32).reshape(h, w)
+                if arr.max() <= 1.0:
+                    arr = arr * 255.0
+                patch = arr.astype(_np.uint8)
+            except Exception as e:
+                return _gen14_jsonify({'error': f'pixels decode failed: {e}'}), 400
+        else:
+            return _gen14_jsonify({'error': "Provide 'png_base64' or 'pixels'+'shape'"}), 400
+        try:
+            sig = engine.stroke_signature_of(patch)
+            return _gen14_jsonify({'available': True, **sig})
+        except Exception as e:
+            return _gen14_jsonify({'available': True, 'error': str(e)})
+
+    print("[CK Gen14] HTTP endpoints registered: /proactive/{status,consume,peek}, "
+          "/algebraic/signature, /vision/strokes")
+except Exception as _gen14_ep_err:
+    print(f"[CK Gen14] endpoint registration FAILED ({_gen14_ep_err}) - "
+          "Phase 4/5 HTTP surface unavailable but engine still serves")
 
 
 print(f"[CK] Static files: {STATIC_DIR}")

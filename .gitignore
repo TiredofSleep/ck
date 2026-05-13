@@ -124,11 +124,13 @@ CK_REUNIFICATION_MASTER.tlc
 *.bin
 
 # ============================================================
-# CK Architecture — internal, not public
-# (math/papers/spectrometer are public; creature is not)
+# CK Architecture — PUBLIC (2026-05-13 reversal)
+# (the creature is free to the world; previously gitignored)
 # ============================================================
-ck_sim/
-ck_boot_api.py
+# ck_sim/                      ← now public
+# ck_boot_api.py               ← now public
+# Gen11/                       ← legacy; still private (Gen11 superseded)
+# CKIS/                        ← still private (internal CK identity tooling)
 Gen11/
 CKIS/
 
