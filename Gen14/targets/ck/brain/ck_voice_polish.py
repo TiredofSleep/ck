@@ -107,6 +107,178 @@ _H_SENSE_PIPELINE = "[sense pipeline — how the dominant operator builds each s
 _H_RESEARCH = "[research trail — what CK looked up before answering]"
 _H_LEARNING = "[learning this turn — Hebbian + crystals + lattice deltas]"
 _H_CONCEPTS = "[concept binding — words you've taught CK that fire this turn]"
+_H_SELF = "[self-introspection — CK's own measured state, surfaced live]"
+
+
+# Regex for self-introspection trigger queries
+_RE_SELF_INTROSPECTION = re.compile(
+    r"\b(yourself|your\s+architecture|your\s+state|"
+    r"what\s+are\s+you|who\s+are\s+you|"
+    r"how\s+do\s+you\s+work|introspect|"
+    r"tell\s+me\s+about\s+(yourself|you)|describe\s+yourself)\b",
+    re.I)
+
+
+def _is_self_query(text: str) -> bool:
+    if not text:
+        return False
+    return bool(_RE_SELF_INTROSPECTION.search(text))
+
+
+def _format_self_introspection(engine: Any, result: Dict[str, Any]
+                                 ) -> Optional[List[str]]:
+    """When the user asked about CK himself, surface his actual live
+    state -- mount count, current operator, Hebbian trace, concept
+    count, frontiers loaded, last_pair, attractor layer, etc.
+
+    This is a structured self-portrait from CK's measurements. He's
+    not generating words about himself -- he's reading his own state
+    off the substrate.
+    """
+    if engine is None:
+        return None
+    lines: List[str] = []
+
+    # Mount state (how he's currently constructed)
+    mount_count = None
+    if hasattr(engine, "proactive_trigger"):
+        # If proactive_trigger is present, all of Gen14 is loaded.
+        # Count attributes that match the mount_all components.
+        components = [
+            "proactive_queue", "goal_evaluator", "forecast",
+            "lattice_chain", "divine_memory", "recall",
+            "algebraic_lm", "frontier_scanner", "proactive_trigger",
+            "stroke_extract", "formula_registry",
+            "senses_for_operator", "concept_store",
+        ]
+        mount_count = sum(1 for c in components if hasattr(engine, c))
+        lines.append(f"i'm a finite-arithmetic organism on Z/10Z. "
+                      f"{mount_count} mount components active.")
+
+    # Current op + last pair
+    cur = getattr(engine, "current_op", None)
+    if isinstance(cur, int) and 0 <= cur < 10:
+        lines.append(f"current operator: {_OP_NAMES_VOICE[cur]} (id={cur})")
+
+    # Hebbian / cortex
+    cortex = result.get("cortex") or {}
+    w = cortex.get("W_trace")
+    em = cortex.get("emergent")
+    tick = cortex.get("tick")
+    if w is not None and em is not None:
+        try:
+            lines.append(
+                f"cortex (5x5 Hebbian W): trace={float(w):.4f}, "
+                f"emergent={float(em):.4f}, tick={tick}"
+            )
+        except Exception:
+            pass
+
+    # Crystal + experience state
+    exp = result.get("experience") or {}
+    crystals = exp.get("crystals")
+    voice_crystals = exp.get("voice_crystals")
+    concepts_field = exp.get("concepts")
+    truths = exp.get("truths")
+    if any(x is not None for x in (crystals, voice_crystals, concepts_field, truths)):
+        bits = []
+        if isinstance(concepts_field, int):
+            bits.append(f"{concepts_field} concepts")
+        if isinstance(truths, int):
+            bits.append(f"{truths} truths")
+        if isinstance(crystals, int):
+            bits.append(f"{crystals} crystals")
+        if isinstance(voice_crystals, int):
+            bits.append(f"{voice_crystals} voice-crystals")
+        if bits:
+            lines.append("memory: " + ", ".join(bits))
+
+    # Taught concepts (the one-shot conversational learning store)
+    cs = getattr(engine, "concept_store", None)
+    if cs is not None:
+        try:
+            stats = cs.stats()
+            n = stats.get("n_concepts", 0)
+            lines.append(f"taught concepts (one-shot bindings): {n} stored")
+            if n > 0:
+                sample = stats.get("concepts", [])[:5]
+                if sample:
+                    lines.append("  recent: " + ", ".join(sample))
+        except Exception:
+            pass
+
+    # Attractor + coherence
+    a = result.get("attractor_state") or {}
+    if a:
+        lines.append(f"attractor layer: {a.get('layer', '?')}")
+    coh = result.get("coherence")
+    band = result.get("band")
+    mode = result.get("mode")
+    if coh is not None or band or mode:
+        bits = []
+        if coh is not None:
+            try:
+                bits.append(f"coherence={float(coh):.3f}")
+            except Exception:
+                pass
+        if band:
+            bits.append(f"band={band}")
+        if mode:
+            bits.append(f"mode={mode}")
+        if bits:
+            lines.append("state: " + "  ".join(bits))
+
+    # Substrate / proactive
+    if hasattr(engine, "proactive_trigger"):
+        try:
+            ts = engine.proactive_trigger.stats()
+            qlen = ts.get("queue_len", 0)
+            hlen = ts.get("history_len", 0)
+            lines.append(f"proactive trigger: queue={qlen} pending, "
+                          f"history={hlen} ops (running at 0.5Hz)")
+        except Exception:
+            pass
+
+    # Frontier coverage
+    fs = getattr(engine, "frontier_scanner", None)
+    if fs is not None:
+        try:
+            st = fs.stats()
+            n = st.get("total", 0)
+            opened = st.get("open", 0)
+            lines.append(f"frontiers indexed: {n} ({opened} open) "
+                          f"from Atlas/FRONTIERS_*.md")
+        except Exception:
+            pass
+
+    # Formula spine
+    fr = getattr(engine, "formula_registry", None)
+    if fr is not None:
+        try:
+            fst = fr.stats()
+            n = fst.get("total", 0)
+            by_status = fst.get("by_status", {})
+            proved = by_status.get("PROVED", 0)
+            lines.append(f"formula spine: {n} D-numbered theorems "
+                          f"({proved} PROVED with runnable scripts)")
+        except Exception:
+            pass
+
+    # Sense pipelines (he knows what he is across modalities)
+    if hasattr(engine, "sense_pipelines"):
+        try:
+            sp = engine.sense_pipelines
+            if isinstance(sp, dict):
+                lines.append(
+                    f"sense pipelines: {len(sp)} senses, each declared as an "
+                    f"ordered operator pipeline ({', '.join(sp.keys())})"
+                )
+        except Exception:
+            pass
+
+    if not lines:
+        return None
+    return lines
 
 
 # ── Cross-modal correspondence: DERIVED from CK's live phonetic table ──
@@ -819,16 +991,53 @@ def whitebox_recompose(text: str, result: Dict[str, Any], engine: Any) -> str:
     # Compose output
     out: List[str] = []
 
+    # 0. SELF-INTROSPECTION (if user asked about CK himself)
+    #    Lift CK's actual measured state to the top of the answer.
+    #    Detection: regex on the input text (from result['input_text']
+    #    if present, else result['session_field']['arc']'s context).
+    input_text = result.get("input_text") or ""
+    # Some chat handlers store the user's text under different keys
+    if not input_text:
+        cs = result.get("cells_shadow") or {}
+        input_text = cs.get("input_text") if isinstance(cs, dict) else ""
+    if input_text and _is_self_query(input_text):
+        self_lines = _format_self_introspection(engine, result)
+        if self_lines:
+            out.append(_H_SELF)
+            out.extend(self_lines)
+            out.append("")
+
     # 1. ANSWER (the substantive content)
-    #    Truncated by coherence: high coherence (he's focused) -> keep
-    #    only the dominant bridges; low coherence (exploring) -> keep
-    #    more. This binds focus directly to the physics; CK's own
-    #    measurement of how confident he is determines how much he says.
+    #    First: if any taught concepts are REFERENCED in this turn,
+    #    prepend each as a top-level bridge. This makes recalled
+    #    concepts visible IN the answer (not just in a sidebar).
+    #    The wording is CK's: the user's own teaching text is replayed
+    #    verbatim, prefixed by the concept name -- no generation, just
+    #    surfacing the bound definition.
+    referenced_concepts = (result.get("concept_learning") or {}).get("referenced") or []
+    concept_bridges: List[str] = []
+    for c in referenced_concepts:
+        name = c.get("name")
+        defn = c.get("definition")
+        if name and defn:
+            # Bridge format mirrors CK's own crystal-bridge style:
+            #   "<name>: <definition> [taught, recalled Nx]"
+            n = c.get("n_recalls", 0)
+            concept_bridges.append(
+                f"{name}: {defn} [taught earlier, recalled {n}x]"
+            )
+
+    # Then: truncated by coherence -- high coherence (focused) keeps
+    # fewer bridges, low coherence (exploring) keeps more.
     answer_lines = [l for l in buckets["answer"] if l.strip()]
-    if answer_lines:
+    # Concept bridges go FIRST so a "explain XYZFLUX" turn leads with
+    # the recalled binding even if cortex_speak surfaced unrelated
+    # crystals.
+    full_answer = concept_bridges + answer_lines
+    if full_answer:
         coh = _read_coherence(result)
-        answer_lines = _truncate_by_coherence(answer_lines, coh)
-        out.extend(answer_lines)
+        full_answer = _truncate_by_coherence(full_answer, coh)
+        out.extend(full_answer)
 
     # 2. REASONING TRAIL
     if buckets["reasoning"]:

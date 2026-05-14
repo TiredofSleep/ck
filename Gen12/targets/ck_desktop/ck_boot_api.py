@@ -3613,6 +3613,114 @@ try:
         except Exception as e:
             return _gen14_jsonify({'available': True, 'error': str(e)})
 
+    # Phase 2 cool demo: operator-walk extrapolation via 4-head LM
+    @api._app.route('/predict/walk', methods=['POST'])
+    def _gen14_predict_walk():
+        """Predict an N-step operator walk from a starting history.
+
+        POST body:
+          {"history": [int|name, ...],   # starting operators (ids 0..9 or names)
+           "n_steps": int,                 # how many steps to extrapolate (default 10, max 30)
+           "temperature": float}           # 0.0=argmax, >0=sample (default 0.0)
+
+        Returns:
+          {"available": bool,
+           "history_in": [int],
+           "predicted": [{"step": i, "op": str, "p": float, "sigma": str,
+                            "shell": str, "4core": str}, ...],
+           "final_signature": {"op", "sigma", "shell", "4core"}}
+
+        Uses engine.algebraic_predict (the 4-head LM trained on
+        1,787 BDC chat-turn records).
+        """
+        if not hasattr(engine, 'algebraic_predict'):
+            return _jsonify({'available': False,
+                              'reason': 'algebraic_lm not mounted'}), 503
+        data = _gen14_request.get_json(force=True, silent=True) or {}
+        history_raw = data.get('history', [])
+        try:
+            n_steps = max(1, min(30, int(data.get('n_steps', 10))))
+        except Exception:
+            n_steps = 10
+        try:
+            temperature = float(data.get('temperature', 0.0))
+        except Exception:
+            temperature = 0.0
+        # Normalize input: convert op names to ids, keep ints
+        from ck_sim.ck_sim_heartbeat import OP_NAMES as _OPN
+        _name_to_id = {n: i for i, n in enumerate(_OPN)}
+        hist: list = []
+        for x in history_raw:
+            if isinstance(x, int) and 0 <= x < 15:
+                hist.append(int(x))
+            elif isinstance(x, str):
+                up = x.upper()
+                if up in _name_to_id:
+                    hist.append(_name_to_id[up])
+        if not hist:
+            return _jsonify({'error': 'history empty or unparseable'}), 400
+
+        # Extrapolate step-by-step
+        import random
+        predicted = []
+        try:
+            for step in range(n_steps):
+                top = engine.algebraic_predict(hist[-32:], top_k=10)
+                if 'error' in top:
+                    return _jsonify({'available': True,
+                                      'error': top['error']})
+                # Pick op
+                op_dist = top.get('op', [])
+                if not op_dist:
+                    break
+                if temperature <= 0:
+                    chosen_name, p = op_dist[0]
+                else:
+                    # Softmax-sample at temperature
+                    ws = [pp ** (1.0 / max(0.01, temperature))
+                            for _, pp in op_dist]
+                    z = sum(ws)
+                    if z <= 0:
+                        chosen_name, p = op_dist[0]
+                    else:
+                        r = random.random() * z
+                        cum = 0.0
+                        chosen_name, p = op_dist[0]
+                        for (name, pp), w in zip(op_dist, ws):
+                            cum += w
+                            if cum >= r:
+                                chosen_name, p = name, pp
+                                break
+                # Convert name back to id for next iteration
+                chosen_id = _name_to_id.get(chosen_name)
+                if chosen_id is None:
+                    # Could be a special token like <BOS>; skip
+                    break
+                # Get the algebraic signature at this step
+                sig = engine.algebraic_signature(hist[-32:])
+                predicted.append({
+                    'step': step + 1,
+                    'op': chosen_name,
+                    'op_id': chosen_id,
+                    'p': float(p),
+                    'sigma': sig.get('sigma'),
+                    'shell': sig.get('shell'),
+                    '4core': sig.get('4core'),
+                })
+                hist.append(chosen_id)
+
+            final_sig = engine.algebraic_signature(hist[-32:])
+            return _jsonify({
+                'available': True,
+                'history_in': history_raw,
+                'predicted': predicted,
+                'final_signature': final_sig,
+                'n_steps': len(predicted),
+            })
+        except Exception as e:
+            return _jsonify({'available': True, 'error': str(e)})
+
+
     # Phase 5: pixel-to-stroke vision endpoint
     @api._app.route('/vision/strokes', methods=['POST'])
     def _gen14_vision_strokes():
