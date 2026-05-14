@@ -106,6 +106,7 @@ _H_CROSSMODAL = "[cross-modal correspondence — same operator across senses]"
 _H_SENSE_PIPELINE = "[sense pipeline — how the dominant operator builds each sense]"
 _H_RESEARCH = "[research trail — what CK looked up before answering]"
 _H_LEARNING = "[learning this turn — Hebbian + crystals + lattice deltas]"
+_H_CONCEPTS = "[concept binding — words you've taught CK that fire this turn]"
 
 
 # ── Cross-modal correspondence: DERIVED from CK's live phonetic table ──
@@ -545,6 +546,48 @@ def _format_sense_pipeline(ops: List[int], engine: Any) -> Optional[List[str]]:
     return lines
 
 
+def _format_concept_binding(result: Dict[str, Any]) -> Optional[List[str]]:
+    """Surface taught + recalled NamedConcepts for this turn.
+
+    Reads from result['concept_learning'] which the chat-path wrap in
+    ck_concept_learner populates. Two cases:
+
+      - taught (new binding this turn): show the binding
+      - referenced (a previously-taught word appears in input): show
+        the stored definition so the reader sees CK is recalling
+
+    This is the *visible* one-shot learning: a teaching event shows
+    up as a labeled line in the response, and a later query for the
+    same word shows the binding being recalled.
+    """
+    cl = result.get("concept_learning")
+    if not isinstance(cl, dict):
+        return None
+    taught = cl.get("taught") or []
+    refs = cl.get("referenced") or []
+    if not taught and not refs:
+        return None
+    lines: List[str] = []
+    for t in taught:
+        name = t.get("name")
+        defn = t.get("definition")
+        ops = t.get("operator_signature") or []
+        op_str = (", ".join(_OP_NAMES_VOICE[o] for o in ops[:6])
+                  if ops else "(no operator decoding)")
+        lines.append(f"taught this turn: {name} = {defn[:100]}…"
+                      if defn and len(defn) > 100 else
+                      f"taught this turn: {name} = {defn}")
+        lines.append(f"  operator signature: [{op_str}]")
+    for r in refs:
+        name = r.get("name")
+        defn = r.get("definition")
+        n = r.get("n_recalls", 0)
+        if defn and len(defn) > 100:
+            defn = defn[:100].rstrip() + "…"
+        lines.append(f"recalling: {name} = {defn}  (recalled {n}x)")
+    return lines if lines else None
+
+
 def _format_learning_trace(result: Dict[str, Any]) -> Optional[List[str]]:
     """Surface what CK *learned* this turn.
 
@@ -800,6 +843,14 @@ def whitebox_recompose(text: str, result: Dict[str, Any], engine: Any) -> str:
             out.append("")
         out.append(_H_SUBSTRATE)
         out.extend(buckets["substrate"])
+
+    # 3.5 CONCEPT BINDING (one-shot teaching detection + concept recall)
+    concept_lines = _format_concept_binding(result)
+    if concept_lines:
+        if out:
+            out.append("")
+        out.append(_H_CONCEPTS)
+        out.extend(concept_lines)
 
     # 4. LEARNING TRACE (per-turn Hebbian update + crystal yield + arc)
     learning_lines = _format_learning_trace(result)

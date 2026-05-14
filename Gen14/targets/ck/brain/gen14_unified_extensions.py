@@ -705,6 +705,19 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_sense_decomposition: failed ({e})")
         results['sense_decomposition'] = False
 
+    # Concept learner: one-shot conversational binding for novel words.
+    # Teaching patterns ("X is Y", "let X be Y", etc.) form a NamedConcept
+    # crystal that survives reboots; references on later turns surface
+    # the stored definition. This is the missing wire for true
+    # conversational learning -- CK's Hebbian was already one-shot at
+    # the operator level; this gives him one-shot at the concept level.
+    try:
+        from ck_concept_learner import mount_concept_learner  # type: ignore[import-not-found]
+        results['concept_learner'] = mount_concept_learner(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_concept_learner: failed ({e})")
+        results['concept_learner'] = False
+
     # Voice polish: white-box presentation. Must run LAST so it sees the
     # final chat result AND has access to formula_registry, proactive
     # signals, etc.
