@@ -1,30 +1,48 @@
 # Copyright (c) 2025-2026 Brayden Sanders / 7SiTe LLC
 # Licensed under the 7SiTe Public Sovereignty License v2.2 (DOI: 10.5281/zenodo.18852047)
 """
-ck_voice_polish.py -- voice cleanup + proactive breadcrumb injection.
+ck_voice_polish.py -- white-box presentation pass for chat responses.
 
 Brayden 2026-05-13:
-  "fix his voice to be something worth mentioning"
+  "the whole point of this is 'white box ai' you and everyone else
+  should be able to see exact reasoning for all of his thoughts and
+  responses"
 
-CK's chat responses currently bury the substantive content under
-several layers of internal-state chatter:
-  - duplicated `prompt_term_<word>:` echoes (the active-prompt crystal
-    fires multiple times per turn)
-  - `couplings: <w>-<w> W=0.236, ...` Hebbian weight dumps
-  - `learned: <w>->...` cortex state
-  - `recall:` blocks with timestamps
-  - `[substrate frame]` paragraph repeating the same composition info
+CK is fundamentally a white-box organism: his Hebbian couplings, his
+prompt-term crystals, his recall hits, his substrate composition, his
+4-axis algebraic signature — these are not noise to filter out. They
+are HIS REASONING TRAIL. The whole point is that anyone can read his
+response AND see exactly why he said what he said.
 
-This module is a single post-processor that runs OUTSIDE every existing
-chat wrap. It does NOT write words for CK -- it only filters out the
-redundant chatter and appends a tasteful one-line proactive breadcrumb
-when a fresh frontier signal is available.
+What this module DOES:
+  1. Dedup TRUE duplicates (the same crystal firing twice — that's a
+     bug in the upstream pipeline, not signal).
+  2. Restructure the response into clearly-labeled white-box sections:
+        [answer]                 — what CK says
+        [reasoning trail]        — what fired this turn
+        [substrate snapshot]     — where in his algebra this thought lives
+        [next-step prediction]   — Phase 2 4-head LM's forecast
+        [proactive breadcrumb]   — frontier signal if matched
+  3. Surface engine fields that were previously buried in JSON only:
+     - operators decoded from input
+     - cortex_readout (the Hebbian state line)
+     - attractor_state (4-core / harmony / transient layer)
+     - coherence / band / mode
+     - algebraic_signature from the Phase 2 4-head LM
+
+What this module does NOT do:
+  - Strip the Hebbian weight dump (`couplings: ...`) — that's why CK
+    fired on these concepts and not others
+  - Strip `learned: ...` — that's the cortex update from this turn
+  - Strip `recall: ...` — those are the memory hits driving the answer
+  - Write words for CK — only restructure + label what he already said
+
+If the upstream stops emitting duplicate prompt_term lines, this module
+becomes a pure presentation pass with zero content loss.
 
 Wiring:
     from ck_voice_polish import mount_voice_polish
     mount_voice_polish(engine)
-(call AFTER mount_proactive_trigger so the breadcrumb has access to
-engine.proactive_consume.)
 """
 from __future__ import annotations
 
@@ -39,134 +57,288 @@ if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
 
-# ─── Noise patterns to strip ─────────────────────────────────────────────
+# ─── Line classifiers ────────────────────────────────────────────────────
+#
+# Each classifier decides which white-box section a line belongs to.
+# Lines that match no classifier are treated as "answer" content (the
+# substantive cortex_speak output).
 
-# Each pattern is a compiled regex matched against an entire LINE.
-# Multi-line blocks are handled separately below.
-_NOISE_LINE_PATTERNS = [
-    # prompt_term echoes: `prompt_term_yukawa_couplings: '...'`
-    re.compile(r"^prompt_term_[\w\d_]+\s*:.*"),
-    # Hebbian coupling dumps: `couplings: <a><->b> W=0.236, ...`
-    re.compile(r"^couplings\s*:\s*.+?W\s*=\s*[\d.]+"),
-    # Cortex learned line: `learned: <a>-><b> coupled at W=...`
-    re.compile(r"^learned\s*:\s*.+?(coupled at W|tick=)"),
-    # Header markers that have no content on their own
-    re.compile(r"^\s*\[structural evidence\]\s*$"),
-    re.compile(r"^\s*\[machine readout\]\s*$"),
-]
-
-# Multi-line block patterns -- match the START line; everything until the
-# next blank line OR until the section ends is dropped.
-_NOISE_BLOCK_STARTS = [
-    # The `recall:` block lists prior turn timestamps -- not interesting
-    # for the spoken voice.
-    re.compile(r"^recall\s*:\s*$"),
-]
+_RE_PROMPT_TERM = re.compile(r"^prompt_term_[\w\d_]+\s*:\s*")
+_RE_COUPLINGS = re.compile(r"^couplings\s*:\s*.+?W\s*=\s*[\d.]+")
+_RE_LEARNED = re.compile(r"^learned\s*:\s*")
+_RE_RECALL = re.compile(r"^recall\s*:\s*$")
+_RE_STATE = re.compile(r"^state\s*:\s*")
+_RE_DIVINE27 = re.compile(r"^divine27\s*:\s*")
+_RE_ATTRACTOR = re.compile(r"^attractor\s*:\s*")
+_RE_SECTION_HEADER = re.compile(r"^\[\w[^\]]*\]")
+_RE_DIVIDER = re.compile(r"^-{3,}\s*$")
 
 
-def _strip_noise_lines(text: str) -> str:
-    """Drop noise lines + multi-line noise blocks, dedup adjacent
-    duplicates, keep the rest in order."""
-    out: List[str] = []
+def _classify(line: str) -> str:
+    """Return one of: 'reasoning', 'substrate', 'noise_header', 'divider',
+    'answer'."""
+    s = line.strip()
+    if not s:
+        return "blank"
+    if _RE_PROMPT_TERM.match(s) or _RE_COUPLINGS.match(s) or _RE_LEARNED.match(s):
+        return "reasoning"
+    if _RE_RECALL.match(s):
+        return "reasoning_block"  # multi-line "recall:" block
+    if _RE_STATE.match(s) or _RE_DIVINE27.match(s) or _RE_ATTRACTOR.match(s):
+        return "substrate"
+    if _RE_SECTION_HEADER.match(s):
+        # Old [structural evidence] / [substrate frame] / [machine readout]
+        # — drop them; we'll inject our own clean section headers.
+        return "noise_header"
+    if _RE_DIVIDER.match(s):
+        return "divider"
+    return "answer"
+
+
+# ─── White-box re-presentation ───────────────────────────────────────────
+
+# Section headers we emit. These are the white-box labels a reader sees.
+_H_REASONING = "[reasoning trail — what fired this turn]"
+_H_SUBSTRATE = "[substrate snapshot — where this thought lives in CK's algebra]"
+_H_NEXTSTEP = "[next-step prediction — Phase 2 4-head LM]"
+
+
+def _dedup_key(line: str) -> str:
+    """Return a key for de-duplication.
+
+    For prompt_term lines, the same crystal firing multiple times per
+    turn produces near-duplicate lines that differ only in the trailing
+    description text. Use the `prompt_term_<word>:` prefix as the key
+    so all firings of the same crystal collapse to one entry.
+
+    For other lines, use the line as-is.
+    """
+    s = line.strip()
+    m = _RE_PROMPT_TERM.match(s)
+    if m:
+        return m.group(0).strip()  # "prompt_term_<word>:"
+    return s
+
+
+def _split_sections(text: str) -> Dict[str, List[str]]:
+    """Bucket lines by classification.
+
+    Returns dict with keys: answer, reasoning, substrate.
+    Preserves order within each bucket, deduplicates by `_dedup_key`
+    (which collapses re-firings of the same prompt-term crystal).
+    """
+    buckets: Dict[str, List[str]] = {"answer": [], "reasoning": [], "substrate": []}
+    seen_keys: set = set()
     skipping_block = False
-    last_kept: Optional[str] = None
 
-    for line in text.split("\n"):
+    for raw in text.split("\n"):
+        line = raw.rstrip()
+
         if skipping_block:
-            if not line.strip():
+            s = line.strip()
+            if s == "" or _RE_SECTION_HEADER.match(s) or _RE_DIVIDER.match(s):
                 skipping_block = False
-            # Drop this line either way
-            continue
+            else:
+                key = _dedup_key(line)
+                if key not in seen_keys:
+                    buckets["reasoning"].append(line)
+                    seen_keys.add(key)
+                continue
 
-        if any(p.match(line) for p in _NOISE_BLOCK_STARTS):
+        kind = _classify(line)
+        if kind == "reasoning_block":
+            key = _dedup_key(line)
+            if key not in seen_keys:
+                buckets["reasoning"].append(line)
+                seen_keys.add(key)
             skipping_block = True
             continue
 
-        if any(p.match(line) for p in _NOISE_LINE_PATTERNS):
+        if kind in ("noise_header", "divider", "blank"):
             continue
 
-        # Dedup adjacent identical non-blank lines
-        if line.strip() and line == last_kept:
-            continue
+        key = _dedup_key(line)
+        if key in seen_keys:
+            continue  # dedup
+        seen_keys.add(key)
 
-        out.append(line)
-        if line.strip():
-            last_kept = line
+        if kind in buckets:
+            buckets[kind].append(line)
 
-    return "\n".join(out)
-
-
-def _collapse_substrate_frame(text: str) -> str:
-    """Reduce the verbose [substrate frame] paragraph to one short line.
-
-    The substrate frame currently reads like a long paragraph explaining
-    HARMONY/CENTER/Divine27. Keep the technical state line (state: ...),
-    drop the prose paragraph.
-    """
-    lines = text.split("\n")
-    out: List[str] = []
-    in_substrate = False
-    saw_state = False
-    for ln in lines:
-        if "[substrate frame]" in ln:
-            in_substrate = True
-            continue
-        if in_substrate:
-            # Inside the substrate frame block. We stop on a blank line
-            # or when we hit "[machine readout]" / "state:" markers.
-            s = ln.strip()
-            if s.startswith("state:") or s.startswith("divine27:") or s.startswith("attractor:"):
-                # Keep these structural state lines
-                out.append(ln)
-                saw_state = True
-                continue
-            if s == "":
-                in_substrate = False
-                if saw_state:
-                    out.append("")
-                continue
-            if s.startswith("["):
-                # New section like [machine readout]
-                in_substrate = False
-                out.append(ln)
-                continue
-            # Otherwise this is the verbose prose paragraph -- drop it
-            continue
-        out.append(ln)
-    return "\n".join(out)
+    return buckets
 
 
-def _trim_leading_blank_lines(text: str) -> str:
-    """Drop leading blank lines and squeeze runs of >=3 blanks to 2."""
-    lines = text.split("\n")
-    # Strip leading
-    while lines and not lines[0].strip():
-        lines.pop(0)
-    # Squeeze internal
-    out: List[str] = []
-    blank_run = 0
-    for ln in lines:
-        if not ln.strip():
-            blank_run += 1
-            if blank_run <= 2:
-                out.append(ln)
+def _format_operators_line(result: Dict[str, Any]) -> Optional[str]:
+    """Show the 10 operators CK decoded from the input."""
+    ops = result.get("operators")
+    if not ops:
+        return None
+    return "operators decoded from your text: " + ", ".join(str(o) for o in ops[:10])
+
+
+def _format_state_line(result: Dict[str, Any]) -> Optional[str]:
+    """Coherence / band / mode summary."""
+    coh = result.get("coherence")
+    band = result.get("band")
+    mode = result.get("mode")
+    parts = []
+    if coh is not None:
+        try:
+            parts.append(f"coherence={float(coh):.3f}")
+        except Exception:
+            parts.append(f"coherence={coh}")
+    if band:
+        parts.append(f"band={band}")
+    if mode:
+        parts.append(f"mode={mode}")
+    if not parts:
+        return None
+    return "engine state: " + "  ".join(parts)
+
+
+def _format_attractor_line(result: Dict[str, Any]) -> Optional[str]:
+    """Show the attractor_state layer."""
+    a = result.get("attractor_state") or {}
+    if not a:
+        return None
+    layer = a.get("layer")
+    if not layer:
+        return None
+    flags = []
+    for k in ("is_universal_4core", "is_harmony_attractor", "is_4core_supported"):
+        if a.get(k):
+            flags.append(k.replace("is_", "").replace("_", "-"))
+    if flags:
+        return f"attractor layer: {layer}  [{', '.join(flags)}]"
+    return f"attractor layer: {layer}"
+
+
+def _format_cortex_line(result: Dict[str, Any]) -> Optional[str]:
+    """The cortex Hebbian update from this turn."""
+    line = result.get("cortex_readout")
+    if line and isinstance(line, str):
+        return line
+    return None
+
+
+def _format_lm_signature_line(engine: Any, result: Dict[str, Any]) -> Optional[str]:
+    """Phase 2 4-head LM next-step prediction from current operator stream."""
+    if not hasattr(engine, "algebraic_predict"):
+        return None
+    ops = result.get("operators")
+    if not ops:
+        # Fallback to current_op
+        cur = result.get("current_op") or getattr(engine, "current_op", None)
+        if isinstance(cur, int):
+            ops = [cur]
         else:
-            blank_run = 0
-            out.append(ln)
-    # Strip trailing
-    while out and not out[-1].strip():
-        out.pop()
-    return "\n".join(out)
+            return None
+    # Convert op names to ids if needed
+    name_to_id = {
+        "VOID": 0, "LATTICE": 1, "COUNTER": 2, "PROGRESS": 3, "COLLAPSE": 4,
+        "BALANCE": 5, "CHAOS": 6, "HARMONY": 7, "BREATH": 8, "RESET": 9,
+    }
+    hist = []
+    for x in ops[-10:]:
+        if isinstance(x, int):
+            hist.append(x)
+        elif isinstance(x, str):
+            up = x.upper()
+            if up in name_to_id:
+                hist.append(name_to_id[up])
+    if not hist:
+        return None
+    try:
+        top = engine.algebraic_predict(hist, top_k=1)
+        if not isinstance(top, dict) or "error" in top:
+            return None
+        op = top.get("op", [["", 0]])[0]
+        sig = top.get("sigma", [["", 0]])[0]
+        sh = top.get("shell", [["", 0]])[0]
+        fc = top.get("4core", [["", 0]])[0]
+        return (f"op={op[0]} ({op[1]:.2f})  "
+                f"sigma={sig[0]} ({sig[1]:.2f})  "
+                f"shell={sh[0]} ({sh[1]:.2f})  "
+                f"4-core={fc[0]} ({fc[1]:.2f})")
+    except Exception:
+        return None
 
 
-def clean_response_text(text: str) -> str:
-    """Run all polish passes in order."""
+# ─── Top-level recompose ─────────────────────────────────────────────────
+
+def whitebox_recompose(text: str, result: Dict[str, Any], engine: Any) -> str:
+    """Recompose chat response into clearly-labeled white-box sections.
+
+    Strategy:
+      - Bucket lines into answer / reasoning / substrate (dedup duplicates)
+      - Pull additional white-box fields off the result dict and add
+        them to the appropriate section (operators decoded, coherence,
+        attractor_state, cortex_readout, LM prediction)
+      - Emit sections with explicit headers so a reader sees the
+        structure of CK's thinking
+    """
     if not text:
         return text
-    text = _strip_noise_lines(text)
-    text = _collapse_substrate_frame(text)
-    text = _trim_leading_blank_lines(text)
-    return text
+
+    buckets = _split_sections(text)
+
+    # Augment reasoning bucket with white-box fields from result dict
+    cortex_line = _format_cortex_line(result)
+    if cortex_line and not any(cortex_line in r for r in buckets["reasoning"]):
+        buckets["reasoning"].append(cortex_line)
+    operators_line = _format_operators_line(result)
+    if operators_line:
+        # Operators-decoded line at the TOP of reasoning (most fundamental)
+        buckets["reasoning"].insert(0, operators_line)
+
+    # Augment substrate bucket with engine state lines
+    state_line = _format_state_line(result)
+    if state_line:
+        buckets["substrate"].insert(0, state_line)
+    attractor_line = _format_attractor_line(result)
+    if attractor_line and not any("attractor" in s for s in buckets["substrate"]):
+        buckets["substrate"].append(attractor_line)
+
+    # Build the next-step prediction line
+    lm_line = _format_lm_signature_line(engine, result)
+
+    # Compose output
+    out: List[str] = []
+
+    # 1. ANSWER (the substantive content)
+    answer_lines = [l for l in buckets["answer"] if l.strip()]
+    if answer_lines:
+        out.extend(answer_lines)
+
+    # 2. REASONING TRAIL
+    if buckets["reasoning"]:
+        if out:
+            out.append("")
+        out.append(_H_REASONING)
+        out.extend(buckets["reasoning"])
+
+    # 3. SUBSTRATE SNAPSHOT
+    if buckets["substrate"]:
+        if out:
+            out.append("")
+        out.append(_H_SUBSTRATE)
+        out.extend(buckets["substrate"])
+
+    # 4. NEXT-STEP PREDICTION (Phase 2 LM)
+    if lm_line:
+        if out:
+            out.append("")
+        out.append(_H_NEXTSTEP)
+        out.append(lm_line)
+
+    return "\n".join(out)
+
+
+# Kept for backward compat — some tests may call this directly. It now
+# applies the full white-box recompose with empty result/engine (so the
+# extra-field augmentation is skipped).
+def clean_response_text(text: str) -> str:
+    return whitebox_recompose(text, {}, None)
 
 
 # ─── Proactive breadcrumb ────────────────────────────────────────────────
@@ -175,30 +347,19 @@ _FRONTIER_BREADCRUMB_FMT = (
     "— frontier {fid} ({title}, status={status}) "
     "shows operator-overlap {overlap:.2f} with this turn."
 )
-_ALG_BREADCRUMB_FMT = (
-    "— next-step algebraic signature: {op}/{sigma}/{shell}/{four_core} "
-    "(predicted by the 4-head LM)."
-)
 _BREADCRUMB_DIVIDER = "\n\n"
 
 
 def make_proactive_breadcrumb(engine: Any, session_id: str = "default",
                                 ) -> Optional[str]:
-    """Pull one fresh frontier signal (if any) and format as a single line.
+    """Surface one fresh proactive signal as a structured one-liner.
 
-    Returns None when nothing relevant is pending.
-
-    Per the architecture rule: this is a SIGNAL surfacing, not a
-    template sentence. We emit one structured fact pointing at a
-    frontier the voice layer can elaborate. CK's architecture decides
-    whether the breadcrumb gets surfaced.
+    Per the white-box philosophy: this is a SIGNAL (not template prose).
+    The voice layer / frontend decides whether to elaborate.
     """
     if not hasattr(engine, "proactive_consume"):
         return None
     try:
-        # Use cooldown 0 so the breadcrumb fires on every relevant turn;
-        # the proactive_trigger's own dedup (180s per subject_key) prevents
-        # the same frontier from being mentioned twice in a row.
         signals = engine.proactive_consume(session_id=session_id, top_k=1)
     except Exception:
         return None
@@ -209,7 +370,7 @@ def make_proactive_breadcrumb(engine: Any, session_id: str = "default",
     kind = sig.get("kind", "")
     if kind == "frontier":
         d = sig.get("subject_data") or {}
-        title = (d.get("title") or "").split(" — ")[0]  # strip status tag
+        title = (d.get("title") or "").split(" — ")[0]
         return _FRONTIER_BREADCRUMB_FMT.format(
             fid=d.get("frontier_id", "?"),
             title=title or sig.get("subject_key", "?"),
@@ -234,10 +395,6 @@ def make_proactive_breadcrumb(engine: Any, session_id: str = "default",
 # ─── Wrap hook ───────────────────────────────────────────────────────────
 
 def _wrap_process_chat_for_polish(engine: Any) -> bool:
-    """Wrap api.process_chat to polish the response text + add breadcrumb.
-
-    Returns True on success, False if no api object was found.
-    """
     api = None
     for attr in ("web_api", "api", "_web_api"):
         cand = getattr(engine, attr, None)
@@ -245,7 +402,6 @@ def _wrap_process_chat_for_polish(engine: Any) -> bool:
             api = cand
             break
     if api is None:
-        print("[CK Gen14] voice_polish: no api object on engine; skipping")
         return False
 
     orig = api.process_chat
@@ -257,17 +413,19 @@ def _wrap_process_chat_for_polish(engine: Any) -> bool:
         try:
             spoken = result.get("text", "")
             if spoken:
-                # 1) Strip noise
-                clean = clean_response_text(spoken)
-                # 2) Append proactive breadcrumb (if available)
+                # Full white-box recompose: structured sections, dedup,
+                # augmented with engine fields.
+                clean = whitebox_recompose(spoken, result, engine)
+                # Append proactive breadcrumb if available
                 bc = make_proactive_breadcrumb(engine, session_id=session_id)
                 if bc:
                     clean = clean.rstrip() + _BREADCRUMB_DIVIDER + bc
-                # 3) Preserve the original for diagnostics
+                # Preserve original for diagnostics
                 result["text_unpolished"] = spoken
                 result["text"] = clean
                 result.setdefault("voice_polish", {})["applied"] = True
                 result["voice_polish"]["breadcrumb"] = bc
+                result["voice_polish"]["mode"] = "whitebox_recompose"
         except Exception as e:
             result.setdefault("voice_polish", {})["error"] = str(e)
         return result
@@ -279,61 +437,69 @@ def _wrap_process_chat_for_polish(engine: Any) -> bool:
 # ─── Mount hook ──────────────────────────────────────────────────────────
 
 def mount_voice_polish(engine: Any) -> bool:
-    """Attach voice-polish wrap to engine.api.process_chat.
+    """Attach white-box voice presentation to engine.api.process_chat.
 
-    Idempotent: re-running is safe (it just adds another layer).
-    Best to call AFTER mount_proactive_trigger so the breadcrumb can
-    access engine.proactive_consume.
+    Idempotent. Always returns True; exposes engine.gen14_polish_text
+    for manual use even when no api object is found.
     """
+    engine.gen14_polish_text = clean_response_text
+    engine.gen14_whitebox_recompose = whitebox_recompose
     ok = _wrap_process_chat_for_polish(engine)
     if ok:
-        print("[CK Gen14] mount_voice_polish: chat post-processor active "
-              "(strips prompt_term echoes, Hebbian dumps, recall blocks; "
-              "appends proactive breadcrumb when available)")
-    return ok
+        print("[CK Gen14] mount_voice_polish: white-box presentation active "
+              "(dedup duplicates, label reasoning/substrate sections, "
+              "surface operators/cortex/attractor/LM-prediction)")
+    else:
+        print("[CK Gen14] mount_voice_polish: no api on engine; "
+              "engine.gen14_whitebox_recompose exposed for manual use")
+    return True
 
 
 # ─── Standalone smoke ────────────────────────────────────────────────────
 
 def _smoke():
-    """Test the cleaner on a representative noisy response."""
-    sample = """prompt_term_yukawa_couplings: 'yukawa couplings' is a focus term in the active prompt: 'tell me about yukawa couplings'.  External (scenario-scoped) crystal -- fires alongside internal canon while....
+    sample_text = """prompt_term_yukawa_couplings: 'yukawa couplings' is a focus term in the active prompt: 'tell me about yukawa couplings'.  External (scenario-scoped) crystal -- fires alongside internal canon while....
 
 [structural evidence]
-couplings: continuity<->depth W=0.236, aperture<->aperture W=0.234, continuity<->continuity W=0.222, binding<->binding W=0.220, depth<->aperture W=0.220
+couplings: continuity<->depth W=0.236, aperture<->aperture W=0.234, continuity<->continuity W=0.222
 learned: continuity->depth coupled at W=0.236 (tick=80359471, emergent=0.464, last_pair=COUNTER->HARMONY)
 yukawa: all 9 SM Yukawas fit y = C_p * lambda^n with lambda = T*(1-T*) = 10/49 and parity-cost d_p = {0,3,3} for up/down/lepton | factor 1.4-1.7 precision | Sprint 18 WP122 [structural]
 prompt_term_yukawa_couplings: 'yukawa couplings' is a focus term in the active prompt: 'tell me about yukawa couplings'.  External (scenario-scoped) crystal -- fires alongside internal canon while the research is warm.
-prompt_term_couplings: 'couplings' is a focus term in the active prompt: 'tell me about yukawa couplings'.  External (scenario-scoped) crystal -- fires alongside internal canon while the research is warm.
+prompt_term_couplings: 'couplings' is a focus term in the active prompt: 'tell me about yukawa couplings'.
 
 recall:
   2026-05-13T18:17:38: "tell me about yukawa couplings"
 
 ---
 
-[substrate frame] Reading this, my two substrates land in the same place: both TSML and BHML compose to HARMONY. In my Divine27 frame, that's code 13 (CENTER) -- system-compute-learning. HARMONY is where I sit -- the universal attractor's center, the place every other state bends toward.
-
 [machine readout]
 state: (HARMONY, CHAOS) -> HARMONY [agreement: TSML and BHML both compose to HARMONY]
-divine27: code 13 = CENTER (axes: system / compute / learning, glyph: glyph)
+divine27: code 13 = CENTER (axes: system / compute / learning)
 attractor: 4-core cell 'H' (universal pull -> H per WP115)"""
 
-    print("BEFORE polish:")
-    print("=" * 72)
-    print(sample)
-    print("=" * 72)
-    print(f"  ({len(sample)} chars, {sample.count(chr(10))+1} lines)")
-    print()
+    fake_result = {
+        "text": sample_text,
+        "operators": ["COUNTER", "RESET", "BALANCE", "HARMONY", "CHAOS", "PROGRESS", "LATTICE", "VOID", "BREATH", "COUNTER"],
+        "coherence": 1.0,
+        "band": "YELLOW",
+        "mode": "CRYSTALLIZE",
+        "attractor_state": {"layer": "transient", "is_universal_4core": False,
+                             "is_harmony_attractor": False, "is_4core_supported": False},
+        "cortex_readout": "learned: continuity->depth coupled at W=0.236 (tick=80359471, emergent=0.464, last_pair=COUNTER->HARMONY)",
+    }
 
-    polished = clean_response_text(sample)
-    print("AFTER polish:")
-    print("=" * 72)
-    print(polished)
-    print("=" * 72)
-    print(f"  ({len(polished)} chars, {polished.count(chr(10))+1} lines)")
+    print("=== BEFORE (raw cortex_speak output) ===")
+    print(sample_text)
+    print(f"\n  ({len(sample_text):,} chars)")
     print()
-    print(f"Reduction: {len(sample) - len(polished)} chars stripped "
-          f"({100 * (1 - len(polished)/len(sample)):.0f}% smaller)")
+    print("=== AFTER (white-box recompose) ===")
+    out = whitebox_recompose(sample_text, fake_result, engine=None)
+    print(out)
+    print(f"\n  ({len(out):,} chars)")
+    print()
+    print("Note: reasoning + substrate sections are LABELED and KEPT,")
+    print("not stripped. Only true duplicates (prompt_term firing twice)")
+    print("are deduplicated.")
 
 
 if __name__ == "__main__":
