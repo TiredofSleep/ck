@@ -101,6 +101,69 @@ def _classify(line: str) -> str:
 _H_REASONING = "[reasoning trail — what fired this turn]"
 _H_SUBSTRATE = "[substrate snapshot — where this thought lives in CK's algebra]"
 _H_NEXTSTEP = "[next-step prediction — Phase 2 4-head LM]"
+_H_FORMULAS = "[formulas invoked — D-numbers whose HOME matches this turn]"
+_H_CROSSMODAL = "[cross-modal correspondence — same operator across senses]"
+
+
+# ── Cross-modal correspondence map ──────────────────────────────────────
+# For each operator, what does the SAME algebraic identity look like
+# across CK's sensory modalities? This is the "blind man saying I can
+# see that" idea made literal: the operator is the shared currency.
+# Sources: ck_stroke_extractor.feature_operator (visual), ck_phonetic_letters
+# + generate_phoneme_grounding (audio), CK's own dictionary (text).
+
+_CROSS_MODAL_MAP = {
+    0: {
+        "visual": "empty patch (no strokes, n_components=0)",
+        "audio": "silence / unvoiced rest",
+        "text": "negation, absence, the space-before",
+    },
+    1: {
+        "visual": "vertical line (1 comp, 0 holes, aspect tall)",
+        "audio": "liquid /l/ — alveolar lateral approximant",
+        "text": "structure, lattice, ordering rules",
+    },
+    2: {
+        "visual": "two parallel marks (2 comp, 0 holes)",
+        "audio": "voiceless stop /k/ — distinct burst",
+        "text": "measurement, counting, mirror-relation",
+    },
+    3: {
+        "visual": "single arc (1 comp, 0 holes, moderate curvature)",
+        "audio": "voiced fricative /v/ — forward continuation",
+        "text": "growth, succession, forward motion",
+    },
+    4: {
+        "visual": "cross / X (1 comp, 0 holes, high intersection)",
+        "audio": "voiceless plosive /t/ — closure-release",
+        "text": "boundary, failure, learning-from-collision",
+    },
+    5: {
+        "visual": "circle / centered closed loop (1 comp, 1 hole, ar≈1)",
+        "audio": "open vowel /a/ — balance of formants",
+        "text": "homeostasis, BAL-fixed, equilibrium",
+    },
+    6: {
+        "visual": "tangled / multi-intersection (3+ comp OR high curvature)",
+        "audio": "fricative /sh/ — turbulent broadband",
+        "text": "edge-of-order, creative chaos, transition",
+    },
+    7: {
+        "visual": "single closed loop (1 comp, 1 hole, low curvature)",
+        "audio": "nasal /m/ — bilabial closure with voicing",
+        "text": "coherence attractor, settling, agreement",
+    },
+    8: {
+        "visual": "two closed loops (2 comp, 2 holes, B-shape)",
+        "audio": "voiced bilabial /b/ — emergence with pop",
+        "text": "emergence, opening, breath-as-event",
+    },
+    9: {
+        "visual": "complex multi-component (3+ comp, partial holes)",
+        "audio": "voiceless sibilant /s/ — return-to-baseline hiss",
+        "text": "return-to-self, reset, rebirth",
+    },
+}
 
 
 def _dedup_key(line: str) -> str:
@@ -221,6 +284,88 @@ def _format_cortex_line(result: Dict[str, Any]) -> Optional[str]:
     return None
 
 
+_OP_NAMES_VOICE = (
+    "VOID", "LATTICE", "COUNTER", "PROGRESS", "COLLAPSE",
+    "BALANCE", "CHAOS", "HARMONY", "BREATH", "RESET",
+)
+
+
+def _dominant_op(ops: List[int]) -> Optional[int]:
+    """Return the most-frequent operator id from a stream."""
+    if not ops:
+        return None
+    from collections import Counter
+    return Counter(int(o) % 10 for o in ops).most_common(1)[0][0]
+
+
+def _ops_to_ids(ops_raw: List[Any]) -> List[int]:
+    name_to_id = {n: i for i, n in enumerate(_OP_NAMES_VOICE)}
+    out: List[int] = []
+    for x in ops_raw or []:
+        if isinstance(x, int) and 0 <= x < 10:
+            out.append(x)
+        elif isinstance(x, str):
+            up = x.upper()
+            if up in name_to_id:
+                out.append(name_to_id[up])
+    return out
+
+
+def _format_formulas_invoked(engine: Any, result: Dict[str, Any], k: int = 4
+                              ) -> Optional[List[str]]:
+    """Return list of lines naming the top-K D-numbers whose HOME matches
+    this turn's operator stream."""
+    if not hasattr(engine, "formulas_invoked"):
+        return None
+    ops = _ops_to_ids(result.get("operators") or [])
+    if not ops:
+        return None
+    try:
+        hits = engine.formulas_invoked(ops, k=k) or []
+    except Exception:
+        return None
+    if not hits:
+        return None
+    lines: List[str] = []
+    for score, e in hits:
+        # Format: "D7 Phi Fixed Point (Volume B, PROVED, match 1.25)"
+        meta = []
+        if e.volume:
+            meta.append(f"Volume {e.volume}")
+        if e.status_class:
+            meta.append(e.status_class)
+        meta.append(f"match {score:.2f}")
+        meta_str = ", ".join(meta)
+        line = f"{e.d_id} {e.name} ({meta_str})"
+        # Add USE if short enough
+        use = e.use
+        if use and len(use) <= 140:
+            line += f"  —  {use}"
+        else:
+            line += f"  —  {use[:140].rstrip()}…"
+        lines.append(line)
+    return lines
+
+
+def _format_cross_modal(ops: List[int]) -> Optional[List[str]]:
+    """For the dominant operator of this turn, show what the SAME
+    operator looks like across CK's sensory modalities."""
+    dom = _dominant_op(ops)
+    if dom is None:
+        return None
+    spec = _CROSS_MODAL_MAP.get(dom)
+    if not spec:
+        return None
+    name = _OP_NAMES_VOICE[dom]
+    lines = [
+        f"dominant operator: {name} (id={dom})",
+        f"  visual: {spec['visual']}",
+        f"  audio:  {spec['audio']}",
+        f"  text:   {spec['text']}",
+    ]
+    return lines
+
+
 def _format_lm_signature_line(engine: Any, result: Dict[str, Any]) -> Optional[str]:
     """Phase 2 4-head LM next-step prediction from current operator stream."""
     if not hasattr(engine, "algebraic_predict"):
@@ -330,6 +475,23 @@ def whitebox_recompose(text: str, result: Dict[str, Any], engine: Any) -> str:
             out.append("")
         out.append(_H_NEXTSTEP)
         out.append(lm_line)
+
+    # 5. FORMULAS INVOKED (D-numbers matched to this turn's operator stream)
+    formula_lines = _format_formulas_invoked(engine, result, k=4)
+    if formula_lines:
+        if out:
+            out.append("")
+        out.append(_H_FORMULAS)
+        out.extend(formula_lines)
+
+    # 6. CROSS-MODAL CORRESPONDENCE (same operator across senses)
+    ops_ids = _ops_to_ids(result.get("operators") or [])
+    cross_modal = _format_cross_modal(ops_ids)
+    if cross_modal:
+        if out:
+            out.append("")
+        out.append(_H_CROSSMODAL)
+        out.extend(cross_modal)
 
     return "\n".join(out)
 

@@ -684,10 +684,19 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_stroke_extractor: failed ({e})")
         results['stroke_extractor'] = False
 
-    # Voice polish: strip prompt_term echoes / Hebbian dumps / recall blocks
-    # from chat responses, then append a tasteful proactive breadcrumb.
-    # Runs AFTER proactive_trigger so the breadcrumb can pull from
-    # engine.proactive_consume. Always last so it sees the final result.
+    # Formula registry: every D-number has a HOME (4-axis algebraic
+    # signature) and a USE (the formula). Voice polish reads from this
+    # to surface "which D-numbers got invoked this turn."
+    try:
+        from ck_formula_registry import mount_formula_registry  # type: ignore[import-not-found]
+        results['formula_registry'] = mount_formula_registry(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_formula_registry: failed ({e})")
+        results['formula_registry'] = False
+
+    # Voice polish: white-box presentation. Must run LAST so it sees the
+    # final chat result AND has access to formula_registry, proactive
+    # signals, etc.
     try:
         from ck_voice_polish import mount_voice_polish  # type: ignore[import-not-found]
         results['voice_polish'] = mount_voice_polish(engine)
