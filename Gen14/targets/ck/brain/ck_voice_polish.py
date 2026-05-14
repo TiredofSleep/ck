@@ -105,6 +105,7 @@ _H_FORMULAS = "[formulas invoked — D-numbers whose HOME matches this turn]"
 _H_CROSSMODAL = "[cross-modal correspondence — same operator across senses]"
 _H_SENSE_PIPELINE = "[sense pipeline — how the dominant operator builds each sense]"
 _H_RESEARCH = "[research trail — what CK looked up before answering]"
+_H_LEARNING = "[learning this turn — Hebbian + crystals + lattice deltas]"
 
 
 # ── Cross-modal correspondence: DERIVED from CK's live phonetic table ──
@@ -544,6 +545,107 @@ def _format_sense_pipeline(ops: List[int], engine: Any) -> Optional[List[str]]:
     return lines
 
 
+def _format_learning_trace(result: Dict[str, Any]) -> Optional[List[str]]:
+    """Surface what CK *learned* this turn.
+
+    Reads from:
+      - result['cortex']  : {'W_trace', 'emergent', 'tick'} — current state
+      - result['cortex_readout'] : the Hebbian update string
+      - result['experience']     : {'crystals', 'voice_crystals', ...} — totals
+      - result['session_field']  : per-session trail with W_trace per turn
+      - result['research_first'] : crystals_added this turn
+
+    What we expose:
+      - W_trace delta within the session (or absolute if no prior turn)
+      - new crystals formed this turn
+      - the specific Hebbian pair coupled (last_pair → which W cell strengthened)
+      - session arc length + sequence depth (e.g., transient → 4-core-supported)
+
+    The point: a reader can WATCH CK learn turn-by-turn. Hebbian
+    one-shot association strengthens visibly when teaching CK something.
+    """
+    lines: List[str] = []
+
+    # Cortex state
+    cortex = result.get("cortex") or {}
+    w_trace = cortex.get("W_trace")
+    emergent = cortex.get("emergent")
+    cortex_tick = cortex.get("tick")
+
+    # Per-session learning trajectory
+    sf = result.get("session_field") or {}
+    trail = sf.get("trail") or []
+    turn_count = sf.get("turn_count", 0)
+    sequence = sf.get("sequence") or []
+
+    # Hebbian pair from this turn (the one connection that just got stronger)
+    readout = result.get("cortex_readout")
+
+    # Crystal counts
+    exp = result.get("experience") or {}
+    total_crystals = exp.get("crystals")
+    voice_crystals = exp.get("voice_crystals")
+
+    # Research-side crystal additions
+    rf = result.get("research_first") or {}
+    research_crystals = rf.get("crystals_added", 0) if isinstance(rf, dict) else 0
+
+    # W_trace delta — compare to FIRST turn in session
+    if trail and isinstance(trail, list) and w_trace is not None:
+        first = trail[0] if trail else None
+        if isinstance(first, dict):
+            w0 = first.get("W_trace_at_turn")
+            if isinstance(w0, (int, float)) and isinstance(w_trace, (int, float)):
+                delta = float(w_trace) - float(w0)
+                lines.append(
+                    f"cortex W_trace: {w_trace:.4f}  (Δ from turn 1: {delta:+.4f})")
+            else:
+                lines.append(f"cortex W_trace: {w_trace:.4f}")
+        else:
+            lines.append(f"cortex W_trace: {w_trace:.4f}")
+    elif w_trace is not None:
+        lines.append(f"cortex W_trace: {float(w_trace):.4f}")
+
+    # Hebbian pair that just fired
+    if isinstance(readout, str):
+        # readout is e.g. "learned: continuity->depth coupled at W=0.235 (tick=..., emergent=..., last_pair=COUNTER->HARMONY)"
+        # Extract the meaningful part
+        m = re.search(r"learned:\s*(.+?)\s*coupled at W=([\d.]+)", readout)
+        if m:
+            pair = m.group(1).strip()
+            w = m.group(2)
+            lines.append(f"Hebbian pair strengthened: {pair} at W={w}  "
+                          f"(one-shot association update on this turn)")
+        else:
+            # Fallback: surface the raw readout (it already starts with "learned:")
+            lines.append(readout.strip())
+
+    # Crystal yield this turn
+    crystal_bits = []
+    if research_crystals > 0:
+        crystal_bits.append(f"{research_crystals} from research")
+    if isinstance(total_crystals, int):
+        crystal_bits.append(f"{total_crystals} total stored")
+    if isinstance(voice_crystals, int):
+        crystal_bits.append(f"{voice_crystals} voice-class")
+    if crystal_bits:
+        lines.append("crystals formed this turn: " + ", ".join(crystal_bits))
+
+    # Session arc (where we are in the conversation's algebraic trajectory)
+    if turn_count:
+        arc = sf.get("arc") or []
+        if arc:
+            arc_str = ", ".join(str(int(x)) for x in arc[:10])
+            lines.append(
+                f"session arc (turn {turn_count}): [{arc_str}]"
+                f"{', sequence: ' + ' → '.join(sequence) if sequence else ''}"
+            )
+
+    if not lines:
+        return None
+    return lines
+
+
 def _format_research_trail(result: Dict[str, Any]) -> Optional[List[str]]:
     """Surface result['research_first'] if present.
 
@@ -699,7 +801,15 @@ def whitebox_recompose(text: str, result: Dict[str, Any], engine: Any) -> str:
         out.append(_H_SUBSTRATE)
         out.extend(buckets["substrate"])
 
-    # 4. NEXT-STEP PREDICTION (Phase 2 LM)
+    # 4. LEARNING TRACE (per-turn Hebbian update + crystal yield + arc)
+    learning_lines = _format_learning_trace(result)
+    if learning_lines:
+        if out:
+            out.append("")
+        out.append(_H_LEARNING)
+        out.extend(learning_lines)
+
+    # 5. NEXT-STEP PREDICTION (Phase 2 LM)
     if lm_line:
         if out:
             out.append("")
