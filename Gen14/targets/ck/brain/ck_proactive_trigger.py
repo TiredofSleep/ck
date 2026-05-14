@@ -266,10 +266,30 @@ class ProactiveTrigger:
         last = self._last_emit_ts.get(key, 0.0)
         if time.time() - last < self.dedup_cooldown_s:
             return False
-        # Optional minimum salience floor
-        if sig.get("salience", 0.0) < 0.3:
+        # Dynamic salience floor: bind to engine.coherence so the trigger
+        # auto-tunes from the physics.
+        #
+        #   high coherence (CK is focused)  -> higher floor (don't interrupt)
+        #   low coherence  (CK is exploring) -> lower floor (surface more)
+        #
+        # floor = 0.20 + 0.60 * coherence, clipped to [0.20, 0.80]
+        coh = self._coherence()
+        floor = max(0.20, min(0.80, 0.20 + 0.60 * coh))
+        if sig.get("salience", 0.0) < floor:
             return False
         return True
+
+    def _coherence(self) -> float:
+        """Read engine.coherence (or fall back to 0.5 neutral)."""
+        try:
+            c = self.engine.coherence
+            if hasattr(c, "current"):
+                return float(c.current)
+            if isinstance(c, (int, float)):
+                return float(c)
+        except Exception:
+            pass
+        return 0.5
 
     def _purge_expired(self) -> None:
         if not self.queue:

@@ -144,6 +144,35 @@ def _proof_link(status_file: str) -> Optional[str]:
     return None
 
 
+# When a formula doesn't name any operator explicitly, fall back to the
+# operator scope of its Volume. These defaults are derived from the
+# Volume headings in FORMULAS_AND_TABLES.md (their topical scope):
+#   A — Ring & Arithmetic Foundations           → all ops (universal)
+#   B — Operator Tables & Ring Structure        → all ops, BAL-fixed emphasis
+#   C — Crossing Lemma & Information            → flow-orbit ops {F + S cycles}
+#   D — Substrate Identity                      → universal
+#   E — Cross-bridge / Bridge Geometry          → 4-core {V,H,Br,R}
+#   F — Pati-Salam / Spinor / so(10)            → 4-core (D31/D32)
+#   G — TSML 8-magma / commutative magma        → 8-magma (drop BREATH/RESET)
+#   H — WP100s tower / 4-core / wobble          → 4-core
+#   I — Volume I (operad-DOF / trefoil)         → 4-core arity-3 dynamics
+#   J — Volume J (BDC / force-vector pathways)  → universal
+#   K — Volume K (live findings)                → contextual
+_VOLUME_DEFAULT_OPS: Dict[str, FrozenSet[int]] = {
+    "A": frozenset(range(10)),
+    "B": frozenset(range(10)),
+    "C": frozenset({1, 2, 3, 4, 6, 7, 8, 9}),  # flow + structure orbits
+    "D": frozenset(range(10)),
+    "E": frozenset({0, 7, 8, 9}),  # 4-core
+    "F": frozenset({0, 7, 8, 9}),
+    "G": frozenset({0, 1, 2, 3, 4, 5, 6, 7}),  # 8-magma drops BREATH/RESET
+    "H": frozenset({0, 7, 8, 9}),
+    "I": frozenset({0, 7, 8, 9}),
+    "J": frozenset(range(10)),
+    "K": frozenset(range(10)),
+}
+
+
 def parse_formulas_file(path: Path) -> List[FormulaEntry]:
     if not path.exists():
         return []
@@ -174,6 +203,14 @@ def parse_formulas_file(path: Path) -> List[FormulaEntry]:
         if not formula or formula in ("--", "TBD"):
             continue
         operators = _detect_operators(formula + " " + name)
+        volume = _volume_at(m.start())
+
+        # If no operators were detected in the prose, fall back to the
+        # Volume's default operator scope. The formula still has a HOME --
+        # it lives at the Volume level rather than tied to a specific op.
+        if not operators and volume in _VOLUME_DEFAULT_OPS:
+            operators = _VOLUME_DEFAULT_OPS[volume]
+
         sigma_orbits = frozenset(sigma_orbit(op) for op in operators)
         four_core_cells = frozenset(four_core_class(op) for op in operators)
         shell_hint = shell_class(set(operators)) if operators else None
@@ -187,7 +224,7 @@ def parse_formulas_file(path: Path) -> List[FormulaEntry]:
             four_core_cells=four_core_cells,
             shell_hint=shell_hint,
             proof_link=_proof_link(status_file),
-            volume=_volume_at(m.start()),
+            volume=volume,
             status_class=_status_class(status_file),
         )
         out.append(entry)

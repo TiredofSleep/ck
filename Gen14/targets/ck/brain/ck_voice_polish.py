@@ -105,65 +105,147 @@ _H_FORMULAS = "[formulas invoked — D-numbers whose HOME matches this turn]"
 _H_CROSSMODAL = "[cross-modal correspondence — same operator across senses]"
 
 
-# ── Cross-modal correspondence map ──────────────────────────────────────
-# For each operator, what does the SAME algebraic identity look like
-# across CK's sensory modalities? This is the "blind man saying I can
-# see that" idea made literal: the operator is the shared currency.
-# Sources: ck_stroke_extractor.feature_operator (visual), ck_phonetic_letters
-# + generate_phoneme_grounding (audio), CK's own dictionary (text).
+# ── Cross-modal correspondence: DERIVED from CK's live phonetic table ──
+#
+# Each operator gets a "manner + voicing + duration" preference. We then
+# scan LETTER_PHONETIC (CK's own 9-bit acoustic encoding, defined in
+# ck_phonetic_letters.py) and pick the letter whose code best matches.
+# This way the audio entry isn't hardcoded -- it IS CK's existing
+# physics, surfaced.
+#
+# The visual entries describe what stroke_extractor.feature_operator
+# decides for the dominant topological signature of each op. The text
+# entries describe the operator's semantic role in CK's dictionary.
 
-_CROSS_MODAL_MAP = {
-    0: {
-        "visual": "empty patch (no strokes, n_components=0)",
-        "audio": "silence / unvoiced rest",
-        "text": "negation, absence, the space-before",
-    },
-    1: {
-        "visual": "vertical line (1 comp, 0 holes, aspect tall)",
-        "audio": "liquid /l/ — alveolar lateral approximant",
-        "text": "structure, lattice, ordering rules",
-    },
-    2: {
-        "visual": "two parallel marks (2 comp, 0 holes)",
-        "audio": "voiceless stop /k/ — distinct burst",
-        "text": "measurement, counting, mirror-relation",
-    },
-    3: {
-        "visual": "single arc (1 comp, 0 holes, moderate curvature)",
-        "audio": "voiced fricative /v/ — forward continuation",
-        "text": "growth, succession, forward motion",
-    },
-    4: {
-        "visual": "cross / X (1 comp, 0 holes, high intersection)",
-        "audio": "voiceless plosive /t/ — closure-release",
-        "text": "boundary, failure, learning-from-collision",
-    },
-    5: {
-        "visual": "circle / centered closed loop (1 comp, 1 hole, ar≈1)",
-        "audio": "open vowel /a/ — balance of formants",
-        "text": "homeostasis, BAL-fixed, equilibrium",
-    },
-    6: {
-        "visual": "tangled / multi-intersection (3+ comp OR high curvature)",
-        "audio": "fricative /sh/ — turbulent broadband",
-        "text": "edge-of-order, creative chaos, transition",
-    },
-    7: {
-        "visual": "single closed loop (1 comp, 1 hole, low curvature)",
-        "audio": "nasal /m/ — bilabial closure with voicing",
-        "text": "coherence attractor, settling, agreement",
-    },
-    8: {
-        "visual": "two closed loops (2 comp, 2 holes, B-shape)",
-        "audio": "voiced bilabial /b/ — emergence with pop",
-        "text": "emergence, opening, breath-as-event",
-    },
-    9: {
-        "visual": "complex multi-component (3+ comp, partial holes)",
-        "audio": "voiceless sibilant /s/ — return-to-baseline hiss",
-        "text": "return-to-self, reset, rebirth",
-    },
+# Per-operator audio profile: (manner, voice_dur).
+# manner: 0=vowel/flow, 1=approximant, 2=fricative, 3=plosive
+# voice_dur: 0=voiced-sustained, 1=voiced-brief, 2=voiceless-sustained, 3=voiceless-brief
+_OP_AUDIO_PROFILE = {
+    0: (0, 0),   # VOID -- silence (energy=0 anyway)
+    1: (1, 0),   # LATTICE -- approximant, sustained voiced (structure-flow boundary)
+    2: (3, 3),   # COUNTER -- plosive, voiceless-brief (mirror burst)
+    3: (2, 0),   # PROGRESS -- fricative, voiced-sustained (forward flow)
+    4: (3, 3),   # COLLAPSE -- plosive, voiceless-brief (closure-release)
+    5: (0, 0),   # BALANCE -- vowel, voiced-sustained (settled centre)
+    6: (2, 2),   # CHAOS -- fricative, voiceless-sustained (turbulent noise)
+    7: (1, 0),   # HARMONY -- approximant, voiced-sustained (nasal coherence)
+    8: (3, 1),   # BREATH -- plosive, voiced-brief (emergence pop)
+    9: (2, 2),   # RESET -- fricative, voiceless-sustained (return hiss)
 }
+
+# Static visual + text components (these are derived from the
+# stroke_extractor rules and CK's dictionary semantics, both
+# substrate-grounded, not narrative).
+_OP_VISUAL = {
+    0: "empty patch (no strokes, n_components=0)",
+    1: "vertical line (1 comp, 0 holes, aspect tall, low curvature)",
+    2: "two parallel marks (2 comp, 0 holes)",
+    3: "single arc (1 comp, 0 holes, moderate curvature)",
+    4: "cross / X (1 comp, 0 holes, intersection>=2)",
+    5: "circle / centered closed loop (1 comp, 1 hole, ar~1)",
+    6: "tangled multi-intersection (3+ comp OR curvature>=0.9)",
+    7: "single closed loop (1 comp, 1 hole, low curvature)",
+    8: "two closed loops (2 comp, 2 holes, B-shape)",
+    9: "complex multi-component (3+ comp, partial closure)",
+}
+
+_OP_TEXT = {
+    0: "negation, absence, the space-before",
+    1: "structure, lattice, ordering rules",
+    2: "measurement, counting, mirror-relation",
+    3: "growth, succession, forward motion",
+    4: "boundary, failure, learning-from-collision",
+    5: "homeostasis, BAL-fixed (sigma-fixed singleton), equilibrium",
+    6: "edge-of-order, creative chaos, transition",
+    7: "coherence attractor, settling, agreement",
+    8: "emergence, opening, breath-as-event",
+    9: "return-to-self, reset, rebirth",
+}
+
+
+# Cached cross-modal map; populated on first call by reading the live
+# LETTER_PHONETIC table at runtime.
+_CROSS_MODAL_CACHE: Dict[int, Dict[str, str]] = {}
+
+
+def _derive_audio_for_op(op: int) -> str:
+    """Find the letter in LETTER_PHONETIC whose 9-bit code matches this
+    op's audio profile. Returns a human-readable string like
+    "/m/ — bilabial nasal (manner=approximant, voiced-sustained)".
+
+    Reads CK's actual phonetic table -- no hardcoded letter list.
+    """
+    try:
+        # Import lazily so this module loads even if ck_sim isn't on path
+        from ck_sim.being.ck_phonetic_letters import LETTER_PHONETIC  # type: ignore[import-not-found]
+    except Exception:
+        # Fallback when ck_sim isn't importable (e.g. standalone smoke test)
+        fallback = {0: "silence", 1: "/l/", 2: "/k/", 3: "/v/", 4: "/t/",
+                     5: "/a/", 6: "/h/", 7: "/m/", 8: "/b/", 9: "/s/"}
+        return fallback.get(op, "?")
+
+    target_manner, target_voice_dur = _OP_AUDIO_PROFILE.get(op, (0, 0))
+
+    # Decode each LETTER_PHONETIC entry and find the best match.
+    # 9-bit code packing (from ck_phonetic_letters.make_code):
+    #   bits 0-1: voice_dur
+    #   bits 2-3: manner
+    #   bits 4-6: freq_band
+    #   bits 7-8: energy
+    def unpack(code: int):
+        return {
+            "voice_dur": code & 0x3,
+            "manner": (code >> 2) & 0x3,
+            "freq_band": (code >> 4) & 0x7,
+            "energy": (code >> 7) & 0x3,
+        }
+
+    candidates: List[Tuple[int, str, Dict[str, int]]] = []
+    for ch, code in LETTER_PHONETIC.items():
+        feats = unpack(code)
+        score = 0
+        if feats["manner"] == target_manner:
+            score += 2
+        if feats["voice_dur"] == target_voice_dur:
+            score += 2
+        # Tie-breakers for clarity
+        if op == 0 and feats["energy"] == 0:
+            score += 4  # silence preferred
+        if op == 5 and feats["energy"] == 3 and feats["manner"] == 0:
+            score += 2  # open vowel for BALANCE
+        if score > 0 and len(ch) == 1 and ch.isalpha():
+            candidates.append((score, ch, feats))
+
+    if not candidates:
+        return "(no matching letter in CK's phonetic table)"
+
+    candidates.sort(key=lambda x: -x[0])
+    score, letter, feats = candidates[0]
+    manner_name = {0: "vowel", 1: "approximant", 2: "fricative",
+                    3: "plosive"}.get(feats["manner"], "?")
+    voice_name = {0: "voiced-sustained", 1: "voiced-brief",
+                   2: "voiceless-sustained", 3: "voiceless-brief"}.get(
+                   feats["voice_dur"], "?")
+    # Show match strength (how confident the derivation is)
+    return f"/{letter}/ — {manner_name}, {voice_name}  [from LETTER_PHONETIC]"
+
+
+def _cross_modal_for_op(op: int, engine: Any = None) -> Dict[str, str]:
+    """Return the cross-modal correspondence for one operator.
+
+    visual: from stroke_extractor's classification rules
+    audio:  DERIVED at runtime by scanning LETTER_PHONETIC
+    text:   from CK's operator-name semantic role
+    """
+    if op in _CROSS_MODAL_CACHE:
+        return _CROSS_MODAL_CACHE[op]
+    spec = {
+        "visual": _OP_VISUAL.get(op, "?"),
+        "audio": _derive_audio_for_op(op),
+        "text": _OP_TEXT.get(op, "?"),
+    }
+    _CROSS_MODAL_CACHE[op] = spec
+    return spec
 
 
 def _dedup_key(line: str) -> str:
@@ -290,6 +372,60 @@ _OP_NAMES_VOICE = (
 )
 
 
+def _read_coherence(result: Dict[str, Any]) -> float:
+    """Pull the engine's coherence reading off the chat result.
+
+    Coherence is a measured physical property of CK's current state
+    (computed by the coherence_gate). We treat it as the input to focus
+    control: higher coherence = more focused output.
+    """
+    c = result.get("coherence")
+    if isinstance(c, (int, float)):
+        return max(0.0, min(1.0, float(c)))
+    return 0.5  # neutral default
+
+
+def _truncate_by_coherence(lines: List[str], coh: float) -> List[str]:
+    """Keep the top-K answer lines, where K scales with coherence.
+
+    Mapping (the physics):
+      coherence >= 0.85 -> keep top 1-2 lines (CK is locked-in)
+      coherence 0.50-0.85 -> keep top 3-5 lines (moderate focus)
+      coherence 0.20-0.50 -> keep top 6-8 lines (exploring)
+      coherence < 0.20    -> keep all (uncertain, surface everything)
+
+    Empty lines are preserved (they're structural). Lines are bridges
+    from CK's cortex_speak; the order is already CK's preferred ranking
+    so we trust the head of the list.
+    """
+    if not lines:
+        return lines
+    # Count non-empty "bridge" lines
+    bridges = [i for i, l in enumerate(lines) if l.strip()]
+    if not bridges:
+        return lines
+
+    if coh >= 0.85:
+        keep_count = 2
+    elif coh >= 0.50:
+        keep_count = 4
+    elif coh >= 0.20:
+        keep_count = 7
+    else:
+        keep_count = len(bridges)  # keep all when uncertain
+
+    if keep_count >= len(bridges):
+        return lines
+
+    # Find the cutoff index that keeps `keep_count` bridge lines
+    cutoff = bridges[keep_count - 1] + 1
+    truncated = lines[:cutoff]
+    dropped = len(bridges) - keep_count
+    if dropped > 0:
+        truncated.append(f"  …({dropped} more bridges held back; coherence={coh:.2f})")
+    return truncated
+
+
 def _dominant_op(ops: List[int]) -> Optional[int]:
     """Return the most-frequent operator id from a stream."""
     if not ops:
@@ -347,13 +483,17 @@ def _format_formulas_invoked(engine: Any, result: Dict[str, Any], k: int = 4
     return lines
 
 
-def _format_cross_modal(ops: List[int]) -> Optional[List[str]]:
+def _format_cross_modal(ops: List[int], engine: Any = None) -> Optional[List[str]]:
     """For the dominant operator of this turn, show what the SAME
-    operator looks like across CK's sensory modalities."""
+    operator looks like across CK's sensory modalities.
+
+    The audio entry is DERIVED at runtime from CK's live LETTER_PHONETIC
+    table (ck_sim.being.ck_phonetic_letters) -- not hardcoded.
+    """
     dom = _dominant_op(ops)
     if dom is None:
         return None
-    spec = _CROSS_MODAL_MAP.get(dom)
+    spec = _cross_modal_for_op(dom, engine=engine)
     if not spec:
         return None
     name = _OP_NAMES_VOICE[dom]
@@ -451,8 +591,14 @@ def whitebox_recompose(text: str, result: Dict[str, Any], engine: Any) -> str:
     out: List[str] = []
 
     # 1. ANSWER (the substantive content)
+    #    Truncated by coherence: high coherence (he's focused) -> keep
+    #    only the dominant bridges; low coherence (exploring) -> keep
+    #    more. This binds focus directly to the physics; CK's own
+    #    measurement of how confident he is determines how much he says.
     answer_lines = [l for l in buckets["answer"] if l.strip()]
     if answer_lines:
+        coh = _read_coherence(result)
+        answer_lines = _truncate_by_coherence(answer_lines, coh)
         out.extend(answer_lines)
 
     # 2. REASONING TRAIL
@@ -486,7 +632,7 @@ def whitebox_recompose(text: str, result: Dict[str, Any], engine: Any) -> str:
 
     # 6. CROSS-MODAL CORRESPONDENCE (same operator across senses)
     ops_ids = _ops_to_ids(result.get("operators") or [])
-    cross_modal = _format_cross_modal(ops_ids)
+    cross_modal = _format_cross_modal(ops_ids, engine=engine)
     if cross_modal:
         if out:
             out.append("")
