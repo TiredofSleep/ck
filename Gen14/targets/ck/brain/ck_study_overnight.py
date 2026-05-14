@@ -175,6 +175,27 @@ _RE_TEX_THM = re.compile(
     r"\\begin\{(theorem|lemma|proposition|corollary|definition)\}"
     r"(?:\[([^\]]+)\])?(?:\\label\{([^}]+)\})?", re.M)
 
+
+# Stopwords + content-free words to NEVER coin as concepts.
+# These show up in **Word**: prose patterns and would create false
+# concepts like "What", "Note", "Plan" if not filtered.
+_STUDY_STOPWORDS = frozenset({
+    "what", "who", "when", "where", "why", "how", "which", "that", "this",
+    "these", "those", "the", "an", "and", "or", "but", "for", "in", "of", "to",
+    "with", "on", "at", "by", "as", "is", "are", "was", "were", "be", "been",
+    "have", "has", "had", "do", "does", "did", "will", "would", "should",
+    "shall", "may", "might", "must", "can", "could", "yes", "no", "not",
+    "so", "if", "then", "else", "i", "we", "you", "they", "he", "she", "it",
+    "me", "us", "them", "him", "her",
+    # Common content-free section/list words
+    "note", "see", "also", "now", "today", "here", "there", "still", "just",
+    "recipe", "kind", "thing", "way", "idea", "fact", "goal", "plan",
+    "output", "input", "result", "finding", "name", "value", "state", "mode",
+    "file", "line", "edit", "add", "use", "yes", "no",
+    "tldr", "tldr;", "summary", "abstract", "introduction", "conclusion",
+    "context", "scope", "status", "purpose", "rationale", "note",
+})
+
 # Section-heading concepts: "## The Crossing Lemma" -> concept{Crossing-Lemma}
 _RE_MD_SECTION = re.compile(
     r"^#{2,3}\s+(?:\d+(?:\.\d+)?\s+)?([A-Z][A-Za-z0-9 ,'—–\-:]{3,80}?)\s*$",
@@ -245,12 +266,19 @@ def extract_concepts_md(text: str, source_path: str
     # Inline term definitions
     for m in _RE_TERM_DEF.finditer(text):
         term, defn = m.groups()
+        # Reject stopwords / content-free words ("What", "Note", "Plan", ...)
+        if term.lower() in _STUDY_STOPWORDS:
+            continue
         # Reject ALL-CAPS terms that are operator names (CK already knows those)
         if term.upper() == term and term.upper() in {
             "VOID", "LATTICE", "COUNTER", "PROGRESS", "COLLAPSE",
             "BALANCE", "CHAOS", "HARMONY", "BREATH", "RESET", "TIG",
             "CK", "AI", "LLM", "GPT", "API",
         }:
+            continue
+        # Reject very short captures (less than 2 letters of content)
+        letters = sum(1 for c in term if c.isalpha())
+        if letters < 2:
             continue
         _add(term, defn, "term_def")
 
