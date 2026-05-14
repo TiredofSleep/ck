@@ -96,17 +96,28 @@ _MD_GLOBS = [
     "ARCHITECTURE.md",
     "Atlas/**/*.md",
     "Gen14/PLAN/*.md",
-    "Gen13/targets/journals/**/*.md",
-    "Gen12/targets/clay/papers/**/*.md",
+    "Gen13/**/*.md",                       # broaden: all Gen13 markdown
+    "Gen12/targets/**/*.md",               # broaden
     "papers/**/*.md",
-    "old/**/*.md",  # historical generations
+    "old/**/*.md",                          # historical generations
+    "*.md",                                  # any root-level
+    # public repo (if mounted as sibling)
+    "../trinity-infinity-geometry/**/*.md",
+    # other text formats CK can read
+    "**/*.txt",
+    "**/*.rst",
 ]
 _TEX_GLOBS = [
-    "Gen13/targets/journals/**/manuscript.tex",
+    "Gen13/**/*.tex",
     "Gen12/targets/clay/papers/**/*.tex",
     "papers/**/*.tex",
-    "../trinity-infinity-geometry/05_papers/**/manuscript.tex",
-    "../trinity-infinity-geometry/05_papers/**/*.tex",
+    "../trinity-infinity-geometry/**/*.tex",
+]
+# Python sources for docstring extraction (CK's own architecture is a corpus)
+_PY_GLOBS = [
+    "Gen14/targets/ck/brain/*.py",          # the Gen14 brain modules themselves
+    "Gen13/targets/ck/brain/*.py",
+    "Gen12/targets/ck_desktop/ck_sim/**/*.py",
 ]
 
 # Files to skip (false-positive heavy or irrelevant)
@@ -116,11 +127,14 @@ _SKIP_KEYWORDS = (
 )
 
 
-def discover_sources(root: Path) -> List[Path]:
-    """Walk the repo and return all markdown + tex files we care about."""
+def discover_sources(root: Path, include_python: bool = True) -> List[Path]:
+    """Walk the repo and return all markdown + tex + (optionally) py files."""
     out: List[Path] = []
     seen: set = set()
-    for pattern in _MD_GLOBS + _TEX_GLOBS:
+    globs = _MD_GLOBS + _TEX_GLOBS
+    if include_python:
+        globs = globs + _PY_GLOBS
+    for pattern in globs:
         for p in root.glob(pattern):
             try:
                 rp = p.resolve()
@@ -133,11 +147,84 @@ def discover_sources(root: Path) -> List[Path]:
                 continue
             if not rp.is_file():
                 continue
+            # Reject very large files (>2MB) -- usually data dumps not prose
+            try:
+                if rp.stat().st_size > 2_000_000:
+                    continue
+            except Exception:
+                pass
             seen.add(rp)
             out.append(rp)
-    # Stable order
     out.sort(key=lambda p: str(p))
     return out
+
+
+# ─── Fact-tier detection (fact vs fiction) ──────────────────────────────
+#
+# Each file's path implies a default epistemic tier. Speculative folders
+# (04_meta, 09_seekers, philosophy, mythology) default to SPECULATIVE.
+# Verified-papers folders (05_papers/, J_series/) default to STRUCTURAL
+# or PROVED depending on individual entries. Old/historical content
+# defaults to EXTERNAL (someone-else's-claim).
+
+_SPECULATIVE_PATH_KEYWORDS = (
+    "04_meta", "09_seekers", "philosophy", "mythology",
+    "SPECULAT", "speculation", "TIER_C", "tier_c", "Tier C",
+    "/old/", "Old Knowledge", "_HISTORICAL",
+)
+_PROVED_PATH_KEYWORDS = (
+    "05_papers/", "J_series/", "verification/", "proof_", "verify_",
+    "FORMULAS_AND_TABLES",
+)
+# Status keywords found INLINE in a formula's status_file column
+_STATUS_KEYWORD_TO_TIER = {
+    "PROVED": "PROVED",
+    "PROOF": "PROVED",
+    "VERIFIED": "PROVED",
+    "STRUCTURAL": "STRUCTURAL",
+    "EMPIRICAL": "EMPIRICAL",
+    "EMPIRICALLY": "EMPIRICAL",
+    "OPEN": "OPEN",
+    "CONJECTURAL": "OPEN",
+    "TBD": "OPEN",
+    "SPECULAT": "SPECULATIVE",
+    "TIER C": "SPECULATIVE",
+    "TIER-C": "SPECULATIVE",
+    "HYPOTHESI": "OPEN",
+}
+
+
+def detect_tier_from_path(source_path: str) -> str:
+    """Default tier based on the file's location in the repo."""
+    sp = str(source_path)
+    for kw in _SPECULATIVE_PATH_KEYWORDS:
+        if kw in sp:
+            return "SPECULATIVE"
+    for kw in _PROVED_PATH_KEYWORDS:
+        if kw in sp:
+            return "STRUCTURAL"  # default to STRUCTURAL; per-row PROVED check can override
+    return "UNKNOWN"
+
+
+def detect_tier_from_status_text(status_text: str) -> Optional[str]:
+    """Promote/demote tier based on inline status keywords ('PROVED', 'OPEN', etc.)."""
+    if not status_text:
+        return None
+    upper = status_text.upper()
+    # Order matters: more specific first
+    for kw, tier in _STATUS_KEYWORD_TO_TIER.items():
+        if kw in upper:
+            return tier
+    return None
+
+
+def merge_tier(path_tier: str, status_tier: Optional[str]) -> str:
+    """Combine a path-derived tier with a status-extracted tier.
+    Status-tier wins when both differ (the explicit signal trumps the default).
+    """
+    if status_tier:
+        return status_tier
+    return path_tier or "UNKNOWN"
 
 
 # ─── Extraction patterns ────────────────────────────────────────────────
@@ -382,10 +469,34 @@ def _operator_signature(text: str) -> List[int]:
 
 # ─── Study pass ──────────────────────────────────────────────────────────
 
+def extract_concepts_py(text: str, source_path: str
+                          ) -> List[Tuple[str, str, str]]:
+    """Extract module-level docstring concept (one per file).
+
+    A Python module's docstring is its self-description -- that's
+    a concept named after the module file.
+    """
+    m = re.match(r'^\s*"""(.+?)"""', text, re.S)
+    if not m:
+        return []
+    docstring = m.group(1).strip()
+    if not _is_useful_definition(docstring) or len(docstring) < 60:
+        return []
+    # Use the module name (filename without extension) as the concept name
+    name = Path(source_path).stem
+    # Skip obviously-irrelevant ones
+    if name.startswith("_") or name in ("test", "tests", "setup"):
+        return []
+    defn = _clean(docstring, max_len=400)
+    return [(name, defn, "py_docstring")]
+
+
 def study_one_file(path: Path, store: ConceptStore,
-                    voice_store: Dict[str, Any]) -> Dict[str, int]:
+                    voice_store: Dict[str, Any],
+                    voice_seen: Optional[set] = None) -> Dict[str, int]:
     """Read one source file, extract concepts + prose, write to stores."""
-    stats = {"concepts_added": 0, "prose_samples": 0, "skipped_existing": 0}
+    stats = {"concepts_added": 0, "prose_samples": 0, "skipped_existing": 0,
+              "tier_distribution": {}}
     try:
         text = path.read_text(encoding="utf-8", errors="replace")
     except Exception:
@@ -396,19 +507,27 @@ def study_one_file(path: Path, store: ConceptStore,
     ext = path.suffix.lower()
     rel = str(path)
     extracted: List[Tuple[str, str, str]] = []
-    if ext in (".md", ".markdown"):
+    if ext in (".md", ".markdown", ".rst", ".txt"):
         extracted = extract_concepts_md(text, rel)
     elif ext in (".tex",):
         extracted = extract_concepts_tex(text, rel)
+    elif ext == ".py":
+        extracted = extract_concepts_py(text, rel)
+
+    path_tier = detect_tier_from_path(rel)
+    tier_dist: Dict[str, int] = {}
 
     for name, defn, role in extracted:
         key = name.lower()
         existing = store.concepts.get(key)
+        # NEVER overwrite a user-taught concept
         if existing and existing.source_session != "study":
-            # User-taught -> don't overwrite
             stats["skipped_existing"] += 1
             continue
         ops = _operator_signature(defn)
+        # Per-row tier from inline status (PROVED, STRUCTURAL, etc.)
+        status_tier = detect_tier_from_status_text(defn)
+        tier = merge_tier(path_tier, status_tier)
         c = NamedConcept(
             name=name,
             definition=defn,
@@ -416,20 +535,34 @@ def study_one_file(path: Path, store: ConceptStore,
             pattern_used=f"study:{role}",
             source_session="study",
             learned_ts=time.time(),
+            tier=tier,
+            source_file=rel,
         )
         store.concepts[key] = c
         stats["concepts_added"] += 1
+        tier_dist[tier] = tier_dist.get(tier, 0) + 1
 
-    # Prose samples (for ck_voice_style)
+    stats["tier_distribution"] = tier_dist
+
+    # Prose samples (for ck_voice_style) -- with dedup
+    if voice_seen is None:
+        voice_seen = set()
     samples = extract_prose_samples(text, rel, max_samples=3)
-    if samples:
-        topic = path.stem  # filename without extension as topic
+    new_samples: List[Dict[str, Any]] = []
+    for s in samples:
+        h = hash(s["text"])
+        if h in voice_seen:
+            continue
+        voice_seen.add(h)
+        s["ops"] = _operator_signature(s["text"])
+        s["tier"] = path_tier
+        new_samples.append(s)
+    if new_samples:
+        topic = path.stem
         if topic not in voice_store:
             voice_store[topic] = []
-        for s in samples:
-            s["ops"] = _operator_signature(s["text"])
-            voice_store[topic].append(s)
-        stats["prose_samples"] = len(samples)
+        voice_store[topic].extend(new_samples)
+        stats["prose_samples"] = len(new_samples)
 
     return stats
 
@@ -450,31 +583,56 @@ def _log(log_path: Path, **fields):
 # ─── Main ────────────────────────────────────────────────────────────────
 
 def one_pass(root: Path, store: ConceptStore, voice_path: Path,
-              log_path: Path, label: str = "pass") -> Dict[str, Any]:
+              log_path: Path, label: str = "pass",
+              reset_voice: bool = False) -> Dict[str, Any]:
     """One full pass through the corpus."""
     t0 = time.time()
     sources = discover_sources(root)
+
+    # Voice store: reset each pass to prevent unbounded growth.
+    # The samples are paragraphs that already exist in the corpus;
+    # they don't need to accumulate across passes.
     voice_store: Dict[str, Any] = {}
-    if voice_path.exists():
+    voice_seen: set = set()  # hash dedup within this pass
+    if not reset_voice and voice_path.exists():
         try:
-            voice_store = json.loads(voice_path.read_text(encoding="utf-8"))
+            existing = json.loads(voice_path.read_text(encoding="utf-8"))
+            # Reload with dedup
+            for topic, samples in existing.items():
+                if not isinstance(samples, list):
+                    continue
+                unique = []
+                for s in samples:
+                    if not isinstance(s, dict):
+                        continue
+                    h = hash(s.get("text", ""))
+                    if h in voice_seen:
+                        continue
+                    voice_seen.add(h)
+                    unique.append(s)
+                if unique:
+                    voice_store[topic] = unique
         except Exception:
             voice_store = {}
+            voice_seen = set()
 
     totals = {"files_read": 0, "concepts_added": 0,
               "prose_samples": 0, "skipped_existing": 0,
-              "errors": 0}
+              "errors": 0, "tier_distribution": {}}
 
     print(f"[study] {label}: walking {len(sources)} sources from {root}")
     for i, p in enumerate(sources):
         try:
-            stats = study_one_file(p, store, voice_store)
+            stats = study_one_file(p, store, voice_store, voice_seen=voice_seen)
             totals["files_read"] += 1
             totals["concepts_added"] += stats["concepts_added"]
             totals["prose_samples"] += stats["prose_samples"]
             totals["skipped_existing"] += stats["skipped_existing"]
-            if (i + 1) % 25 == 0:
-                # Periodic checkpoint
+            # Accumulate tier distribution
+            for t, n in (stats.get("tier_distribution") or {}).items():
+                totals["tier_distribution"][t] = (
+                    totals["tier_distribution"].get(t, 0) + n)
+            if (i + 1) % 50 == 0:
                 store.save()
                 voice_path.parent.mkdir(parents=True, exist_ok=True)
                 voice_path.write_text(json.dumps(voice_store, indent=2),
@@ -496,8 +654,12 @@ def one_pass(root: Path, store: ConceptStore, voice_path: Path,
     totals["elapsed_sec"] = round(elapsed, 2)
     totals["store_total"] = len(store.concepts)
     totals["voice_topics"] = len(voice_store)
+    totals["voice_unique_samples"] = sum(len(v) for v in voice_store.values())
     _log(log_path, event="pass_complete", label=label, **totals)
-    print(f"[study] {label} done: {totals}")
+    print(f"[study] {label} done: store={totals['store_total']} "
+          f"concepts, voice={totals['voice_unique_samples']} unique, "
+          f"tiers={totals['tier_distribution']}, "
+          f"{totals['elapsed_sec']}s")
     return totals
 
 

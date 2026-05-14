@@ -168,6 +168,20 @@ class NamedConcept:
     learned_ts: float
     n_recalls: int = 0
     last_recalled_ts: float = 0.0
+    # Fact-tier — fundamental epistemic flag so CK distinguishes fact
+    # from fiction. Values:
+    #   PROVED       -- rigorous theorem with machine-precision verification
+    #   STRUCTURAL   -- sound form of argument, interpretive content
+    #   EMPIRICAL    -- observed at scale, not proved
+    #   OPEN         -- precisely-stated, unproven
+    #   CONJECTURAL  -- same as OPEN; legacy synonym
+    #   EXTERNAL     -- third-party claim (arxiv finding, user input)
+    #   SPECULATIVE  -- TIER-C, philosophical, 09_seekers/04_meta paths
+    #   USER_TAUGHT  -- explicitly taught in chat (highest priority for retrieval)
+    #   UNKNOWN      -- tier could not be determined
+    tier: str = "UNKNOWN"
+    # Source-file path (where the concept was extracted from)
+    source_file: str = ""
 
     def as_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -218,7 +232,9 @@ class ConceptStore:
             pass
 
     def teach(self, name: str, definition: str, ops: List[int],
-              pattern: str, session: str) -> NamedConcept:
+              pattern: str, session: str,
+              tier: str = "USER_TAUGHT",
+              source_file: str = "") -> NamedConcept:
         key = name.lower()
         c = NamedConcept(
             name=name,
@@ -227,6 +243,8 @@ class ConceptStore:
             pattern_used=pattern,
             source_session=session,
             learned_ts=time.time(),
+            tier=tier,
+            source_file=source_file,
         )
         self.concepts[key] = c
         self.save()
@@ -355,6 +373,8 @@ def process_chat_turn(engine: Any, session_id: str, user_text: str,
             "operator_signature": c.operator_signature,
             "n_recalls": c.n_recalls,
             "learned_session": c.source_session,
+            "tier": getattr(c, "tier", "UNKNOWN"),
+            "source_file": getattr(c, "source_file", ""),
         })
 
     return out

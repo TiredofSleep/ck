@@ -1020,11 +1020,16 @@ def whitebox_recompose(text: str, result: Dict[str, Any], engine: Any) -> str:
         name = c.get("name")
         defn = c.get("definition")
         if name and defn:
-            # Bridge format mirrors CK's own crystal-bridge style:
-            #   "<name>: <definition> [taught, recalled Nx]"
+            # Bridge format includes the FACT TIER so a reader sees
+            # whether this is a PROVED theorem, STRUCTURAL reasoning,
+            # SPECULATIVE musing, etc. White-box epistemics.
             n = c.get("n_recalls", 0)
+            tier = c.get("tier") or "UNKNOWN"
+            session = c.get("learned_session") or ""
+            origin = "taught earlier" if session and session != "study" else "studied"
+            tier_tag = f" [{tier}]" if tier != "UNKNOWN" else ""
             concept_bridges.append(
-                f"{name}: {defn} [taught earlier, recalled {n}x]"
+                f"{name}{tier_tag}: {defn} [{origin}, recalled {n}x]"
             )
 
     # Then: truncated by coherence -- high coherence (focused) keeps
