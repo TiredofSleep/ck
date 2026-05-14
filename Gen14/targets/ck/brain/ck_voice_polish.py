@@ -103,6 +103,8 @@ _H_SUBSTRATE = "[substrate snapshot — where this thought lives in CK's algebra
 _H_NEXTSTEP = "[next-step prediction — Phase 2 4-head LM]"
 _H_FORMULAS = "[formulas invoked — D-numbers whose HOME matches this turn]"
 _H_CROSSMODAL = "[cross-modal correspondence — same operator across senses]"
+_H_SENSE_PIPELINE = "[sense pipeline — how the dominant operator builds each sense]"
+_H_RESEARCH = "[research trail — what CK looked up before answering]"
 
 
 # ── Cross-modal correspondence: DERIVED from CK's live phonetic table ──
@@ -506,6 +508,88 @@ def _format_cross_modal(ops: List[int], engine: Any = None) -> Optional[List[str
     return lines
 
 
+def _format_sense_pipeline(ops: List[int], engine: Any) -> Optional[List[str]]:
+    """For the dominant operator of this turn, show how it participates
+    in EACH of CK's sensory pipelines.
+
+    Reads from engine.senses_for_operator (mounted by
+    ck_sense_decomposition). Each sense is an ordered operator pipeline;
+    the dominant op may appear at one or several positions per sense.
+    """
+    if not hasattr(engine, "senses_for_operator"):
+        return None
+    dom = _dominant_op(ops)
+    if dom is None:
+        return None
+    try:
+        hits = engine.senses_for_operator(dom)
+    except Exception:
+        return None
+    if not hits:
+        return None
+    name = _OP_NAMES_VOICE[dom]
+    # Group by sense to compact output
+    by_sense: Dict[str, List[str]] = {}
+    for sense, role in hits:
+        by_sense.setdefault(sense, []).append(role)
+    lines = [f"{name} (id={dom}) participates in {len(by_sense)} senses, "
+              f"{sum(len(v) for v in by_sense.values())} pipeline steps:"]
+    for sense, roles in by_sense.items():
+        if len(roles) == 1:
+            lines.append(f"  {sense:<14s} → {roles[0]}")
+        else:
+            lines.append(f"  {sense:<14s} → ({len(roles)} steps)")
+            for r in roles:
+                lines.append(f"      · {r}")
+    return lines
+
+
+def _format_research_trail(result: Dict[str, Any]) -> Optional[List[str]]:
+    """Surface result['research_first'] if present.
+
+    research_first is CK's "look up before answering" pathway. When it
+    fires, the result contains:
+      - questions_asked: list of {question, term}
+      - synthesis_preview: short text of what came back
+      - crystals_added: how many new memory crystals the lookup formed
+      - elapsed_sec: how long the lookup took
+      - ok: whether the research completed successfully
+      - skipped + reason: when the query was deemed trivial/state and no
+        research was done
+
+    If research was skipped, we say so. If research ran, we surface what
+    happened: questions, time, crystal yield, and a synthesis preview.
+    """
+    rf = result.get("research_first")
+    if not isinstance(rf, dict):
+        return None
+    # Skipped case -- still informative (the reader sees CK chose not to look up)
+    if rf.get("skipped"):
+        reason = rf.get("reason", "skipped")
+        return [f"research skipped ({reason}); answered from substrate only"]
+    if not rf.get("ok"):
+        return [f"research attempted but failed: {rf.get('error', 'unknown')}"]
+    lines: List[str] = []
+    elapsed = rf.get("elapsed_sec")
+    n_crystals = rf.get("crystals_added", 0)
+    questions = rf.get("questions_asked") or []
+    if questions:
+        for q in questions[:3]:
+            qtxt = q.get("question") if isinstance(q, dict) else str(q)
+            if qtxt:
+                lines.append(f"queried: {qtxt[:140]}")
+    if elapsed is not None:
+        lines.append(f"lookup time: {float(elapsed):.1f}s; "
+                      f"crystals formed: {n_crystals}")
+    preview = rf.get("synthesis_preview")
+    if preview and isinstance(preview, str):
+        snippet = preview[:200].rstrip()
+        if len(preview) > 200:
+            snippet += "…"
+        lines.append(f"synthesis preview: {snippet}")
+    return lines if lines else None
+
+
 def _format_lm_signature_line(engine: Any, result: Dict[str, Any]) -> Optional[str]:
     """Phase 2 4-head LM next-step prediction from current operator stream."""
     if not hasattr(engine, "algebraic_predict"):
@@ -638,6 +722,22 @@ def whitebox_recompose(text: str, result: Dict[str, Any], engine: Any) -> str:
             out.append("")
         out.append(_H_CROSSMODAL)
         out.extend(cross_modal)
+
+    # 7. SENSE PIPELINE (dominant op's role in each sense's full pipeline)
+    sense_lines = _format_sense_pipeline(ops_ids, engine)
+    if sense_lines:
+        if out:
+            out.append("")
+        out.append(_H_SENSE_PIPELINE)
+        out.extend(sense_lines)
+
+    # 8. RESEARCH TRAIL (what CK looked up before answering)
+    research_lines = _format_research_trail(result)
+    if research_lines:
+        if out:
+            out.append("")
+        out.append(_H_RESEARCH)
+        out.extend(research_lines)
 
     return "\n".join(out)
 

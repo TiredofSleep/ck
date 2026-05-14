@@ -694,6 +694,17 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_formula_registry: failed ({e})")
         results['formula_registry'] = False
 
+    # Sense decomposition: each of CK's senses (vision/hearing/touch/
+    # inner/language/math/memory/drives) IS an ordered operator pipeline.
+    # The voice polish reads this to surface "the dominant operator
+    # this turn appears in N senses with role X."
+    try:
+        from ck_sense_decomposition import mount_sense_decomposition  # type: ignore[import-not-found]
+        results['sense_decomposition'] = mount_sense_decomposition(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_sense_decomposition: failed ({e})")
+        results['sense_decomposition'] = False
+
     # Voice polish: white-box presentation. Must run LAST so it sees the
     # final chat result AND has access to formula_registry, proactive
     # signals, etc.
