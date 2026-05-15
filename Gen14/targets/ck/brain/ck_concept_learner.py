@@ -286,19 +286,52 @@ class ConceptStore:
     def lookup(self, name: str) -> Optional[NamedConcept]:
         return self.concepts.get(name.lower())
 
-    def find_referenced(self, text: str) -> List[NamedConcept]:
-        """Scan text for any stored concept name. Returns matched concepts."""
+    def find_referenced(self, text: str,
+                          include_synthesis_siblings: bool = True
+                          ) -> List[NamedConcept]:
+        """Scan text for any stored concept name. Returns matched concepts.
+
+        When include_synthesis_siblings=True, ALSO surface any
+        synthesis-cluster concepts whose member list includes a directly-
+        matched concept. So if D48 is mentioned and D48 belongs to
+        Pattern_F_creation_H_sh1, that pattern concept is added too --
+        giving the voice layer composition context across the cluster.
+        """
         if not text or not self.concepts:
             return []
         out: List[NamedConcept] = []
+        seen_keys: set = set()
         lower = text.lower()
+        # First pass: direct matches
         for key, c in self.concepts.items():
-            # Word-boundary match so 'XYZ' doesn't match inside 'XYZFLUX'
             pat = r"\b" + re.escape(key) + r"\b"
             if re.search(pat, lower):
                 c.n_recalls += 1
                 c.last_recalled_ts = time.time()
                 out.append(c)
+                seen_keys.add(key)
+
+        # Second pass: for each match, find synthesis clusters that
+        # include it as a member. Surface the cluster too -- this is
+        # the COMPOSITION step: a single concept retrieved also pulls
+        # in its sibling cluster.
+        if include_synthesis_siblings and out:
+            matched_names = {c.name for c in out}
+            for key, c in self.concepts.items():
+                if key in seen_keys:
+                    continue
+                if c.source_session != "synthesis":
+                    continue
+                # Look at the cluster's member list in definition prose
+                # (the synthesizer wrote "Members: D48, D43, ..." inline)
+                defn = c.definition or ""
+                # Cheap check: does any matched name appear in the defn?
+                if any(name in defn for name in matched_names):
+                    c.n_recalls += 1
+                    c.last_recalled_ts = time.time()
+                    out.append(c)
+                    seen_keys.add(key)
+
         if out:
             self.save()
         return out
@@ -410,6 +443,31 @@ def process_chat_turn(engine: Any, session_id: str, user_text: str,
             "source_file": getattr(c, "source_file", ""),
         })
 
+    # Tier-aware ordering: bring strongest tiers to the front of the
+    # referenced list so the voice polish surfaces the most-rigorous
+    # binding first when multiple concepts match.
+    _TIER_STRENGTH = {
+        "PROVED": 6, "STRUCTURAL": 5, "USER_TAUGHT": 4, "EMPIRICAL": 3,
+        "OPEN": 2, "EXTERNAL": 1.5, "SPECULATIVE": 1, "UNKNOWN": 0,
+    }
+    def _tier_rank(entry):
+        t = (entry.get("tier") or "UNKNOWN")
+        # Handle SYNTHESIZED(<inner>)
+        if t.startswith("SYNTHESIZED("):
+            inner = t[len("SYNTHESIZED("):].rstrip(")")
+            return _TIER_STRENGTH.get(inner, 0) - 0.5  # slight penalty
+        return _TIER_STRENGTH.get(t, 0)
+    out["referenced"].sort(key=_tier_rank, reverse=True)
+
+    # Research-findings extraction: when research_first ran this turn,
+    # mine its synthesis_full text for definitions and add as EXTERNAL.
+    # This is corpus expansion that happens automatically on every chat
+    # about a topic CK didn't already have crystals for.
+    if isinstance(result, dict):
+        learned_from_research = _learn_from_research(engine, result, session_id)
+        if learned_from_research:
+            out["learned_from_research"] = learned_from_research
+
     return out
 
 
@@ -421,6 +479,81 @@ def _name_to_id(x: Any) -> Optional[int]:
     if isinstance(x, str):
         return NAMES.get(x.upper())
     return None
+
+
+# ─── Extract entities from research-findings text ──────────────────────
+#
+# When research_first runs, it returns a 'synthesis_full' string of
+# what it found online. We scan that for entity patterns (capitalised
+# multi-word concepts, definitions, named formulas) and store them as
+# tier=EXTERNAL so CK grows his knowledge from every research call.
+
+# Pattern: a capitalised concept name followed by ' is ' or ' = ' and
+# a definition fragment. Keeps things conservative — only crystallise
+# if the pattern is clearly definitional.
+_RE_RESEARCH_DEF = re.compile(
+    r"\b([A-Z][A-Za-z0-9_-]{3,40})\s+(?:is|are)\s+(?:a |an |the )?"
+    r"([a-z][^.!\n]{15,200}[.!])",
+    re.M)
+
+
+def _extract_from_research(text: str) -> List[Tuple[str, str]]:
+    """Pull (name, definition) pairs from a block of research-findings text."""
+    if not text or len(text) < 30:
+        return []
+    out: List[Tuple[str, str]] = []
+    seen: set = set()
+    for m in _RE_RESEARCH_DEF.finditer(text):
+        name = m.group(1).strip()
+        defn = m.group(2).strip()
+        if not _is_novel(name):
+            continue
+        if len(defn) < 15:
+            continue
+        key = name.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append((name, defn))
+    return out
+
+
+def _learn_from_research(engine: Any, result: Dict[str, Any],
+                          session_id: str) -> List[Dict[str, Any]]:
+    """If result['research_first']['synthesis_full'] is present, extract
+    concept candidates and store them as tier=EXTERNAL."""
+    store = getattr(engine, "concept_store", None)
+    if store is None:
+        return []
+    rf = result.get("research_first") or {}
+    if not isinstance(rf, dict) or not rf.get("ok"):
+        return []
+    text = rf.get("synthesis_full") or rf.get("synthesis_preview") or ""
+    if not text or len(text) < 50:
+        return []
+    candidates = _extract_from_research(text)
+    if not candidates:
+        return []
+    out: List[Dict[str, Any]] = []
+    # Operator decoding of the full research text
+    ops_text = _operator_signature_of(text, engine)
+    for name, defn in candidates:
+        # Don't overwrite anything we already know about
+        if store.lookup(name) is not None:
+            continue
+        c = store.teach(
+            name=name,
+            definition=defn,
+            ops=ops_text[:10],
+            pattern="research_first:extract",
+            session=session_id,
+            tier="EXTERNAL",
+            source_file="research_first:" + (rf.get("questions_asked") or [
+                {"question": "?"}
+            ])[0].get("question", "?")[:80],
+        )
+        out.append({"name": c.name, "definition": c.definition})
+    return out
 
 
 # ─── Mount hook ──────────────────────────────────────────────────────────

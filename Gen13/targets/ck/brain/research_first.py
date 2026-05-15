@@ -126,9 +126,14 @@ def _do_research(prompt: str, *, max_questions: int = 1,
                 out = result_holder.get('out', {})
                 crystals = int(out.get('crystals_added', 0)
                                 or out.get('n_crystals', 0) or 0)
+                _synth_full = str(out.get('synthesis', ''))
                 return {"ok": True, "elapsed_sec": time.time() - t0,
                         "crystals_added": crystals,
-                        "synthesis_preview": str(out.get('synthesis', ''))[:200],
+                        "synthesis_preview": _synth_full[:200],
+                        # Expose full synthesis for downstream concept
+                        # extraction (ck_concept_learner stores entities
+                        # found here as tier=EXTERNAL).
+                        "synthesis_full": _synth_full,
                         "questions_asked": out.get('questions', []),
                         }
             except Exception as e:
