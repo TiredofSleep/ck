@@ -560,6 +560,10 @@ _SUBJ_STOPWORDS = {
     # Generic abstract subjects that aren't concept names
     'Existing', 'Previous', 'Recent', 'New', 'Earlier', 'Later',
     'Future', 'Present', 'Past',
+    # Adverbs + dialect-renderings sometimes capitalized
+    'Still', 'Just', 'Even', 'Only', 'Almost', 'Nearly',
+    'Quite', 'Rather', 'Pretty', 'Very',
+    'Dat', 'Dis', 'Dese', 'Dose',   # dialect / EBONICS spellings
 }
 
 # Common phrase-starters that signal narrative or generic abstract-talk
@@ -593,8 +597,40 @@ _SUBJ_NARRATIVE_PREFIXES = (
 _SUBJ_CLAUSE_MARKERS = (
     ' when ', ' if ', ' while ', ' as ', ' though ',
     ' although ', ' because ', ' since ', ' unless ',
-    ' that ', ' which ',
+    ' that ', ' which ', ' who ', ' whose ', ' whom ',
 )
+
+# Bare-noun "The X" patterns that are too generic to be a concept name.
+# These slip past the prefix list because they're 2 tokens; we reject
+# them via a separate check.
+_GENERIC_BARE_NOUNS = {
+    'flow', 'model', 'noise', 'formula', 'function', 'system',
+    'method', 'approach', 'algorithm', 'process', 'procedure',
+    'theorem', 'lemma', 'proof', 'argument', 'notion', 'idea',
+    'concept', 'definition', 'principle', 'rule', 'law',
+    'result', 'conclusion', 'observation', 'remark', 'note',
+    'paper', 'article', 'study', 'analysis', 'investigation',
+    'equation', 'inequality', 'identity', 'expression', 'value',
+    'coefficient', 'coefficients', 'constant', 'constants',
+    'parameter', 'parameters', 'variable', 'variables',
+    'set', 'space', 'group', 'field', 'ring', 'module',
+    'subset', 'element', 'elements', 'point', 'points',
+    'class', 'classes', 'case', 'cases', 'example', 'examples',
+    'question', 'questions', 'problem', 'problems', 'issue', 'issues',
+    'usual', 'standard', 'classical', 'main', 'first', 'second',
+    'last', 'final', 'general', 'specific', 'particular', 'special',
+    'true', 'false', 'correct', 'wrong', 'right', 'left',
+    'thing', 'things', 'way', 'ways', 'kind', 'kinds',
+    'reason', 'reasons', 'purpose', 'goal', 'goals', 'aim',
+    'beginning', 'end', 'middle', 'start',
+    'world', 'universe', 'nature', 'life', 'death',
+    'time', 'place', 'moment', 'period',
+    'people', 'person', 'human', 'humans',
+    'love', 'hope', 'fear', 'truth', 'beauty',
+    'leaves', 'limit', 'limits', 'sum', 'product', 'list',
+    'name', 'names', 'title', 'word', 'words',
+    'formulae', 'data',
+}
 
 
 def _good_subject(s: str) -> bool:
@@ -630,10 +666,22 @@ def _good_subject(s: str) -> bool:
     # sentence fragments, not concept names
     if len(tokens) > 5:
         return False
+    # 2-token "The/A <generic noun>" patterns are too vague to be concepts
+    if len(tokens) == 2 and tokens[0] in ('The', 'A', 'An', 'Our'):
+        if tokens[1].lower().strip(',.!?;:') in _GENERIC_BARE_NOUNS:
+            return False
+    # 3-token "The X of Y" / "The X to Y" where X is generic
+    if len(tokens) == 3 and tokens[0] in ('The', 'A', 'An', 'Our'):
+        if (tokens[1].lower().strip(',.!?;:') in _GENERIC_BARE_NOUNS
+                and tokens[2].lower() in ('of', 'to', 'in', 'on', 'for')):
+            return False
     # Single-word subjects must look TECHNICAL (>= 8 chars, OR contain
-    # a digit/hyphen/uppercase-after-first, OR be ALL CAPS).
+    # a digit/hyphen/uppercase-after-first, OR be ALL CAPS, AND not a
+    # generic bare noun).
     if len(tokens) == 1:
         tok = tokens[0]
+        if tok.lower().strip(',.!?;:') in _GENERIC_BARE_NOUNS:
+            return False
         looks_technical = (
             len(tok) >= 8 or  # long compound word
             '-' in tok or     # hyphenated
