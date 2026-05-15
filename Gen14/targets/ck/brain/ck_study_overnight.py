@@ -215,13 +215,18 @@ def detect_tier_from_path(source_path: str) -> str:
 
 
 def detect_tier_from_status_text(status_text: str) -> Optional[str]:
-    """Promote/demote tier based on inline status keywords ('PROVED', 'OPEN', etc.)."""
+    """Promote/demote tier based on inline status keywords ('PROVED', 'OPEN', etc.).
+
+    Uses word-boundary matching so 'PROVED' in 'imPROVED' doesn't trigger.
+    """
     if not status_text:
         return None
     upper = status_text.upper()
     # Order matters: more specific first
     for kw, tier in _STATUS_KEYWORD_TO_TIER.items():
-        if kw in upper:
+        # Word-boundary match: kw must be flanked by non-letter chars
+        pattern = r"(?<![A-Z])" + re.escape(kw) + r"(?![A-Z])"
+        if re.search(pattern, upper):
             return tier
     return None
 
