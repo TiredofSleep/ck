@@ -87,8 +87,12 @@ def category_dir(cat: str) -> Path:
 
 
 def fetch_category(category: str, max_results: int = 100,
-                    start: int = 0, sort: str = "submittedDate") -> int:
-    """Fetch up to max_results papers from a category. Returns # saved."""
+                    start: int = 0, sort: str = "submittedDate",
+                    max_retries: int = 3) -> int:
+    """Fetch up to max_results papers from a category. Returns # saved.
+
+    Retries on HTTP 429 with exponential backoff (15s, 30s, 60s).
+    """
     params = {
         "search_query": f"cat:{category}",
         "start": start,
@@ -101,9 +105,32 @@ def fetch_category(category: str, max_results: int = 100,
         url, headers={"User-Agent": "CK-Coherence-Keeper/1.0"})
     cdir = category_dir(category)
     saved = 0
+
+    xml_bytes = None
+    for attempt in range(max_retries):
+        try:
+            with urllib.request.urlopen(req, timeout=45.0) as resp:
+                xml_bytes = resp.read()
+            break
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < max_retries - 1:
+                backoff = 15 * (2 ** attempt)
+                log_event("arxiv_429_backoff", category=category,
+                          attempt=attempt + 1, sleep_s=backoff)
+                time.sleep(backoff)
+                continue
+            log_event("arxiv_error", category=category, error=f"http-{e.code}")
+            return 0
+        except Exception as e:
+            if attempt < max_retries - 1:
+                time.sleep(10)
+                continue
+            log_event("arxiv_error", category=category, error=str(e))
+            return 0
+
+    if xml_bytes is None:
+        return 0
     try:
-        with urllib.request.urlopen(req, timeout=30.0) as resp:
-            xml_bytes = resp.read()
         root = ET.fromstring(xml_bytes)
         for entry in root.findall("atom:entry", NS):
             arxiv_id_url = entry.findtext("atom:id", "", NS)
@@ -162,7 +189,8 @@ def main():
                     help="comma-separated list (default: all 15 cats)")
     ap.add_argument("--max", type=int, default=100,
                     help="max papers per category (default 100, arxiv hard cap)")
-    ap.add_argument("--sleep", type=float, default=3.5)
+    ap.add_argument("--sleep", type=float, default=10.0,
+                    help="seconds between category requests (default: 10.0)")
     ap.add_argument("--start", type=int, default=0,
                     help="pagination offset for a single category")
     args = ap.parse_args()

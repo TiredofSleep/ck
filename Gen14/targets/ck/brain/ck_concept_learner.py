@@ -535,23 +535,133 @@ _SUBJ_STOPWORDS = {
     'Today', 'Yesterday', 'Tomorrow', 'Now', 'Soon', 'Also',
     'Note', 'Notice', 'Recall', 'Remember', 'See', 'Look',
     'I', 'You', 'We', 'They', 'He', 'She',
+    # Possessive pronouns capitalized at sentence start
+    'My', 'Your', 'Our', 'Their', 'His', 'Her', 'Its',
+    # Common-narrative subjects that aren't concepts
+    'Father', 'Mother', 'Brother', 'Sister', 'Son', 'Daughter',
+    'Husband', 'Wife', 'Child', 'Children', 'Friend', 'Friends',
+    'Man', 'Woman', 'Boy', 'Girl', 'Lady', 'Gentleman',
+    'God', 'Lord', 'King', 'Queen', 'Prince', 'Princess',
+    'Mr', 'Mrs', 'Ms', 'Dr', 'Mister', 'Sir', 'Madam',
+    'Yes', 'No', 'Maybe', 'Perhaps', 'Possibly',
+    'Many', 'Few', 'Some', 'Most', 'All', 'None', 'Every',
+    'Each', 'Both', 'Either', 'Neither', 'Such', 'Same', 'Other',
+    'Another', 'Any',
+    # Prepositions capitalized at sentence start (sentence fragments)
+    'In', 'At', 'On', 'Of', 'By', 'With', 'From', 'Under',
+    'Over', 'Through', 'Among', 'Above', 'Below', 'Between',
+    'Without', 'Within', 'About', 'Against', 'Around',
+    'Before', 'After', 'During', 'Despite', 'Toward', 'Towards',
+    'Across', 'Behind', 'Beyond', 'Off', 'Until', 'Upon',
+    # Verbs in imperative mood (common in narrative)
+    'Be', 'Do', 'Have', 'Let', 'Take', 'Give', 'Make', 'Get',
+    'Find', 'Try', 'Keep', 'Use', 'Tell', 'Ask', 'Say',
+    'Dread', 'Fear', 'Hope', 'Wish', 'Wait', 'Stop', 'Start',
+    # Generic abstract subjects that aren't concept names
+    'Existing', 'Previous', 'Recent', 'New', 'Earlier', 'Later',
+    'Future', 'Present', 'Past',
 }
+
+# Common phrase-starters that signal narrative or generic abstract-talk
+_SUBJ_NARRATIVE_PREFIXES = (
+    # Generic-abstract phrasing
+    'The fact', 'The only', 'The way', 'The thing', 'The reason',
+    'The truth', 'The point', 'The idea', 'The problem',
+    'The first', 'The second', 'The third', 'The last',
+    'The main', 'The key', 'The new', 'The previous', 'The recent',
+    'The results', 'The theorem', 'The proof', 'The conclusion',
+    'The goal', 'The goals', 'The aim', 'The purpose',
+    'The passage', 'The approach', 'The method',
+    'A man', 'A woman', 'A boy', 'A girl', 'A child',
+    'All I', 'All we', 'All my', 'All they',
+    'Every nerve', 'Every man', 'Every woman', 'Every other',
+    'Such persons', 'Such people', 'Such things', 'Such a',
+    'In his', 'In her', 'In my', 'In our', 'In their', 'In a',
+    'To tell', 'To say', 'To know', 'To see', 'To make',
+    'To prove', 'To show', 'To establish',
+    'Go ', 'Come ', 'Stop ',
+    'One goal', 'One way', 'One thing', 'One reason', 'One method',
+    'Our main', 'Our goal', 'Our results', 'Our proof', 'Our motivation',
+    'Of particular', 'Of such', 'Of these',
+    # Sentence fragments containing clause-starters
+    'When ', 'While ', 'After ', 'Before ', 'As ', 'Though ',
+    'Although ', 'Because ', 'Since ', 'Unless ',
+)
+
+# Words that, when present anywhere in the subject, signal it's a
+# subordinate clause not a noun phrase
+_SUBJ_CLAUSE_MARKERS = (
+    ' when ', ' if ', ' while ', ' as ', ' though ',
+    ' although ', ' because ', ' since ', ' unless ',
+    ' that ', ' which ',
+)
 
 
 def _good_subject(s: str) -> bool:
-    """Sanity-check a captured subject string."""
-    if not s or not (4 <= len(s) <= 80):
+    """Sanity-check a captured subject string (tight to avoid fiction noise)."""
+    if not s or not (4 <= len(s) <= 60):
         return False
-    first = s.split()[0]
+    tokens = s.split()
+    first = tokens[0]
     if first in _SUBJ_STOPWORDS:
         return False
     if not first[0].isupper():
         return False
     if not any(c.isalpha() for c in s):
         return False
-    # Reject all-CAPS-words-only that match an operator name (CK already
-    # knows these via crystals; storing them as concepts is noise).
+    # Reject CK's own operator names (crystals handle those)
     if first.lower() in _CK_OPS:
+        return False
+    # Reject narrative-style multi-word starts that catch fiction prose
+    for prefix in _SUBJ_NARRATIVE_PREFIXES:
+        if s.startswith(prefix):
+            return False
+    # Reject subjects containing subordinate-clause markers (these are
+    # whole-sentence fragments, not noun phrases)
+    low = " " + s.lower() + " "
+    for m in _SUBJ_CLAUSE_MARKERS:
+        if m in low:
+            return False
+    # Reject subjects ending in a pronoun ("...when you", "...for me")
+    last = tokens[-1].lower().rstrip(',.!?;:')
+    if last in ('you', 'me', 'him', 'her', 'us', 'them', 'it', 'we', 'i', 'they'):
+        return False
+    # Cap length at 5 tokens — longer "phrases" are almost always
+    # sentence fragments, not concept names
+    if len(tokens) > 5:
+        return False
+    # Single-word subjects must look TECHNICAL (>= 8 chars, OR contain
+    # a digit/hyphen/uppercase-after-first, OR be ALL CAPS).
+    if len(tokens) == 1:
+        tok = tokens[0]
+        looks_technical = (
+            len(tok) >= 8 or  # long compound word
+            '-' in tok or     # hyphenated
+            any(c.isdigit() for c in tok) or  # contains a number
+            sum(1 for c in tok if c.isupper()) >= 2 or  # CamelCase/ACRONYM
+            tok.isupper()  # ALL CAPS acronym
+        )
+        if not looks_technical:
+            return False
+    return True
+
+
+def _looks_definitional(defn: str) -> bool:
+    """Heuristic: does this definition string look like a real definition?
+
+    Filters out short narrative fragments. We want substantive prose:
+    at least 25 chars and ideally containing a relational/structural
+    word like 'of', 'with', 'that', 'which', 'in', etc.
+    """
+    if not defn or len(defn) < 25:
+        return False
+    low = defn.lower()
+    # At least one connective that signals a substantive predicate
+    connectives = (' of ', ' with ', ' that ', ' which ', ' in ',
+                    ' for ', ' on ', ' by ', ' from ', ' to ',
+                    ' between ', ' among ', ' equal ', ' defined ',
+                    ' called ', ' known ', ' formed ', ' based ')
+    if not any(c in low for c in connectives):
         return False
     return True
 
@@ -568,7 +678,7 @@ def _extract_from_research(text: str) -> List[Tuple[str, str]]:
         defn = re.sub(r"\s+", " ", m.group(2)).strip()
         if not _good_subject(name):
             continue
-        if len(defn) < 15:
+        if not _looks_definitional(defn):
             continue
         key = name.lower()
         if key in seen:
