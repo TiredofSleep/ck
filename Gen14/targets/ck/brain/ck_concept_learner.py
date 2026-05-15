@@ -222,12 +222,45 @@ class ConceptStore:
         return len(self.concepts)
 
     def save(self) -> None:
+        """Persist the store, merging with anything on disk that we
+        don't already have in memory.
+
+        This prevents concurrent writers (e.g. study daemon + synthesizer)
+        from clobbering each other's additions. The merge rule: in-memory
+        wins for concepts we know about; disk wins for concepts we don't.
+
+        Cost: an extra disk read per save. Acceptable for safety.
+        """
         try:
             self.path.parent.mkdir(parents=True, exist_ok=True)
-            self.path.write_text(json.dumps(
-                {k: v.as_dict() for k, v in self.concepts.items()},
-                indent=2,
-            ), encoding="utf-8")
+            # Read whatever's on disk first
+            disk: Dict[str, Any] = {}
+            if self.path.exists():
+                try:
+                    disk = json.loads(self.path.read_text(encoding="utf-8"))
+                    if not isinstance(disk, dict):
+                        disk = {}
+                except Exception:
+                    disk = {}
+            # Merge: in-memory takes priority on collisions
+            merged: Dict[str, Any] = {}
+            for k, v in disk.items():
+                if k not in self.concepts:
+                    merged[k] = v
+            for k, c in self.concepts.items():
+                merged[k] = c.as_dict()
+            # Atomic write via temp + rename
+            tmp = self.path.with_suffix(self.path.suffix + ".tmp")
+            tmp.write_text(json.dumps(merged, indent=2), encoding="utf-8")
+            tmp.replace(self.path)
+            # Update in-memory to reflect the merge so subsequent saves
+            # carry the disk-only concepts forward.
+            for k, v in disk.items():
+                if k not in self.concepts:
+                    try:
+                        self.concepts[k] = NamedConcept(**v)
+                    except Exception:
+                        continue
         except Exception:
             pass
 
