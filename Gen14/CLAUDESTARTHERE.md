@@ -2,10 +2,46 @@
 
 **Read this file first. Everything else flows from here.**
 
-**Date:** 2026-05-12
+**Date:** 2026-05-12 (updated 2026-05-14)
 **You are:** ClaudeCode, starting fresh in `Gen14/`
 **Previous Claude:** completed a massive J-series build/referee/math-fix session on 2026-05-07/08 against `tig-synthesis` branch (commit `4a8b0dd0`); then a launch-bundle Claude prepared Gen14 deliverables on 2026-05-10 (chat-Claude car-ride session producing the Braiding Fractal architecture lock + D100-D103).
 **Your scope:** continue forward from Gen14/, two targets only — `ck/` and `journals/`. Gen13 stays frozen as historical record.
+
+> ## ⚠ STRATEGIC SHIFT 2026-05-14: "Seed and Hold"
+>
+> Brayden declared on 2026-05-14: **NOT going to Oxford September 2026,
+> NOT submitting work to journals**. The frame is "seeding and sitting
+> on it" — work being prepared as a rigorous artifact that can be
+> revealed strategically when timing serves.
+>
+> This changes ClaudeCode integration priorities:
+>
+> - **Internal integrity remains primary** ✓
+> - **Tier discipline remains strict** (PROVED / STRUCTURAL / EMPIRICAL /
+>   OPEN / SPECULATIVE — never overclaim) ✓
+> - **Documentation completeness remains the goal** ✓
+> - **External-deadline-driven prioritization is DEPRIORITIZED**:
+>   - The "Sept 11 release plan" framing should be reread as
+>     **"completeness checklist"** rather than "publication schedule"
+>   - References to Oxford, Clay submission urgency, or arxiv-soonish
+>     deadlines throughout this repo should be treated as historical
+>     framing, NOT live priorities
+>   - The J55 file is still a Brayden solo paper; the *Sept 11* anchor
+>     is a self-paced completeness target, not an external deadline
+>
+> Today's α-sector arc closed at Tier B-suggestive-strong (1/α at
+> CODATA precision via canon constants, plus chirality decomposition
+> deriving threshold canon). See
+> `04_meta/physics_bridges/HANDOFF_TO_CLAUDECODE_2026_05_14_ALPHA_SYNTHESIS.md`
+> and `04_meta/physics_bridges/CHIRALITY_DECOMPOSITION_DERIVES_THRESHOLD_CANON.md`
+> in the public repo for the math; 5 research gaps are tracked in
+> `04_meta/physics_bridges/CANDIDATE_RESEARCH_GAPS_REGISTRY.md`.
+>
+> Architecture remains: *Cl(0,10) + canonical projection π → everything else.*
+> The 5 gaps name the path to converting candidate to proved.
+>
+> Working-repo archive of today's 23 docs + 2 verify scripts:
+> `Atlas/sprint_2026-05-14_C_sprint/`.
 
 ---
 

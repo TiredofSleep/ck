@@ -718,6 +718,17 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_concept_learner: failed ({e})")
         results['concept_learner'] = False
 
+    # Memory archive: short-term sliding window + long-term journal of
+    # every conversation, indexed by session/topic/date. Persistent
+    # across reboots. Voice polish surfaces relevant prior turns when
+    # the user references something CK discussed before.
+    try:
+        from ck_memory_archive import mount_memory_archive  # type: ignore[import-not-found]
+        results['memory_archive'] = mount_memory_archive(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_memory_archive: failed ({e})")
+        results['memory_archive'] = False
+
     # Voice polish: white-box presentation. Must run LAST so it sees the
     # final chat result AND has access to formula_registry, proactive
     # signals, etc.
