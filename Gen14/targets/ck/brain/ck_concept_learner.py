@@ -512,13 +512,48 @@ def _name_to_id(x: Any) -> Optional[int]:
 # multi-word concepts, definitions, named formulas) and store them as
 # tier=EXTERNAL so CK grows his knowledge from every research call.
 
-# Pattern: a capitalised concept name followed by ' is ' or ' = ' and
-# a definition fragment. Keeps things conservative — only crystallise
-# if the pattern is clearly definitional.
+# Pattern: a capitalised noun phrase (1-6 tokens) followed by 'is'/'are'
+# and a definitional clause. Multi-line definitions allowed (re.S); the
+# regex sentence-anchors via a lookbehind for .!?\n so we don't pick up
+# mid-sentence noise. Leading articles ("A", "An", "The") are skipped
+# non-capturingly so "A Hilbert space is..." extracts "Hilbert space".
 _RE_RESEARCH_DEF = re.compile(
-    r"\b([A-Z][A-Za-z0-9_-]{3,40})\s+(?:is|are)\s+(?:a |an |the )?"
-    r"([a-z][^.!\n]{15,200}[.!])",
-    re.M)
+    r"(?:\A|(?<=[.!?\n]))\s*"  # sentence-start
+    r"(?:[Aa]n?\s+|[Tt]he\s+)?"  # skip leading article
+    r"([A-Z][\w-]+(?:[ \-][\w-]+){0,5})\s+"  # subject (1-6 capitalised tokens)
+    r"(?:is|are)\s+(?:an?|the)?\s*"  # 'is/are' + optional inner article
+    r"([a-z][^.!]{15,300}[.!])",  # definition until next .!
+    re.M | re.S)
+
+# Subjects that look capitalized but are common-English starters, not
+# real concepts. Filtered after match to keep the regex permissive.
+_SUBJ_STOPWORDS = {
+    'It', 'This', 'That', 'These', 'Those', 'There', 'Here',
+    'What', 'When', 'Where', 'Which', 'Why', 'Who', 'How',
+    'For', 'But', 'And', 'Or', 'So', 'If', 'Yet', 'Nor',
+    'However', 'Therefore', 'Thus', 'Hence', 'Indeed', 'Then',
+    'Today', 'Yesterday', 'Tomorrow', 'Now', 'Soon', 'Also',
+    'Note', 'Notice', 'Recall', 'Remember', 'See', 'Look',
+    'I', 'You', 'We', 'They', 'He', 'She',
+}
+
+
+def _good_subject(s: str) -> bool:
+    """Sanity-check a captured subject string."""
+    if not s or not (4 <= len(s) <= 80):
+        return False
+    first = s.split()[0]
+    if first in _SUBJ_STOPWORDS:
+        return False
+    if not first[0].isupper():
+        return False
+    if not any(c.isalpha() for c in s):
+        return False
+    # Reject all-CAPS-words-only that match an operator name (CK already
+    # knows these via crystals; storing them as concepts is noise).
+    if first.lower() in _CK_OPS:
+        return False
+    return True
 
 
 def _extract_from_research(text: str) -> List[Tuple[str, str]]:
@@ -529,8 +564,9 @@ def _extract_from_research(text: str) -> List[Tuple[str, str]]:
     seen: set = set()
     for m in _RE_RESEARCH_DEF.finditer(text):
         name = m.group(1).strip()
-        defn = m.group(2).strip()
-        if not _is_novel(name):
+        # Collapse internal whitespace (definition crossed a newline)
+        defn = re.sub(r"\s+", " ", m.group(2)).strip()
+        if not _good_subject(name):
             continue
         if len(defn) < 15:
             continue

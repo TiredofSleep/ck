@@ -74,7 +74,9 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 HERE = Path(__file__).parent.resolve()
 sys.path.insert(0, str(HERE))
 
-from ck_concept_learner import ConceptStore, NamedConcept  # type: ignore[import-not-found]
+from ck_concept_learner import (  # type: ignore[import-not-found]
+    ConceptStore, NamedConcept, _extract_from_research,
+)
 
 
 # Repo root: 4 levels up from Gen14/targets/ck/brain
@@ -106,6 +108,9 @@ _MD_GLOBS = [
     # other text formats CK can read
     "**/*.txt",
     "**/*.rst",
+    # External corpora (world ingest, tier=EXTERNAL by default)
+    "external_corpora/**/*.txt",
+    "external_corpora/**/*.md",
 ]
 _TEX_GLOBS = [
     "Gen13/**/*.tex",
@@ -196,7 +201,10 @@ _STATUS_KEYWORD_TO_TIER = {
 
 def detect_tier_from_path(source_path: str) -> str:
     """Default tier based on the file's location in the repo."""
-    sp = str(source_path)
+    sp = str(source_path).replace("\\", "/")
+    # External-world corpus (Gutenberg, arXiv, Wikipedia, etc.)
+    if "external_corpora/" in sp or "external_corpora\\" in str(source_path):
+        return "EXTERNAL"
     for kw in _SPECULATIVE_PATH_KEYWORDS:
         if kw in sp:
             return "SPECULATIVE"
@@ -491,6 +499,35 @@ def extract_concepts_py(text: str, source_path: str
     return [(name, defn, "py_docstring")]
 
 
+def extract_concepts_prose(text: str, source_path: str
+                             ) -> List[Tuple[str, str, str]]:
+    """Pull (name, definition, role) triples from natural prose.
+
+    Uses the same _extract_from_research regex that research_first findings
+    use — designed for natural-language definitional sentences like
+    "Riemann zeta function is the analytic continuation of ..." rather
+    than markdown-formatted theorem tables. Used for Gutenberg books,
+    arXiv abstracts, Wikipedia articles, etc.
+    """
+    out: List[Tuple[str, str, str]] = []
+    if not text or len(text) < 50:
+        return out
+    # Trim Gutenberg headers/footers (the license boilerplate is huge and
+    # contains uppercase "PROJECT GUTENBERG" patterns we don't want.)
+    SP = text
+    s = SP.find("*** START OF")
+    if s >= 0:
+        e = SP.find("\n", s)
+        if e > 0:
+            SP = SP[e + 1:]
+    f = SP.find("*** END OF")
+    if f >= 0:
+        SP = SP[:f]
+    for name, defn in _extract_from_research(SP):
+        out.append((name, defn, "prose:definition"))
+    return out
+
+
 def study_one_file(path: Path, store: ConceptStore,
                     voice_store: Dict[str, Any],
                     voice_seen: Optional[set] = None) -> Dict[str, int]:
@@ -506,6 +543,7 @@ def study_one_file(path: Path, store: ConceptStore,
 
     ext = path.suffix.lower()
     rel = str(path)
+    is_external = "/external_corpora/" in rel.replace("\\", "/")
     extracted: List[Tuple[str, str, str]] = []
     if ext in (".md", ".markdown", ".rst", ".txt"):
         extracted = extract_concepts_md(text, rel)
@@ -513,6 +551,19 @@ def study_one_file(path: Path, store: ConceptStore,
         extracted = extract_concepts_tex(text, rel)
     elif ext == ".py":
         extracted = extract_concepts_py(text, rel)
+
+    # For external-corpus files, ALSO run the natural-prose extractor.
+    # The markdown extractor catches **bold** terms and theorem tables;
+    # extract_concepts_prose catches "X is Y." natural-language defs.
+    # Both feed the same dedup/tier logic below.
+    if is_external:
+        prose_hits = extract_concepts_prose(text, rel)
+        # Dedup by name (lower) so we don't double-count
+        seen_names = {n.lower() for n, _, _ in extracted}
+        for n, d, r in prose_hits:
+            if n.lower() not in seen_names:
+                extracted.append((n, d, r))
+                seen_names.add(n.lower())
 
     path_tier = detect_tier_from_path(rel)
     tier_dist: Dict[str, int] = {}

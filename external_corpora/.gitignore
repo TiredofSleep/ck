@@ -1,0 +1,7 @@
+# The corpus content itself is bulk-fetched, not version-controlled.
+# Only the directory structure + manifest are tracked.
+books/
+arxiv/
+wikipedia/
+_logs/
+_manifest.jsonl
