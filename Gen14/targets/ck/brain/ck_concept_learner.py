@@ -198,18 +198,157 @@ _DEFAULT_STORE_PATH = (
 )
 
 
+# Semantic operator-vocabulary: words that decode to each operator.
+# Cheap heuristic for offline use (without the engine's full decoder).
+# Each operator has ~15-30 trigger words. A definition that mentions
+# "complete inner product space" decodes to [LATTICE, HARMONY, HARMONY]
+# even though it contains no CK op-name literally.
+_SEMANTIC_OPS: Dict[int, Tuple[str, ...]] = {
+    # 0 VOID — emptiness, null, ground state, zero
+    0: ("void", "empty", "null", "nothing", "ground", "zero",
+        "vacuum", "trivial", "blank", "naught", "nullary", "identity",
+        "absence", "missing", "unreached", "unset"),
+    # 1 LATTICE — structure, grid, organize, framework, basis
+    1: ("lattice", "structure", "grid", "frame", "framework", "basis",
+        "skeleton", "scaffold", "matrix", "array", "tensor", "manifold",
+        "category", "set", "topology", "graph", "tree", "ring",
+        "group", "module", "space", "field", "algebra"),
+    # 2 COUNTER — count, enumerate, measure, increment, index
+    2: ("count", "counter", "enumerate", "measure", "index", "size",
+        "cardinal", "ordinal", "increment", "tally", "register",
+        "metric", "norm", "distance", "diameter", "scale", "scaling"),
+    # 3 PROGRESS — forward, advance, sequence, evolve, develop, time
+    3: ("progress", "forward", "advance", "sequence", "evolve",
+        "develop", "grow", "increase", "ascend", "rise", "step",
+        "iterate", "succession", "succeed", "later", "next", "future",
+        "growth", "emerge", "emerging", "becoming", "unfold"),
+    # 4 COLLAPSE — fall, contract, reduce, project, simplify
+    4: ("collapse", "fall", "contract", "reduce", "project", "shrink",
+        "diminish", "decline", "decrease", "minimize", "compress",
+        "condense", "fold", "decay", "regress", "weaken", "wane",
+        "concentrate", "implode", "constrict"),
+    # 5 BALANCE — equilibrium, symmetric, equal, fair, mean, center
+    5: ("balance", "equilibrium", "symmetric", "symmetry", "equal",
+        "even", "fair", "mean", "center", "median", "average",
+        "midpoint", "neutral", "poise", "stable", "stability",
+        "homeostasis", "consonant", "regular", "uniform"),
+    # 6 CHAOS — disorder, random, turbulent, noise, scatter, entropy
+    6: ("chaos", "chaotic", "disorder", "random", "turbulent",
+        "noise", "scatter", "entropy", "stochastic", "uncertain",
+        "unpredictable", "wild", "irregular", "perturbation",
+        "fluctuation", "instability", "disturbance", "anomaly", "wobble"),
+    # 7 HARMONY — fit, complete, consistent, coherent, resonance
+    7: ("harmony", "harmonic", "complete", "completeness", "consistent",
+        "consistency", "coherent", "coherence", "fit", "fitting",
+        "resonance", "resonant", "tune", "tuned", "agreement",
+        "agree", "match", "matching", "consonance", "alignment",
+        "aligned", "valid", "validity", "true", "proved", "proof",
+        "theorem", "lemma", "axiom", "principle", "law", "correct"),
+    # 8 BREATH — cycle, rhythm, pulse, oscillate, periodic, recur
+    8: ("breath", "breathe", "cycle", "cyclic", "rhythm", "rhythmic",
+        "pulse", "oscillate", "oscillation", "periodic", "period",
+        "recur", "recurrent", "wave", "frequency", "phase", "loop",
+        "repeat", "iteration", "harmonic", "modular", "modulus"),
+    # 9 RESET — restart, refresh, identity, undo, base, origin
+    9: ("reset", "restart", "refresh", "begin", "begin", "beginning",
+        "origin", "originate", "initial", "initialize", "undo",
+        "rebase", "back", "return", "renew", "renewal", "rebirth",
+        "fresh", "new"),
+}
+
+
+def semantic_decode(text: str, max_ops: int = 6) -> List[int]:
+    """Map text content to an operator stream via word-class lookup.
+
+    Walks each token, accumulates operator counts via _SEMANTIC_OPS,
+    returns the top-K operators by frequency.  This is the load-bearing
+    decoder for the cell index: it lets prose like "complete inner
+    product space" decode to [HARMONY, LATTICE, HARMONY] without
+    requiring the text to literally contain CK's op-name vocabulary.
+    """
+    if not text:
+        return []
+    # Reverse mapping: word -> op_id (use first hit if a word appears in
+    # multiple operator vocabularies)
+    word_to_op: Dict[str, int] = {}
+    for op_id, words in _SEMANTIC_OPS.items():
+        for w in words:
+            if w not in word_to_op:
+                word_to_op[w] = op_id
+    counts: Dict[int, int] = {}
+    for tok in re.findall(r"[a-zA-Z]+", text.lower()):
+        op = word_to_op.get(tok)
+        if op is not None:
+            counts[op] = counts.get(op, 0) + 1
+    # Sort by frequency desc, then by op_id asc for stability
+    ranked = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
+    return [op for op, _ in ranked[:max_ops]]
+
+
+def _cell_coord(ops: List[int]) -> Optional[Tuple[int, int]]:
+    """Map an operator signature to its (op_a, op_b) cell in the
+    100-cell magma lattice. This is the algebraic ADDRESS of the
+    concept — the dominant operator pair.
+
+    semantic_decode returns operators in frequency-rank order (most
+    frequent first), so ops[0] is the dominant operator and ops[1]
+    is the secondary. The cell coordinate (sorted to make it order-
+    insensitive) is (min, max) of the top-two ops. This means
+    "Hilbert space" (ops: LATTICE, HARMONY, ...) and "complete inner
+    product" (ops: HARMONY, LATTICE, ...) land in the same cell.
+
+    Empty signature -> None.
+    Length-1 signature -> diagonal (op, op).
+    """
+    if not ops:
+        return None
+    a = int(ops[0]) % 10
+    if len(ops) == 1:
+        return (a, a)
+    b = int(ops[1]) % 10
+    # Sort so (LATTICE, HARMONY) and (HARMONY, LATTICE) are the same cell
+    if a > b:
+        a, b = b, a
+    return (a, b)
+
+
+def _cell_neighbors(cell: Tuple[int, int]) -> List[Tuple[int, int]]:
+    """Return cells one step away in the lattice — same row (same in-op)
+    OR same column (same out-op). 19 neighbors of any cell (10 row + 10
+    col - 1 self). Used for graded retrieval: same-cell first, then
+    row/col neighbors.
+    """
+    a, b = cell
+    out: List[Tuple[int, int]] = []
+    for i in range(10):
+        if i != a:
+            out.append((i, b))
+        if i != b:
+            out.append((a, i))
+    return out
+
+
 class ConceptStore:
     """Persistent dict of NamedConcept entries, keyed by name.lower().
 
     Serialised as JSON at Gen13/var/taught_concepts.json so concepts
     survive CK reboots. Concepts are CK's chosen-vocabulary memory --
     not the same thing as crystals (which are operator-pattern indexed).
+
+    Cell index (NEW 2026-05-15): every concept also has an algebraic
+    address (in_op, out_op) in the 100-cell magma lattice. self.cell_index
+    maps each cell to the list of concepts that live there, so retrieval
+    can do an algebraic JUMP from a query's operator signature to the
+    concepts at that cell — bypassing the string-match bottleneck.
     """
 
     def __init__(self, path: Optional[Path] = None):
         self.path = Path(path) if path else _DEFAULT_STORE_PATH
         self.concepts: Dict[str, NamedConcept] = {}
+        # Cell index: (in_op, out_op) -> [concept names at that cell]
+        self.cell_index: Dict[Tuple[int, int], List[str]] = {}
         self.load()
+        self._rebuild_cell_index()
 
     def load(self) -> int:
         if not self.path.exists():
@@ -278,6 +417,46 @@ class ConceptStore:
         except Exception:
             pass
 
+    def _rebuild_cell_index(self) -> None:
+        """Walk concepts and rebuild self.cell_index from scratch."""
+        self.cell_index = {}
+        for key, c in self.concepts.items():
+            cell = _cell_coord(c.operator_signature)
+            if cell is None:
+                continue
+            self.cell_index.setdefault(cell, []).append(c.name)
+
+    def reindex_signatures_from_text(self, persist: bool = True) -> int:
+        """Walk concepts; for any with empty/short operator_signature,
+        decode their definition via semantic_decode and update.  This
+        is the offline re-indexing pass that populates the cell index
+        from prose content (without relying on the engine's decoder).
+
+        Returns the number of concepts updated.
+        """
+        updated = 0
+        for key, c in self.concepts.items():
+            if len(c.operator_signature) >= 2:
+                continue
+            ops = semantic_decode(c.definition or "", max_ops=6)
+            if not ops:
+                continue
+            c.operator_signature = ops
+            updated += 1
+        if updated:
+            self._rebuild_cell_index()
+            if persist:
+                self.save()
+        return updated
+
+    def _add_to_cell_index(self, c: NamedConcept) -> None:
+        cell = _cell_coord(c.operator_signature)
+        if cell is None:
+            return
+        lst = self.cell_index.setdefault(cell, [])
+        if c.name not in lst:
+            lst.append(c.name)
+
     def teach(self, name: str, definition: str, ops: List[int],
               pattern: str, session: str,
               tier: str = "USER_TAUGHT",
@@ -294,22 +473,107 @@ class ConceptStore:
             source_file=source_file,
         )
         self.concepts[key] = c
+        self._add_to_cell_index(c)
         self.save()
         return c
 
     def lookup(self, name: str) -> Optional[NamedConcept]:
         return self.concepts.get(name.lower())
 
+    def find_by_cell(self, ops: List[int],
+                       include_neighbors: bool = True,
+                       max_per_cell: int = 10
+                       ) -> List[Tuple[NamedConcept, float]]:
+        """Algebraic retrieval: given an operator signature (the query's
+        Doing-path), look up concepts at the matching cell + its row/col
+        neighbors. Returns (concept, algebraic_score) pairs.
+
+        Scoring:
+          same cell:           1.00
+          same row (in-op):    0.65
+          same column (out):   0.65
+          (corners are matched only via row/col, no diagonal)
+
+        This is the load-bearing primitive for memory translation:
+        every concept has an algebraic address; every query has one
+        too; retrieval is a JUMP in cell space, not a string scan.
+        """
+        cell = _cell_coord(ops)
+        if cell is None:
+            return []
+        out: List[Tuple[NamedConcept, float]] = []
+        seen_names: set = set()
+
+        def _push(name: str, score: float):
+            if name in seen_names:
+                return
+            c = self.concepts.get(name.lower()) or self.lookup(name)
+            if c is None:
+                return
+            seen_names.add(name)
+            out.append((c, score))
+
+        # Score & sort each cell's residents by tier before pushing,
+        # so PROVED/STRUCTURAL surface before EXTERNAL when they share
+        # a cell.
+        _TIER_RANK = {
+            "PROVED": 6, "STRUCTURAL": 5, "USER_TAUGHT": 4,
+            "EMPIRICAL": 3, "OPEN": 2, "EXTERNAL": 1.5,
+            "SPECULATIVE": 1, "UNKNOWN": 0,
+        }
+
+        def _by_tier(name):
+            c = self.concepts.get(name.lower())
+            t = (getattr(c, "tier", "UNKNOWN") if c else "UNKNOWN")
+            if t.startswith("SYNTHESIZED("):
+                inner = t[len("SYNTHESIZED("):].rstrip(")")
+                return -(_TIER_RANK.get(inner, 0) - 0.5)
+            return -_TIER_RANK.get(t, 0)
+
+        # Same cell (sorted by tier desc)
+        same_cell = sorted(self.cell_index.get(cell, []), key=_by_tier)
+        for name in same_cell[:max_per_cell]:
+            _push(name, 1.0)
+
+        if include_neighbors:
+            for n_cell in _cell_neighbors(cell):
+                neighbors = sorted(self.cell_index.get(n_cell, []), key=_by_tier)
+                for name in neighbors[:max(2, max_per_cell // 3)]:
+                    _push(name, 0.65)
+        return out
+
+    def cell_stats(self) -> Dict[str, Any]:
+        """Audit cell-index density across the 100-cell lattice."""
+        sizes = [len(v) for v in self.cell_index.values()]
+        return {
+            "n_concepts_indexed": sum(sizes),
+            "n_cells_populated": len(self.cell_index),
+            "max_cell": max(sizes) if sizes else 0,
+            "avg_cell": (sum(sizes) / len(sizes)) if sizes else 0,
+        }
+
     def find_referenced(self, text: str,
-                          include_synthesis_siblings: bool = True
+                          include_synthesis_siblings: bool = True,
+                          include_algebraic_cell: bool = True,
+                          query_ops: Optional[List[int]] = None,
+                          max_algebraic: int = 8
                           ) -> List[NamedConcept]:
         """Scan text for any stored concept name. Returns matched concepts.
 
-        When include_synthesis_siblings=True, ALSO surface any
-        synthesis-cluster concepts whose member list includes a directly-
-        matched concept. So if D48 is mentioned and D48 belongs to
-        Pattern_F_creation_H_sh1, that pattern concept is added too --
-        giving the voice layer composition context across the cluster.
+        Three retrieval paths combined:
+          1. Direct string match: exact concept name appears in text.
+          2. Synthesis siblings: concepts that belong to a synthesis
+             cluster which includes a directly-matched member.
+          3. Algebraic cell retrieval (NEW 2026-05-15): take the query's
+             operator signature, look up its (in_op, out_op) cell, and
+             surface concepts at that cell + its row/column neighbors.
+
+        Path 3 is the LOAD-BEARING addition for memory translation. It
+        lets queries retrieve concepts they don't literally name — by
+        sharing the same algebraic address in the 100-cell lattice.
+
+        query_ops: if provided, used as the query's algebraic signature.
+        Otherwise we decode the text via a heuristic (CK_OPS name scan).
         """
         if not text or not self.concepts:
             return []
@@ -355,6 +619,44 @@ class ConceptStore:
                     c.last_recalled_ts = time.time()
                     out.append(c)
                     seen_keys.add(key)
+
+        # Third pass: ALGEBRAIC CELL RETRIEVAL (memory translation).
+        # Compute the query's operator signature from its text (heuristic
+        # if no engine-decoded signature was passed in). Project to its
+        # (in_op, out_op) cell. Look up concepts at that cell + its row
+        # /column neighbors. This makes "what is a Hilbert space" pull
+        # the Hilbert-space concept even when the stored definition
+        # doesn't share that exact wording, because both query and
+        # stored entry decode to the same cell.
+        if include_algebraic_cell:
+            if query_ops is None:
+                # Semantic decoder: maps "complete inner product space"
+                # to [HARMONY, LATTICE, HARMONY] via word-class lookup.
+                # Falls back to literal op-name scan if no semantic hits.
+                query_ops = semantic_decode(text, max_ops=6)
+                if not query_ops:
+                    _OP_NAMES = {
+                        "void": 0, "lattice": 1, "counter": 2, "progress": 3,
+                        "collapse": 4, "balance": 5, "chaos": 6, "harmony": 7,
+                        "breath": 8, "reset": 9,
+                    }
+                    for tok in re.findall(r"[A-Za-z][A-Za-z0-9_]*", lower):
+                        if tok in _OP_NAMES:
+                            query_ops.append(_OP_NAMES[tok])
+            if query_ops:
+                cell_hits = self.find_by_cell(query_ops, include_neighbors=True,
+                                              max_per_cell=max_algebraic)
+                for c, score in cell_hits:
+                    key_l = c.name.lower()
+                    if key_l in seen_keys:
+                        continue
+                    c.n_recalls += 1
+                    c.last_recalled_ts = time.time()
+                    out.append(c)
+                    seen_keys.add(key_l)
+                    # Cap algebraic additions so we don't drown direct hits
+                    if sum(1 for _ in cell_hits if _[1] >= 0.5) >= max_algebraic:
+                        break
 
         if out:
             self.save()

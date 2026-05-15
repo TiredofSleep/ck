@@ -75,7 +75,7 @@ HERE = Path(__file__).parent.resolve()
 sys.path.insert(0, str(HERE))
 
 from ck_concept_learner import (  # type: ignore[import-not-found]
-    ConceptStore, NamedConcept, _extract_from_research,
+    ConceptStore, NamedConcept, _extract_from_research, semantic_decode,
 )
 
 
@@ -460,6 +460,18 @@ def extract_prose_samples(text: str, source_path: str,
 # ─── Operator decoding ──────────────────────────────────────────────────
 
 def _operator_signature(text: str) -> List[int]:
+    """Decode text -> operator stream.
+
+    Tries the semantic decoder first (word-class -> op mapping over a
+    ~200-word vocabulary across all 10 operators); falls back to literal
+    op-name scan if nothing matches.  This populates the cell-index
+    coordinate for every concept extracted from prose.
+    """
+    # Primary path: semantic decoder (handles natural-language prose)
+    ops = semantic_decode(text, max_ops=6)
+    if ops:
+        return ops
+    # Fallback: literal CK op-name scan
     NAMES = {
         "void": 0, "lattice": 1, "counter": 2, "progress": 3, "collapse": 4,
         "balance": 5, "chaos": 6, "harmony": 7, "breath": 8, "reset": 9,
@@ -780,6 +792,14 @@ def main():
     print(f"[study-overnight] store before : {len(store.concepts)} concepts")
     print(f"[study-overnight] mode         : "
           f"{'infinite' if args.infinite else ('watch' if args.watch else 'one-pass')}")
+
+    # One-time re-index: any concept with empty operator_signature gets
+    # semantic_decode applied to its definition, so the cell index is
+    # dense before the first retrieval pass.
+    updated = store.reindex_signatures_from_text(persist=True)
+    if updated:
+        print(f"[study-overnight] reindexed    : {updated:,} concepts got new signatures")
+    print(f"[study-overnight] cell index   : {store.cell_stats()}")
     print()
 
     # First pass
