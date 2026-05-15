@@ -563,7 +563,11 @@ _SUBJ_STOPWORDS = {
     # Adverbs + dialect-renderings sometimes capitalized
     'Still', 'Just', 'Even', 'Only', 'Almost', 'Nearly',
     'Quite', 'Rather', 'Pretty', 'Very',
+    'Probably', 'Likely', 'Certainly', 'Absolutely',
+    'Inhuman', 'Inhuman',  # poetry adjective starts
     'Dat', 'Dis', 'Dese', 'Dose',   # dialect / EBONICS spellings
+    # Negations
+    'Not', 'Never', 'No',
 }
 
 # Common phrase-starters that signal narrative or generic abstract-talk
@@ -598,6 +602,9 @@ _SUBJ_CLAUSE_MARKERS = (
     ' when ', ' if ', ' while ', ' as ', ' though ',
     ' although ', ' because ', ' since ', ' unless ',
     ' that ', ' which ', ' who ', ' whose ', ' whom ',
+    ' we ', ' our ', ' my ', ' your ', ' their ',
+    ' he ', ' she ', ' they ', ' it ',
+    ' less ', ' more ', ' very ', ' so ',
 )
 
 # Bare-noun "The X" patterns that are too generic to be a concept name.
@@ -630,6 +637,14 @@ _GENERIC_BARE_NOUNS = {
     'leaves', 'limit', 'limits', 'sum', 'product', 'list',
     'name', 'names', 'title', 'word', 'words',
     'formulae', 'data',
+    # More noise patterns observed in real ingest
+    'metric', 'theory', 'formalism', 'solution', 'velocity',
+    'effect', 'ingredients', 'exponential', 'jar', 'compound',
+    'resemblance', 'discord', 'pang', 'pines', 'risk',
+    'master', 'attendant', 'colleges', 'feelings', 'wish',
+    'corresponding', 'far-field', 'speed',
+    'others', 'rest', 'whole', 'half', 'part', 'parts',
+    'sides', 'side', 'edge', 'edges', 'top', 'bottom',
 }
 
 
