@@ -172,6 +172,9 @@ def synthesize(store: ConceptStore,
         )
         # Tier inherits weakest member's tier
         tier = _tier_of_cluster(members)
+        # Full member name list -- stored explicitly so find_referenced
+        # can do exact-set lookup without parsing the truncated prose.
+        member_names = sorted({m.name for m in members})
         syn = NamedConcept(
             name=cluster_name,
             definition=defn,
@@ -181,6 +184,7 @@ def synthesize(store: ConceptStore,
             learned_ts=now,
             tier=f"SYNTHESIZED({tier})",
             source_file="(synthesized from store)",
+            members=member_names,
         )
         new_concepts.append(syn)
 

@@ -182,6 +182,11 @@ class NamedConcept:
     tier: str = "UNKNOWN"
     # Source-file path (where the concept was extracted from)
     source_file: str = ""
+    # For synthesis concepts: the full list of member concept names that
+    # were clustered together. Empty for non-synthesis concepts. Stored
+    # explicitly (not parsed from definition prose) so retrieval can do
+    # an exact-set check rather than substring search.
+    members: List[str] = field(default_factory=list)
 
     def as_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -213,9 +218,18 @@ class ConceptStore:
             data = json.loads(self.path.read_text(encoding="utf-8"))
         except Exception:
             return 0
+        # Build a set of valid NamedConcept fields so we silently drop
+        # any unknown keys (schema-drift tolerance) instead of erroring.
+        try:
+            from dataclasses import fields as _dc_fields
+            _ok_keys = {f.name for f in _dc_fields(NamedConcept)}
+        except Exception:
+            _ok_keys = None
         for k, v in (data or {}).items():
             if isinstance(v, dict):
                 try:
+                    if _ok_keys is not None:
+                        v = {kk: vv for kk, vv in v.items() if kk in _ok_keys}
                     self.concepts[k] = NamedConcept(**v)
                 except Exception:
                     continue
@@ -317,16 +331,26 @@ class ConceptStore:
         # in its sibling cluster.
         if include_synthesis_siblings and out:
             matched_names = {c.name for c in out}
+            matched_keys_lower = {n.lower() for n in matched_names}
             for key, c in self.concepts.items():
                 if key in seen_keys:
                     continue
                 if c.source_session != "synthesis":
                     continue
-                # Look at the cluster's member list in definition prose
-                # (the synthesizer wrote "Members: D48, D43, ..." inline)
-                defn = c.definition or ""
-                # Cheap check: does any matched name appear in the defn?
-                if any(name in defn for name in matched_names):
+                # Authoritative path: synthesis concepts carry an
+                # explicit members list (added 2026-05-14). Use exact-
+                # set intersection over case-folded names.
+                cluster_members_lower = {
+                    str(n).lower() for n in (getattr(c, "members", None) or [])
+                }
+                fired = bool(cluster_members_lower & matched_keys_lower)
+                # Backwards-compat: legacy synthesis concepts predating
+                # the members field have empty lists. Fall back to the
+                # truncated prose substring check so they still surface.
+                if not fired and not cluster_members_lower:
+                    defn = c.definition or ""
+                    fired = any(name in defn for name in matched_names)
+                if fired:
                     c.n_recalls += 1
                     c.last_recalled_ts = time.time()
                     out.append(c)
