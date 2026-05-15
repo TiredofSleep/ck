@@ -499,21 +499,54 @@ def extract_concepts_py(text: str, source_path: str
     return [(name, defn, "py_docstring")]
 
 
+# Words whose presence in the first 5KB of a text signals it's a math /
+# philosophy / science work where the prose extractor will yield real
+# definitions rather than narrative.  Fiction-only books lack these.
+_SCIENTIFIC_MARKERS = (
+    'theorem', 'lemma', 'proof', 'corollary', 'proposition',
+    'definition', 'axiom', 'postulate', 'hypothesis',
+    'equation', 'inequality', 'formula', 'function',
+    'philosophy', 'philosophical', 'metaphysics', 'epistemology',
+    'logic', 'reason', 'reasoning', 'syllogism', 'inference',
+    'mathematics', 'mathematical', 'calculus', 'algebra', 'geometry',
+    'number theory', 'probability', 'statistics',
+    'physics', 'physical', 'chemistry', 'biology', 'science',
+    'algorithm', 'computation', 'set theory', 'topology',
+    'principia', 'critique', 'discourse', 'treatise', 'essay',
+    'analysis', 'synthesis', 'category',
+    # arxiv-style markers
+    'abstract:', 'arxiv id:', 'category: math', 'category: hep', 'category: gr-',
+    'category: quant', 'category: cond-', 'doi:', 'preprint',
+)
+
+
+def looks_scientific(text: str, sample_chars: int = 6000) -> bool:
+    """Return True if the first ~6KB of text looks like math/philosophy/science.
+
+    Used to gate the prose-definition extractor: we only run it on books
+    that contain technical vocabulary, otherwise the regex picks up
+    narrative grammatical "X is Y" patterns that aren't real concepts.
+    """
+    if not text:
+        return False
+    sample = text[:sample_chars].lower()
+    hits = sum(1 for m in _SCIENTIFIC_MARKERS if m in sample)
+    return hits >= 2  # need at least 2 distinct markers to be confident
+
+
 def extract_concepts_prose(text: str, source_path: str
                              ) -> List[Tuple[str, str, str]]:
     """Pull (name, definition, role) triples from natural prose.
 
-    Uses the same _extract_from_research regex that research_first findings
-    use — designed for natural-language definitional sentences like
-    "Riemann zeta function is the analytic continuation of ..." rather
-    than markdown-formatted theorem tables. Used for Gutenberg books,
-    arXiv abstracts, Wikipedia articles, etc.
+    Uses _extract_from_research (research-prose-friendly regex). To
+    avoid extracting narrative fragments from fiction, we only run on
+    texts whose first ~6KB contains technical vocabulary (looks_scientific).
+    Pure fiction is left alone here; it still feeds voice_style samples.
     """
     out: List[Tuple[str, str, str]] = []
     if not text or len(text) < 50:
         return out
-    # Trim Gutenberg headers/footers (the license boilerplate is huge and
-    # contains uppercase "PROJECT GUTENBERG" patterns we don't want.)
+    # Trim Gutenberg headers/footers
     SP = text
     s = SP.find("*** START OF")
     if s >= 0:
@@ -523,6 +556,12 @@ def extract_concepts_prose(text: str, source_path: str
     f = SP.find("*** END OF")
     if f >= 0:
         SP = SP[:f]
+    # arxiv files always pass (they have abstract markers); books only
+    # if they contain technical vocabulary
+    src_lower = source_path.lower().replace("\\", "/")
+    is_arxiv = "/arxiv/" in src_lower
+    if not is_arxiv and not looks_scientific(SP):
+        return out  # fiction-only: skip concept extraction, voice only
     for name, defn in _extract_from_research(SP):
         out.append((name, defn, "prose:definition"))
     return out
