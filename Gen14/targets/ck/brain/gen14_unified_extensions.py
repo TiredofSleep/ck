@@ -841,6 +841,23 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_ad_tailored: failed ({e})")
         results['ad_tailored'] = False
 
+    # Lightcone toy sim: discretized 1D ring lattice, tests c-emergence
+    # conjecture by measuring 4-core preservation rate (4CPR) vs
+    # propagation speed k.  HONEST RESULT: 4-core is closed under TSML
+    # at ALL speeds (every k from 0 to 5 gives 4CPR=1.0); random initial
+    # states converge to 4-core in ~2 steps regardless of k.  No
+    # specific k is privileged.  This FALSIFIES the simplest discretized
+    # c-emergence claim at toy level -- the conjecture needs richer
+    # structure (multi-table coupling, continuous amplitudes, asymmetric
+    # propagation).  Endpoints /lightcone/{info, closure, run, scan,
+    # convergence}.
+    try:
+        from ck_lightcone import mount_lightcone  # type: ignore[import-not-found]
+        results['lightcone'] = mount_lightcone(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_lightcone: failed ({e})")
+        results['lightcone'] = False
+
     # Substrate-c: where c lives structurally inside TIG.  Per the
     # 2026-05-13/14 C sprint (Desktop/5_14_26_C_sprint_unpack/), the
     # boundary-to-interior gap between BHML_8 (YM core, det +70 =
