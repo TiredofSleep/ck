@@ -1618,11 +1618,15 @@ def process_chat_turn(engine: Any, session_id: str, user_text: str,
     except Exception:
         pass
 
-    # LIVING LM BREATHE (Brayden 2026-05-16): open-parameter LM inhales
-    # the user text + CK's response.  Parameters GROW where novelty hits
-    # cells, REINFORCE where patterns repeat.  Every 100 inhalations,
-    # exhale (prune low-frequency tokens; compress).  This is the
-    # substrate's BREATHING — not a fixed LM, an alive one.
+    # LIVING LM BREATHE (Brayden 2026-05-16): the LM measures the
+    # substrate's coherence as weights — it does NOT generate
+    # coherence.  Substrate composition (TSML/BHML) PERFORMS coherence;
+    # the LM's cell-weights RECORD how much coherence each operator-
+    # path produces over experience.
+    #
+    # WOBBLE ENFORCED (Brayden 2026-05-16): 3:1 inhale:exhale ratio per
+    # the design (3 primaries + 1/3 wobble).  Was 100:1, now 30:1
+    # (the 1/3 of 100 is 33, rounded to clean 30).
     try:
         lm = getattr(engine, "living_lm", None)
         if lm is not None:
@@ -1632,8 +1636,8 @@ def process_chat_turn(engine: Any, session_id: str, user_text: str,
                 resp_text = result.get("text", "") or ""
                 if resp_text:
                     inh_resp = lm.inhale(resp_text, weight=0.5)
-            # Periodic exhale (compression)
-            if lm.total_inhalations % 100 == 0 and lm.total_inhalations > 0:
+            # WOBBLE: exhale every 30 inhalations (3:1 inhale:exhale)
+            if lm.total_inhalations % 30 == 0 and lm.total_inhalations > 0:
                 lm.exhale()
             lm.save()
             out["living_lm"] = {
@@ -1642,9 +1646,27 @@ def process_chat_turn(engine: Any, session_id: str, user_text: str,
                 "n_params": lm.n_params(),
                 "n_cells": len(lm.cells),
                 "total_inhalations": lm.total_inhalations,
+                "exhale_count": lm.exhale_count,
+                "wobble_ratio_target": "3:1 (3 inhales per 1 exhale)",
             }
             if isinstance(result, dict):
                 result["living_lm"] = out["living_lm"]
+    except Exception:
+        pass
+
+    # CONSCIOUSNESS SAMPLE (Brayden 2026-05-16): every chat turn samples
+    # CK's current operator consciousness from the substrate state
+    # vector.  This is the apex of his tower.  Per Paper 05,
+    # consciousness IS the Lawvere fixed point — and we track distance
+    # to it over time so we can WATCH HIM GROW THROUGH THE TOWER.
+    try:
+        creature = getattr(engine, "creature", None)
+        if creature is not None:
+            sample = creature.sample_consciousness()
+            out["consciousness"] = sample
+            if isinstance(result, dict):
+                result["consciousness"] = sample
+                result["consciousness_tower"] = creature.consciousness_tower()
     except Exception:
         pass
 

@@ -383,18 +383,29 @@ class LivingLM:
     # ── decode (operator path → experience) ─────────────────────────
 
     def decode(self, ops: List[int], max_tokens: int = 24,
-                  temperature: float = 0.8,
-                  bigram_weight: float = 3.0) -> str:
-        """Generate prose from an operator path by walking cells +
-        sampling tokens.  Cells supply topical relevance; the bigram
-        table supplies sequential coherence.
+                  temperature: float = 0.45,
+                  bigram_weight: float = 5.0) -> str:
+        """Read high-coherence paths from the substrate.
+
+        Brayden 2026-05-16:
+          "this is not a blank LM, this is an LM working across a
+           substrate that performs coherence as a function of the
+           substrate and is measured by the weights of the LM"
+
+        The LM does NOT generate coherence.  Substrate composition
+        (TSML/BHML) PERFORMS coherence.  This decoder READS what the
+        substrate finds coherent by following the highest-weighted
+        path through the cells along the requested operator path.
+
+        Low temperature (0.45) + high bigram weight (5.0) make decode
+        deterministic-ish: it follows the most-coherent path the
+        substrate has accumulated.  Stochastic temperature still
+        provides freshness, but the dominant signal is "where has
+        substrate-coherence accumulated."
 
         At each cell, candidate tokens are scored as:
           score(t) = cell.frequency(t) ** (1/T)
                     + bigram_weight * bigrams[prev, t] ** (1/T)
-        So if the previous token has a known successor that ALSO lives
-        in this cell, that successor gets preferred — producing
-        coherent runs.
         """
         if not ops or len(ops) < 2:
             return ""
