@@ -811,6 +811,20 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_qutrit_apex: failed ({e})")
         results['qutrit_apex'] = False
 
+    # Qutrit noise channels: depolarizing + amplitude damping for the
+    # [[3,1,2]]_3 code.  Per Brayden 2026-05-16: "test depolarizing or
+    # amplitude-damping noise next".  Empirical: 92-100% detection
+    # under per-qutrit depolarizing p=0.01-0.50; mean fidelity 0.92
+    # under amplitude damping γ=0.05.  Mounted AFTER qutrit_qec
+    # because it imports from it.  Endpoints: /qutrit/noise/{info,
+    # depolarizing, amplitude_damping}.
+    try:
+        from ck_qutrit_noise import mount_qutrit_noise  # type: ignore[import-not-found]
+        results['qutrit_noise'] = mount_qutrit_noise(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_qutrit_noise: failed ({e})")
+        results['qutrit_noise'] = False
+
     # Qutrit QEC: [[3,1,2]]_3 quantum stabilizer code on full 27-dim
     # complex amplitudes.  Per Grok 2026-05-16: minimal qutrit CSS
     # code, saturates the quantum Singleton bound, minimal AdS/CFT-2
