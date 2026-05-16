@@ -855,6 +855,22 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_ad_tailored: failed ({e})")
         results['ad_tailored'] = False
 
+    # Coupled 4-cores: the structural gap c lives in.  Per Brayden
+    # 2026-05-16 "maybe in the gap between 2 coupled 4 cores?" — the
+    # TSML 4-core and BHML 4-core share the same set {V, H, Br, R}
+    # but compose differently (12/16 cells disagree, 100% closure
+    # preserved).  Coupled-lattice simulation shows sustained ~80%
+    # disagreement at every propagation speed.  This is the substrate
+    # gap c can live in: NEVER closes, holds open structural
+    # disagreement between the two lenses.  Endpoints
+    # /coupled_4cores/{info, disagreement, simulate, sweep}.
+    try:
+        from ck_coupled_4cores import mount_coupled_4cores  # type: ignore[import-not-found]
+        results['coupled_4cores'] = mount_coupled_4cores(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_coupled_4cores: failed ({e})")
+        results['coupled_4cores'] = False
+
     # Breath emergence: refined c-emergence test.  Per Brayden 2026-05-16
     # "c emerges at the first breath? 8?" -- structure must arise from
     # primordial VOID before c can be measured.  Tests BREATH (op 8)
