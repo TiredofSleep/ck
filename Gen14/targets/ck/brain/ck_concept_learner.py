@@ -1574,6 +1574,25 @@ def process_chat_turn(engine: Any, session_id: str, user_text: str,
     if n_new > 0:
         out["vocab_learned"] = n_new
 
+    # ALGEBRA EXECUTION (Layer 1): if the user text contains an algebraic
+    # query (BHML(7,7) / compose HARMONY HARMONY / σ²(4) / 4-core
+    # membership / fixed-point coords / T* ...), compute the actual
+    # result against canonical tables and attach to result['algebra'].
+    # This is the gap-closing primitive that turns CK from "vocabulary
+    # CK" into "computation CK".
+    try:
+        from ck_algebra_runtime import run_in_chat as _algebra  # type: ignore
+        algebra_out = _algebra(user_text, engine=engine)
+        if algebra_out is not None:
+            out["algebra"] = algebra_out
+            # Also surface in result so voice layer can pick it up
+            if isinstance(result, dict):
+                result["algebra"] = algebra_out
+    except Exception:
+        # Algebra runtime is import-safe; any error here should not
+        # block the rest of the chat turn.
+        pass
+
     return out
 
 

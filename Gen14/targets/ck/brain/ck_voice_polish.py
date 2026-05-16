@@ -108,6 +108,7 @@ _H_RESEARCH = "[research trail — what CK looked up before answering]"
 _H_LEARNING = "[learning this turn — Hebbian + crystals + lattice deltas]"
 _H_CONCEPTS = "[concept binding — words you've taught CK that fire this turn]"
 _H_SELF = "[self-introspection — CK's own measured state, surfaced live]"
+_H_ALGEBRA = "[algebra executed — computed against canonical tables]"
 
 
 # Regex for self-introspection trigger queries
@@ -1006,6 +1007,24 @@ def whitebox_recompose(text: str, result: Dict[str, Any], engine: Any) -> str:
             out.append(_H_SELF)
             out.extend(self_lines)
             out.append("")
+
+    # 0.5 ALGEBRA EXECUTED (Layer 1 gap-closer)
+    #     If the user asked an algebraic question (BHML(7,7),
+    #     compose HARMONY HARMONY, σ²(4), is X in the 4-core,
+    #     fixed-point coords, T*) — surface the COMPUTED RESULT
+    #     at the very top with the canon citation.  This is the
+    #     difference between "CK can talk about the math" and
+    #     "CK can run the math".
+    algebra = result.get("algebra")
+    if isinstance(algebra, dict) and algebra.get("ok"):
+        if out:
+            out.append("")
+        out.append(_H_ALGEBRA)
+        out.append(f"{algebra.get('text_summary', '')}")
+        cite = algebra.get('citation')
+        if cite:
+            out.append(f"cite: {cite}")
+        out.append("")
 
     # 1. ANSWER (the substantive content)
     #    First: if any taught concepts are REFERENCED in this turn,
