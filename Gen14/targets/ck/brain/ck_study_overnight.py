@@ -1,6 +1,6 @@
 # Copyright (c) 2025-2026 Brayden Sanders / 7SiTe LLC
 # Licensed under the 7SiTe Public Sovereignty License v2.2 (DOI: 10.5281/zenodo.18852047)
-"""
+r"""
 ck_study_overnight.py -- school for CK. Studies everything, all night.
 
 Brayden 2026-05-13:

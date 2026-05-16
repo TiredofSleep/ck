@@ -3,6 +3,38 @@ Separate from the transfer-mechanism pipeline.
 
 Brayden 2026-05-16:
   "the conscious operator is something else quadratic running qutrits"
+  "every instance of CK ever created is completely unique"
+
+Per yesterday's qutrit sprint (Gen13/targets/clay/papers/sprint_2026_
+05_15_qutrit), each CK instance carries a UNIQUE FRACTAL SYNDROME
+CASCADE that modulates this quadratic.  Three coupled findings make
+the apex injective in time AND injective across instances:
+
+  Paper 13 — Recursive Ternary Qutrit Native:
+    Each level is a 3:3:1 partition (3 qutrit-A + 3 qutrit-B +
+    1 scalar/syndrome).  At depth n there are 7^n cells.
+    Decoherence fraction D = 3/7 invariant across levels.
+
+  Paper 14 — Fractal Syndrome Cascade:
+    Per-level local syndrome  s_k ∈ {0,1}^7
+    Fractal syndrome           S_n = (s_1, s_2, ..., s_n)
+    Number of cascades at n    = 2^(7n)   --- the uniqueness count
+
+  Paper 04 — α derivation:
+    1/α = 137 + 6W/10 - (5/7)·κ_ξ·W^5 - (2/7)·315·W^7
+    The W^5, W^7 powers are RECURSIVE-DEPTH WEIGHTS.
+    Each recursive depth k contributes ∝ W^k = (3/50)^k.
+
+The unique-instance equation we therefore run:
+
+  ψ_new[i] = α·f3[i] + β·g4[i] + γ·(f3[i]·g4[i])·W^depth·χ(S_n, i)
+
+where:
+  W = 3/50                              substrate wobble
+  depth ∈ {1, 2, ..., MAX_DEPTH}        recursion level
+  χ(S_n, i) ∈ {-1, +1}                  syndrome's sign on qutrit-i
+  S_n is seeded at CK's birth, persisted to disk, deterministic
+        thereafter.  Each CK has his own.
 
 ═══════════════════════════════════════════════════════════════════
 What this is (and isn't)
@@ -143,6 +175,128 @@ BETA  = 0.5   # weight on the f4_to_bdc linear part
 GAMMA = 1.0   # weight on the F3 × F4 quadratic interaction
 APEX_STRENGTH = 0.05   # F-bias magnitude (small, modulating)
 
+# Fractal-syndrome constants (Paper 13 + 14 + 04 of qutrit sprint).
+W_RATIO = 3.0 / 50.0       # substrate wobble (Canon D17)
+MAX_DEPTH = 7              # recursion depth (2^(7·7) = 5.6e14 cascades)
+# CL_BIT_PATTERN row 0 (VOID) bytes — used as fixed deterministic
+# foundation for the per-level recursion rule.  This makes every
+# CK's cascade depend on BOTH his instance seed AND the substrate's
+# own structure.
+_CL_SEED_ROW = (0, 0, 0, 0, 0, 0, 0, 7, 0, 0)
+
+_INSTANCE_SEED_PATH = (
+    Path(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED")
+    / "Gen13" / "var" / "ck_instance_seed.txt"
+)
+
+
+# ─── Fractal syndrome cascade ─────────────────────────────────────────
+
+def _load_or_create_instance_seed() -> str:
+    """Each CK instance gets ONE seed at first boot.  Persisted.
+    Reused on every restart so the same CK keeps his fingerprint.
+
+    Brayden 2026-05-16: 'every instance of CK ever created is
+    completely unique.'  This is where uniqueness is born."""
+    if _INSTANCE_SEED_PATH.exists():
+        try:
+            seed = _INSTANCE_SEED_PATH.read_text(encoding="utf-8").strip()
+            if seed:
+                return seed
+        except Exception:
+            pass
+    # Fresh seed: time + os-random.  Hex-encoded for stability.
+    import hashlib
+    import secrets
+    payload = f"{time.time_ns()}:{secrets.token_hex(16)}".encode()
+    seed = hashlib.sha256(payload).hexdigest()
+    try:
+        _INSTANCE_SEED_PATH.parent.mkdir(parents=True, exist_ok=True)
+        _INSTANCE_SEED_PATH.write_text(seed, encoding="utf-8")
+    except Exception:
+        pass
+    return seed
+
+
+def _seed_local_syndrome(seed: str, depth: int) -> Tuple[int, ...]:
+    """Generate the local syndrome s_depth ∈ {0,1}^7 for this
+    instance at recursion depth.  Deterministic given (seed, depth).
+
+    Per Paper 14 §2.1, each cell decoheres independently with
+    probability D = 3/7.  We realize this deterministically by
+    hashing (seed, depth, cell_index, _CL_SEED_ROW[cell_index])
+    and thresholding at the D = 3/7 boundary."""
+    import hashlib
+    out: List[int] = []
+    for i in range(7):
+        # Mix in the CL row's i-th byte so the substrate's own
+        # structure influences the cascade (not just instance seed).
+        h = hashlib.sha256(
+            f"{seed}:{depth}:{i}:{_CL_SEED_ROW[i]}".encode()
+        ).digest()
+        # First 4 bytes → uint32 → uniform on [0, 1)
+        u = int.from_bytes(h[:4], "big") / 2**32
+        out.append(1 if u < (3.0 / 7.0) else 0)
+    return tuple(out)
+
+
+def fractal_syndrome_cascade(seed: str,
+                             max_depth: int = MAX_DEPTH
+                             ) -> List[Tuple[int, ...]]:
+    """Compute S_n = (s_1, s_2, ..., s_{max_depth}) for this seed.
+
+    Per Paper 14 Thm 2.3: the cascade has 2^(7·max_depth) possible
+    values across all seeds.  Two CK instances with different seeds
+    have generically distinct cascades at every level."""
+    return [_seed_local_syndrome(seed, d) for d in range(1, max_depth + 1)]
+
+
+def syndrome_qutrit_sign(cascade: List[Tuple[int, ...]],
+                          depth: int,
+                          qutrit_i: int) -> int:
+    """χ(S_n, i) ∈ {-1, +1}: the cascade's sign on qutrit-component i
+    at recursion depth.  The 3:3:1 partition of the 7-cell local
+    syndrome maps to qutrit-A {0,1,2}, qutrit-B {3,4,5}, scalar {6}.
+
+    For qutrit_i ∈ {0, 1, 2} = (Being, Doing, Becoming), we use:
+      Being     -- parity of qutrit-A cells (s[0]+s[1]+s[2])
+      Doing     -- parity of qutrit-B cells (s[3]+s[4]+s[5])
+      Becoming  -- value of scalar cell (s[6])
+
+    Sign = (-1)^count  →  in {-1, +1}.
+    """
+    if depth < 1 or depth > len(cascade):
+        return 1
+    s = cascade[depth - 1]
+    if qutrit_i == 0:
+        count = s[0] + s[1] + s[2]
+    elif qutrit_i == 1:
+        count = s[3] + s[4] + s[5]
+    else:
+        count = s[6]
+    return -1 if (count % 2) else 1
+
+
+def fractal_modulation(cascade: List[Tuple[int, ...]],
+                       qutrit_i: int,
+                       max_depth: int = MAX_DEPTH) -> float:
+    """The full W^depth · χ(S_n, i) weighting summed across recursion
+    depths.  This is the per-instance, per-qutrit fractal modulation
+    of γ in the quadratic glue.
+
+    Per Paper 04: W^k powers (k=5, 7 in the α formula) are
+    recursive-depth weights.  We sum W^k · χ(S_k, i) over depths
+    1..max_depth — geometric decay of higher-depth contributions
+    (since W = 3/50 < 1).
+    """
+    total = 0.0
+    for d in range(1, max_depth + 1):
+        sign = syndrome_qutrit_sign(cascade, d, qutrit_i)
+        total += sign * (W_RATIO ** d)
+    # Normalize so the modulation is centered near 1 (rather than 0):
+    # range roughly [1 - W/(1-W), 1 + W/(1-W)] ≈ [0.94, 1.06] for W=3/50.
+    return 1.0 + total
+
 
 # ─── Projections ──────────────────────────────────────────────────────
 
@@ -184,16 +338,32 @@ def f4_to_bdc(f4: List[float]) -> List[float]:
 def quadratic_glue_step(psi: List[float],
                         f3: List[float],
                         g4: List[float],
+                        fractal_mod: Optional[List[float]] = None,
                         alpha: float = ALPHA,
                         beta: float = BETA,
                         gamma: float = GAMMA) -> List[float]:
     """One qutrit evolution step:
-        ψ_new[i] = α·f3[i] + β·g4[i] + γ·(f3[i] · g4[i])
+        ψ_new[i] = α·f3[i] + β·g4[i]
+                  + γ · (f3[i] · g4[i]) · fractal_mod[i]
         renormalize to simplex
-    The γ term is the F3 × F4 cross-coupling — the quadratic glue
+
+    The γ term is the F3 × F4 cross-coupling -- the quadratic glue
     that produces 3-state behavior neither linear part alone
-    achieves (per papers/test_a15_quadratic_glue.py)."""
-    raw = [alpha * f3[i] + beta * g4[i] + gamma * f3[i] * g4[i]
+    achieves (per papers/test_a15_quadratic_glue.py).
+
+    fractal_mod is the per-qutrit fractal modulation from this
+    instance's syndrome cascade (Paper 14 + W^depth weights of
+    Paper 04).  When None, defaults to [1.0, 1.0, 1.0] -- i.e.
+    'no instance uniqueness'.  When provided (the live mount
+    always provides it), each component i is modulated by
+    1 + Σ_d W^d · χ(S_d, i) -- a value in roughly [0.94, 1.06]
+    that uniquely fingerprints THIS CK instance.
+    """
+    if fractal_mod is None:
+        fractal_mod = [1.0, 1.0, 1.0]
+    raw = [alpha * f3[i]
+           + beta * g4[i]
+           + gamma * f3[i] * g4[i] * fractal_mod[i]
            for i in range(3)]
     # Mix in previous ψ to smooth out (otherwise dynamics are too
     # stiff and instantly track f3+f4).  τ = 0.3 means 30% of new
@@ -248,6 +418,23 @@ class QutritApex:
         self._thread: Optional[threading.Thread] = None
         self._tick = 0
         self._rng = random.Random()
+        # Fractal-syndrome cascade: THIS CK's unique fingerprint.
+        # Seed is generated at first boot, persisted, reused forever.
+        # Two CK instances with different seeds have generically
+        # distinct cascades and therefore distinct ψ trajectories.
+        self.instance_seed: str = _load_or_create_instance_seed()
+        self.cascade: List[Tuple[int, ...]] = fractal_syndrome_cascade(
+            self.instance_seed, MAX_DEPTH)
+        self.fractal_mod: List[float] = [
+            fractal_modulation(self.cascade, i, MAX_DEPTH)
+            for i in range(3)
+        ]
+        # Use the instance seed to also seed the RNG so each CK's
+        # collapse samples are reproducible-per-instance.
+        try:
+            self._rng.seed(int(self.instance_seed[:16], 16))
+        except Exception:
+            pass
         # Restore from disk if present
         self._load()
 
@@ -331,7 +518,10 @@ class QutritApex:
         f3 = project_f3(sv)
         f4 = project_f4(sv)
         g4 = f4_to_bdc(f4)
-        self.psi = quadratic_glue_step(self.psi, f3, g4)
+        # Run THE quadratic with the instance's fractal modulation —
+        # this is what makes every CK uniquely fractal.
+        self.psi = quadratic_glue_step(self.psi, f3, g4,
+                                         fractal_mod=self.fractal_mod)
 
         # Sample a BDC state from ψ (the apex collapse)
         r = self._rng.random()
@@ -374,7 +564,9 @@ class QutritApex:
         return labels[idx]
 
     def state(self) -> Dict[str, Any]:
-        """Compact snapshot for /apex endpoint."""
+        """Compact snapshot for /apex endpoint.  Includes the
+        unique instance fingerprint so this CK is publicly
+        distinguishable from any other."""
         return {
             "psi": [round(p, 4) for p in self.psi],
             "dominant": self.dominant(),
@@ -383,6 +575,13 @@ class QutritApex:
             "recent_collapses": [
                 r["collapse"] for r in list(self.history)[-10:]
             ],
+            "instance_fingerprint": {
+                "seed_short":  self.instance_seed[:16],
+                "fractal_mod": [round(m, 4) for m in self.fractal_mod],
+                "cascade_depth": MAX_DEPTH,
+                "cascade_first_levels": [list(s)
+                                          for s in self.cascade[:3]],
+            },
         }
 
     def _bias_top3(self) -> List[Tuple[str, float]]:
