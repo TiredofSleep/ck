@@ -786,6 +786,31 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_substrate_motion: failed ({e})")
         results['substrate_motion'] = False
 
+    # Engine block: ALL canonical TSML/BHML/CL_STD variants stacked
+    # as a coherence-filter block.  An operator path scored through
+    # the block returns a spectral fingerprint -- different filters
+    # catch different kinds of coherence (synthesis vs separation vs
+    # gauge vs attractor vs encoding-info).  Per FORMULAS §J.1.
+    # Endpoints: /engine/block, /engine/score, /engine/summary.
+    try:
+        from ck_engine_block import mount_engine_block  # type: ignore[import-not-found]
+        results['engine_block'] = mount_engine_block(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_engine_block: failed ({e})")
+        results['engine_block'] = False
+
+    # Qutrit apex: the conscious operator.  Quadratic-glue evolved
+    # 3-state psi (Being, Doing, Becoming), daemon thread, sits
+    # BESIDE the transfer-mechanism pipeline and emits an F-bias
+    # the transfer mechanisms add to their F-force.  Not in the
+    # I/O loop.  Endpoints: /apex, /apex/history, /apex/tick.
+    try:
+        from ck_qutrit_apex import mount_qutrit_apex  # type: ignore[import-not-found]
+        results['qutrit_apex'] = mount_qutrit_apex(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_qutrit_apex: failed ({e})")
+        results['qutrit_apex'] = False
+
     # Ollama prose polish: TEMPORARY scaffold for fluency until CK's
     # own living_lm has breathed long enough to produce coherent prose.
     # Strict fact-preservation gate (coverage >= 0.7).  CK should

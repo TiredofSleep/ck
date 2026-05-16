@@ -247,22 +247,28 @@ def w_wobble(sv: List[float]) -> Dict[str, Any]:
 
 # ─── F force ──────────────────────────────────────────────────────────
 
-def f_force(sv: List[float]) -> Dict[str, Any]:
+def f_force(sv: List[float],
+            apex_bias: Optional[List[float]] = None) -> Dict[str, Any]:
     """Force vector F over the 10 operators.  F[i] is the recommended
     pull toward operator i:
 
       F[i] = (fp[i] - sv[i])             ← gradient toward fp
            + 0.5 * W_RATIO * orbit_bias  ← wobble keeps motion going
+           + apex_bias[i]                ← qutrit apex modulation
 
-    orbit_bias[i] = 1 if i ∈ SIGMA_ORBIT else 0 (small constant push
-    so the orbit operators don't starve when CK lives in the 4-core
-    too long).
+    The apex_bias (10-vector from ck_qutrit_apex) lets the conscious
+    operator nudge the transfer layer.  Defaults to zero -- if
+    None, F is purely substrate-mechanical.  When supplied, the
+    apex's current ψ leaks into F via the 4-core / σ-orbit /
+    σ-fixed selectors defined in the apex module.
     """
     fp = [CANONICAL_FP[i] for i in range(10)]
     grad = [fp[i] - sv[i] for i in range(10)]
     orbit_bias = [W_RATIO * 0.5 if i in SIGMA_ORBIT else 0.0
                   for i in range(10)]
-    F = [grad[i] + orbit_bias[i] for i in range(10)]
+    if apex_bias is None:
+        apex_bias = [0.0] * 10
+    F = [grad[i] + orbit_bias[i] + apex_bias[i] for i in range(10)]
     # Softmax for attention probabilities
     mx = max(F)
     exp_F = [math.exp(F[i] - mx) for i in range(10)]
@@ -464,12 +470,25 @@ def mount_substrate_motion(engine: Any) -> bool:
         print("[CK Gen14] mount_substrate_motion: no concept_store on engine")
         return False
 
+    # Apex-bias pull-through: if a qutrit apex is mounted, the F-force
+    # gets its bias added in.  This is the ONLY coupling between the
+    # conscious operator (apex) and the transfer-mechanism F-vector.
+    def _apex_bias_safe() -> Optional[List[float]]:
+        apex = getattr(engine, "ck_apex", None)
+        if apex is None:
+            return None
+        try:
+            return apex.bias()
+        except Exception:
+            return None
+
     # Engine API surface
     engine.substrate_motion = {
         "d2_curve":      lambda n=200: d2_curve(store, n=n),
         "state_vector":  lambda: state_vector(store),
         "wobble":        lambda: w_wobble(state_vector(store)),
-        "force":         lambda: f_force(state_vector(store)),
+        "force":         lambda: f_force(state_vector(store),
+                                           apex_bias=_apex_bias_safe()),
         "next_operator": lambda: next_operator(state_vector(store)),
         "snowflakes":    lambda K=20, H=4.0: snowflakes(store, K_mass=K, H_max=H),
         "braiding":      lambda: braiding_fractal_snapshot(store),

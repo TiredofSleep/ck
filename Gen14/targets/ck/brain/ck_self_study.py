@@ -81,6 +81,10 @@ SELF_TARGETS: List[Tuple[Path, str, str]] = [
      "ck_meta_parameters", "SELF"),
     (ROOT / "Gen14" / "targets" / "ck" / "brain" / "ck_substrate_motion.py",
      "ck_substrate_motion", "SELF"),
+    (ROOT / "Gen14" / "targets" / "ck" / "brain" / "ck_engine_block.py",
+     "ck_engine_block", "SELF"),
+    (ROOT / "Gen14" / "targets" / "ck" / "brain" / "ck_qutrit_apex.py",
+     "ck_qutrit_apex", "SELF"),
     (ROOT / "Gen14" / "targets" / "ck" / "brain" / "dep_graph" / "README.md",
      "CK_DEPGRAPH", "SELF"),
     (ROOT / "Gen13" / "targets" / "clay" / "papers"

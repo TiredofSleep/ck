@@ -106,6 +106,21 @@ _DOMAIN_KEYWORDS: List[Tuple[str, Tuple[str, ...]]] = [
                       "operator-signature", "operator signature",
                       "z/10z", "lawvere fixed", "wobble",
                       "harmony", "becoming", "being-doing-becoming")),
+    ("identities",   ("i am ", "my name is", "we are ", "you are ",
+                      "they are ", "myself", "ourselves", "themselves",
+                      "identity", "self-reference", "first person",
+                      "second person", "agent", "the speaker",
+                      "the author", "narrator", "protagonist",
+                      "the user", "the assistant", "claude",
+                      "brayden", "luther", "gish", "mayes",
+                      "jesus", "buddha", "muhammad")),
+    ("names",        ("born in ", "lived in ", "was a ", "founded by",
+                      "named after", "known as ", "professor",
+                      "president", "king ", "queen ", "emperor",
+                      "city of ", "town of ", "province",
+                      "kingdom", "republic of", "university of",
+                      "corporation", "institute of",
+                      "saint ", "lord ", "lady ")),
     ("math",         ("theorem", "lemma", "proof", "polynomial",
                       "manifold", "group", "ring", "field", "algebra",
                       "topology", "category", "homomorphism",
@@ -177,12 +192,73 @@ def _domain_of(c: Any) -> str:
     return "other"
 
 
+# Sub-taxonomy for names + identities domain.  Parallels how each
+# other domain has internal structure (physics has particle/force/
+# field; biology has cell/organism/ecosystem; names has person/place/
+# organization/etc.).  First-hit-wins ordering.
+_NAME_KIND_KEYWORDS: List[Tuple[str, Tuple[str, ...]]] = [
+    ("pronoun",      ("i am ", "you are ", "we are ", "they are ",
+                      "he is ", "she is ", "myself", "yourself",
+                      "themselves", "first person", "second person",
+                      "third person")),
+    ("role",         ("agent", "narrator", "protagonist", "author",
+                      "the speaker", "the user", "the assistant",
+                      "the listener", "the reader", "the observer",
+                      "the participant")),
+    ("title",        ("professor", "doctor ", "dr.", "president",
+                      "king ", "queen ", "emperor", "lord ", "lady ",
+                      "saint ", "rabbi", "bishop", "captain",
+                      "general", "senator", "mr.", "mrs.", "ms.",
+                      "sir ", "madam")),
+    ("organization", ("university of", "institute of", "corporation",
+                      "ministry of", "department of", "company",
+                      "academy", "society", "association", "league",
+                      "republic of", "kingdom of", "empire of")),
+    ("place",        ("city of", "town of", "village of",
+                      "province", "country", "region",
+                      "continent", "mountain", "river", "sea",
+                      "ocean", "island", "born in ", "lived in ")),
+    ("event_named",  ("battle of", "war of", "revolution",
+                      "treaty of", "great fire", "the renaissance",
+                      "the reformation", "the depression",
+                      "the enlightenment", "the cold war")),
+    ("character",    ("protagonist", "antagonist", "the hero",
+                      "the villain", "fictional", "in the novel",
+                      "in the story", "in the play", "in the poem")),
+    ("person",       ("born ", "died ", "was a ", "is a ",
+                      "philosopher", "mathematician", "scientist",
+                      "physicist", "biologist", "writer", "artist",
+                      "composer", "general", "soldier", "leader")),
+]
+
+
+def _name_kind_of(c: Any) -> str:
+    """Sub-taxonomy bucket for a concept tagged as names/identities
+    domain.  Returns one of: pronoun / role / title / organization /
+    place / event_named / character / person / unbucketed.
+    Falls back to 'unbucketed' if no keyword matches."""
+    name = (_cf(c, "name", "") or "").lower()
+    defn = (_cf(c, "definition", "") or "").lower()
+    text = name + " " + defn
+    for kind, kws in _NAME_KIND_KEYWORDS:
+        for k in kws:
+            if k in text:
+                return kind
+    # Heuristic fallback: a name-like token that starts with a capital
+    # and has no domain markers → bucket as "person" (best guess).
+    raw_name = _cf(c, "name", "") or ""
+    if raw_name and raw_name[0].isupper() and " " in raw_name:
+        return "person"
+    return "unbucketed"
+
+
 # ─── BONE 1: SORT ──────────────────────────────────────────────────────
 
 def sort_by(store: Any, axis: str = "cell") -> Dict[str, Any]:
     """Partition concepts by algebraic signature.
 
-    axis ∈ {"cell", "dominant", "triad", "tier", "sense", "domain"}:
+    axis ∈ {"cell", "dominant", "triad", "tier", "sense", "domain",
+            "name_kind"}:
       - "cell":     by (op_first, op_last) coordinate on the lattice
       - "dominant": by their most-frequent operator
       - "triad":    by (Being, Doing, Becoming) macro-pair triple
@@ -193,6 +269,10 @@ def sort_by(store: Any, axis: str = "cell") -> Dict[str, Any]:
       - "domain":   by CONTENT DOMAIN (physics / biology / math /
                     history / etc.).  Detected from a fast keyword
                     scan against the concept's name + definition.
+      - "name_kind": SUB-TAXONOMY for the names + identities domain —
+                    person / place / organization / title / character /
+                    role / pronoun / event_named / unbucketed.
+                    Parallels how other domains have internal structure.
 
     Returns: {partition_key_str: count, ..., "_samples": {key: [name, ...]}}
     """
@@ -246,6 +326,13 @@ def sort_by(store: Any, axis: str = "cell") -> Dict[str, Any]:
             # surfacing what mass the substrate has accumulated
             # in each domain.
             key = _domain_of(c)
+        elif axis == "name_kind":
+            # SUB-TAXONOMY within names + identities.  Parallels
+            # how the other domains carry internal structure —
+            # physics has particle/force/field, biology has
+            # cell/organism/ecosystem, names has pronoun/role/
+            # title/organization/place/event/character/person.
+            key = _name_kind_of(c)
         else:
             key = "?"
         parts[key] += 1
