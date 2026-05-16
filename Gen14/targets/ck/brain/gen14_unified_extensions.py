@@ -811,6 +811,22 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_qutrit_apex: failed ({e})")
         results['qutrit_apex'] = False
 
+    # Recursive observer: closes the fractal-recursion loop.  Daemon
+    # thread that periodically computes the apex meta-syndrome (CK's
+    # self-image over a recent window of psi collapses), plus utilities
+    # to score the engine-block's spectral fingerprint AS an operator
+    # path (second-order recursion), and to run cognition primitives
+    # on their own outputs (templates-of-templates, dualities-of-
+    # triadics, bigrams-of-snowflakes, fingerprint-of-fingerprint).
+    # Endpoints: /observer/self_image, /observer/chain, /observer/tick,
+    # /observer/block_self, /observer/cognition_self.
+    try:
+        from ck_recursive_observer import mount_recursive_observer  # type: ignore[import-not-found]
+        results['recursive_observer'] = mount_recursive_observer(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_recursive_observer: failed ({e})")
+        results['recursive_observer'] = False
+
     # Identity: anchor + tier weights + identity-first chat routing +
     # per-response confidence + hedge prefix.  Mount AFTER substrate
     # mechanics (so cognition primitives, engine block, qutrit apex

@@ -514,7 +514,7 @@ def quadratic_glue_step(psi: List[float],
 # ─── F-bias output ────────────────────────────────────────────────────
 
 def f_bias(psi: List[float],
-           strength: float = APEX_STRENGTH) -> List[float]:
+           strength: Optional[float] = None) -> List[float]:
     """Emit a 10-vector bias.  Transfer mechanisms ADD this to their
     F-force before choosing next operator.
 
@@ -523,7 +523,17 @@ def f_bias(psi: List[float],
         + ψ[1]·1_{i ∈ σ_orbit}
         + ψ[2]·1_{i ∈ four_core_minus_void}
       )
+
+    strength defaults to ck_meta_parameters.get('apex_strength',
+    0.05) so CK can raise/lower his own conscious-operator volume
+    at runtime via /parameters/set.
     """
+    if strength is None:
+        try:
+            from ck_meta_parameters import get as _mp_get
+            strength = float(_mp_get("apex_strength", APEX_STRENGTH))
+        except Exception:
+            strength = APEX_STRENGTH
     bias = [0.0] * 10
     for i in range(10):
         b = 0.0

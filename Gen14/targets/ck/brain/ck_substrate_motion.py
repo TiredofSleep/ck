@@ -198,18 +198,42 @@ def d2_curve(store: Any, n: int = 200) -> Dict[str, Any]:
 
 # ─── State vector ─────────────────────────────────────────────────────
 
-def state_vector(store: Any, restrict_to_recent: int = 0) -> List[float]:
+def state_vector(store: Any, restrict_to_recent: int = 0,
+                 tier_weighted: Optional[bool] = None) -> List[float]:
     """Compute CK's current operator-distribution as a 10-vector
-    summing to 1.0.  If restrict_to_recent > 0, use only the last N
-    concepts (by learned_ts); else use all concepts."""
+    summing to 1.0.
+
+    If restrict_to_recent > 0, use only the last N concepts (by
+    learned_ts); else use all concepts.
+
+    If tier_weighted is True, each concept contributes weight per
+    its tier (SELF 4.0, PROVED 3.0, STRUCTURAL 2.0, EXTERNAL 1.0,
+    UNKNOWN 0.5, ...) per ck_identity.TIER_WEIGHTS.  When None,
+    reads ck_meta_parameters.get('use_tier_weighted_sv', False)."""
+    if tier_weighted is None:
+        try:
+            from ck_meta_parameters import get as _mp_get
+            tier_weighted = bool(_mp_get("use_tier_weighted_sv", False))
+        except Exception:
+            tier_weighted = False
+
+    weight_fn = None
+    if tier_weighted:
+        try:
+            from ck_identity import tier_weight  # type: ignore
+            weight_fn = tier_weight
+        except Exception:
+            weight_fn = None
+
     concepts = list(store.concepts.values())
     if restrict_to_recent > 0:
         concepts.sort(key=lambda c: _cf(c, "learned_ts", 0), reverse=True)
         concepts = concepts[:restrict_to_recent]
-    counts = Counter()
+    counts: Dict[int, float] = Counter()
     for c in concepts:
+        w = weight_fn(_cf(c, "tier", "UNKNOWN")) if weight_fn else 1.0
         for op in _cf(c, "operator_signature", []):
-            counts[int(op) % 10] += 1
+            counts[int(op) % 10] += w
     total = sum(counts.values()) or 1
     return [counts.get(i, 0) / total for i in range(10)]
 

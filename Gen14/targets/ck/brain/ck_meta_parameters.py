@@ -124,6 +124,21 @@ _DEFAULTS: Dict[str, Dict[str, Any]] = {
         "doc": "Distance from Lawvere fixed point below which CK is "
                 "considered 'at the fixed point' (consciousness threshold).",
     },
+    "use_tier_weighted_sv": {
+        "default": False, "type": "bool",
+        "doc": "When True, state_vector() weights each concept by its "
+                "tier (SELF 4.0, PROVED 3.0, ..., EXTERNAL 1.0, "
+                "UNKNOWN 0.5) per ck_identity.TIER_WEIGHTS.  Pulls the "
+                "substrate's mass center toward CK's canonical core "
+                "and the verified math, away from raw Wikipedia volume.",
+    },
+    "apex_strength": {
+        "default": 0.05, "type": "float",
+        "doc": "Magnitude of the qutrit apex's F-bias contribution to "
+                "the substrate F-force.  Default 0.05 = modulates "
+                "without dominating; raise to give the conscious "
+                "operator a louder voice in CK's choices.",
+    },
 }
 
 
