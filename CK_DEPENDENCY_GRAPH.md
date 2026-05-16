@@ -1,8 +1,8 @@
 # CK Dependency Graph (auto-generated)
 
-_Generated 2026-05-16 16:04:22 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
+_Generated 2026-05-16 16:28:58 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
 
-**90 modules** tracked in `Gen14/targets/ck/brain/`.
+**91 modules** tracked in `Gen14/targets/ck/brain/`.
 
 ## 1. Mount order in `gen14_unified_extensions.mount_all`
 
@@ -30,15 +30,16 @@ This is the order things come alive at boot.  Each module's `mount_X(engine)` is
   19. mount_substrate_motion
   20. mount_engine_block
   21. mount_qutrit_apex
-  22. mount_self_protection
-  23. mount_qutrit_noise
-  24. mount_qutrit_qec
-  25. mount_qec_decoder
-  26. mount_writer
-  27. mount_recursive_observer
-  28. mount_identity
-  29. mount_ollama_polish
-  30. mount_voice_polish
+  22. mount_substrate_c
+  23. mount_self_protection
+  24. mount_qutrit_noise
+  25. mount_qutrit_qec
+  26. mount_qec_decoder
+  27. mount_writer
+  28. mount_recursive_observer
+  29. mount_identity
+  30. mount_ollama_polish
+  31. mount_voice_polish
 ```
 
 ## 2. Per-module summary
@@ -67,6 +68,7 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `ck_sense_decomposition` | 219 | — | `mount_sense_decomposition` | — |
 | `ck_spreading_activation` | 818 | — | `mount_spreading_recall` | — |
 | `ck_stroke_extractor` | 768 | — | `mount_stroke_extractor` | — |
+| `ck_substrate_c` | 434 | — | `mount_substrate_c` | — |
 | `ck_verifier` | 344 | — | — | — |
 | `clay_compare` | 253 | — | — | — |
 | `clay_study` | 285 | — | — | — |
@@ -136,7 +138,7 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `ck_concept_learner` | 2080 | `ck_algebra_runtime`, `ck_meta_parameters`, `ck_predictions`, `ck_verifier` | `mount_concept_learner` | — |
 | `ck_writer` | 752 | `ck_concept_learner`, `ck_identity`, `ck_living_lm`, `ck_ollama_polish` | `mount_writer` | — |
 | `ao_5element` | 308 | `ck_sim.ck_sim_body`, `ck_sim.ck_sim_brain`, `ck_sim.ck_sim_d2`, `ck_sim.ck_sim_heartbeat`, `ck_sim.ck_tig` | — | — |
-| `gen14_unified_extensions` | 1005 | `ck_cognition_primitives`, `ck_concept_learner`, `ck_creature`, `ck_engine_block`, `ck_formula_registry`, `ck_frontier_scanner`, `ck_identity`, `ck_living_lm`, `ck_memory_archive`, `ck_meta_parameters`, `ck_ollama_polish`, `ck_proactive_trigger`, `ck_qec_decoder`, `ck_qutrit_apex`, `ck_qutrit_noise`, `ck_qutrit_qec`, `ck_recursive_observer`, `ck_self_protection`, `ck_sense_decomposition`, `ck_sim.being.ck_divine_memory`, `ck_sim.being.ck_lattice_chain`, `ck_sim.doing.ck_forecast`, `ck_sim.doing.ck_goals`, `ck_spreading_activation`, `ck_stroke_extractor`, `ck_substrate_motion`, `ck_voice_polish`, `ck_writer` | `mount_drives`, `mount_forecast`, `mount_proactive_queue`, `mount_recall`, `mount_lattice_chain`, `mount_divine_memory`, `mount_algebraic_lm`, `mount_all` | — |
+| `gen14_unified_extensions` | 1021 | `ck_cognition_primitives`, `ck_concept_learner`, `ck_creature`, `ck_engine_block`, `ck_formula_registry`, `ck_frontier_scanner`, `ck_identity`, `ck_living_lm`, `ck_memory_archive`, `ck_meta_parameters`, `ck_ollama_polish`, `ck_proactive_trigger`, `ck_qec_decoder`, `ck_qutrit_apex`, `ck_qutrit_noise`, `ck_qutrit_qec`, `ck_recursive_observer`, `ck_self_protection`, `ck_sense_decomposition`, `ck_sim.being.ck_divine_memory`, `ck_sim.being.ck_lattice_chain`, `ck_sim.doing.ck_forecast`, `ck_sim.doing.ck_goals`, `ck_spreading_activation`, `ck_stroke_extractor`, `ck_substrate_c`, `ck_substrate_motion`, `ck_voice_polish`, `ck_writer` | `mount_drives`, `mount_forecast`, `mount_proactive_queue`, `mount_recall`, `mount_lattice_chain`, `mount_divine_memory`, `mount_algebraic_lm`, `mount_all` | — |
 
 ## 3. Reverse dependency graph
 
@@ -185,6 +187,7 @@ Who depends on each module (transitively trim by hand for full closure):
 | `ck_sim.doing.ck_goals` | `gen14_unified_extensions` |
 | `ck_spreading_activation` | `gen14_unified_extensions` |
 | `ck_stroke_extractor` | `gen14_unified_extensions` |
+| `ck_substrate_c` | `gen14_unified_extensions` |
 | `ck_substrate_motion` | `ck_qutrit_apex`, `gen14_unified_extensions` |
 | `ck_synthesizer` | `ck_study_overnight` |
 | `ck_tables` | `cell_audit`, `cells` |

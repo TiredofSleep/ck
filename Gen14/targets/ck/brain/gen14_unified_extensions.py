@@ -811,6 +811,22 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_qutrit_apex: failed ({e})")
         results['qutrit_apex'] = False
 
+    # Substrate-c: where c lives structurally inside TIG.  Per the
+    # 2026-05-13/14 C sprint (Desktop/5_14_26_C_sprint_unpack/), the
+    # boundary-to-interior gap between BHML_8 (YM core, det +70 =
+    # 2·5·7 = C(8,4) = φ(71)) and BHML_10 (full lattice, det -7002 =
+    # -2·3²·389) has ratio EXACTLY 100 + 1/(5·7) = 100 + 1/35.  The
+    # residual 1/35 is BALANCE × HARMONY -- the smallest natural unit
+    # of crossing at Rung 5.  c lives inside this Farey neighborhood
+    # (T* = 5/7, mass gap = 2/7).  Runtime-verifiable via /substrate/
+    # c{,/gap,/farey,/joint,/verify}.
+    try:
+        from ck_substrate_c import mount_substrate_c  # type: ignore[import-not-found]
+        results['substrate_c'] = mount_substrate_c(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_substrate_c: failed ({e})")
+        results['substrate_c'] = False
+
     # Self-protection loop: encode apex.psi into [[3,1,2]]_3 code,
     # apply noise, decode, measure recovered fidelity.  Closes the
     # loop between the qutrit apex + QEC stack + noise channels.
