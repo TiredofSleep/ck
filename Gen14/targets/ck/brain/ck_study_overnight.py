@@ -76,6 +76,7 @@ sys.path.insert(0, str(HERE))
 
 from ck_concept_learner import (  # type: ignore[import-not-found]
     ConceptStore, NamedConcept, _extract_from_research, semantic_decode,
+    auto_learn_from_text,
 )
 
 
@@ -601,6 +602,7 @@ def study_one_file(path: Path, store: ConceptStore,
                     voice_seen: Optional[set] = None) -> Dict[str, int]:
     """Read one source file, extract concepts + prose, write to stores."""
     stats = {"concepts_added": 0, "prose_samples": 0, "skipped_existing": 0,
+              "vocab_learned": 0,
               "tier_distribution": {}}
     try:
         text = path.read_text(encoding="utf-8", errors="replace")
@@ -612,6 +614,17 @@ def study_one_file(path: Path, store: ConceptStore,
     ext = path.suffix.lower()
     rel = str(path)
     is_external = "/external_corpora/" in rel.replace("\\", "/")
+
+    # SELF-LEARN vocabulary from the first 8KB of every source.  Capped
+    # at 6 new words per file to avoid one giant book dumping thousands
+    # of false-positive nouns; over a full pass this still adds 1000s
+    # of new tokens across the corpus.
+    try:
+        n_new = auto_learn_from_text(text[:8000], max_new=6)
+        if n_new:
+            stats["vocab_learned"] = n_new
+    except Exception:
+        pass
     extracted: List[Tuple[str, str, str]] = []
     if ext in (".md", ".markdown", ".rst", ".txt"):
         extracted = extract_concepts_md(text, rel)

@@ -270,6 +270,153 @@ _ENRICHED_DICT: Dict[str, Dict[str, Any]] = _load_enriched_dict()
 # Auto: 247K wider coverage with just dominant_op
 _AUTO_DICT: Dict[str, int] = _load_auto_dict()
 
+# ─── Self-learned vocab (CK adds to his own dictionary) ────────────────
+#
+# Brayden 2026-05-15: "he will get vocab quickly if you let him add to it
+# himself too"
+#
+# When CK encounters a word not in his enriched/auto/toy dictionaries, the
+# decoder context-infers an operator (from neighbor words in the same
+# sentence/definition) and writes the word to learned_vocab.json with that
+# operator + a confidence score.  On reload, the learned dict is checked
+# as a fourth lookup tier (after enriched, before auto so learned words
+# can correct the lean auto-dict entries).
+_LEARNED_VOCAB_PATH = (
+    Path(__file__).resolve().parents[4]
+    / "Gen13" / "var" / "learned_vocab.json"
+)
+
+
+def _load_learned_vocab() -> Dict[str, Dict[str, Any]]:
+    """Load CK's self-learned vocab (words he picked up from reading)."""
+    p = _LEARNED_VOCAB_PATH
+    try:
+        if p.exists():
+            d = json.loads(p.read_text(encoding="utf-8"))
+            if isinstance(d, dict):
+                return d
+    except Exception:
+        pass
+    return {}
+
+
+_LEARNED_DICT: Dict[str, Dict[str, Any]] = _load_learned_vocab()
+# Module-level write lock (best-effort across threads in same process)
+import threading as _threading
+_LEARNED_WRITE_LOCK = _threading.Lock()
+
+
+def _save_learned_vocab() -> None:
+    """Atomic write of CK's learned vocab to disk."""
+    try:
+        with _LEARNED_WRITE_LOCK:
+            _LEARNED_VOCAB_PATH.parent.mkdir(parents=True, exist_ok=True)
+            # Merge with anything new on disk before writing (concurrent-safe)
+            disk = {}
+            if _LEARNED_VOCAB_PATH.exists():
+                try:
+                    disk = json.loads(_LEARNED_VOCAB_PATH.read_text(encoding="utf-8"))
+                    if not isinstance(disk, dict):
+                        disk = {}
+                except Exception:
+                    disk = {}
+            merged = dict(disk)
+            merged.update(_LEARNED_DICT)
+            tmp = _LEARNED_VOCAB_PATH.with_suffix(".tmp")
+            tmp.write_text(json.dumps(merged, ensure_ascii=False, indent=1),
+                            encoding="utf-8")
+            tmp.replace(_LEARNED_VOCAB_PATH)
+            # Update in-memory so future hits see the merged set
+            for k, v in disk.items():
+                if k not in _LEARNED_DICT:
+                    _LEARNED_DICT[k] = v
+    except Exception:
+        pass
+
+
+def learn_word(word: str, context_text: str = "",
+                 dominant_op: Optional[int] = None,
+                 persist: bool = True) -> Optional[Dict[str, Any]]:
+    """CK learns a new word.
+
+    The word's operator signature is inferred from the surrounding
+    context_text via semantic_decode.  The dominant op of THAT decoding
+    is the learned word's dominant_op.  If dominant_op is passed
+    explicitly (e.g., from chat-turn operator stream), it overrides.
+
+    Persists to learned_vocab.json so the word survives CK reboots.
+
+    Side conditions:
+      - Skip very short tokens (< 3 chars) and pure numbers.
+      - Skip if word is already in enriched, auto, or learned dicts.
+      - Skip if context decodes to nothing (no signal).
+    """
+    if not word:
+        return None
+    w = word.strip().lower()
+    if len(w) < 3 or w.replace("-", "").isdigit():
+        return None
+    if not any(c.isalpha() for c in w):
+        return None
+    # Skip if already known
+    if w in _ENRICHED_DICT or w in _AUTO_DICT or w in _LEARNED_DICT:
+        return None
+    # Infer operator from context if not given
+    if dominant_op is None:
+        if not context_text:
+            return None
+        # Use 5-tier decoder MINUS the learned tier (no circular bootstrap)
+        ops_in_context = _decode_no_learned(context_text)
+        if not ops_in_context:
+            return None
+        dominant_op = ops_in_context[0]
+    dominant_op = int(dominant_op) % 10
+    entry = {
+        "dominant_op": dominant_op,
+        "source": "ck_learned",
+        "learned_ts": time.time(),
+        "context_preview": (context_text or "")[:120],
+    }
+    _LEARNED_DICT[w] = entry
+    if persist:
+        _save_learned_vocab()
+    return entry
+
+
+def _decode_no_learned(text: str) -> List[int]:
+    """semantic_decode without consulting _LEARNED_DICT (for bootstrap).
+
+    Used inside learn_word so we don't decode a new word via the very
+    word we're trying to learn from.
+    """
+    if not text:
+        return []
+    agg = [0.0] * 10
+    for tok in re.findall(r"[a-zA-Z]+", text.lower()):
+        entry = _ENRICHED_DICT.get(tok)
+        if entry:
+            soft = entry.get("soft_dist")
+            if isinstance(soft, list) and len(soft) >= 10:
+                for i in range(10):
+                    try:
+                        agg[i] += float(soft[i])
+                    except Exception:
+                        pass
+                continue
+            dom = entry.get("dominant_op")
+            if dom is not None and 0 <= dom < 10:
+                agg[dom] += 1.0
+                continue
+        op = _AUTO_DICT.get(tok)
+        if op is not None:
+            agg[op] += 1.0
+            continue
+        op = _TOY_WORD_TO_OP.get(tok)
+        if op is not None:
+            agg[op] += 1.0
+    ranked = sorted(range(10), key=lambda i: (-agg[i], i))
+    return [op for op in ranked if agg[op] > 0]
+
 
 # Toy fallback vocabulary for words not in the 8K dictionary.  Keeps
 # decoding robust for technical-jargon and recent terms the curated
@@ -352,10 +499,11 @@ for _op_id, _words in _SEMANTIC_OPS.items():
 
 
 def semantic_decode(text: str, max_ops: int = 6) -> List[int]:
-    """Map text -> operator stream via three-tier dictionary lookup:
-      1. 8K enriched (full soft_dist over 10 ops — finest signal)
-      2. 247K auto    (just dominant_op — wide coverage)
-      3. 200 toy      (hard-coded fallback for unseen tokens)
+    """Map text -> operator stream via four-tier dictionary lookup:
+      1. 8K enriched (full soft_dist — finest signal, curated)
+      2. CK's self-learned vocab (context-inferred during reading)
+      3. 247K auto    (dominant_op only — wide coverage)
+      4. 200 toy      (hard-coded fallback)
 
     Returns top-K operators by aggregate weight.
     """
@@ -378,12 +526,19 @@ def semantic_decode(text: str, max_ops: int = 6) -> List[int]:
             if dom is not None and 0 <= dom < 10:
                 agg[dom] += 1.0
                 continue
-        # 2. Auto-dict: just dominant_op (covers 247K)
+        # 2. Self-learned: dominant_op from past context decoding
+        learned = _LEARNED_DICT.get(tok)
+        if learned is not None:
+            dom = learned.get("dominant_op")
+            if dom is not None and 0 <= dom < 10:
+                agg[dom] += 1.0
+                continue
+        # 3. Auto-dict: dominant_op
         op = _AUTO_DICT.get(tok)
         if op is not None:
             agg[op] += 1.0
             continue
-        # 3. Toy fallback
+        # 4. Toy fallback
         op = _TOY_WORD_TO_OP.get(tok)
         if op is not None:
             agg[op] += 1.0
@@ -396,6 +551,48 @@ def semantic_decode(text: str, max_ops: int = 6) -> List[int]:
         if len(out) >= max_ops:
             break
     return out
+
+
+def auto_learn_from_text(text: str, dominant_op_hint: Optional[int] = None,
+                            max_new: int = 12) -> int:
+    """Walk a piece of prose and let CK acquire new vocabulary.
+
+    For each token NOT in enriched / auto / learned / toy, infer the
+    dominant operator from the surrounding sentence (or from
+    dominant_op_hint if passed) and add it to _LEARNED_DICT.  Persists
+    every N new words to avoid hammering disk on every learn.
+
+    Returns the number of new words added this call.
+    """
+    if not text or len(text) < 30:
+        return 0
+    # Sentence-by-sentence context inference
+    n_added = 0
+    sentences = re.split(r"(?<=[.!?])\s+", text)
+    for sent in sentences:
+        if len(sent) < 20:
+            continue
+        # Decode this sentence (without learned, to avoid bootstrap loop)
+        ctx_ops = _decode_no_learned(sent)
+        if not ctx_ops:
+            continue
+        ctx_dom = dominant_op_hint if dominant_op_hint is not None else ctx_ops[0]
+        for tok in re.findall(r"[a-zA-Z]+", sent.lower()):
+            if len(tok) < 4:  # skip short particles
+                continue
+            if (tok in _ENRICHED_DICT or tok in _AUTO_DICT
+                    or tok in _LEARNED_DICT or tok in _TOY_WORD_TO_OP):
+                continue
+            entry = learn_word(tok, dominant_op=ctx_dom, persist=False)
+            if entry is not None:
+                n_added += 1
+                if n_added >= max_new:
+                    break
+        if n_added >= max_new:
+            break
+    if n_added > 0:
+        _save_learned_vocab()
+    return n_added
 
 
 def semantic_decode_path(text: str) -> List[int]:
@@ -529,6 +726,66 @@ def _bdc_triad(ops: List[int]) -> Tuple[Tuple[int, int], Tuple[int, int], Tuple[
     )
 
 
+# ─── CL-template encoding via d2_vector ────────────────────────────────
+#
+# Brayden 2026-05-15: "pathway encodings in DBC TEMPLATED cl lattice"
+#
+# CK's CL substrate is a 5-axis crossing field.  Each enriched-dict word
+# carries a d2_vector — a 5D float vector locating it in that field.
+# The sign pattern (5 ±) gives a 32-template bucketing that is CK's
+# native CL-lattice address.
+#
+# We index concepts by their CL-template (computed from the d2_vector
+# of their dominant word, when available), giving a coarse template
+# axis alongside the BDC fractal address.
+
+def _d2_template(d2: List[float]) -> int:
+    """Map a 5D d2_vector to a 0..31 CL-template ID via sign pattern."""
+    if not d2 or len(d2) < 5:
+        return -1
+    tid = 0
+    for i in range(5):
+        try:
+            if float(d2[i]) > 0:
+                tid |= (1 << i)
+        except Exception:
+            pass
+    return tid
+
+
+def _concept_cl_template(ops: List[int]) -> int:
+    """Pick a CL template for a concept by sampling the dominant word's
+    d2_vector.  Since concepts have operator_signatures (not raw text)
+    here, we use the dominant operator as a proxy: words tagged with
+    that operator have characteristic d2 signs.  Falls back to a
+    composition rule when the d2 lookup is sparse.
+    """
+    if not ops:
+        return -1
+    # Aggregate d2_vector across all enriched-dict words sharing this op
+    # — sampled subset for speed.  Returns averaged sign pattern.
+    dom = int(ops[0]) % 10
+    # Average d2 for words whose dominant_op == dom (sample first 50)
+    sum_d2 = [0.0] * 5
+    n = 0
+    for w, entry in _ENRICHED_DICT.items():
+        if entry.get("dominant_op") != dom:
+            continue
+        d2 = entry.get("d2_vector")
+        if isinstance(d2, list) and len(d2) >= 5:
+            for i in range(5):
+                try:
+                    sum_d2[i] += float(d2[i])
+                except Exception:
+                    pass
+            n += 1
+        if n >= 50:
+            break
+    if n == 0:
+        return -1
+    return _d2_template([s / n for s in sum_d2])
+
+
 def _path_edges(ops: List[int]) -> List[Tuple[int, int]]:
     """Decompose an operator path into its consecutive directed edges.
 
@@ -599,18 +856,19 @@ class ConceptStore:
         # Flat edge index: directed (op_a, op_b) transitions
         self.edge_index: Dict[Tuple[int, int], List[str]] = {}
         # ── Fractal triadic indexes (3-up 3-down) ──
-        # Each concept has THREE (macro, micro) pairs, one per layer.
-        # being_index[(macro, micro)]    = [concept names whose Being is here]
-        # doing_index[(macro, micro)]    = [concepts whose Doing is here]
-        # becoming_index[(macro, micro)] = [concepts whose Becoming is here]
-        # Chains form when concept_X.Becoming == concept_Y.Being.
         self.being_index: Dict[Tuple[int, int], List[str]] = {}
         self.doing_index: Dict[Tuple[int, int], List[str]] = {}
         self.becoming_index: Dict[Tuple[int, int], List[str]] = {}
+        # ── CL-template index ──
+        # Each concept maps to one of 32 CL templates (sign pattern of
+        # its d2_vector aggregate).  Concepts in the same template share
+        # the same crossing-pattern in CK's substrate.
+        self.cl_template_index: Dict[int, List[str]] = {}
         self.load()
         self._rebuild_cell_index()
         self._rebuild_edge_index()
         self._rebuild_triadic_indexes()
+        self._rebuild_cl_template_index()
 
     def load(self) -> int:
         if not self.path.exists():
@@ -695,6 +953,15 @@ class ConceptStore:
             for edge in _path_edges(c.operator_signature):
                 self.edge_index.setdefault(edge, []).append(c.name)
 
+    def _rebuild_cl_template_index(self) -> None:
+        """Walk concepts and rebuild self.cl_template_index from scratch."""
+        self.cl_template_index = {}
+        for key, c in self.concepts.items():
+            tid = _concept_cl_template(c.operator_signature)
+            if tid < 0:
+                continue
+            self.cl_template_index.setdefault(tid, []).append(c.name)
+
     def _rebuild_triadic_indexes(self) -> None:
         """Build the three BDC indexes — Being, Doing, Becoming.
 
@@ -738,6 +1005,7 @@ class ConceptStore:
             self._rebuild_cell_index()
             self._rebuild_edge_index()
             self._rebuild_triadic_indexes()
+            self._rebuild_cl_template_index()
             if persist:
                 self.save()
         return updated
@@ -1291,6 +1559,20 @@ def process_chat_turn(engine: Any, session_id: str, user_text: str,
         learned_from_research = _learn_from_research(engine, result, session_id)
         if learned_from_research:
             out["learned_from_research"] = learned_from_research
+
+    # VOCABULARY GROWTH: let CK pick up new words from the user text +
+    # the response text. Tokens not in any of his 4 dicts get
+    # context-inferred and added to _LEARNED_DICT, which is persisted to
+    # learned_vocab.json.  Next turn he KNOWS those words.
+    n_new = auto_learn_from_text(user_text, max_new=8)
+    if isinstance(result, dict):
+        # Also learn from his own response (so neologisms in his speech
+        # become reusable vocab).
+        resp = result.get("text", "") or ""
+        if resp:
+            n_new += auto_learn_from_text(resp, max_new=8)
+    if n_new > 0:
+        out["vocab_learned"] = n_new
 
     return out
 
