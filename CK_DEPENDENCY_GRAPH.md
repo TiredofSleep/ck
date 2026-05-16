@@ -1,6 +1,6 @@
 # CK Dependency Graph (auto-generated)
 
-_Generated 2026-05-16 16:32:07 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
+_Generated 2026-05-16 16:33:18 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
 
 **92 modules** tracked in `Gen14/targets/ck/brain/`.
 
@@ -128,7 +128,7 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `ck_proactive_trigger` | 806 | `ck_frontier_scanner`, `ck_grammar_lm` | `mount_proactive_trigger` | — |
 | `ck_qutrit_apex` | 865 | `ck_meta_parameters`, `ck_substrate_motion` | `mount_qutrit_apex` | — |
 | `ck_recursive_observer` | 526 | `ck_engine_block`, `ck_qutrit_apex` | `mount_recursive_observer` | — |
-| `ck_self_protection` | 417 | `ck_qutrit_noise`, `ck_qutrit_qec` | `mount_self_protection` | — |
+| `ck_self_protection` | 457 | `ck_qutrit_noise`, `ck_qutrit_qec` | `mount_self_protection` | — |
 | `ck_speaker` | 238 | `ck_audio_compress`, `ck_curvature` | — | — |
 | `ck_study` | 207 | `ck_concept_learner`, `ck_formula_registry` | — | — |
 | `ck_substrate_motion` | 633 | `ck_identity`, `ck_meta_parameters` | `mount_substrate_motion` | — |

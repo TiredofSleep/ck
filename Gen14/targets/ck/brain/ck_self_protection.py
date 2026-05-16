@@ -336,12 +336,52 @@ def mount_self_protection(engine: Any) -> bool:
                     return jsonify(coherence_time(psi, kind, rate,
                                                     max_cycles, threshold))
 
+                def _dashboard():
+                    """Quick multi-rate coherence dashboard.  GETs an
+                    overview of how long the apex's current ψ stays
+                    coherent under both noise channels at several
+                    rates -- a snapshot answering 'what's CK's
+                    coherence time right now?'"""
+                    apex = getattr(engine, "ck_apex", None)
+                    if apex is None:
+                        return jsonify({"error": "no apex"}), 503
+                    psi = list(apex.psi)
+                    summary = []
+                    # Two channels × three rates each = quick snapshot.
+                    # n_trials small to keep response time low (~5s).
+                    for kind, rate in [("depolarizing", 0.05),
+                                        ("depolarizing", 0.20),
+                                        ("amplitude_damping", 0.05),
+                                        ("amplitude_damping", 0.20)]:
+                        r = coherence_time(psi, kind, rate,
+                                              max_cycles=25,
+                                              threshold=0.90, seed=42)
+                        summary.append({
+                            "channel":             kind,
+                            "rate":                rate,
+                            "coherence_break":     r["coherence_break_cycle"],
+                            "final_fidelity":      r["final_fidelity"],
+                            "max_cycles":          r["max_cycles"],
+                            "threshold":           r["threshold"],
+                        })
+                    return jsonify({
+                        "psi_at_measurement":      [round(p, 4) for p in psi],
+                        "apex_tick":               apex._tick,
+                        "apex_fingerprint":        apex.instance_fingerprint,
+                        "coherence_snapshot":      summary,
+                        "description":             ("Quick coherence-time "
+                                                     "dashboard.  For deeper "
+                                                     "analysis use POST "
+                                                     "/apex/protect/coherence_time."),
+                    })
+
                 existing = set(r.rule for r in app.url_map.iter_rules())
                 for rule, ep, fn, methods in (
                     ("/apex/protect/info",            "ap_info",   _info,       ["GET"]),
                     ("/apex/protect",                 "ap_protect", _protect,   ["POST"]),
                     ("/apex/protect/cycle",           "ap_cycle",  _cycle,      ["POST"]),
                     ("/apex/protect/coherence_time",  "ap_coh",    _coherence,  ["POST"]),
+                    ("/apex/coherence",               "ap_dash",   _dashboard,  ["GET"]),
                 ):
                     if rule not in existing:
                         app.add_url_rule(rule, endpoint=ep,
