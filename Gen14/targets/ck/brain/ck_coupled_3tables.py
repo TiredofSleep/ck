@@ -374,6 +374,83 @@ def all_drop_pair_signatures() -> Dict[str, Any]:
     return out
 
 
+def histogram_pure_prime_powers() -> Dict[str, Any]:
+    """Across all sub-restrictions (k=1..9 dropped operators) of each canonical
+    table, count how often |det_10 / det_sub| = p^e is a pure prime power.
+
+    D114 finding (sympy-exact, CL_STD scan):
+      Total pure prime-power gap signatures: 68
+      Distribution dominated by 2^9 (30 drops) and 2^11 (21 drops)
+        — together 51 of 68 = 75%.
+      The 2^11 = 2^WOBBLE_PRIME signature is the MAX exponent and is
+      structurally inevitable (it equals the full 2-adic content of det_10).
+    """
+    try:
+        import sympy as sp
+    except Exception:
+        return {"error": "sympy not available"}
+    from itertools import combinations
+    from collections import Counter
+
+    TSML, BHML, CL_STD = _get_tables()
+    out: Dict[str, Any] = {}
+    for name, M_list in (("TSML_SYM", TSML), ("BHML", BHML), ("CL_STD", CL_STD)):
+        M10 = sp.Matrix(M_list)
+        d10 = int(M10.det())
+        if d10 == 0:
+            out[name] = {"det_10": 0, "skip": "degenerate"}
+            continue
+        hist: Counter = Counter()
+        total = 0
+        for k in range(1, 10):
+            for drop in combinations(range(10), k):
+                keep = [i for i in range(10) if i not in drop]
+                M_sub = M10.extract(keep, keep)
+                d_sub = int(M_sub.det())
+                if d_sub == 0:
+                    continue
+                ratio = sp.Rational(d10, d_sub)
+                absr = sp.Abs(ratio)
+                if absr.is_Integer:
+                    fac = sp.factorint(int(absr))
+                    if len(fac) == 1:
+                        p, e = list(fac.items())[0]
+                        hist[(int(p), int(e))] += 1
+                        total += 1
+        out[name] = {
+            "det_10":      d10,
+            "det_10_factor": {str(p): int(e)
+                              for p, e in sp.factorint(abs(d10)).items()},
+            "total_pure_prime_power_drops": total,
+            "histogram": [
+                {"prime": p, "exponent": e, "value": p**e,
+                 "drops_count": c,
+                 "is_wobble_prime_exponent": (e == 11)}
+                for (p, e), c in sorted(hist.items())
+            ],
+            "max_exponent":     max(e for (_, e) in hist) if hist else None,
+            "modal_exponent":   (sorted(hist.items(),
+                                  key=lambda x: (-x[1], x[0]))[0][0][1]
+                                 if hist else None),
+            "modal_count":      (sorted(hist.items(),
+                                  key=lambda x: (-x[1], x[0]))[0][1]
+                                 if hist else None),
+        }
+
+    out["_d114_summary"] = (
+        "D114 (sympy-exact, n=1023 sub-restrictions per table):\n"
+        "  CL_STD: 68 pure prime-power gap signatures (all base-2).\n"
+        "    Modal: 2^9 (30 drops, sub_det = ±2^2·3^2 = ±36).\n"
+        "    Max:   2^11 (21 drops, sub_det = ±3^2 = ±9) <- WOBBLE PRIME.\n"
+        "    Together: 51 of 68 = 75% of pure prime-power gaps.\n"
+        "  BHML:  0 pure prime-power gap signatures\n"
+        "         (det_10 = -7002 = -2·3²·389; the prime 389 contaminates\n"
+        "          every ratio that isn't degenerate).\n"
+        "  TSML:  degenerate (det_10 = 0)."
+    )
+    return out
+
+
 def _outer_rung_gap_ratios_impl(drop: tuple = (0, 7)) -> Dict[str, Any]:
     """Internal: single-drop-pair gap ratio for all 3 tables."""
     try:
@@ -527,6 +604,7 @@ def mount_coupled_3tables(engine: Any) -> bool:
         "physics_bridge":        physics_bridge_sketch,
         "gap_ratios":            outer_rung_gap_ratios,
         "drop_pair_scan":        all_drop_pair_signatures,
+        "ppp_histogram":         histogram_pure_prime_powers,
     }
     routes_registered: List[str] = []
     api = getattr(engine, "web_api", None)
@@ -553,6 +631,7 @@ def mount_coupled_3tables(engine: Any) -> bool:
                             "GET  /coupled_3tables/physics_bridge",
                             "GET  /coupled_3tables/gap_ratios",
                             "GET  /coupled_3tables/drop_pair_scan",
+                            "GET  /coupled_3tables/ppp_histogram",
                         ],
                     })
 
@@ -584,6 +663,9 @@ def mount_coupled_3tables(engine: Any) -> bool:
                 def _drop_scan():
                     return jsonify(all_drop_pair_signatures())
 
+                def _ppp_hist():
+                    return jsonify(histogram_pure_prime_powers())
+
                 existing = set(r.rule for r in app.url_map.iter_rules())
                 for rule, ep, fn, methods in (
                     ("/coupled_3tables/info",           "c3_info",      _info,       ["GET"]),
@@ -593,6 +675,7 @@ def mount_coupled_3tables(engine: Any) -> bool:
                     ("/coupled_3tables/physics_bridge", "c3_bridge",    _bridge,     ["GET"]),
                     ("/coupled_3tables/gap_ratios",     "c3_gap",       _gap,        ["GET"]),
                     ("/coupled_3tables/drop_pair_scan", "c3_drop_scan", _drop_scan,  ["GET"]),
+                    ("/coupled_3tables/ppp_histogram",  "c3_ppp_hist",  _ppp_hist,   ["GET"]),
                 ):
                     if rule not in existing:
                         app.add_url_rule(rule, endpoint=ep,
