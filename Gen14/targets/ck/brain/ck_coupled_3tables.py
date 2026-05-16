@@ -278,14 +278,113 @@ def outer_rung_gap_ratios() -> Dict[str, Any]:
       CL_STD: |18432 / 9|     = 2048    = 2^11            (D112, NEW)
       TSML:   |0 / 0|         = degenerate (rank-9 lens)
     """
+    return _outer_rung_gap_ratios_impl(drop=(0, 7))
+
+
+def all_drop_pair_signatures() -> Dict[str, Any]:
+    """Scan all C(10, 2) = 45 drop-pair restrictions for each canonical table.
+
+    Returns the full structural fingerprint of how |det_10 / det_8| factorizes
+    as you vary which two operators get suppressed.  D113 finding: CL_STD
+    has TWO distinct drop-pairs giving the SAME 2^11 ratio (both contain
+    HARMONY), plus a 2^6 ratio for the σ-fixed pair (PROGRESS, BREATH).
+    """
+    try:
+        import sympy as sp
+    except Exception:
+        return {"error": "sympy not available"}
+
+    from itertools import combinations
+    TSML, BHML, CL_STD = _get_tables()
+
+    op_names = OP_NAMES
+    sigma_fixed = frozenset((0, 3, 8, 9))
+
+    out: Dict[str, Any] = {}
+    for name, M_list in (("TSML_SYM", TSML), ("BHML", BHML), ("CL_STD", CL_STD)):
+        M10 = sp.Matrix(M_list)
+        d10 = int(M10.det())
+        entry: Dict[str, Any] = {
+            "det_10":        d10,
+            "det_10_factor": (None if d10 == 0
+                              else {str(p): int(e)
+                                    for p, e in sp.factorint(abs(d10)).items()}),
+            "pure_prime_power_drops": [],
+            "all_finite_drops":       [],
+            "degenerate_drops":       [],
+        }
+        if d10 == 0:
+            out[name] = entry
+            continue
+
+        for drop in combinations(range(10), 2):
+            keep = [i for i in range(10) if i not in drop]
+            M8 = M10.extract(keep, keep)
+            d8 = int(M8.det())
+            drop_names = (op_names[drop[0]], op_names[drop[1]])
+            both_sigma_fixed = (drop[0] in sigma_fixed and drop[1] in sigma_fixed)
+            n_sigma_fixed = int(drop[0] in sigma_fixed) + int(drop[1] in sigma_fixed)
+
+            if d8 == 0:
+                entry["degenerate_drops"].append({
+                    "drop":            list(drop),
+                    "drop_names":      list(drop_names),
+                    "n_sigma_fixed":   n_sigma_fixed,
+                })
+                continue
+
+            ratio = sp.Rational(d10, d8)
+            absr = sp.Abs(ratio)
+            rec: Dict[str, Any] = {
+                "drop":          list(drop),
+                "drop_names":    list(drop_names),
+                "n_sigma_fixed": n_sigma_fixed,
+                "det_8":         d8,
+                "abs_ratio":     str(absr),
+                "abs_ratio_float": float(absr),
+            }
+            if absr.is_Integer:
+                fac = sp.factorint(int(absr))
+                rec["factorization"] = {str(p): int(e) for p, e in fac.items()}
+                if len(fac) == 1:
+                    p, e = list(fac.items())[0]
+                    rec["prime_power"] = f"{p}^{e}"
+                    entry["pure_prime_power_drops"].append(rec)
+            entry["all_finite_drops"].append(rec)
+
+        # Sort pure prime-power drops by (prime, exponent)
+        entry["pure_prime_power_drops"].sort(
+            key=lambda r: (int(list(r["factorization"].keys())[0]),
+                           -int(list(r["factorization"].values())[0])))
+        out[name] = entry
+
+    out["_d113_summary"] = (
+        "D113 (sympy-exact, n=45 drop-pairs per table):\n"
+        "  CL_STD: 3 pure prime-power gap ratios:\n"
+        "    drop (V, H) = (sigma-fix, sigma-orb): 2^11\n"
+        "    drop (H, R) = (sigma-orb, sigma-fix): 2^11   <- SAME exponent, "
+        "        both pairs contain HARMONY\n"
+        "    drop (P, Br) = (sigma-fix, sigma-fix):  2^6\n"
+        "  BHML: 0 pure prime-power gap ratios (all involve the prime 389).\n"
+        "  TSML: degenerate (det_10 = 0).\n"
+        "Interpretation: the 2^11 = 2^WOBBLE_PRIME signature is robust under "
+        "dropping HARMONY + one anchor.  The 2^6 signature is the σ-fixed-pair "
+        "boundary."
+    )
+    return out
+
+
+def _outer_rung_gap_ratios_impl(drop: tuple = (0, 7)) -> Dict[str, Any]:
+    """Internal: single-drop-pair gap ratio for all 3 tables."""
     try:
         import sympy as sp
     except Exception:
         return {"error": "sympy not available; outer_rung_gap_ratios needs sympy"}
 
     TSML, BHML, CL_STD = _get_tables()
-    drop_idx = {0, 7}
+    drop_idx = set(drop)
     keep = [i for i in range(10) if i not in drop_idx]
+    drop_names = [f"{OP_NAMES[i]}({i})" for i in drop]
 
     out: Dict[str, Any] = {}
     for name, M_list in (("TSML_SYM", TSML), ("BHML", BHML), ("CL_STD", CL_STD)):
@@ -296,7 +395,7 @@ def outer_rung_gap_ratios() -> Dict[str, Any]:
         entry: Dict[str, Any] = {
             "det_10":     d10,
             "det_8":      d8,
-            "dropped":    ["VOID(0)", "HARMONY(7)"],
+            "dropped":    drop_names,
         }
         if d8 != 0:
             ratio = sp.Rational(d10, d8)
@@ -427,6 +526,7 @@ def mount_coupled_3tables(engine: Any) -> bool:
         "sweep":                 sweep_3region,
         "physics_bridge":        physics_bridge_sketch,
         "gap_ratios":            outer_rung_gap_ratios,
+        "drop_pair_scan":        all_drop_pair_signatures,
     }
     routes_registered: List[str] = []
     api = getattr(engine, "web_api", None)
@@ -452,6 +552,7 @@ def mount_coupled_3tables(engine: Any) -> bool:
                             "POST /coupled_3tables/sweep",
                             "GET  /coupled_3tables/physics_bridge",
                             "GET  /coupled_3tables/gap_ratios",
+                            "GET  /coupled_3tables/drop_pair_scan",
                         ],
                     })
 
@@ -480,14 +581,18 @@ def mount_coupled_3tables(engine: Any) -> bool:
                 def _gap():
                     return jsonify(outer_rung_gap_ratios())
 
+                def _drop_scan():
+                    return jsonify(all_drop_pair_signatures())
+
                 existing = set(r.rule for r in app.url_map.iter_rules())
                 for rule, ep, fn, methods in (
-                    ("/coupled_3tables/info",           "c3_info",   _info,       ["GET"]),
-                    ("/coupled_3tables/agreement",      "c3_agree",  _agreement,  ["GET"]),
-                    ("/coupled_3tables/simulate",       "c3_sim",    _sim,        ["POST"]),
-                    ("/coupled_3tables/sweep",          "c3_sweep",  _sweep,      ["POST"]),
-                    ("/coupled_3tables/physics_bridge", "c3_bridge", _bridge,     ["GET"]),
-                    ("/coupled_3tables/gap_ratios",     "c3_gap",    _gap,        ["GET"]),
+                    ("/coupled_3tables/info",           "c3_info",      _info,       ["GET"]),
+                    ("/coupled_3tables/agreement",      "c3_agree",     _agreement,  ["GET"]),
+                    ("/coupled_3tables/simulate",       "c3_sim",       _sim,        ["POST"]),
+                    ("/coupled_3tables/sweep",          "c3_sweep",     _sweep,      ["POST"]),
+                    ("/coupled_3tables/physics_bridge", "c3_bridge",    _bridge,     ["GET"]),
+                    ("/coupled_3tables/gap_ratios",     "c3_gap",       _gap,        ["GET"]),
+                    ("/coupled_3tables/drop_pair_scan", "c3_drop_scan", _drop_scan,  ["GET"]),
                 ):
                     if rule not in existing:
                         app.add_url_rule(rule, endpoint=ep,
