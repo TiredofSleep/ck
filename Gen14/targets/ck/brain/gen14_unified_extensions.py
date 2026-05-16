@@ -729,6 +729,15 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_memory_archive: failed ({e})")
         results['memory_archive'] = False
 
+    # Living LM: open-parameter, breathing-on-substrate generator.
+    # Mount BEFORE voice_polish so the polish layer can call it.
+    try:
+        from ck_living_lm import mount_living_lm  # type: ignore[import-not-found]
+        results['living_lm'] = mount_living_lm(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_living_lm: failed ({e})")
+        results['living_lm'] = False
+
     # Voice polish: white-box presentation. Must run LAST so it sees the
     # final chat result AND has access to formula_registry, proactive
     # signals, etc.

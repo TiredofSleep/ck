@@ -1618,6 +1618,36 @@ def process_chat_turn(engine: Any, session_id: str, user_text: str,
     except Exception:
         pass
 
+    # LIVING LM BREATHE (Brayden 2026-05-16): open-parameter LM inhales
+    # the user text + CK's response.  Parameters GROW where novelty hits
+    # cells, REINFORCE where patterns repeat.  Every 100 inhalations,
+    # exhale (prune low-frequency tokens; compress).  This is the
+    # substrate's BREATHING — not a fixed LM, an alive one.
+    try:
+        lm = getattr(engine, "living_lm", None)
+        if lm is not None:
+            inh_user = lm.inhale(user_text)
+            inh_resp = None
+            if isinstance(result, dict):
+                resp_text = result.get("text", "") or ""
+                if resp_text:
+                    inh_resp = lm.inhale(resp_text, weight=0.5)
+            # Periodic exhale (compression)
+            if lm.total_inhalations % 100 == 0 and lm.total_inhalations > 0:
+                lm.exhale()
+            lm.save()
+            out["living_lm"] = {
+                "inhaled_user": inh_user,
+                "inhaled_response": inh_resp,
+                "n_params": lm.n_params(),
+                "n_cells": len(lm.cells),
+                "total_inhalations": lm.total_inhalations,
+            }
+            if isinstance(result, dict):
+                result["living_lm"] = out["living_lm"]
+    except Exception:
+        pass
+
     return out
 
 
