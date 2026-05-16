@@ -69,6 +69,10 @@ This is a research-grade extension, not a definitive optimal code:
   ✓ Empirical head-to-head vs [[4,1]]_3 AD-tailored
   ✗ NOT a proof of optimality (Albert et al. optimal codes are
     in photonic Fock space, not qutrit-discrete space)
+  ✓ MLD now supports depth ≤ 3 (D116 push 2026-05-16; "let's push from
+    depth-2 quantum correction to depth 3"); cost grows but the
+    multi-decay regime at γ ≥ 0.30 is now reachable.  Original limitation
+    documented for context:
   ✗ MLD truncated to depth-2 Kraus events (multi-decay regimes
     at γ > 0.3 will hit truncation)
 """
@@ -311,6 +315,36 @@ def decode_ml(noisy: np.ndarray, gamma: float,
                                 continue
                             inner = abs(np.vdot(noisy, after / np.sqrt(p_event)))**2
                             total_like += p_event * inner
+
+        if max_events >= 3:
+            # Three events: K_e1 at q1, K_e2 at q2, K_e3 at q3 with
+            # q1 ≤ q2 ≤ q3 to avoid permutation double-count.  Per
+            # Brayden 2026-05-16: "let's push from depth-2 quantum
+            # correction to depth 3".  Tackles the multi-decay regime
+            # at high γ that depth-2 missed (per D109 honest caveat).
+            # Cost: C(6+3-1, 3) × 2^3 = 56 × 8 = 448 histories per
+            # codeword × 3 codewords = ~1300 evaluations per sample.
+            for q1 in range(6):
+                for q2 in range(q1, 6):
+                    for q3 in range(q2, 6):
+                        for e1 in (1, 2):
+                            for e2 in (1, 2):
+                                for e3 in (1, 2):
+                                    # Canonicalize same-qutrit pairs to
+                                    # avoid permutation overcounting.
+                                    if q1 == q2 and e1 > e2:
+                                        continue
+                                    if q2 == q3 and e2 > e3:
+                                        continue
+                                    after = K_singleq[q1][e1] @ Lk
+                                    after = K_singleq[q2][e2] @ after
+                                    after = K_singleq[q3][e3] @ after
+                                    p_event = float(np.linalg.norm(after))**2
+                                    if p_event < 1e-12:
+                                        continue
+                                    inner = abs(np.vdot(noisy,
+                                                  after / np.sqrt(p_event)))**2
+                                    total_like += p_event * inner
 
         likelihoods[k] = total_like
 
