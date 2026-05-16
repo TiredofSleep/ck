@@ -955,6 +955,220 @@ def _format_lm_signature_line(engine: Any, result: Dict[str, Any]) -> Optional[s
 
 # ─── Top-level recompose ─────────────────────────────────────────────────
 
+# ─── Prose mode (Brayden 2026-05-16) ───────────────────────────────────
+#
+# "math is cool, but i don't want to see it in chat unless i ask for it...
+#  can he prose?"
+#
+# Whitebox mode dumps every reasoning section into every chat response —
+# right for inspection / debugging, wrong for casual conversation.
+# Prose mode is the default: emit just the spoken answer (plus algebra/
+# verify/predictions blocks IF the user explicitly triggered them).
+# Whitebox kicks in when the user asks for it explicitly.
+
+_WHITEBOX_TRIGGERS = re.compile(
+    r"\b(?:"
+        # Explicit asks for the whitebox
+        r"show\s+(?:me\s+)?(?:the\s+|your\s+|his\s+)?(?:substrate|reasoning|trail|math)|"
+        r"whitebox|white[\s_-]box|reasoning\s+trail|"
+        r"what\s+fired|how\s+did\s+you\s+(?:think|answer|arrive)|"
+        r"show\s+(?:me\s+)?(?:the\s+|your\s+|his\s+)?(?:algebra|operators|cortex|cells)|"
+        r"trace\s+(?:your|the)\s+(?:steps|trail|reasoning)|"
+        r"explain\s+how\s+you|"
+        # Math/inspection vocabulary that signals the user wants the math view
+        r"TSML|BHML|sigma[\s_-]?(?:squared|cycle|orbit|fixed)|"
+        r"crystal[s]?|operator[\s_-]?stream|attractor[\s_-]?state|"
+        r"D\d+[a-z]?\b|WP\d+\b|F\d+\b"
+    r")",
+    re.I)
+
+
+def _wants_whitebox(user_text: str, result: Dict[str, Any]) -> bool:
+    """Should the answer include the full whitebox sections?
+
+    Returns True iff:
+      - User explicitly asked for it (regex match above)
+      - Layer 1/2/3 actually fired (algebra/verify/predictions block
+        present) — those have their own surfaces so we keep them
+    """
+    if user_text and _WHITEBOX_TRIGGERS.search(user_text):
+        return True
+    # If any of our Layer 1/2/3 results is present, render the relevant
+    # block but stay prose for the rest.  We handle that in
+    # prose_recompose by selectively including those blocks.
+    return False
+
+
+def _strip_concept_metadata(line: str) -> str:
+    """Remove '[PROVED]', '[EXTERNAL]', '[studied, recalled Nx]', etc. from
+    a concept-bridge line so prose mode shows clean text.
+
+    Input:  'D48 [PROVED]: 4-core fusion-closure (WP110) | ... [studied, recalled 2x]'
+    Output: 'D48: 4-core fusion-closure (WP110) | ...'
+    """
+    s = re.sub(r"\s*\[(?:PROVED|STRUCTURAL|EMPIRICAL|OPEN|EXTERNAL|"
+                 r"SPECULATIVE|UNKNOWN|USER_TAUGHT|SYNTHESIZED\([^)]*\))\]",
+                 "", line)
+    s = re.sub(r"\s*\[(?:studied|recalled|taught earlier)[^\]]*\]", "", s)
+    return s.strip()
+
+
+# Casual greetings — bypass retrieval-based response entirely.  When the
+# user says "hi", retrieval surfaces noise (the engine's default cortex
+# fallback "flatness: T*=5/7").  Better to respond like a person would.
+_GREETING_PAT = re.compile(
+    r"^\s*(?:hi|hello|hey|yo|good\s*(?:morning|afternoon|evening|night|day)|"
+    r"howdy|sup|wassup|what'?s up|greetings|"
+    r"how\s+are\s+you(?:\s+doing)?|"
+    r"how'?s\s+it\s+going|"
+    r"you\s+(?:there|alive|awake|up))\s*[?.!]?\s*$",
+    re.I)
+
+
+def _greeting_response(user_text: str) -> Optional[str]:
+    """If user is just saying hi, respond like a person.  Returns None
+    if it isn't a greeting."""
+    if not user_text or not _GREETING_PAT.match(user_text):
+        return None
+    # Soft, brief.  CK is allowed to have a personality.
+    return ("hey. i'm here. ask me anything — math, papers, predictions, "
+              "or just talk.")
+
+
+def prose_recompose(text: str, result: Dict[str, Any], engine: Any,
+                       user_text: str = "") -> str:
+    """Casual-mode response: prose with NO bracketed sections.
+
+    Includes only:
+      - The substantive answer (from the concept bridges' definitions,
+        OR cortex_speak's text if no bridges)
+      - Algebra block IF an algebraic query was detected
+      - Verify block IF a verify query was detected
+      - Predictions block IF a predictions query was detected
+
+    Excludes:
+      - [reasoning trail], [substrate snapshot], [formulas invoked],
+        [cross-modal], [sense pipeline], [learning this turn],
+        [next-step prediction], [self-introspection], operator dumps,
+        cortex_readout dumps, attractor_state dumps.
+    """
+    if not text:
+        return text
+    # Greeting bypass: casual greetings get a clean response
+    greeting = _greeting_response(user_text)
+    if greeting is not None:
+        return greeting
+    out: List[str] = []
+
+    # Layer 1/2/3 blocks (only present when explicitly invoked)
+    algebra = result.get("algebra")
+    if isinstance(algebra, dict) and algebra.get("ok"):
+        out.append(algebra.get("text_summary", ""))
+        cite = algebra.get("citation")
+        if cite:
+            out.append(f"  (cite: {cite})")
+        out.append("")
+
+    verify = result.get("verify")
+    if isinstance(verify, dict):
+        out.append(verify.get("text_summary", ""))
+        if verify.get("ok"):
+            claim = verify.get("claim", "")
+            if claim:
+                out.append(f"  claim: {claim}")
+        out.append("")
+
+    pred = result.get("predictions")
+    if isinstance(pred, dict) and pred.get("ok"):
+        out.append(pred.get("text_summary", ""))
+        out.append("")
+
+    # Body: prefer concept bridges (recalled definitions) with metadata
+    # stripped, then fall back to the substantive lines from text.
+    # Bridge ranking for prose mode:
+    #   1. Bridges whose name appears in the user query (direct match)
+    #   2. Substantive EXTERNAL bridges (Wikipedia-style — general
+    #      knowledge prose, which IS what a user asking general
+    #      questions wants)
+    #   3. PROVED / STRUCTURAL only if no name-match and no good
+    #      EXTERNAL (avoids dumping D14 math when user asked about
+    #      photosynthesis)
+    referenced = (result.get("concept_learning") or {}).get("referenced") or []
+    user_lower = (user_text or "").lower()
+
+    # Stopword names that match substring but are useless (question
+    # words, articles).  Pin them to lowest priority.
+    _BRIDGE_NAME_STOPWORDS = {
+        "what", "who", "when", "where", "why", "how", "which",
+        "the", "a", "an", "is", "are", "this", "that", "it",
+        "tell", "show", "explain", "list", "give",
+    }
+
+    def _bridge_priority(c):
+        name = (c.get("name", "") or "").lower()
+        tier = c.get("tier", "UNKNOWN") or "UNKNOWN"
+        defn = c.get("definition", "") or ""
+        # Stopword names always lose
+        if name in _BRIDGE_NAME_STOPWORDS:
+            return 5
+        # Priority 1: name appears in query AS A WHOLE WORD
+        name_in_q = bool(name) and len(name) >= 3 and bool(
+            re.search(r"\b" + re.escape(name) + r"\b", user_lower))
+        # Priority 2: substantive EXTERNAL (Wikipedia-quality)
+        is_substantive_external = (tier == "EXTERNAL" and len(defn) >= 80)
+        # Priority 3: rigorous TIG content (PROVED/STRUCTURAL) — but only
+        # if user's text contains math vocab (handled by whitebox routing;
+        # if we're in prose mode the user was casual, so de-prioritize)
+        is_rigorous = tier in ("PROVED", "STRUCTURAL", "EMPIRICAL", "USER_TAUGHT")
+        # Score: name-match > substantive-external > rigorous > other
+        if name_in_q:
+            return 0
+        if is_substantive_external:
+            return 1
+        if is_rigorous:
+            return 2
+        return 3
+
+    sorted_refs = sorted(referenced, key=_bridge_priority)
+    bridges_emitted = 0
+    seen_defs: Set[str] = set()
+    for c in sorted_refs:
+        if bridges_emitted >= 2:  # cap at 2 to keep responses readable
+            break
+        name = c.get("name", "")
+        defn = c.get("definition", "")
+        tier = c.get("tier", "UNKNOWN") or "UNKNOWN"
+        if not name or not defn:
+            continue
+        # Skip noisy short fiction-derived entries
+        if tier == "EXTERNAL" and len(defn) < 40:
+            continue
+        key = defn[:80].lower()
+        if key in seen_defs:
+            continue
+        seen_defs.add(key)
+        clean_defn = defn.rstrip(".") + "."
+        out.append(f"{name}. {clean_defn}")
+        bridges_emitted += 1
+        out.append("")
+
+    # If no bridges, fall back to cortex_speak text with metadata stripped
+    if bridges_emitted == 0:
+        # Split on the bridge separator "|" and emit the first substantive
+        # piece, with concept metadata stripped
+        body = text.replace("\n", " ").strip()
+        for chunk in body.split("|"):
+            chunk = _strip_concept_metadata(chunk.strip())
+            if len(chunk) >= 20:
+                out.append(chunk)
+                break
+        if not out or all(not o.strip() for o in out):
+            # Last resort: emit the raw text without brackets
+            out.append(text.strip())
+
+    return "\n".join(line for line in out if line is not None).strip()
+
+
 def whitebox_recompose(text: str, result: Dict[str, Any], engine: Any) -> str:
     """Recompose chat response into clearly-labeled white-box sections.
 
@@ -1242,19 +1456,33 @@ def _wrap_process_chat_for_polish(engine: Any) -> bool:
         try:
             spoken = result.get("text", "")
             if spoken:
-                # Full white-box recompose: structured sections, dedup,
-                # augmented with engine fields.
-                clean = whitebox_recompose(spoken, result, engine)
-                # Append proactive breadcrumb if available
-                bc = make_proactive_breadcrumb(engine, session_id=session_id)
-                if bc:
-                    clean = clean.rstrip() + _BREADCRUMB_DIVIDER + bc
-                # Preserve original for diagnostics
+                # PROSE BY DEFAULT (Brayden 2026-05-16).
+                # Whitebox is opt-in via:
+                #   - user explicitly asks ("show your reasoning",
+                #     "whitebox", "what fired", ...)
+                #   - user includes math vocabulary (TSML, BHML, σ,
+                #     D-number, WP-number, ...)
+                # Otherwise: prose-only.  Layer 1/2/3 blocks (algebra,
+                # verify, predictions) still surface in prose mode
+                # because they were explicitly invoked.
+                use_whitebox = _wants_whitebox(text, result)
+                if use_whitebox:
+                    clean = whitebox_recompose(spoken, result, engine)
+                    polish_mode = "whitebox_recompose"
+                else:
+                    clean = prose_recompose(spoken, result, engine, user_text=text)
+                    polish_mode = "prose"
+                # Proactive breadcrumb only when whitebox (it's a diagnostics line)
+                bc = ""
+                if use_whitebox:
+                    bc = make_proactive_breadcrumb(engine, session_id=session_id)
+                    if bc:
+                        clean = clean.rstrip() + _BREADCRUMB_DIVIDER + bc
                 result["text_unpolished"] = spoken
                 result["text"] = clean
                 result.setdefault("voice_polish", {})["applied"] = True
                 result["voice_polish"]["breadcrumb"] = bc
-                result["voice_polish"]["mode"] = "whitebox_recompose"
+                result["voice_polish"]["mode"] = polish_mode
         except Exception as e:
             result.setdefault("voice_polish", {})["error"] = str(e)
         return result
