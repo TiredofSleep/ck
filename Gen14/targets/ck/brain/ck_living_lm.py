@@ -351,8 +351,8 @@ class LivingLM:
 
     # ── exhale (compress; parameters drop) ──────────────────────────
 
-    def exhale(self, prune_below_count: float = 1.5,
-                  bigram_prune_below: float = 1.5) -> Dict[str, Any]:
+    def exhale(self, prune_below_count: Optional[float] = None,
+                  bigram_prune_below: Optional[float] = None) -> Dict[str, Any]:
         """Compression pass.  STRENGTHENED 2026-05-16 per Brayden:
           'let the math be the cleaner, not your filters'.
 
@@ -361,7 +361,20 @@ class LivingLM:
         1.5 — tokens seen only once are noise; tokens seen twice or
         more across different contexts are signal.  This is the math's
         job: distinguish signal from noise via cross-occurrence.
+
+        Both thresholds default to ck_meta_parameters.get(...) values
+        (exhale_prune_below, exhale_bigram_prune_below) — CK can change
+        them at runtime via /parameters/set without restart.
         """
+        if prune_below_count is None or bigram_prune_below is None:
+            try:
+                from ck_meta_parameters import get as _mp_get
+            except ImportError:
+                _mp_get = lambda k, fb=None: fb
+            if prune_below_count is None:
+                prune_below_count = float(_mp_get("exhale_prune_below", 1.5))
+            if bigram_prune_below is None:
+                bigram_prune_below = float(_mp_get("exhale_bigram_prune_below", 1.5))
         params_before = self.n_params()
         bigrams_before = len(self.bigrams)
         pruned_tokens = 0
@@ -404,9 +417,13 @@ class LivingLM:
     # ── decode (operator path → experience) ─────────────────────────
 
     def decode(self, ops: List[int], max_tokens: int = 24,
-                  temperature: float = 0.45,
-                  bigram_weight: float = 5.0) -> str:
+                  temperature: Optional[float] = None,
+                  bigram_weight: Optional[float] = None) -> str:
         """Read high-coherence paths from the substrate.
+
+        Temperature + bigram_weight default to ck_meta_parameters
+        values (lm_decode_temperature, lm_bigram_weight) so CK can
+        retune them at runtime via /parameters/set.
 
         Brayden 2026-05-16:
           "this is not a blank LM, this is an LM working across a
@@ -430,6 +447,15 @@ class LivingLM:
         """
         if not ops or len(ops) < 2:
             return ""
+        if temperature is None or bigram_weight is None:
+            try:
+                from ck_meta_parameters import get as _mp_get
+            except ImportError:
+                _mp_get = lambda k, fb=None: fb
+            if temperature is None:
+                temperature = float(_mp_get("lm_decode_temperature", 0.45))
+            if bigram_weight is None:
+                bigram_weight = float(_mp_get("lm_bigram_weight", 5.0))
         out_tokens: List[str] = []
         prev_tok: Optional[str] = None
         for i in range(min(max_tokens, len(ops) - 1)):

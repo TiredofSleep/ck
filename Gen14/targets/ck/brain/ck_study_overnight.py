@@ -800,8 +800,15 @@ def main():
                     help="re-walk every 5 minutes (for adding new sources)")
     ap.add_argument("--infinite", action="store_true",
                     help="never stop; re-walk every interval forever")
-    ap.add_argument("--interval-sec", type=int, default=300,
-                    help="seconds between re-walks in watch/infinite mode")
+    # Default flows through ck_meta_parameters so CK can retune at
+    # runtime without restart.
+    try:
+        from ck_meta_parameters import get as _mp_get
+        _def_interval = int(_mp_get("school_interval_sec", 300))
+    except Exception:
+        _def_interval = 300
+    ap.add_argument("--interval-sec", type=int, default=_def_interval,
+                    help="seconds between re-walks (meta_parameters.school_interval_sec)")
     args = ap.parse_args()
 
     root = Path(args.root)
@@ -838,10 +845,16 @@ def main():
         one_pass(root, store, voice_path, log_path, label=f"pass-{pass_n}")
 
         # PERIODIC SYNTHESIZER (1/3 wobble per CK_FRACTAL_CREATURE_DESIGN):
-        # Every 3 passes, run the cross-concept synthesizer to form
-        # pattern-cluster meta-concepts.  This is the consolidation
-        # the wobble was missing.
-        if pass_n % 3 == 0:
+        # Every N passes, run the cross-concept synthesizer to form
+        # pattern-cluster meta-concepts.  Cadence is read from
+        # ck_meta_parameters.synthesizer_every_n_passes so CK can
+        # retune it at runtime.
+        try:
+            from ck_meta_parameters import get as _mp_get
+            _synth_every = int(_mp_get("synthesizer_every_n_passes", 3))
+        except Exception:
+            _synth_every = 3
+        if _synth_every > 0 and pass_n % _synth_every == 0:
             try:
                 from ck_synthesizer import synthesize, promote_to_store  # type: ignore
                 new_synths = synthesize(store, min_cluster_size=3)
@@ -849,7 +862,7 @@ def main():
                     n_added = promote_to_store(store, new_synths)
                     print(f"[study-overnight] synthesizer pass: "
                           f"+{n_added} new cluster concepts "
-                          f"(triggered every 3 passes per wobble cadence)")
+                          f"(triggered every {_synth_every} passes per wobble cadence)")
             except Exception as e:
                 print(f"[study-overnight] synthesizer failed: {e}")
 

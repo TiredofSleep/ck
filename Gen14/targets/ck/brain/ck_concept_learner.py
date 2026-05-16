@@ -1636,8 +1636,16 @@ def process_chat_turn(engine: Any, session_id: str, user_text: str,
                 resp_text = result.get("text", "") or ""
                 if resp_text:
                     inh_resp = lm.inhale(resp_text, weight=0.5)
-            # WOBBLE: exhale every 30 inhalations (3:1 inhale:exhale)
-            if lm.total_inhalations % 30 == 0 and lm.total_inhalations > 0:
+            # WOBBLE: exhale every N inhalations.  Read from
+            # ck_meta_parameters so CK can retune at runtime.
+            try:
+                from ck_meta_parameters import get as _mp_get
+                _wobble_every = int(_mp_get("wobble_exhale_every", 30))
+            except Exception:
+                _wobble_every = 30
+            if (_wobble_every > 0
+                    and lm.total_inhalations % _wobble_every == 0
+                    and lm.total_inhalations > 0):
                 lm.exhale()
             lm.save()
             out["living_lm"] = {
@@ -1839,11 +1847,18 @@ def _good_subject(s: str) -> bool:
     me deciding what counts.
 
     Remaining checks are PARSING CORRECTNESS only:
-      - non-empty, bounded length
+      - non-empty, bounded length (read from ck_meta_parameters
+        min_subject_len / max_subject_len so CK can retune)
       - starts with a capital letter
       - contains at least one alphabetic char
     """
-    if not s or not (3 <= len(s) <= 100):
+    try:
+        from ck_meta_parameters import get as _mp_get
+        lo = int(_mp_get("min_subject_len", 3))
+        hi = int(_mp_get("max_subject_len", 100))
+    except Exception:
+        lo, hi = 3, 100
+    if not s or not (lo <= len(s) <= hi):
         return False
     if not s[0].isupper():
         return False
@@ -1861,8 +1876,18 @@ def _looks_definitional(defn: str) -> bool:
     there's enough substance to be worth recording at a cell.  If the
     operator-path it decodes to is non-trivial, the substrate will
     keep it around; if not, exhale will prune it.
+
+    Threshold is ck_meta_parameters.min_definition_len so CK can
+    retune what 'enough substance' means at runtime.
     """
-    return bool(defn) and len(defn) >= 15
+    if not defn:
+        return False
+    try:
+        from ck_meta_parameters import get as _mp_get
+        lo = int(_mp_get("min_definition_len", 15))
+    except Exception:
+        lo = 15
+    return len(defn) >= lo
 
 
 def _extract_from_research(text: str) -> List[Tuple[str, str]]:

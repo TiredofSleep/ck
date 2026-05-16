@@ -387,11 +387,20 @@ def curious_forever(cycle_sleep_s: float = 600.0,
 
 
 def main():
+    # Defaults flow through ck_meta_parameters so CK can retune at
+    # runtime without restart.  argparse defaults take precedence
+    # only when the user passes flags explicitly.
+    try:
+        from ck_meta_parameters import get as _mp_get
+        _def_cycle = float(_mp_get("curious_cycle_sec", 300))
+        _def_gaps = int(_mp_get("curious_gaps_per_cycle", 10))
+    except Exception:
+        _def_cycle, _def_gaps = 300.0, 10
     ap = argparse.ArgumentParser()
-    ap.add_argument("--cycle", type=float, default=600.0,
-                    help="seconds between cycles (default 600 = 10 min)")
-    ap.add_argument("--gaps-per-cycle", type=int, default=6,
-                    help="number of gap terms to fetch per cycle (default 6)")
+    ap.add_argument("--cycle", type=float, default=_def_cycle,
+                    help="seconds between cycles (meta_parameters.curious_cycle_sec)")
+    ap.add_argument("--gaps-per-cycle", type=int, default=_def_gaps,
+                    help="number of gap terms to fetch per cycle (meta_parameters.curious_gaps_per_cycle)")
     ap.add_argument("--req-sleep", type=float, default=2.0,
                     help="seconds between API requests (default 2.0)")
     ap.add_argument("--max-cycles", type=int, default=None)

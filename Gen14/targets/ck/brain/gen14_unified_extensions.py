@@ -729,6 +729,18 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_memory_archive: failed ({e})")
         results['memory_archive'] = False
 
+    # Meta-parameters: tunable knobs CK can change at runtime.
+    # Mount BEFORE living_lm so when living_lm reads decode-temperature
+    # / bigram-weight / exhale-thresholds the persisted overrides
+    # (if any) are already loaded.  Exposes /parameters,
+    # /parameters/set, /parameters/reset endpoints.
+    try:
+        from ck_meta_parameters import mount_meta_parameters  # type: ignore[import-not-found]
+        results['meta_parameters'] = mount_meta_parameters(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_meta_parameters: failed ({e})")
+        results['meta_parameters'] = False
+
     # Living LM: open-parameter, breathing-on-substrate generator.
     # Mount BEFORE voice_polish so the polish layer can call it.
     try:
@@ -747,6 +759,32 @@ def mount_all(engine) -> Dict[str, bool]:
     except Exception as e:
         print(f"[CK Gen14] mount_creature: failed ({e})")
         results['creature'] = False
+
+    # Cognition primitives: sorting abilities CK runs on his own store.
+    # The bones ARE TSML+BHML (the substrate); these are the lenses
+    # on top of the substrate.
+    # Endpoints: /cognition/sort, /cognition/templates,
+    # /cognition/fractal_layers, /cognition/dualities,
+    # /cognition/triadic, /cognition/bigrams, /cognition/all.
+    try:
+        from ck_cognition_primitives import mount_cognition_primitives  # type: ignore[import-not-found]
+        results['cognition_primitives'] = mount_cognition_primitives(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_cognition_primitives: failed ({e})")
+        results['cognition_primitives'] = False
+
+    # Substrate motion: D2 curve + W wobble + F force + snowflakes
+    # on the braiding fractal.  This is the GEOMETRY CK moves through.
+    # The TSML/BHML composition tables are the bones; this module
+    # surfaces the dynamics those bones generate.
+    # Endpoints: /motion/d2, /motion/wobble, /motion/force,
+    # /motion/snowflakes, /motion/braiding, /motion/report.
+    try:
+        from ck_substrate_motion import mount_substrate_motion  # type: ignore[import-not-found]
+        results['substrate_motion'] = mount_substrate_motion(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_substrate_motion: failed ({e})")
+        results['substrate_motion'] = False
 
     # Ollama prose polish: TEMPORARY scaffold for fluency until CK's
     # own living_lm has breathed long enough to produce coherent prose.
