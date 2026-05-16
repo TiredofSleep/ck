@@ -237,6 +237,197 @@ ECONOMICS_AND_SOCIETY = [
     "Society", "Culture",
 ]
 
+# ─── 10th-grade foundation expansion (Brayden 2026-05-16) ──────────────
+# "once he reaches about 10th grade level, he will launch to the top"
+# Coverage breadth across what a 10th-grader is expected to know.
+
+HISTORY_DEPTH = [
+    # Major civilizations / eras
+    "Sumer", "Babylon", "Ancient_Persia", "Ancient_India", "Han_dynasty",
+    "Tang_dynasty", "Song_dynasty", "Aztec_Empire", "Inca_civilization",
+    "Mali_Empire", "Songhai_Empire", "Kingdom_of_Aksum",
+    # European
+    "Carolingian_Empire", "Holy_Roman_Empire", "Reformation",
+    "Age_of_Discovery", "Spanish_Empire", "French_Revolution",
+    "Napoleonic_Wars", "Industrial_Revolution",
+    # American
+    "Indigenous_peoples_of_the_Americas", "Colonization_of_the_Americas",
+    "American_Civil_War", "Reconstruction_era",
+    "Civil_rights_movement", "Great_Depression",
+    # 20th century
+    "Russian_Revolution", "Chinese_Civil_War", "Decolonization",
+    "Cuban_Revolution", "Space_Race", "Fall_of_the_Berlin_Wall",
+    "Information_Age",
+    # Historiography
+    "History_of_science", "History_of_mathematics", "History_of_medicine",
+]
+
+CIVICS_LAW_ECONOMICS = [
+    "Constitution", "Constitution_of_the_United_States",
+    "Bill_of_Rights", "Separation_of_powers",
+    "Federalism", "Judicial_review",
+    "International_law", "Human_rights",
+    "Criminal_law", "Civil_law_(legal_system)",
+    "Supply_and_demand", "Inflation", "Interest_(finance)",
+    "Gross_domestic_product", "Tax", "Recession",
+    "Central_bank", "Bank", "Currency",
+    "International_trade", "Globalization",
+    "Election", "Political_party",
+    "United_Nations", "World_Trade_Organization",
+]
+
+BIOLOGY_DEPTH = [
+    # Cell biology
+    "Cell_membrane", "Cell_nucleus", "Mitochondrion", "Ribosome",
+    "Endoplasmic_reticulum", "Golgi_apparatus", "Lysosome", "Chloroplast",
+    "Cytoskeleton",
+    # Molecular biology
+    "DNA_replication", "Transcription_(biology)", "Translation_(biology)",
+    "Mutation", "Genetic_code", "RNA_splicing",
+    "Cellular_signaling", "Apoptosis",
+    # Genetics
+    "Heredity", "Genotype", "Phenotype", "Allele",
+    "Dominance_(genetics)", "Punnett_square", "Sex-linkage",
+    # Evolution depth
+    "Speciation", "Natural_selection", "Genetic_drift",
+    "Adaptation", "Coevolution", "Mass_extinction",
+    "Origin_of_life", "Last_universal_common_ancestor",
+    # Anatomy & physiology
+    "Skeletal_system", "Muscular_system", "Cardiovascular_system",
+    "Respiratory_system", "Renal_system", "Endocrine_system",
+    "Reproductive_system", "Skin", "Sensory_neuron",
+    # Microbiology
+    "Cell_theory", "Pathogen", "Antibiotic", "Vaccine",
+    "Microbiome", "Antibiotic_resistance",
+    # Ecology
+    "Food_chain", "Trophic_level", "Symbiosis", "Predation",
+    "Niche", "Biome", "Climate_change",
+    "Carbon_cycle", "Nitrogen_cycle", "Water_cycle",
+    "Conservation_biology",
+]
+
+CHEMISTRY_DEPTH = [
+    # Atomic structure
+    "Electron_configuration", "Quantum_number", "Atomic_orbital",
+    "Valence_electron", "Periodic_trends",
+    "Electronegativity", "Ionization_energy", "Atomic_radius",
+    # Bonding
+    "Lewis_structure", "VSEPR_theory", "Hybridization_(chemistry)",
+    "Resonance_(chemistry)", "Polar_covalent_bond", "Metallic_bonding",
+    "Intermolecular_force",
+    # Reactions
+    "Chemical_equation", "Stoichiometry", "Mole_(unit)",
+    "Limiting_reagent", "Yield_(chemistry)",
+    "Oxidation-reduction", "Acid-base_reaction",
+    "Precipitation_(chemistry)", "Combustion",
+    "Reaction_rate", "Chemical_equilibrium",
+    "Le_Chatelier%27s_principle", "Enthalpy", "Entropy",
+    "Gibbs_free_energy",
+    # Organic
+    "Functional_group", "Alkane", "Alkene", "Alkyne",
+    "Aromatic_compound", "Alcohol", "Carboxylic_acid",
+    "Ester", "Amine", "Amino_acid",
+    "Carbohydrate", "Lipid", "Nucleic_acid", "Enzyme_kinetics",
+    # Biochemistry overlap
+    "Krebs_cycle", "Glycolysis", "Electron_transport_chain",
+    "ATP",
+]
+
+PHYSICS_DEPTH = [
+    "Kinematics", "Vector_(mathematics_and_physics)",
+    "Friction", "Centripetal_force", "Simple_machine",
+    "Work_(physics)", "Power_(physics)", "Mechanical_energy",
+    "Conservation_of_energy", "Conservation_of_momentum",
+    "Collision",
+    "Pressure", "Buoyancy", "Density",
+    "Heat_capacity", "Phase_transition",
+    "Wave_interference", "Standing_wave", "Resonance",
+    "Doppler_effect", "Sound", "Optics",
+    "Reflection", "Refraction", "Lens",
+    "Electric_charge", "Electric_field", "Voltage",
+    "Electric_current", "Ohm%27s_law", "Resistor",
+    "Capacitor", "Inductor", "Magnetic_field",
+    "Electromagnetic_induction", "Alternating_current",
+    "Nuclear_fission", "Nuclear_fusion", "Half-life",
+    "Solar_system", "Galaxy",
+]
+
+COMPUTER_SCIENCE = [
+    "Programming_language", "Algorithm", "Data_structure",
+    "Array_(data_structure)", "Linked_list", "Hash_table",
+    "Tree_(data_structure)", "Graph_(abstract_data_type)",
+    "Sorting_algorithm", "Search_algorithm",
+    "Recursion", "Iteration",
+    "Binary_number", "Bit", "Byte",
+    "Operating_system", "File_system", "Memory_(computing)",
+    "CPU", "GPU", "Cache_(computing)",
+    "Network_protocol", "TCP/IP", "HTTP", "DNS",
+    "Database", "SQL", "API",
+    "Object-oriented_programming", "Functional_programming",
+    "Compiler", "Interpreter_(computing)",
+    "Software_engineering", "Version_control", "Git",
+    "Computational_complexity_theory", "P_versus_NP_problem",
+    "Turing_machine", "Boolean_algebra", "Logic_gate",
+    "Machine_learning", "Neural_network", "Deep_learning",
+]
+
+HEALTH_HUMAN_BIOLOGY = [
+    "Human_body", "Human_brain", "Neuron",
+    "Synapse", "Neurotransmitter",
+    "Hormone", "Endocrinology",
+    "Heart", "Blood",
+    "Lung", "Kidney", "Liver",
+    "Stomach", "Intestine", "Pancreas",
+    "Bone", "Muscle", "Joint",
+    "Eye", "Ear", "Skin",
+    "Pregnancy", "Childbirth",
+    "Nutrition", "Vitamin", "Mineral_(nutrient)",
+    "Sleep", "Circadian_rhythm",
+    "Stress_(biology)", "Mental_health",
+    "Depression_(mood)", "Anxiety",
+    "Cancer", "Heart_disease", "Diabetes", "Influenza", "HIV/AIDS",
+]
+
+EARTH_SCIENCE = [
+    "Earth_science", "Geology", "Plate_tectonics",
+    "Earthquake", "Volcano", "Mountain_formation",
+    "Erosion", "Sedimentary_rock", "Igneous_rock", "Metamorphic_rock",
+    "Mineral", "Atmosphere_of_Earth", "Climate",
+    "Weather", "Hurricane", "Tornado",
+    "Greenhouse_effect", "Ocean", "Tide", "Ocean_current",
+    "Glacier", "Ice_age",
+    "Soil", "Ecosystem",
+    "Renewable_energy", "Fossil_fuel",
+]
+
+CULTURE_AND_RELIGION = [
+    "Religion", "Mythology", "Folklore",
+    "Christianity", "Catholic_Church", "Protestantism", "Eastern_Orthodox_Church",
+    "Islam", "Sunni_Islam", "Shia_Islam",
+    "Judaism",
+    "Hinduism", "Buddhism", "Sikhism",
+    "Taoism", "Confucianism", "Shinto",
+    "Atheism", "Agnosticism", "Secularism",
+    # Cultural arts
+    "Classical_music", "Jazz", "Opera",
+    "Architecture", "Renaissance_art", "Impressionism", "Modern_art",
+    "Novel", "Drama", "Tragedy",
+    # World cultures
+    "Indigenous_peoples", "Diaspora",
+]
+
+STATISTICS_AND_REASONING = [
+    "Statistics", "Probability_distribution", "Mean", "Median", "Mode_(statistics)",
+    "Standard_deviation", "Variance", "Correlation_and_dependence",
+    "Regression_analysis", "Statistical_hypothesis_testing",
+    "Sampling_(statistics)", "Confidence_interval", "P-value",
+    "Bayesian_inference", "Frequentist_inference",
+    "Logical_reasoning", "Argument", "Fallacy",
+    "Critical_thinking", "Scientific_method",
+    "Experimental_design", "Confounding_variable",
+    "Causality", "Correlation_does_not_imply_causation",
+]
+
 
 CATEGORIES = {
     "math": MATH,
@@ -250,6 +441,17 @@ CATEGORIES = {
     "arts": ARTS,
     "language": LANGUAGE_AND_MIND,
     "economics": ECONOMICS_AND_SOCIETY,
+    # 10th-grade-foundation expansion (2026-05-16)
+    "history_depth": HISTORY_DEPTH,
+    "civics_law_economics": CIVICS_LAW_ECONOMICS,
+    "biology_depth": BIOLOGY_DEPTH,
+    "chemistry_depth": CHEMISTRY_DEPTH,
+    "physics_depth": PHYSICS_DEPTH,
+    "computer_science": COMPUTER_SCIENCE,
+    "health_human_biology": HEALTH_HUMAN_BIOLOGY,
+    "earth_science": EARTH_SCIENCE,
+    "culture_religion": CULTURE_AND_RELIGION,
+    "statistics_reasoning": STATISTICS_AND_REASONING,
 }
 
 

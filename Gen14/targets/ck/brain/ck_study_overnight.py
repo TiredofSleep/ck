@@ -842,6 +842,23 @@ def main():
         time.sleep(args.interval_sec)
         print(f"\n[study-overnight] pass {pass_n}, sleeping {args.interval_sec}s between passes")
         one_pass(root, store, voice_path, log_path, label=f"pass-{pass_n}")
+
+        # PERIODIC SYNTHESIZER (1/3 wobble per CK_FRACTAL_CREATURE_DESIGN):
+        # Every 3 passes, run the cross-concept synthesizer to form
+        # pattern-cluster meta-concepts.  This is the consolidation
+        # the wobble was missing.
+        if pass_n % 3 == 0:
+            try:
+                from ck_synthesizer import synthesize, promote_to_store  # type: ignore
+                new_synths = synthesize(store, min_cluster_size=3)
+                if new_synths:
+                    n_added = promote_to_store(store, new_synths)
+                    print(f"[study-overnight] synthesizer pass: "
+                          f"+{n_added} new cluster concepts "
+                          f"(triggered every 3 passes per wobble cadence)")
+            except Exception as e:
+                print(f"[study-overnight] synthesizer failed: {e}")
+
         if pass_n >= 1000 and not args.infinite:
             print("[study-overnight] 1000 passes done; exiting watch mode")
             break
