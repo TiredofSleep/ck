@@ -214,6 +214,13 @@ _ENRICHED_DICT_PATHS = [
     Path(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED")
     / "ck_sim" / "ck_dictionary_enriched.json",
 ]
+# 247K auto-dict: lean per-word [dominant_op, frequency]
+_AUTO_DICT_PATHS = [
+    Path(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED")
+    / "CKIS" / "ck_dictionary_auto.json",
+    Path(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED")
+    / "old" / "Gen9" / "archive" / "ck_dictionary_auto.json",
+]
 
 
 def _load_enriched_dict() -> Dict[str, Dict[str, Any]]:
@@ -229,10 +236,39 @@ def _load_enriched_dict() -> Dict[str, Dict[str, Any]]:
     return {}
 
 
-# Cached at module load (8,000 words from CK's enriched dictionary,
-# each carrying its own dominant_op, operator_seq, and soft_dist over
-# all 10 operators).
+def _load_auto_dict() -> Dict[str, int]:
+    """Load CK's 247K auto-dictionary as {word: dominant_op}.
+
+    Raw format on disk: {word: [dominant_op, frequency]}.  We drop the
+    frequency column for memory efficiency — at this stage we only need
+    the operator tag for wide-vocabulary coverage.
+    """
+    for p in _AUTO_DICT_PATHS:
+        try:
+            if p.exists():
+                raw = json.loads(p.read_text(encoding="utf-8"))
+                if not isinstance(raw, dict) or len(raw) < 1000:
+                    continue
+                out: Dict[str, int] = {}
+                for w, v in raw.items():
+                    try:
+                        if isinstance(v, (list, tuple)) and len(v) >= 1:
+                            out[w] = int(v[0]) % 10
+                        elif isinstance(v, int):
+                            out[w] = int(v) % 10
+                    except Exception:
+                        continue
+                return out
+        except Exception:
+            continue
+    return {}
+
+
+# Cached at module load
+# Enriched: 8K curated words with FULL BDC (operator_seq, soft_dist, ...)
 _ENRICHED_DICT: Dict[str, Dict[str, Any]] = _load_enriched_dict()
+# Auto: 247K wider coverage with just dominant_op
+_AUTO_DICT: Dict[str, int] = _load_auto_dict()
 
 
 # Toy fallback vocabulary for words not in the 8K dictionary.  Keeps
@@ -316,27 +352,18 @@ for _op_id, _words in _SEMANTIC_OPS.items():
 
 
 def semantic_decode(text: str, max_ops: int = 6) -> List[int]:
-    """Map text content to an operator stream using CK's 8K enriched
-    dictionary as primary, toy 200-word vocab as fallback.
+    """Map text -> operator stream via three-tier dictionary lookup:
+      1. 8K enriched (full soft_dist over 10 ops — finest signal)
+      2. 247K auto    (just dominant_op — wide coverage)
+      3. 200 toy      (hard-coded fallback for unseen tokens)
 
-    For each token in text:
-      1. Look it up in CK's enriched dict (8K curated words).  If found,
-         add its soft_dist (10-bin probability over operators) to the
-         running aggregate.
-      2. Otherwise, look it up in the 200-word toy dict.  If found, add
-         a +1 spike at that operator.
-
-    Return the top-K operators by aggregate weight.  This gives CK's
-    own hand-tuned semantics primacy over my coarse fallback.
+    Returns top-K operators by aggregate weight.
     """
     if not text:
         return []
-    # 10-bin aggregate: weight per operator across the whole text
     agg = [0.0] * 10
-    enriched_hits = 0
-    toy_hits = 0
     for tok in re.findall(r"[a-zA-Z]+", text.lower()):
-        # 1. CK's enriched dictionary
+        # 1. Enriched: full soft distribution
         entry = _ENRICHED_DICT.get(tok)
         if entry:
             soft = entry.get("soft_dist")
@@ -346,20 +373,20 @@ def semantic_decode(text: str, max_ops: int = 6) -> List[int]:
                         agg[i] += float(soft[i])
                     except Exception:
                         pass
-                enriched_hits += 1
                 continue
-            # If enriched entry lacks soft_dist, fall back to dominant_op
             dom = entry.get("dominant_op")
             if dom is not None and 0 <= dom < 10:
                 agg[dom] += 1.0
-                enriched_hits += 1
                 continue
-        # 2. Toy fallback (for words CK's dict doesn't yet tag)
+        # 2. Auto-dict: just dominant_op (covers 247K)
+        op = _AUTO_DICT.get(tok)
+        if op is not None:
+            agg[op] += 1.0
+            continue
+        # 3. Toy fallback
         op = _TOY_WORD_TO_OP.get(tok)
         if op is not None:
             agg[op] += 1.0
-            toy_hits += 1
-    # Rank operators by aggregate weight (desc), tie-break by op_id
     ranked = sorted(range(10), key=lambda i: (-agg[i], i))
     out: List[int] = []
     for op_id in ranked:
@@ -372,16 +399,12 @@ def semantic_decode(text: str, max_ops: int = 6) -> List[int]:
 
 
 def semantic_decode_path(text: str) -> List[int]:
-    """Decode text into the FULL Doing-path (concatenated word operator_seqs).
+    """Decode text -> FULL Doing-path by concatenating word operator_seqs.
 
-    Each word in CK's enriched dict carries its own operator_seq — a
-    micro-pathway through the lattice.  Concatenating those for every
-    word in a sentence gives the SENTENCE's full BDC pathway, which is
-    much richer than just the top-K dominant operators.
-
-    Used by find_by_path for path-intersection retrieval, where having
-    a longer query path means more edges to match against stored
-    concepts.
+    For words in the 8K enriched dict, we get the full operator_seq —
+    typically 3-6 operators showing how the word "moves" through the
+    lattice.  For words only in the 247K auto-dict, we get one dominant
+    operator.  For toy-fallback words, also one op.
     """
     if not text:
         return []
@@ -390,14 +413,21 @@ def semantic_decode_path(text: str) -> List[int]:
         entry = _ENRICHED_DICT.get(tok)
         if entry:
             seq = entry.get("operator_seq")
-            if isinstance(seq, list):
+            if isinstance(seq, list) and seq:
                 for o in seq:
                     try:
                         out.append(int(o) % 10)
                     except Exception:
                         pass
                 continue
-        # Fallback: toy dict gives a single op
+            dom = entry.get("dominant_op")
+            if dom is not None and 0 <= dom < 10:
+                out.append(int(dom) % 10)
+                continue
+        op = _AUTO_DICT.get(tok)
+        if op is not None:
+            out.append(op)
+            continue
         op = _TOY_WORD_TO_OP.get(tok)
         if op is not None:
             out.append(op)
@@ -429,6 +459,74 @@ def _cell_coord(ops: List[int]) -> Optional[Tuple[int, int]]:
     if a > b:
         a, b = b, a
     return (a, b)
+
+
+# ─── Fractal triadic BDC encoder ────────────────────────────────────────
+#
+# Brayden 2026-05-15:
+#   "you are programming flat.. 3 up 3 down fractal recursive micros and
+#    macros... everything is part of a macro chain 0-9 and everything has
+#    a micro 0-9 ... that how his memory forms chains"
+#
+# Every concept has THREE LAYERS — Being, Doing, Becoming — each of which
+# is itself a (macro_op, micro_op) pair.  So a concept has 6 numbers of
+# algebraic address, not 2.  Memory CHAINS form when one concept's
+# Becoming-pair matches another concept's Being-pair.
+
+def _macro_micro_of_segment(ops: List[int]) -> Tuple[int, int]:
+    """A segment of an operator path has a (macro, micro) signature.
+    macro = most frequent op in the segment.
+    micro = second most frequent op (or same as macro on diagonal).
+    """
+    if not ops:
+        return (-1, -1)
+    counts: Dict[int, int] = {}
+    for o in ops:
+        o_ = int(o) % 10
+        counts[o_] = counts.get(o_, 0) + 1
+    ranked = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
+    macro = ranked[0][0]
+    micro = ranked[1][0] if len(ranked) > 1 else macro
+    return (macro, micro)
+
+
+def _bdc_triad(ops: List[int]) -> Tuple[Tuple[int, int], Tuple[int, int], Tuple[int, int]]:
+    """Decompose an operator path into Being / Doing / Becoming thirds,
+    each represented as (macro, micro).
+
+    Path of length N is split:
+      Being     = ops[0 : N/3]       — where the concept STARTS
+      Doing     = ops[N/3 : 2N/3]    — the transition it RUNS
+      Becoming  = ops[2N/3 : N]      — where the concept LANDS
+
+    Length-1 path: (op,op) for all three (singularity).
+    Length-2 path: ops[0] is Being, ops[1] is Doing+Becoming.
+    Empty: ((-1,-1), (-1,-1), (-1,-1)) — no fractal address.
+
+    This is the 3-up 3-down fractal address: it operates at TWO levels
+    simultaneously (macro / micro) and across THREE phases (B / D / C).
+    """
+    if not ops:
+        nil = (-1, -1)
+        return (nil, nil, nil)
+    n = len(ops)
+    if n == 1:
+        mm = (int(ops[0]) % 10, int(ops[0]) % 10)
+        return (mm, mm, mm)
+    if n == 2:
+        a = int(ops[0]) % 10
+        b = int(ops[1]) % 10
+        return ((a, a), (a, b), (b, b))
+    # General: split into thirds (ceil for being+doing, rest for becoming)
+    third = max(1, n // 3)
+    being = ops[:third]
+    becoming = ops[-third:]
+    doing = ops[third:-third] if (n - 2 * third) > 0 else ops[third - 1:third + 1]
+    return (
+        _macro_micro_of_segment(being),
+        _macro_micro_of_segment(doing) if doing else _macro_micro_of_segment([ops[len(ops) // 2]]),
+        _macro_micro_of_segment(becoming),
+    )
 
 
 def _path_edges(ops: List[int]) -> List[Tuple[int, int]]:
@@ -496,18 +594,23 @@ class ConceptStore:
     def __init__(self, path: Optional[Path] = None):
         self.path = Path(path) if path else _DEFAULT_STORE_PATH
         self.concepts: Dict[str, NamedConcept] = {}
-        # Cell index: (in_op, out_op) -> [concept names at that cell]
-        # Encodes BEING-state (start) and BECOMING-state (end) endpoints.
+        # Flat cell index: top-2 dominant ops only (legacy, kept for compat)
         self.cell_index: Dict[Tuple[int, int], List[str]] = {}
-        # Edge index: (op_a, op_b) -> [concept names whose path traverses
-        # this directed edge].  Encodes the DOING pathway — the operator
-        # transitions a concept makes between its Being and Becoming.
-        # Together, cell+edge are the BDC encoding: concepts as ordered
-        # walks through the 100-cell lattice.
+        # Flat edge index: directed (op_a, op_b) transitions
         self.edge_index: Dict[Tuple[int, int], List[str]] = {}
+        # ── Fractal triadic indexes (3-up 3-down) ──
+        # Each concept has THREE (macro, micro) pairs, one per layer.
+        # being_index[(macro, micro)]    = [concept names whose Being is here]
+        # doing_index[(macro, micro)]    = [concepts whose Doing is here]
+        # becoming_index[(macro, micro)] = [concepts whose Becoming is here]
+        # Chains form when concept_X.Becoming == concept_Y.Being.
+        self.being_index: Dict[Tuple[int, int], List[str]] = {}
+        self.doing_index: Dict[Tuple[int, int], List[str]] = {}
+        self.becoming_index: Dict[Tuple[int, int], List[str]] = {}
         self.load()
         self._rebuild_cell_index()
         self._rebuild_edge_index()
+        self._rebuild_triadic_indexes()
 
     def load(self) -> int:
         if not self.path.exists():
@@ -586,17 +689,33 @@ class ConceptStore:
             self.cell_index.setdefault(cell, []).append(c.name)
 
     def _rebuild_edge_index(self) -> None:
-        """Walk concepts and rebuild self.edge_index from scratch.
-
-        Each concept's operator path is decomposed into (op_i, op_{i+1})
-        directed edges; the concept is indexed at every edge it traverses.
-        This is the DOING layer of BDC encoding — the path of transitions
-        between a concept's Being-cell and Becoming-cell.
-        """
+        """Walk concepts and rebuild self.edge_index from scratch."""
         self.edge_index = {}
         for key, c in self.concepts.items():
             for edge in _path_edges(c.operator_signature):
                 self.edge_index.setdefault(edge, []).append(c.name)
+
+    def _rebuild_triadic_indexes(self) -> None:
+        """Build the three BDC indexes — Being, Doing, Becoming.
+
+        Every concept gets THREE (macro, micro) addresses via the
+        fractal triadic encoder.  Each layer is indexed separately so
+        that retrieval can match on any phase — Being-match (concepts
+        starting where the query starts), Becoming-match (concepts
+        ending where the query ends), or chain (concept's Becoming ==
+        another concept's Being).
+        """
+        self.being_index = {}
+        self.doing_index = {}
+        self.becoming_index = {}
+        for key, c in self.concepts.items():
+            being, doing, becoming = _bdc_triad(c.operator_signature)
+            if being[0] >= 0:
+                self.being_index.setdefault(being, []).append(c.name)
+            if doing[0] >= 0:
+                self.doing_index.setdefault(doing, []).append(c.name)
+            if becoming[0] >= 0:
+                self.becoming_index.setdefault(becoming, []).append(c.name)
 
     def reindex_signatures_from_text(self, persist: bool = True) -> int:
         """Walk concepts; for any with empty/short operator_signature,
@@ -618,6 +737,7 @@ class ConceptStore:
         if updated:
             self._rebuild_cell_index()
             self._rebuild_edge_index()
+            self._rebuild_triadic_indexes()
             if persist:
                 self.save()
         return updated
@@ -628,11 +748,85 @@ class ConceptStore:
             lst = self.cell_index.setdefault(cell, [])
             if c.name not in lst:
                 lst.append(c.name)
-        # Also add to edge index: the concept's DOING path
+        # Edge index: directed transitions in the path
         for edge in _path_edges(c.operator_signature):
             elst = self.edge_index.setdefault(edge, [])
             if c.name not in elst:
                 elst.append(c.name)
+        # Fractal triadic indexes: Being / Doing / Becoming
+        being, doing, becoming = _bdc_triad(c.operator_signature)
+        if being[0] >= 0:
+            lst = self.being_index.setdefault(being, [])
+            if c.name not in lst:
+                lst.append(c.name)
+        if doing[0] >= 0:
+            lst = self.doing_index.setdefault(doing, [])
+            if c.name not in lst:
+                lst.append(c.name)
+        if becoming[0] >= 0:
+            lst = self.becoming_index.setdefault(becoming, [])
+            if c.name not in lst:
+                lst.append(c.name)
+
+    def find_chain(self, query_ops: List[int], direction: str = "forward",
+                     max_results: int = 8) -> List[Tuple[NamedConcept, float]]:
+        """Memory-chain retrieval (the fractal-triadic primitive).
+
+        direction='forward':
+          Take the query's BECOMING-pair (where the query ENDS).
+          Return concepts whose BEING-pair matches that — i.e., concepts
+          that would naturally COME NEXT in a memory chain.
+        direction='backward':
+          Take the query's BEING-pair (where the query STARTS).
+          Return concepts whose BECOMING matches — concepts that lead
+          INTO the query.
+
+        This is how CK's memory forms chains: each concept's exit-point
+        is another concept's entry-point.  Retrieval walks the chain.
+        """
+        if not query_ops:
+            return []
+        being, doing, becoming = _bdc_triad(query_ops)
+        if direction == "forward":
+            target_pair = becoming
+            target_index = self.being_index
+        else:
+            target_pair = being
+            target_index = self.becoming_index
+        if target_pair[0] < 0:
+            return []
+        names = target_index.get(target_pair, [])
+        # Tier-rank within the chain link
+        _TIER_RANK = {
+            "PROVED": 6, "STRUCTURAL": 5, "USER_TAUGHT": 4,
+            "EMPIRICAL": 3, "OPEN": 2, "EXTERNAL": 1.5,
+            "SPECULATIVE": 1, "UNKNOWN": 0,
+        }
+        scored: List[Tuple[NamedConcept, float]] = []
+        for name in names:
+            c = self.concepts.get(name.lower())
+            if c is None:
+                continue
+            t = getattr(c, "tier", "UNKNOWN") or "UNKNOWN"
+            if t.startswith("SYNTHESIZED("):
+                inner = t[len("SYNTHESIZED("):].rstrip(")")
+                tier_rank = _TIER_RANK.get(inner, 0) - 0.5
+            else:
+                tier_rank = _TIER_RANK.get(t, 0)
+            scored.append((c, float(tier_rank)))
+        scored.sort(key=lambda x: -x[1])
+        return scored[:max_results]
+
+    def triadic_stats(self) -> Dict[str, Any]:
+        """Audit fractal-triadic index density."""
+        return {
+            "being_cells_populated": len(self.being_index),
+            "doing_cells_populated": len(self.doing_index),
+            "becoming_cells_populated": len(self.becoming_index),
+            "max_being": max((len(v) for v in self.being_index.values()), default=0),
+            "max_doing": max((len(v) for v in self.doing_index.values()), default=0),
+            "max_becoming": max((len(v) for v in self.becoming_index.values()), default=0),
+        }
 
     def find_by_path(self, query_ops: List[int],
                        max_results: int = 12,
@@ -941,6 +1135,26 @@ class ConceptStore:
                     c.last_recalled_ts = time.time()
                     out.append(c)
                     seen_keys.add(key_l)
+
+                # Fifth pass: CHAIN RETRIEVAL — fractal triadic.
+                # Walk forward from the query's Becoming (what comes next)
+                # and backward from its Being (what led here).  These are
+                # the concepts CK's memory naturally CHAINS to.  This is
+                # the architectural primitive Brayden described:
+                # "everything is part of a macro chain 0-9 and everything
+                # has a micro 0-9... that's how his memory forms chains."
+                chain_query = full_path if len(full_path) >= 3 else query_ops
+                for direction in ("forward", "backward"):
+                    chain_hits = self.find_chain(chain_query, direction=direction,
+                                                   max_results=3)
+                    for c, _score in chain_hits:
+                        key_l = c.name.lower()
+                        if key_l in seen_keys:
+                            continue
+                        c.n_recalls += 1
+                        c.last_recalled_ts = time.time()
+                        out.append(c)
+                        seen_keys.add(key_l)
 
         if out:
             self.save()
