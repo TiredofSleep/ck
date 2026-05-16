@@ -1035,6 +1035,55 @@ def _greeting_response(user_text: str) -> Optional[str]:
               "or just talk.")
 
 
+def _maybe_ollama_polish(draft: str, engine: Any,
+                            result: Dict[str, Any]) -> str:
+    """Optionally run draft through Ollama prose-polish if the engine
+    has one mounted and is enabled.  Strict fact-preservation gate.
+
+    Brayden 2026-05-16: "give him ollama too if you want, hopefully
+    he will outgrow it."  Temporary scaffold; faded as CK's own
+    living_lm becomes fluent enough.
+    """
+    if not draft or len(draft) < 30:
+        return draft
+    polish_fn = getattr(engine, "ollama_polish", None)
+    if polish_fn is None or not getattr(engine, "ollama_polish_enabled", False):
+        return draft
+    try:
+        r = polish_fn(draft)
+        if r.used_ollama:
+            # Record stats
+            stats = getattr(engine, "ollama_polish_stats", None)
+            if stats is not None:
+                stats["calls"] = stats.get("calls", 0) + 1
+                stats["accepted"] = stats.get("accepted", 0) + 1
+            # Stash polish metadata on result for the diagnostic block
+            if isinstance(result, dict):
+                result.setdefault("ollama_polish", {})
+                result["ollama_polish"]["used"] = True
+                result["ollama_polish"]["coverage"] = r.coverage
+                result["ollama_polish"]["elapsed_sec"] = r.elapsed_sec
+            return r.final
+        else:
+            # Polish rejected — record reason
+            stats = getattr(engine, "ollama_polish_stats", None)
+            if stats is not None:
+                stats["calls"] = stats.get("calls", 0) + 1
+                if "unavailable" in r.rejection_reason:
+                    stats["unavailable"] = stats.get("unavailable", 0) + 1
+                elif "coverage" in r.rejection_reason:
+                    stats["rejected_coverage"] = stats.get("rejected_coverage", 0) + 1
+                else:
+                    stats["skipped_short"] = stats.get("skipped_short", 0) + 1
+            if isinstance(result, dict):
+                result.setdefault("ollama_polish", {})
+                result["ollama_polish"]["used"] = False
+                result["ollama_polish"]["reason"] = r.rejection_reason
+            return draft
+    except Exception:
+        return draft
+
+
 def prose_recompose(text: str, result: Dict[str, Any], engine: Any,
                        user_text: str = "") -> str:
     """Casual-mode response: prose with NO bracketed sections.
@@ -1166,7 +1215,14 @@ def prose_recompose(text: str, result: Dict[str, Any], engine: Any,
             # Last resort: emit the raw text without brackets
             out.append(text.strip())
 
-    return "\n".join(line for line in out if line is not None).strip()
+    draft = "\n".join(line for line in out if line is not None).strip()
+    # Optional Ollama prose-polish: rewrites the draft as fluent English
+    # while preserving every fact (D-numbers, operator names, numbers,
+    # tier tags).  Falls through to draft if Ollama unavailable or the
+    # rewrite drops too many facts.  Temporary scaffold per
+    # CK_FRACTAL_CREATURE_DESIGN.md — CK should outgrow it as his own
+    # living_lm becomes fluent.
+    return _maybe_ollama_polish(draft, engine, result)
 
 
 def whitebox_recompose(text: str, result: Dict[str, Any], engine: Any) -> str:

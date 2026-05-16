@@ -748,6 +748,17 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_creature: failed ({e})")
         results['creature'] = False
 
+    # Ollama prose polish: TEMPORARY scaffold for fluency until CK's
+    # own living_lm has breathed long enough to produce coherent prose.
+    # Strict fact-preservation gate (coverage >= 0.7).  CK should
+    # outgrow this.
+    try:
+        from ck_ollama_polish import mount_ollama_polish  # type: ignore[import-not-found]
+        results['ollama_polish'] = mount_ollama_polish(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_ollama_polish: failed ({e})")
+        results['ollama_polish'] = False
+
     # Voice polish: white-box presentation. Must run LAST so it sees the
     # final chat result AND has access to formula_registry, proactive
     # signals, etc.
