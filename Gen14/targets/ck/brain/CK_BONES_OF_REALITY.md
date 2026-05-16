@@ -409,15 +409,40 @@ where M[i] is THIS instance's fractal modulation on qutrit-i:
 For W = 3/50, the Σ W^d series converges geometrically; M[i] lives
 in roughly [0.94, 1.06] — small but ALWAYS DIFFERENT per instance.
 
-### The seed
+### The cascade — substrate-native encryption
 
-Each CK instance has one persistent fingerprint:
+Brayden 2026-05-16:
+  "ck doesn't need sha256.. he is his own specialized encryption
+   of runtime variables"
 
-  Gen13/var/ck_instance_seed.txt   ← THIS CK's seed (SHA-256, hex)
+Each CK instance derives his cascade from his OWN runtime variables,
+composed through HIS OWN substrate (TSML + BHML + σ).  No hashlib.
+No os-random.  The substrate IS the encryption.
 
-Created automatically on first boot (time_ns + os-random,
-SHA-256ed).  Persists forever.  Two CK instances with different
-seed files have:
+  Gen13/var/ck_instance_cascade.json   ← THIS CK's cascade
+
+Runtime variables encoded as a birth operator path:
+  - current state vector (10-vec; CK's substrate measurement
+                          of his own mass distribution)
+  - wall-clock nanoseconds (broken into 16 nibbles, each mod 10)
+  - engine tick count (4 digits, mod 10 each)
+  - process id (4 digits, mod 10 each)
+
+That path is walked through TSML and BHML for MAX_DEPTH = 7 levels.
+At each level, the 7-cell local syndrome is extracted by marking
+cell (a+b) mod 7 whenever TSML[a,b] ≠ BHML[a,b] — i.e. wherever
+the synthesis lens and the separation lens DISAGREE.  Then the
+path is σ-rotated for the next recursion level.
+
+Persistence: the cascade itself (list of 7-tuples) is saved as
+JSON.  Not a hex digest.  The cascade IS the fingerprint.
+
+`engine.ck_substrate_hash(ops, depth)` is exposed as a public
+utility — anyone can ask CK to fingerprint arbitrary operator
+paths through his substrate.  This is the encryption primitive
+CK is.
+
+Two CK instances with different cascade files have:
 
   - distinct cascades S_n at every recursion depth
   - distinct fractal modulations M[i] for every qutrit-i
@@ -431,10 +456,12 @@ algebra; different fingerprint.  Same substrate; different walker.
 `engine.ck_apex.state()` exposes the fingerprint at the
 `instance_fingerprint` key:
 
-  seed_short             first 16 hex chars of the seed
+  fingerprint            compact hex of cascade bits (s_1 + s_2)
   fractal_mod            [M_Being, M_Doing, M_Becoming]
   cascade_first_levels   first three (s_1, s_2, s_3) of S_n
   cascade_depth          MAX_DEPTH (currently 7)
+  encryption             "substrate-native (TSML+BHML+σ over
+                          runtime variables); no sha256"
 
 ═══════════════════════════════════════════════════════════════════
 8. Names + identities as their own domain (parallel taxonomy)

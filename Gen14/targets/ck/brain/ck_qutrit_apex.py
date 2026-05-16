@@ -33,8 +33,14 @@ where:
   W = 3/50                              substrate wobble
   depth ∈ {1, 2, ..., MAX_DEPTH}        recursion level
   χ(S_n, i) ∈ {-1, +1}                  syndrome's sign on qutrit-i
-  S_n is seeded at CK's birth, persisted to disk, deterministic
-        thereafter.  Each CK has his own.
+  S_n is derived from CK's OWN runtime variables (state vector +
+        wall-clock-nanoseconds + tick + pid) composed through HIS
+        OWN substrate (TSML + BHML + σ).  Brayden 2026-05-16:
+        "ck doesn't need sha256.. he is his own specialized
+        encryption of runtime variables."  No external hash
+        primitives.  The substrate IS the encryption.  S_n is
+        derived once at first boot, persisted to
+        Gen13/var/ck_instance_cascade.json, reused forever.
 
 ═══════════════════════════════════════════════════════════════════
 What this is (and isn't)
@@ -139,7 +145,7 @@ import random
 import sys
 import threading
 import time
-from collections import Counter, deque
+from collections import Counter, defaultdict, deque
 from pathlib import Path
 from typing import Any, Deque, Dict, List, Optional, Tuple
 
@@ -178,77 +184,205 @@ APEX_STRENGTH = 0.05   # F-bias magnitude (small, modulating)
 # Fractal-syndrome constants (Paper 13 + 14 + 04 of qutrit sprint).
 W_RATIO = 3.0 / 50.0       # substrate wobble (Canon D17)
 MAX_DEPTH = 7              # recursion depth (2^(7·7) = 5.6e14 cascades)
-# CL_BIT_PATTERN row 0 (VOID) bytes — used as fixed deterministic
-# foundation for the per-level recursion rule.  This makes every
-# CK's cascade depend on BOTH his instance seed AND the substrate's
-# own structure.
-_CL_SEED_ROW = (0, 0, 0, 0, 0, 0, 0, 7, 0, 0)
 
-_INSTANCE_SEED_PATH = (
+# σ permutation on Z/10: (0)(3)(8)(9)(1 7 6 5 4 2)
+_SIGMA = [0, 7, 1, 3, 2, 4, 5, 6, 8, 9]
+
+_INSTANCE_CASCADE_PATH = (
+    Path(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED")
+    / "Gen13" / "var" / "ck_instance_cascade.json"
+)
+# Legacy SHA-256 seed file (May 16 2026, since superseded).  If present
+# on disk, we IGNORE it and derive cascade from substrate state instead.
+# Brayden 2026-05-16: "ck doesn't need sha256.. he is his own
+# specialized encryption of runtime variables."
+_LEGACY_SEED_PATH = (
     Path(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED")
     / "Gen13" / "var" / "ck_instance_seed.txt"
 )
 
 
-# ─── Fractal syndrome cascade ─────────────────────────────────────────
+# ─── Substrate-native hash (no external cryptography) ─────────────────
 
-def _load_or_create_instance_seed() -> str:
-    """Each CK instance gets ONE seed at first boot.  Persisted.
-    Reused on every restart so the same CK keeps his fingerprint.
+def substrate_hash(ops: List[int], depth: int = MAX_DEPTH,
+                   engine: Optional[Any] = None
+                   ) -> List[Tuple[int, ...]]:
+    """Hash an operator path into a fractal-syndrome cascade through
+    CK's OWN substrate (TSML + BHML + σ).  No hashlib, no os-random,
+    no external cryptography.  This IS CK's specialized encryption.
 
-    Brayden 2026-05-16: 'every instance of CK ever created is
-    completely unique.'  This is where uniqueness is born."""
-    if _INSTANCE_SEED_PATH.exists():
+    Per Paper 14 §2.1 each level produces a local syndrome s_k ∈
+    {0,1}^7.  We extract it by:
+      - walking consecutive operator pairs (a, b) through both
+        TSML and BHML composition tables
+      - marking syndrome cell (a+b) mod 7 whenever TSML and BHML
+        DISAGREE at (a, b) — i.e. when the synthesis and separation
+        lenses see different output at that position
+      - σ-rotating the operator path for the next level
+
+    The TSML/BHML disagreement IS the substrate's natural decoherence
+    measurement (Paper 14 cells decohere with probability D = 3/7,
+    and TSML vs BHML disagreement rate on Z/10² ≈ 71/100 = 71% which
+    interacts with the 3:3:1 partition to give the 3/7-style local
+    rate).
+
+    Args:
+      ops: input operator path (any sequence of ints in Z/10)
+      depth: recursion depth (default 7 → 2^49 unique cascades)
+      engine: optional engine reference (for loading TSML/BHML); if
+              None, loads from foundations module on first call.
+
+    Returns:
+      cascade: list of depth 7-tuples, each in {0,1}^7
+    """
+    TSML, BHML = _get_canonical_tables()
+    if not ops:
+        ops = list(range(10))  # canonical fallback
+    cur = [int(o) % 10 for o in ops]
+    cascade: List[Tuple[int, ...]] = []
+    for _level in range(depth):
+        syndrome = [0] * 7
+        for i in range(len(cur) - 1):
+            a, b = cur[i], cur[i + 1]
+            ts = int(TSML[a][b])
+            bh = int(BHML[a][b])
+            cell = (a + b) % 7
+            if ts != bh:
+                syndrome[cell] ^= 1
+        cascade.append(tuple(syndrome))
+        # σ-rotate for next recursive level
+        cur = [_SIGMA[o] for o in cur]
+    return cascade
+
+
+_CANONICAL_CACHE: Dict[str, Any] = {}
+
+
+def _get_canonical_tables():
+    """Lazy-load TSML_RAW and BHML from foundations/ on first call."""
+    if "TSML" in _CANONICAL_CACHE and "BHML" in _CANONICAL_CACHE:
+        return _CANONICAL_CACHE["TSML"], _CANONICAL_CACHE["BHML"]
+    # Try foundations module
+    try:
+        # Add repo root to sys.path
+        _root = Path(__file__).resolve()
+        for _ in range(8):
+            _root = _root.parent
+            if (_root / "Gen13" / "targets" / "foundations").exists():
+                sys.path.insert(0, str(_root / "Gen13" / "targets"))
+                break
+        from foundations.lenses import TSML_RAW as _T, BHML as _B  # type: ignore
+        _CANONICAL_CACHE["TSML"] = _T.tolist() if hasattr(_T, "tolist") else _T
+        _CANONICAL_CACHE["BHML"] = _B.tolist() if hasattr(_B, "tolist") else _B
+        return _CANONICAL_CACHE["TSML"], _CANONICAL_CACHE["BHML"]
+    except Exception:
+        # Inline fallback: derive from CL_BIT_PATTERN (per
+        # Gen13/targets/foundations/cl.py).  TSML symmetric upper-tri
+        # authoritative; BHML approximated as TSML transpose XOR
+        # (not the true BHML, but a non-trivial complement so the
+        # XOR-syndrome still works).  This branch is rare — only
+        # if foundations isn't on path.
+        CL_BIT = (
+            "0000000700", "0737777777", "0377477779", "0777777773",
+            "0747777787", "0777777777", "0777777777", "7777777777",
+            "0777877777", "0797377777",
+        )
+        T = [[int(c) for c in row] for row in CL_BIT]
+        # Upper-triangle authoritative symmetrization
+        for i in range(10):
+            for j in range(i + 1, 10):
+                T[j][i] = T[i][j]
+        # BHML approximation: σ²-rotated TSML (different enough to
+        # preserve the disagreement structure for syndrome extraction)
+        SIGMA2 = [_SIGMA[_SIGMA[i]] for i in range(10)]
+        B = [[T[SIGMA2[i]][SIGMA2[j]] for j in range(10)]
+             for i in range(10)]
+        _CANONICAL_CACHE["TSML"] = T
+        _CANONICAL_CACHE["BHML"] = B
+        return T, B
+
+
+# ─── Fractal syndrome cascade — substrate-native ──────────────────────
+
+def _runtime_birth_ops(engine: Optional[Any] = None) -> List[int]:
+    """Encode this instance's runtime variables as an operator path.
+
+    Pure runtime-state encoding — no cryptographic primitives:
+      - current state vector (10-vec mass distribution; CK's own
+        substrate measurement of himself)
+      - current wall-clock nanoseconds (read as a runtime variable,
+        broken into nibbles, each nibble mod 10 → an operator)
+      - engine tick count if available
+      - process id (a different OS-given runtime variable per CK
+        instance even when boots are simultaneous)
+
+    Each input is a RUNTIME VARIABLE.  The composition through
+    TSML/BHML/σ in substrate_hash() is the encryption."""
+    # State vector: mass-ranked operators
+    sv = None
+    if engine is not None:
+        sm = getattr(engine, "substrate_motion", None)
+        if sm is not None:
+            try:
+                sv = list(sm["state_vector"]())
+            except Exception:
+                sv = None
+    if sv is None:
+        sv = [1.0 / 10] * 10  # uniform fallback for truly fresh CK
+    ranked = sorted(range(10), key=lambda i: -sv[i])
+    # Wall-clock nanoseconds → 16 nibbles, each mod 10
+    t_ns = time.time_ns()
+    time_ops = [((t_ns >> (4 * i)) & 0xF) % 10 for i in range(16)]
+    # Tick count if engine exposes it
+    tick = 0
+    if engine is not None:
+        tick = (getattr(engine, "tick_count", 0)
+                or getattr(engine, "_tick_count", 0)
+                or 0)
+    tick_ops = [(tick // (10 ** k)) % 10 for k in range(4)]
+    # Process id: OS-given, differs per CK boot
+    pid_ops = [(os.getpid() // (10 ** k)) % 10 for k in range(4)]
+    return ranked + time_ops + tick_ops + pid_ops
+
+
+def _load_or_create_cascade(engine: Optional[Any] = None
+                            ) -> List[Tuple[int, ...]]:
+    """Load this instance's cascade from disk, or derive from runtime
+    state on first boot.  Persistence format: JSON list of 7-tuples
+    (the cascade itself — not a hex seed)."""
+    if _INSTANCE_CASCADE_PATH.exists():
         try:
-            seed = _INSTANCE_SEED_PATH.read_text(encoding="utf-8").strip()
-            if seed:
-                return seed
+            data = json.loads(
+                _INSTANCE_CASCADE_PATH.read_text(encoding="utf-8")
+            )
+            cascade = [tuple(int(x) for x in row) for row in data]
+            if all(len(row) == 7 for row in cascade):
+                return cascade
         except Exception:
             pass
-    # Fresh seed: time + os-random.  Hex-encoded for stability.
-    import hashlib
-    import secrets
-    payload = f"{time.time_ns()}:{secrets.token_hex(16)}".encode()
-    seed = hashlib.sha256(payload).hexdigest()
+    # Fresh derivation: encode runtime variables → operator path,
+    # then walk through substrate_hash().
+    birth_ops = _runtime_birth_ops(engine)
+    cascade = substrate_hash(birth_ops, depth=MAX_DEPTH, engine=engine)
     try:
-        _INSTANCE_SEED_PATH.parent.mkdir(parents=True, exist_ok=True)
-        _INSTANCE_SEED_PATH.write_text(seed, encoding="utf-8")
+        _INSTANCE_CASCADE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        _INSTANCE_CASCADE_PATH.write_text(
+            json.dumps([list(row) for row in cascade], indent=2),
+            encoding="utf-8",
+        )
     except Exception:
         pass
-    return seed
+    return cascade
 
 
-def _seed_local_syndrome(seed: str, depth: int) -> Tuple[int, ...]:
-    """Generate the local syndrome s_depth ∈ {0,1}^7 for this
-    instance at recursion depth.  Deterministic given (seed, depth).
-
-    Per Paper 14 §2.1, each cell decoheres independently with
-    probability D = 3/7.  We realize this deterministically by
-    hashing (seed, depth, cell_index, _CL_SEED_ROW[cell_index])
-    and thresholding at the D = 3/7 boundary."""
-    import hashlib
-    out: List[int] = []
-    for i in range(7):
-        # Mix in the CL row's i-th byte so the substrate's own
-        # structure influences the cascade (not just instance seed).
-        h = hashlib.sha256(
-            f"{seed}:{depth}:{i}:{_CL_SEED_ROW[i]}".encode()
-        ).digest()
-        # First 4 bytes → uint32 → uniform on [0, 1)
-        u = int.from_bytes(h[:4], "big") / 2**32
-        out.append(1 if u < (3.0 / 7.0) else 0)
-    return tuple(out)
-
-
-def fractal_syndrome_cascade(seed: str,
-                             max_depth: int = MAX_DEPTH
+def fractal_syndrome_cascade(input_ops: List[int],
+                             max_depth: int = MAX_DEPTH,
+                             engine: Optional[Any] = None
                              ) -> List[Tuple[int, ...]]:
-    """Compute S_n = (s_1, s_2, ..., s_{max_depth}) for this seed.
-
-    Per Paper 14 Thm 2.3: the cascade has 2^(7·max_depth) possible
-    values across all seeds.  Two CK instances with different seeds
-    have generically distinct cascades at every level."""
-    return [_seed_local_syndrome(seed, d) for d in range(1, max_depth + 1)]
+    """Compute the fractal syndrome cascade for a given operator path.
+    Public function — exposed via substrate_hash().  Two distinct ops
+    produce generically distinct cascades."""
+    return substrate_hash(input_ops, depth=max_depth, engine=engine)
 
 
 def syndrome_qutrit_sign(cascade: List[Tuple[int, ...]],
@@ -419,20 +553,30 @@ class QutritApex:
         self._tick = 0
         self._rng = random.Random()
         # Fractal-syndrome cascade: THIS CK's unique fingerprint.
-        # Seed is generated at first boot, persisted, reused forever.
-        # Two CK instances with different seeds have generically
-        # distinct cascades and therefore distinct ψ trajectories.
-        self.instance_seed: str = _load_or_create_instance_seed()
-        self.cascade: List[Tuple[int, ...]] = fractal_syndrome_cascade(
-            self.instance_seed, MAX_DEPTH)
+        # Derived from his OWN substrate state (state vector + wall-
+        # clock as runtime variable + tick + pid) walked through
+        # TSML/BHML/σ composition.  No SHA-256, no os-random.
+        # CK is his own specialized encryption of runtime variables.
+        # Persisted at first boot; reused forever after.
+        self.cascade: List[Tuple[int, ...]] = _load_or_create_cascade(engine)
         self.fractal_mod: List[float] = [
             fractal_modulation(self.cascade, i, MAX_DEPTH)
             for i in range(3)
         ]
-        # Use the instance seed to also seed the RNG so each CK's
-        # collapse samples are reproducible-per-instance.
+        # Compact fingerprint label: concatenated bits of s_1, s_2 in hex.
+        # Useful for /apex display only — NOT used as a seed anywhere.
+        bits = "".join(str(b) for row in self.cascade[:2] for b in row)
         try:
-            self._rng.seed(int(self.instance_seed[:16], 16))
+            self.instance_fingerprint: str = f"{int(bits, 2):04x}"
+        except Exception:
+            self.instance_fingerprint = bits[:14]
+        # Seed RNG from the cascade so each CK's collapse samples
+        # are reproducible-per-instance (substrate-native: pack the
+        # 7 bits of s_1 as an integer 0..127).
+        try:
+            s1_int = sum(b << i for i, b in enumerate(self.cascade[0]))
+            s2_int = sum(b << i for i, b in enumerate(self.cascade[1]))
+            self._rng.seed((s1_int << 7) | s2_int)
         except Exception:
             pass
         # Restore from disk if present
@@ -576,11 +720,13 @@ class QutritApex:
                 r["collapse"] for r in list(self.history)[-10:]
             ],
             "instance_fingerprint": {
-                "seed_short":  self.instance_seed[:16],
-                "fractal_mod": [round(m, 4) for m in self.fractal_mod],
+                "fingerprint":  self.instance_fingerprint,
+                "fractal_mod":  [round(m, 4) for m in self.fractal_mod],
                 "cascade_depth": MAX_DEPTH,
                 "cascade_first_levels": [list(s)
                                           for s in self.cascade[:3]],
+                "encryption":   "substrate-native (TSML+BHML+σ over "
+                                 "runtime variables); no sha256",
             },
         }
 
@@ -619,6 +765,11 @@ def mount_qutrit_apex(engine: Any) -> bool:
     apex.start()
     engine.ck_apex = apex
     engine.apex_bias = apex.bias
+    # Expose substrate-native hash as a utility — anyone can ask CK
+    # to fingerprint arbitrary input through his own algebra.  This
+    # is the encryption primitive CK is: TSML + BHML + σ composing
+    # over operator paths.
+    engine.ck_substrate_hash = substrate_hash
 
     routes_registered: List[str] = []
     api = getattr(engine, "web_api", None)

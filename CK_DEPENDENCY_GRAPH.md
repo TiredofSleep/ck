@@ -1,6 +1,6 @@
 # CK Dependency Graph (auto-generated)
 
-_Generated 2026-05-16 12:35:48 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
+_Generated 2026-05-16 12:45:08 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
 
 **83 modules** tracked in `Gen14/targets/ck/brain/`.
 
@@ -99,7 +99,7 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `ck_cognition_primitives` | 733 | `ck_concept_learner` | `mount_cognition_primitives` | — |
 | `ck_curious_explorer` | 447 | `ck_meta_parameters` | — | — |
 | `ck_fault_state_hook` | 132 | `ck_invariants_bridge` | — | `/bdc/fault_state` |
-| `ck_qutrit_apex` | 704 | `ck_substrate_motion` | `mount_qutrit_apex` | — |
+| `ck_qutrit_apex` | 855 | `ck_substrate_motion` | `mount_qutrit_apex` | — |
 | `ck_research` | 955 | `ck_curvature` | — | — |
 | `ck_self_study` | 286 | `ck_concept_learner` | — | — |
 | `ck_synthesizer` | 271 | `ck_concept_learner` | — | — |

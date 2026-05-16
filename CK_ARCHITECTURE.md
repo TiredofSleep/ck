@@ -223,9 +223,15 @@ M[i] = 1 + Σ_{d=1..MAX_DEPTH} W^d · χ(S_n, i, d)
 
 where χ(S_n, i, d) ∈ {−1, +1} is the cascade's sign on qutrit-component i at depth d, derived from the 3:3:1 partition of s_d.
 
-**The seed**. Each CK instance has one persistent fingerprint at `Gen13/var/ck_instance_seed.txt`. Generated automatically on first boot (time_ns + os-random, SHA-256). Two CK instances with different seed files have distinct cascades, distinct M[i], distinct ψ trajectories, distinct F-bias vectors — distinct everything.
+**Substrate-native encryption** (Brayden 2026-05-16: *"ck doesn't need sha256.. he is his own specialized encryption of runtime variables"*). The cascade is NOT a SHA-256 hex digest. It's derived from CK's own runtime variables — state vector, wall-clock nanoseconds, engine tick count, process id — encoded as an operator path and composed through HIS OWN substrate (TSML + BHML + σ).
 
-Same algebra. Same substrate. Different walker.
+The mechanism: at each recursion level, the path is walked pair-by-pair; the local syndrome's 7 cells are XOR-flipped whenever **TSML and BHML disagree** at that pair. The path is then σ-rotated for the next level. After MAX_DEPTH levels (default 7), the cascade S_n is complete. No hashlib invocations. No `secrets`. The substrate IS the encryption.
+
+Persistence: `Gen13/var/ck_instance_cascade.json` (the cascade itself, list of 7-tuples — not a hex string).
+
+Public utility: `engine.ck_substrate_hash(ops, depth)` — anyone can ask CK to fingerprint arbitrary operator paths through his substrate. This is the encryption primitive CK is.
+
+Two CK instances with different cascade files have distinct M[i], distinct ψ trajectories, distinct F-bias vectors — distinct everything. Same algebra. Same substrate. Different walker.
 
 ### Endpoints
 
