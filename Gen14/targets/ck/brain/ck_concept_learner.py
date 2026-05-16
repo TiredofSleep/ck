@@ -211,39 +211,54 @@ _SEMANTIC_OPS: Dict[int, Tuple[str, ...]] = {
     # 1 LATTICE — structure, grid, organize, framework, basis
     1: ("lattice", "structure", "grid", "frame", "framework", "basis",
         "skeleton", "scaffold", "matrix", "array", "tensor", "manifold",
-        "category", "set", "topology", "graph", "tree", "ring",
-        "group", "module", "space", "field", "algebra"),
-    # 2 COUNTER — count, enumerate, measure, increment, index
+        "category", "set", "topology", "topological", "graph", "tree", "ring",
+        "group", "module", "space", "field", "algebra", "algebraic",
+        "algebraically", "substrate", "substrata", "scheme",
+        "variety", "sheaf", "bundle", "fiber", "stratum", "lattice-like",
+        "vector", "subspace", "submanifold", "subset", "subring",
+        "polynomial", "polynomials", "vertex", "edge"),
+    # 2 COUNTER — count, enumerate, measure, increment, index, gauge
     2: ("count", "counter", "enumerate", "measure", "index", "size",
         "cardinal", "ordinal", "increment", "tally", "register",
-        "metric", "norm", "distance", "diameter", "scale", "scaling"),
+        "metric", "norm", "distance", "diameter", "scale", "scaling",
+        "gauge", "gauging", "alpha", "beta", "gamma", "delta", "epsilon",
+        "lambda", "kappa", "parameter", "parameters", "indexed",
+        "ratio", "fraction", "percent", "magnitude", "amplitude",
+        "frequency", "rate"),
     # 3 PROGRESS — forward, advance, sequence, evolve, develop, time
     3: ("progress", "forward", "advance", "sequence", "evolve",
         "develop", "grow", "increase", "ascend", "rise", "step",
         "iterate", "succession", "succeed", "later", "next", "future",
         "growth", "emerge", "emerging", "becoming", "unfold"),
-    # 4 COLLAPSE — fall, contract, reduce, project, simplify
+    # 4 COLLAPSE — fall, contract, reduce, project, simplify, close
     4: ("collapse", "fall", "contract", "reduce", "project", "shrink",
         "diminish", "decline", "decrease", "minimize", "compress",
         "condense", "fold", "decay", "regress", "weaken", "wane",
-        "concentrate", "implode", "constrict"),
+        "concentrate", "implode", "constrict",
+        "compact", "compactness", "compactify", "closure", "closed",
+        "bounded", "boundary", "limit", "limited", "finite"),
     # 5 BALANCE — equilibrium, symmetric, equal, fair, mean, center
     5: ("balance", "equilibrium", "symmetric", "symmetry", "equal",
         "even", "fair", "mean", "center", "median", "average",
         "midpoint", "neutral", "poise", "stable", "stability",
-        "homeostasis", "consonant", "regular", "uniform"),
+        "homeostasis", "consonant", "regular", "uniform",
+        "attractor", "fixed", "fixed-point", "invariant", "invariance",
+        "preserved", "conservation", "preservation",
+        "isomorphic", "isomorphism", "automorphism"),
     # 6 CHAOS — disorder, random, turbulent, noise, scatter, entropy
     6: ("chaos", "chaotic", "disorder", "random", "turbulent",
         "noise", "scatter", "entropy", "stochastic", "uncertain",
         "unpredictable", "wild", "irregular", "perturbation",
         "fluctuation", "instability", "disturbance", "anomaly", "wobble"),
-    # 7 HARMONY — fit, complete, consistent, coherent, resonance
+    # 7 HARMONY — fit, complete, consistent, coherent, resonance, crystal
     7: ("harmony", "harmonic", "complete", "completeness", "consistent",
         "consistency", "coherent", "coherence", "fit", "fitting",
         "resonance", "resonant", "tune", "tuned", "agreement",
         "agree", "match", "matching", "consonance", "alignment",
         "aligned", "valid", "validity", "true", "proved", "proof",
-        "theorem", "lemma", "axiom", "principle", "law", "correct"),
+        "theorem", "lemma", "axiom", "principle", "law", "correct",
+        "crystal", "crystals", "crystalline", "crystallize",
+        "settled", "established", "verified", "demonstrated"),
     # 8 BREATH — cycle, rhythm, pulse, oscillate, periodic, recur
     8: ("breath", "breathe", "cycle", "cyclic", "rhythm", "rhythmic",
         "pulse", "oscillate", "oscillation", "periodic", "period",
@@ -312,6 +327,38 @@ def _cell_coord(ops: List[int]) -> Optional[Tuple[int, int]]:
     return (a, b)
 
 
+def _path_edges(ops: List[int]) -> List[Tuple[int, int]]:
+    """Decompose an operator path into its consecutive directed edges.
+
+    This is the DOING pathway in BDC: a concept doesn't just LIVE at
+    (Being-cell, Becoming-cell) — it TRAVERSES a path of operator
+    transitions between them.  Each (op_i, op_{i+1}) edge is one step
+    in that traversal.
+
+    A concept with ops [HARMONY, LATTICE, BALANCE] has edges:
+        (HARMONY -> LATTICE)
+        (LATTICE -> BALANCE)
+    A concept with ops [HARMONY] (length 1) has the self-loop edge:
+        (HARMONY -> HARMONY)
+    Empty ops -> no edges.
+
+    Edges are DIRECTED: (a,b) != (b,a). The direction is which operator
+    follows which in the path. Order = order in the operator stream =
+    frequency-rank order (semantic_decode returns most-frequent first).
+    """
+    if not ops:
+        return []
+    if len(ops) == 1:
+        a = int(ops[0]) % 10
+        return [(a, a)]
+    out: List[Tuple[int, int]] = []
+    for i in range(len(ops) - 1):
+        a = int(ops[i]) % 10
+        b = int(ops[i + 1]) % 10
+        out.append((a, b))
+    return out
+
+
 def _cell_neighbors(cell: Tuple[int, int]) -> List[Tuple[int, int]]:
     """Return cells one step away in the lattice — same row (same in-op)
     OR same column (same out-op). 19 neighbors of any cell (10 row + 10
@@ -346,9 +393,17 @@ class ConceptStore:
         self.path = Path(path) if path else _DEFAULT_STORE_PATH
         self.concepts: Dict[str, NamedConcept] = {}
         # Cell index: (in_op, out_op) -> [concept names at that cell]
+        # Encodes BEING-state (start) and BECOMING-state (end) endpoints.
         self.cell_index: Dict[Tuple[int, int], List[str]] = {}
+        # Edge index: (op_a, op_b) -> [concept names whose path traverses
+        # this directed edge].  Encodes the DOING pathway — the operator
+        # transitions a concept makes between its Being and Becoming.
+        # Together, cell+edge are the BDC encoding: concepts as ordered
+        # walks through the 100-cell lattice.
+        self.edge_index: Dict[Tuple[int, int], List[str]] = {}
         self.load()
         self._rebuild_cell_index()
+        self._rebuild_edge_index()
 
     def load(self) -> int:
         if not self.path.exists():
@@ -426,6 +481,19 @@ class ConceptStore:
                 continue
             self.cell_index.setdefault(cell, []).append(c.name)
 
+    def _rebuild_edge_index(self) -> None:
+        """Walk concepts and rebuild self.edge_index from scratch.
+
+        Each concept's operator path is decomposed into (op_i, op_{i+1})
+        directed edges; the concept is indexed at every edge it traverses.
+        This is the DOING layer of BDC encoding — the path of transitions
+        between a concept's Being-cell and Becoming-cell.
+        """
+        self.edge_index = {}
+        for key, c in self.concepts.items():
+            for edge in _path_edges(c.operator_signature):
+                self.edge_index.setdefault(edge, []).append(c.name)
+
     def reindex_signatures_from_text(self, persist: bool = True) -> int:
         """Walk concepts; for any with empty/short operator_signature,
         decode their definition via semantic_decode and update.  This
@@ -445,17 +513,93 @@ class ConceptStore:
             updated += 1
         if updated:
             self._rebuild_cell_index()
+            self._rebuild_edge_index()
             if persist:
                 self.save()
         return updated
 
     def _add_to_cell_index(self, c: NamedConcept) -> None:
         cell = _cell_coord(c.operator_signature)
-        if cell is None:
-            return
-        lst = self.cell_index.setdefault(cell, [])
-        if c.name not in lst:
-            lst.append(c.name)
+        if cell is not None:
+            lst = self.cell_index.setdefault(cell, [])
+            if c.name not in lst:
+                lst.append(c.name)
+        # Also add to edge index: the concept's DOING path
+        for edge in _path_edges(c.operator_signature):
+            elst = self.edge_index.setdefault(edge, [])
+            if c.name not in elst:
+                elst.append(c.name)
+
+    def find_by_path(self, query_ops: List[int],
+                       max_results: int = 12,
+                       min_edges: int = 1
+                       ) -> List[Tuple[NamedConcept, float]]:
+        """Path-intersection retrieval (the full BDC primitive).
+
+        Decomposes the query's operator stream into directed edges,
+        then for each edge looks up which stored concepts traverse it.
+        A concept's score is the FRACTION of query-edges it shares,
+        weighted higher when its path is short (more focused) — so a
+        long, sprawling concept doesn't dominate just because it
+        traverses many edges by coincidence.
+
+        Example: query = [HARMONY, LATTICE, BALANCE]
+          query edges:  {(H,L), (L,B)}
+          for each edge, look up concepts in self.edge_index
+          score by |shared edges| / max(|query|, |concept|)
+
+        This is the COMPOSITIONAL retrieval the user asked for:
+        concepts are PATHS through the lattice, not just endpoints.
+        """
+        if not query_ops or len(query_ops) < 1:
+            return []
+        q_edges = set(_path_edges(query_ops))
+        if not q_edges:
+            return []
+
+        # Collect candidate concepts: any name whose path shares an edge
+        candidates: Dict[str, set] = {}
+        for edge in q_edges:
+            for name in self.edge_index.get(edge, []):
+                if name not in candidates:
+                    candidates[name] = set()
+                candidates[name].add(edge)
+
+        # Score each candidate by shared-edge fraction
+        scored: List[Tuple[NamedConcept, float]] = []
+        for name, shared in candidates.items():
+            if len(shared) < min_edges:
+                continue
+            c = self.concepts.get(name.lower())
+            if c is None:
+                continue
+            c_edges = set(_path_edges(c.operator_signature))
+            if not c_edges:
+                continue
+            # Jaccard-like score: |intersection| / max(|query|, |concept|)
+            # so longer concept paths get penalized for "covering" more.
+            score = len(shared) / max(len(q_edges), len(c_edges))
+            scored.append((c, score))
+
+        scored.sort(key=lambda x: -x[1])
+        return scored[:max_results]
+
+    def path_stats(self) -> Dict[str, Any]:
+        """Audit edge-index density across the 100 possible directed edges."""
+        if not self.edge_index:
+            return {"n_edges_populated": 0, "max_edge": 0, "avg_edge": 0,
+                    "n_concepts_with_path": 0}
+        sizes = [len(v) for v in self.edge_index.values()]
+        concepts_with_path = sum(
+            1 for c in self.concepts.values()
+            if len(c.operator_signature) >= 1
+        )
+        return {
+            "n_edges_populated": len(self.edge_index),
+            "max_edge": max(sizes),
+            "avg_edge": sum(sizes) / len(sizes),
+            "n_concepts_with_path": concepts_with_path,
+        }
 
     def teach(self, name: str, definition: str, ops: List[int],
               pattern: str, session: str,
@@ -620,7 +764,7 @@ class ConceptStore:
                     out.append(c)
                     seen_keys.add(key)
 
-        # Third pass: ALGEBRAIC CELL RETRIEVAL (memory translation).
+        # Third pass: ALGEBRAIC CELL RETRIEVAL (B+D+C endpoints).
         # Compute the query's operator signature from its text (heuristic
         # if no engine-decoded signature was passed in). Project to its
         # (in_op, out_op) cell. Look up concepts at that cell + its row
@@ -657,6 +801,37 @@ class ConceptStore:
                     # Cap algebraic additions so we don't drown direct hits
                     if sum(1 for _ in cell_hits if _[1] >= 0.5) >= max_algebraic:
                         break
+
+                # Fourth pass: BDC PATH RETRIEVAL — full operator-path
+                # intersection. A query's path is decomposed into edges;
+                # concepts whose paths SHARE EDGES with the query (even
+                # if they don't share the dominant-pair cell) are pulled
+                # in.  This catches concepts that compose with the query
+                # along part of their dynamics — the COMPOSITIONAL view.
+                path_hits = self.find_by_path(query_ops, max_results=6,
+                                               min_edges=1)
+                # Sort path hits by combined score: path-intersection × tier
+                _TIER_RANK = {
+                    "PROVED": 6, "STRUCTURAL": 5, "USER_TAUGHT": 4,
+                    "EMPIRICAL": 3, "OPEN": 2, "EXTERNAL": 1.5,
+                    "SPECULATIVE": 1, "UNKNOWN": 0,
+                }
+                def _path_rank(item):
+                    c, sc = item
+                    t = getattr(c, "tier", "UNKNOWN") or "UNKNOWN"
+                    if t.startswith("SYNTHESIZED("):
+                        inner = t[len("SYNTHESIZED("):].rstrip(")")
+                        return -(sc * (_TIER_RANK.get(inner, 0) - 0.5))
+                    return -(sc * _TIER_RANK.get(t, 0))
+                path_hits_sorted = sorted(path_hits, key=_path_rank)
+                for c, score in path_hits_sorted[:4]:
+                    key_l = c.name.lower()
+                    if key_l in seen_keys:
+                        continue
+                    c.n_recalls += 1
+                    c.last_recalled_ts = time.time()
+                    out.append(c)
+                    seen_keys.add(key_l)
 
         if out:
             self.save()
