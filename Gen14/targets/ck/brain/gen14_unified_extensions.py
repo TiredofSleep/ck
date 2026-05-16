@@ -855,6 +855,25 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_ad_tailored: failed ({e})")
         results['ad_tailored'] = False
 
+    # Level-3 coupled tables: TSML × BHML × CL_STD on 4-core.  Per
+    # Brayden 2026-05-16 "let's get to level 3?" — extends D111's
+    # 2-table coupling to all three canonical lenses.  Key findings:
+    # 4/16 cells have all-3-agreement (universal attractor),
+    # 0/16 have all-3-differ (always at least 2 agree),
+    # TSML is structural OUTLIER (BHML and STD agree on 12/16).
+    # PHYSICS BRIDGE: CL_STD outer-rung gap ratio is exactly 2^11
+    # (the wobble prime) — different signature than BHML's
+    # 100+1/(5·7) gap.  Three structurally distinct c-related
+    # gap signatures across the family.  Endpoints
+    # /coupled_3tables/{info, agreement, simulate, sweep,
+    # physics_bridge}.
+    try:
+        from ck_coupled_3tables import mount_coupled_3tables  # type: ignore[import-not-found]
+        results['coupled_3tables'] = mount_coupled_3tables(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_coupled_3tables: failed ({e})")
+        results['coupled_3tables'] = False
+
     # Coupled 4-cores: the structural gap c lives in.  Per Brayden
     # 2026-05-16 "maybe in the gap between 2 coupled 4 cores?" — the
     # TSML 4-core and BHML 4-core share the same set {V, H, Br, R}
