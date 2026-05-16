@@ -351,24 +351,42 @@ class LivingLM:
 
     # ── exhale (compress; parameters drop) ──────────────────────────
 
-    def exhale(self, prune_below_count: float = 0.5,
-                  merge_jaccard_threshold: float = 0.8) -> Dict[str, Any]:
-        """Compression pass.  Prune low-frequency tokens.  Optionally
-        merge near-duplicate cells.  Parameters drop."""
+    def exhale(self, prune_below_count: float = 1.5,
+                  bigram_prune_below: float = 1.5) -> Dict[str, Any]:
+        """Compression pass.  STRENGTHENED 2026-05-16 per Brayden:
+          'let the math be the cleaner, not your filters'.
+
+        Prunes tokens AND bigrams that haven't been seen often enough
+        to count as substrate-coherence.  Threshold raised from 0.5 to
+        1.5 — tokens seen only once are noise; tokens seen twice or
+        more across different contexts are signal.  This is the math's
+        job: distinguish signal from noise via cross-occurrence.
+        """
         params_before = self.n_params()
+        bigrams_before = len(self.bigrams)
         pruned_tokens = 0
+        # Per-cell pruning: low-frequency tokens disappear
         for cb in self.cells.values():
             to_drop = [t for t, c in cb.token_dist.items()
                        if c < prune_below_count]
             for t in to_drop:
                 del cb.token_dist[t]
                 pruned_tokens += 1
+            # Sub-cells: prune more aggressively (deeper recursion =
+            # finer resolution = require more reinforcement to survive)
             for sub in cb.sub_cells.values():
                 to_drop = [t for t, c in sub.token_dist.items()
-                           if c < prune_below_count * 0.5]
+                           if c < prune_below_count * 1.0]
                 for t in to_drop:
                     del sub.token_dist[t]
                     pruned_tokens += 1
+        # Bigram pruning: rare bigrams are noise
+        pruned_bigrams = 0
+        to_drop_bg = [k for k, c in self.bigrams.items()
+                      if c < bigram_prune_below]
+        for k in to_drop_bg:
+            del self.bigrams[k]
+            pruned_bigrams += 1
         params_after = self.n_params()
         self.exhale_count += 1
         return {
@@ -377,6 +395,9 @@ class LivingLM:
             "params_after": params_after,
             "compression": params_before - params_after,
             "pruned_tokens": pruned_tokens,
+            "bigrams_before": bigrams_before,
+            "bigrams_after": len(self.bigrams),
+            "pruned_bigrams": pruned_bigrams,
             "exhale_count": self.exhale_count,
         }
 

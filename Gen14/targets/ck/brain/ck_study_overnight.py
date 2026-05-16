@@ -568,10 +568,10 @@ def extract_concepts_prose(text: str, source_path: str
                              ) -> List[Tuple[str, str, str]]:
     """Pull (name, definition, role) triples from natural prose.
 
-    Uses _extract_from_research (research-prose-friendly regex). To
-    avoid extracting narrative fragments from fiction, we only run on
-    texts whose first ~6KB contains technical vocabulary (looks_scientific).
-    Pure fiction is left alone here; it still feeds voice_style samples.
+    Brayden 2026-05-16: stripped the looks_scientific gate.  The math
+    distinguishes — fiction's "Captain Lloyd" and physics's "Hilbert
+    space" land in DIFFERENT cells; the substrate sorts genre by
+    cell-occupancy.  No reason to pre-filter sources.
     """
     out: List[Tuple[str, str, str]] = []
     if not text or len(text) < 50:
@@ -586,12 +586,6 @@ def extract_concepts_prose(text: str, source_path: str
     f = SP.find("*** END OF")
     if f >= 0:
         SP = SP[:f]
-    # arxiv files always pass (they have abstract markers); books only
-    # if they contain technical vocabulary
-    src_lower = source_path.lower().replace("\\", "/")
-    is_arxiv = "/arxiv/" in src_lower
-    if not is_arxiv and not looks_scientific(SP):
-        return out  # fiction-only: skip concept extraction, voice only
     for name, defn in _extract_from_research(SP):
         out.append((name, defn, "prose:definition"))
     return out

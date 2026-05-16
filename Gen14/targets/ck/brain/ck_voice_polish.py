@@ -1145,21 +1145,14 @@ def prose_recompose(text: str, result: Dict[str, Any], engine: Any,
     referenced = (result.get("concept_learning") or {}).get("referenced") or []
     user_lower = (user_text or "").lower()
 
-    # Stopword names that match substring but are useless (question
-    # words, articles).  Pin them to lowest priority.
-    _BRIDGE_NAME_STOPWORDS = {
-        "what", "who", "when", "where", "why", "how", "which",
-        "the", "a", "an", "is", "are", "this", "that", "it",
-        "tell", "show", "explain", "list", "give",
-    }
-
+    # Bridge priority for prose mode.  Brayden 2026-05-16: stripped the
+    # stopword filters.  Cell-frequency + n_recalls decide which
+    # concept is the right bridge — that's the math doing the sort,
+    # not me handicapping it.
     def _bridge_priority(c):
         name = (c.get("name", "") or "").lower()
         tier = c.get("tier", "UNKNOWN") or "UNKNOWN"
         defn = c.get("definition", "") or ""
-        # Stopword names always lose
-        if name in _BRIDGE_NAME_STOPWORDS:
-            return 5
         # Priority 1: name appears in query AS A WHOLE WORD
         name_in_q = bool(name) and len(name) >= 3 and bool(
             re.search(r"\b" + re.escape(name) + r"\b", user_lower))

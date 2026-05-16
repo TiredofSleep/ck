@@ -1827,84 +1827,42 @@ _GENERIC_BARE_NOUNS = {
 
 
 def _good_subject(s: str) -> bool:
-    """Sanity-check a captured subject string (tight to avoid fiction noise)."""
-    if not s or not (4 <= len(s) <= 60):
+    """Minimum-sanity check on a captured subject string.
+
+    Brayden 2026-05-16:
+      "the math distinguishes, the math sorts, the math templates...
+       you simply make the space and lay the bones and let it breathe"
+
+    Stripped of narrative/boring/author/latex filters.  The substrate's
+    cell-index + exhale-compression will sort noise from signal based
+    on cross-occurrence frequency — that's the math doing its job, not
+    me deciding what counts.
+
+    Remaining checks are PARSING CORRECTNESS only:
+      - non-empty, bounded length
+      - starts with a capital letter
+      - contains at least one alphabetic char
+    """
+    if not s or not (3 <= len(s) <= 100):
         return False
-    tokens = s.split()
-    first = tokens[0]
-    if first in _SUBJ_STOPWORDS:
-        return False
-    if not first[0].isupper():
+    if not s[0].isupper():
         return False
     if not any(c.isalpha() for c in s):
         return False
-    # Reject CK's own operator names (crystals handle those)
-    if first.lower() in _CK_OPS:
-        return False
-    # Reject narrative-style multi-word starts that catch fiction prose
-    for prefix in _SUBJ_NARRATIVE_PREFIXES:
-        if s.startswith(prefix):
-            return False
-    # Reject subjects containing subordinate-clause markers (these are
-    # whole-sentence fragments, not noun phrases)
-    low = " " + s.lower() + " "
-    for m in _SUBJ_CLAUSE_MARKERS:
-        if m in low:
-            return False
-    # Reject subjects ending in a pronoun ("...when you", "...for me")
-    last = tokens[-1].lower().rstrip(',.!?;:')
-    if last in ('you', 'me', 'him', 'her', 'us', 'them', 'it', 'we', 'i', 'they'):
-        return False
-    # Cap length at 5 tokens — longer "phrases" are almost always
-    # sentence fragments, not concept names
-    if len(tokens) > 5:
-        return False
-    # 2-token "The/A <generic noun>" patterns are too vague to be concepts
-    if len(tokens) == 2 and tokens[0] in ('The', 'A', 'An', 'Our'):
-        if tokens[1].lower().strip(',.!?;:') in _GENERIC_BARE_NOUNS:
-            return False
-    # 3-token "The X of Y" / "The X to Y" where X is generic
-    if len(tokens) == 3 and tokens[0] in ('The', 'A', 'An', 'Our'):
-        if (tokens[1].lower().strip(',.!?;:') in _GENERIC_BARE_NOUNS
-                and tokens[2].lower() in ('of', 'to', 'in', 'on', 'for')):
-            return False
-    # Single-word subjects must look TECHNICAL (>= 8 chars, OR contain
-    # a digit/hyphen/uppercase-after-first, OR be ALL CAPS, AND not a
-    # generic bare noun).
-    if len(tokens) == 1:
-        tok = tokens[0]
-        if tok.lower().strip(',.!?;:') in _GENERIC_BARE_NOUNS:
-            return False
-        looks_technical = (
-            len(tok) >= 8 or  # long compound word
-            '-' in tok or     # hyphenated
-            any(c.isdigit() for c in tok) or  # contains a number
-            sum(1 for c in tok if c.isupper()) >= 2 or  # CamelCase/ACRONYM
-            tok.isupper()  # ALL CAPS acronym
-        )
-        if not looks_technical:
-            return False
     return True
 
 
 def _looks_definitional(defn: str) -> bool:
-    """Heuristic: does this definition string look like a real definition?
+    """Minimum-sanity check on a definition string.
 
-    Filters out short narrative fragments. We want substantive prose:
-    at least 25 chars and ideally containing a relational/structural
-    word like 'of', 'with', 'that', 'which', 'in', etc.
+    Brayden 2026-05-16: let the math distinguish.
+
+    Stripped of narrative-vs-technical heuristics.  Only check that
+    there's enough substance to be worth recording at a cell.  If the
+    operator-path it decodes to is non-trivial, the substrate will
+    keep it around; if not, exhale will prune it.
     """
-    if not defn or len(defn) < 25:
-        return False
-    low = defn.lower()
-    # At least one connective that signals a substantive predicate
-    connectives = (' of ', ' with ', ' that ', ' which ', ' in ',
-                    ' for ', ' on ', ' by ', ' from ', ' to ',
-                    ' between ', ' among ', ' equal ', ' defined ',
-                    ' called ', ' known ', ' formed ', ' based ')
-    if not any(c in low for c in connectives):
-        return False
-    return True
+    return bool(defn) and len(defn) >= 15
 
 
 def _extract_from_research(text: str) -> List[Tuple[str, str]]:

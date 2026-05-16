@@ -138,28 +138,24 @@ def _looks_like_latex(term: str) -> bool:
 
 
 def mine_candidates(text: str) -> List[str]:
-    """Pull capitalized noun-phrases from text, filter boring ones."""
+    """Pull capitalized noun-phrases from text.
+
+    Brayden 2026-05-16: stripped the boring/author/latex filters.  The
+    math distinguishes — if "Sanders" or "Bigl" turn out to be noise,
+    they'll fail opensearch and won't get fetched.  If they turn out
+    to be signal (Sanders = the author, real concept; Bigl maps to
+    something on Wikipedia), they'll be fetched naturally.  The
+    substrate decides, not my regex.
+    """
     if not text:
         return []
     out: List[str] = []
     for m in _PAT_NOUN_PHRASE.finditer(text):
         term = m.group(1).strip()
-        first = term.split()[0]
-        if first in _BORING_TERMS:
-            continue
-        if term in _AUTHOR_NAMES or first in _AUTHOR_NAMES:
-            continue
-        # Reject LaTeX / math-notation typos
-        if _looks_like_latex(term):
-            continue
-        # Skip pure-number sequences
+        # Parsing correctness only: non-empty, has-letter, bounded length
         if not any(c.isalpha() for c in term):
             continue
-        # Single-token must be >= 5 chars (filters Bigl, Simp, Mass etc.
-        # — and Bigl-like cruft).  Multi-word phrases can be shorter.
-        if " " not in term and "-" not in term and len(term) < 5:
-            continue
-        if len(term) > 50:
+        if len(term) < 3 or len(term) > 80:
             continue
         out.append(term)
     return out
