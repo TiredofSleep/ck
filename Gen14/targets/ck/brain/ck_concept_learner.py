@@ -198,11 +198,46 @@ _DEFAULT_STORE_PATH = (
 )
 
 
-# Semantic operator-vocabulary: words that decode to each operator.
-# Cheap heuristic for offline use (without the engine's full decoder).
-# Each operator has ~15-30 trigger words. A definition that mentions
-# "complete inner product space" decodes to [LATTICE, HARMONY, HARMONY]
-# even though it contains no CK op-name literally.
+# ─── Real semantic decoder via CK's 8K-word enriched dictionary ────────
+#
+# Brayden 2026-05-15: "200 word dictionary is a toy, let's try and make
+# something useful"
+#
+# CK already has ck_dictionary_enriched.json — 8,000 curated words, each
+# with hand-tuned (dominant_op, operator_seq, soft_dist over all 10 ops).
+# That's the real semantic-decoder corpus.  The toy dict below is only
+# the fallback for words not in the 8K.
+
+_ENRICHED_DICT_PATHS = [
+    Path(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED")
+    / "Gen12" / "targets" / "ck_desktop" / "ck_sim" / "ck_dictionary_enriched.json",
+    Path(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED")
+    / "ck_sim" / "ck_dictionary_enriched.json",
+]
+
+
+def _load_enriched_dict() -> Dict[str, Dict[str, Any]]:
+    """Load CK's enriched dictionary once at module init."""
+    for p in _ENRICHED_DICT_PATHS:
+        try:
+            if p.exists():
+                d = json.loads(p.read_text(encoding="utf-8"))
+                if isinstance(d, dict) and len(d) > 100:
+                    return d
+        except Exception:
+            continue
+    return {}
+
+
+# Cached at module load (8,000 words from CK's enriched dictionary,
+# each carrying its own dominant_op, operator_seq, and soft_dist over
+# all 10 operators).
+_ENRICHED_DICT: Dict[str, Dict[str, Any]] = _load_enriched_dict()
+
+
+# Toy fallback vocabulary for words not in the 8K dictionary.  Keeps
+# decoding robust for technical-jargon and recent terms the curated
+# dict hasn't tagged yet.
 _SEMANTIC_OPS: Dict[int, Tuple[str, ...]] = {
     # 0 VOID — emptiness, null, ground state, zero
     0: ("void", "empty", "null", "nothing", "ground", "zero",
@@ -272,32 +307,101 @@ _SEMANTIC_OPS: Dict[int, Tuple[str, ...]] = {
 }
 
 
-def semantic_decode(text: str, max_ops: int = 6) -> List[int]:
-    """Map text content to an operator stream via word-class lookup.
+# Build the toy-fallback reverse map once (small dict, cheap)
+_TOY_WORD_TO_OP: Dict[str, int] = {}
+for _op_id, _words in _SEMANTIC_OPS.items():
+    for _w in _words:
+        if _w not in _TOY_WORD_TO_OP:
+            _TOY_WORD_TO_OP[_w] = _op_id
 
-    Walks each token, accumulates operator counts via _SEMANTIC_OPS,
-    returns the top-K operators by frequency.  This is the load-bearing
-    decoder for the cell index: it lets prose like "complete inner
-    product space" decode to [HARMONY, LATTICE, HARMONY] without
-    requiring the text to literally contain CK's op-name vocabulary.
+
+def semantic_decode(text: str, max_ops: int = 6) -> List[int]:
+    """Map text content to an operator stream using CK's 8K enriched
+    dictionary as primary, toy 200-word vocab as fallback.
+
+    For each token in text:
+      1. Look it up in CK's enriched dict (8K curated words).  If found,
+         add its soft_dist (10-bin probability over operators) to the
+         running aggregate.
+      2. Otherwise, look it up in the 200-word toy dict.  If found, add
+         a +1 spike at that operator.
+
+    Return the top-K operators by aggregate weight.  This gives CK's
+    own hand-tuned semantics primacy over my coarse fallback.
     """
     if not text:
         return []
-    # Reverse mapping: word -> op_id (use first hit if a word appears in
-    # multiple operator vocabularies)
-    word_to_op: Dict[str, int] = {}
-    for op_id, words in _SEMANTIC_OPS.items():
-        for w in words:
-            if w not in word_to_op:
-                word_to_op[w] = op_id
-    counts: Dict[int, int] = {}
+    # 10-bin aggregate: weight per operator across the whole text
+    agg = [0.0] * 10
+    enriched_hits = 0
+    toy_hits = 0
     for tok in re.findall(r"[a-zA-Z]+", text.lower()):
-        op = word_to_op.get(tok)
+        # 1. CK's enriched dictionary
+        entry = _ENRICHED_DICT.get(tok)
+        if entry:
+            soft = entry.get("soft_dist")
+            if isinstance(soft, list) and len(soft) >= 10:
+                for i in range(10):
+                    try:
+                        agg[i] += float(soft[i])
+                    except Exception:
+                        pass
+                enriched_hits += 1
+                continue
+            # If enriched entry lacks soft_dist, fall back to dominant_op
+            dom = entry.get("dominant_op")
+            if dom is not None and 0 <= dom < 10:
+                agg[dom] += 1.0
+                enriched_hits += 1
+                continue
+        # 2. Toy fallback (for words CK's dict doesn't yet tag)
+        op = _TOY_WORD_TO_OP.get(tok)
         if op is not None:
-            counts[op] = counts.get(op, 0) + 1
-    # Sort by frequency desc, then by op_id asc for stability
-    ranked = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
-    return [op for op, _ in ranked[:max_ops]]
+            agg[op] += 1.0
+            toy_hits += 1
+    # Rank operators by aggregate weight (desc), tie-break by op_id
+    ranked = sorted(range(10), key=lambda i: (-agg[i], i))
+    out: List[int] = []
+    for op_id in ranked:
+        if agg[op_id] <= 0:
+            break
+        out.append(op_id)
+        if len(out) >= max_ops:
+            break
+    return out
+
+
+def semantic_decode_path(text: str) -> List[int]:
+    """Decode text into the FULL Doing-path (concatenated word operator_seqs).
+
+    Each word in CK's enriched dict carries its own operator_seq — a
+    micro-pathway through the lattice.  Concatenating those for every
+    word in a sentence gives the SENTENCE's full BDC pathway, which is
+    much richer than just the top-K dominant operators.
+
+    Used by find_by_path for path-intersection retrieval, where having
+    a longer query path means more edges to match against stored
+    concepts.
+    """
+    if not text:
+        return []
+    out: List[int] = []
+    for tok in re.findall(r"[a-zA-Z]+", text.lower()):
+        entry = _ENRICHED_DICT.get(tok)
+        if entry:
+            seq = entry.get("operator_seq")
+            if isinstance(seq, list):
+                for o in seq:
+                    try:
+                        out.append(int(o) % 10)
+                    except Exception:
+                        pass
+                continue
+        # Fallback: toy dict gives a single op
+        op = _TOY_WORD_TO_OP.get(tok)
+        if op is not None:
+            out.append(op)
+    return out
 
 
 def _cell_coord(ops: List[int]) -> Optional[Tuple[int, int]]:
@@ -803,12 +907,17 @@ class ConceptStore:
                         break
 
                 # Fourth pass: BDC PATH RETRIEVAL — full operator-path
-                # intersection. A query's path is decomposed into edges;
-                # concepts whose paths SHARE EDGES with the query (even
-                # if they don't share the dominant-pair cell) are pulled
-                # in.  This catches concepts that compose with the query
-                # along part of their dynamics — the COMPOSITIONAL view.
-                path_hits = self.find_by_path(query_ops, max_results=6,
+                # intersection. We decode the query a second time as a
+                # CONCATENATED path (each word's operator_seq inlined),
+                # giving us a much richer set of query-edges than the
+                # top-K dominant ops.  Concepts whose paths SHARE EDGES
+                # with this richer query are pulled in — the
+                # COMPOSITIONAL view.
+                full_path = semantic_decode_path(text)
+                # Use the full path for edge-matching; fall back to the
+                # dominant-op stream if the path decoder yielded nothing.
+                path_query = full_path if len(full_path) >= 2 else query_ops
+                path_hits = self.find_by_path(path_query, max_results=6,
                                                min_edges=1)
                 # Sort path hits by combined score: path-intersection × tier
                 _TIER_RANK = {
