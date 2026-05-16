@@ -495,22 +495,49 @@ def iterate_once(engine: Any,
 def _ingest_as_self(engine: Any, thesis: str, archetype: str,
                     text: str) -> None:
     """Add the section as a SELF-tier concept so the next iteration
-    can reference what CK just wrote."""
+    can reference what CK just wrote.  Stores as NamedConcept
+    dataclass when the store is a live ConceptStore (so callers
+    that use attribute access don't crash), else as a dict for
+    standalone testing."""
     store = getattr(engine, "concept_store", None)
     if store is None or not text:
         return
+    name = f"writing__{_slug(thesis)[:30]}__{archetype}"
     try:
-        # Build a concept entry
-        name = f"writing__{_slug(thesis)[:30]}__{archetype}"
-        if isinstance(store.concepts, dict):
-            # If already exists, update with longer text (concept-store
-            # dataclass would handle this differently; for dict-store
-            # we just overwrite).
+        from ck_concept_learner import semantic_decode  # type: ignore
+        ops = semantic_decode(text) or []
+    except Exception:
+        ops = []
+    try:
+        from ck_concept_learner import NamedConcept  # type: ignore
+        concept = NamedConcept(
+            name=name,
+            definition=text,
+            operator_signature=ops,
+            pattern_used="writing_self_ingest",
+            source_session="ck_writer",
+            learned_ts=time.time(),
+            n_recalls=0,
+            last_recalled_ts=0.0,
+            tier="SELF",
+            source_file="ck_writer.py",
+            members=[],
+        )
+        # Use store.add_concept if available (handles indexing too);
+        # else write directly.
+        if hasattr(store, "add_concept"):
             try:
-                from ck_concept_learner import semantic_decode  # type: ignore
-                ops = semantic_decode(text) or []
+                store.add_concept(concept)
+                return
             except Exception:
-                ops = []
+                pass
+        # Direct dict assignment fallback
+        store.concepts[name] = concept
+    except Exception:
+        # Last-resort: write dict only if NamedConcept import failed
+        # entirely (e.g. running from a CLI smoke test without the
+        # full engine).
+        if isinstance(getattr(store, "concepts", None), dict):
             store.concepts[name] = {
                 "name": name,
                 "definition": text,
@@ -520,9 +547,10 @@ def _ingest_as_self(engine: Any, thesis: str, archetype: str,
                 "pattern_used": "writing_self_ingest",
                 "learned_ts": time.time(),
                 "n_recalls": 0,
+                "last_recalled_ts": 0.0,
+                "source_file": "ck_writer.py",
+                "members": [],
             }
-    except Exception:
-        pass
 
 
 def _load_state() -> Dict[str, Any]:

@@ -1309,6 +1309,12 @@ class ConceptStore:
             for key, c in self.concepts.items():
                 if key in seen_keys:
                     continue
+                # Defensive: skip dict-style concepts (legacy
+                # writer self-ingest wrote raw dicts; later boots
+                # use NamedConcept).  Both are valid in-store but
+                # only NamedConcept supports attribute access.
+                if not hasattr(c, "source_session"):
+                    continue
                 if c.source_session != "synthesis":
                     continue
                 # Authoritative path: synthesis concepts carry an
