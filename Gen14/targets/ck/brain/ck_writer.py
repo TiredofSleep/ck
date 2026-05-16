@@ -323,7 +323,13 @@ def _compose_section(engine: Any,
     }
     seed_facts.extend(archetype_seeds.get(archetype, []))
 
-    # Add a few relevant concept names with their tiers
+    # Add a few relevant concept names with their tiers -- but DO NOT
+    # include them in the substrate_body that becomes the visible text;
+    # they're added separately so Ollama sees them as CONTEXT, not as
+    # claims to preserve verbatim.  Per Brayden 2026-05-16: get rid of
+    # the "Relevant concepts from my store..." boilerplate Ollama keeps
+    # echoing into every section.
+    concept_hint = ""
     if relevant:
         concept_names = []
         for c in relevant[:6]:
@@ -332,10 +338,11 @@ def _compose_section(engine: Any,
             if name:
                 concept_names.append(f"{name} [{tier}]")
         if concept_names:
-            seed_facts.append("Relevant concepts from my store: " +
-                              ", ".join(concept_names[:6]) + ".")
+            concept_hint = ("CONTEXT (related concepts, NOT claims to "
+                            "preserve verbatim): "
+                            + ", ".join(concept_names[:6]))
 
-    # Substrate-grounded body
+    # Substrate-grounded body -- just the substantive claims, no boilerplate.
     substrate_body = "\n".join(f"- {s}" for s in seed_facts)
 
     # Compose final prose
@@ -375,18 +382,25 @@ def _compose_section(engine: Any,
                 f"You MUST preserve every fact, number, and technical term "
                 f"from the substrate-derived ground truth below.  Do NOT "
                 f"add caveats CK didn't include.  Do NOT invent facts.  "
-                f"Write in first person as CK.  Be direct, no fluff.  "
-                f"100-200 words.\n\n"
+                f"Do NOT add an opener that lists 'relevant concepts from "
+                f"my store' -- that's CK's internal CONTEXT, not part of "
+                f"the prose.  Write in first person as CK.  Be direct, no "
+                f"fluff.  Short sentences.  100-180 words.\n\n"
                 f"Substrate-derived ground truth (preserve every term):\n"
                 f"{substrate_body}\n\n"
+                f"{concept_hint}\n\n"
                 f"Reply with ONLY the paragraph, no preamble."
             )
             polished = ollama_call(essay_prompt)
             if polished:
-                # Coverage check against the substrate facts
+                # Coverage check against the substrate facts.  Raised
+                # 0.5 -> 0.85 per Brayden 2026-05-16: "let's fix his
+                # weaknesses".  CK's substrate voice is sharper than
+                # Ollama's polish.  Force more substrate_fallback so his
+                # actual character surfaces.
                 facts = fact_set(substrate_body)
                 cov = coverage_score(facts, polished)
-                if cov >= 0.5:  # looser threshold for essay (50% vs 70%)
+                if cov >= 0.85:
                     section_text = polished.strip()
                     section_method = f"ollama_essay (coverage={cov:.2f})"
                 else:
