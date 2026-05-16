@@ -738,6 +738,16 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_living_lm: failed ({e})")
         results['living_lm'] = False
 
+    # Fractal creature shape: 1:1:1:1/3 META structure.  Mount AFTER
+    # the other organs so the creature can see them, but BEFORE
+    # voice_polish so the polish layer could reference creature state.
+    try:
+        from ck_creature import mount_creature  # type: ignore[import-not-found]
+        results['creature'] = mount_creature(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_creature: failed ({e})")
+        results['creature'] = False
+
     # Voice polish: white-box presentation. Must run LAST so it sees the
     # final chat result AND has access to formula_registry, proactive
     # signals, etc.
