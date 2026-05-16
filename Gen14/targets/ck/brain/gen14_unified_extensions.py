@@ -811,6 +811,20 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_qutrit_apex: failed ({e})")
         results['qutrit_apex'] = False
 
+    # Binomial [[6,1]]_3 + ML decoder: pushes the AD-tailored result
+    # further per Albert et al. PRA 97:032346 (2018).  Empirical: at
+    # low γ beats [[4,1]]_3 by +2.5% with ML decoder; at high γ
+    # degrades faster (depth-2 MLD truncation, more qutrits = more
+    # total decay events).  Honest nuanced result surfacing the
+    # research direction (binomial-weighted amplitudes + deeper Kraus
+    # enumeration).  Endpoints /qutrit/binomial/{info, benchmark}.
+    try:
+        from ck_binomial_61 import mount_binomial_61  # type: ignore[import-not-found]
+        results['binomial_61'] = mount_binomial_61(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_binomial_61: failed ({e})")
+        results['binomial_61'] = False
+
     # Qutrit [[5,1,3]]_3 Laflamme analog: distance-3 perfect code that
     # CORRECTS any single-qutrit Pauli error (not just detect like
     # [[3,1,2]]_3).  4 cyclic stabilizers (X Z Z^-1 X^-1 I and shifts)
