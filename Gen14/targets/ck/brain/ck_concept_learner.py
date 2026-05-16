@@ -1585,12 +1585,37 @@ def process_chat_turn(engine: Any, session_id: str, user_text: str,
         algebra_out = _algebra(user_text, engine=engine)
         if algebra_out is not None:
             out["algebra"] = algebra_out
-            # Also surface in result so voice layer can pick it up
             if isinstance(result, dict):
                 result["algebra"] = algebra_out
     except Exception:
-        # Algebra runtime is import-safe; any error here should not
-        # block the rest of the chat turn.
+        pass
+
+    # VERIFICATION ON DEMAND (Layer 2): if user asks "verify X" /
+    # "is X still proved" / "run the proof of X", run the registered
+    # verification script in a subprocess and return PASS/FAIL with
+    # tail output and timing.
+    try:
+        from ck_verifier import run_in_chat as _verify  # type: ignore
+        verify_out = _verify(user_text, engine=engine)
+        if verify_out is not None:
+            out["verify"] = verify_out
+            if isinstance(result, dict):
+                result["verify"] = verify_out
+    except Exception:
+        pass
+
+    # PREDICTIONS LEDGER (Layer 3): if user asks "what predicts X" /
+    # "status of the alpha prediction" / "what would falsify F3" /
+    # "list predictions", look up the predictions ledger and return
+    # matches with their status (OPEN / CONFIRMED / REFUTED / ...).
+    try:
+        from ck_predictions import run_in_chat as _predict  # type: ignore
+        predict_out = _predict(user_text, engine=engine)
+        if predict_out is not None:
+            out["predictions"] = predict_out
+            if isinstance(result, dict):
+                result["predictions"] = predict_out
+    except Exception:
         pass
 
     return out

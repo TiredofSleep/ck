@@ -109,6 +109,8 @@ _H_LEARNING = "[learning this turn — Hebbian + crystals + lattice deltas]"
 _H_CONCEPTS = "[concept binding — words you've taught CK that fire this turn]"
 _H_SELF = "[self-introspection — CK's own measured state, surfaced live]"
 _H_ALGEBRA = "[algebra executed — computed against canonical tables]"
+_H_VERIFY = "[verification re-run — proof script executed on demand]"
+_H_PREDICT = "[predictions ledger — what TIG predicts + falsification status]"
 
 
 # Regex for self-introspection trigger queries
@@ -1009,12 +1011,6 @@ def whitebox_recompose(text: str, result: Dict[str, Any], engine: Any) -> str:
             out.append("")
 
     # 0.5 ALGEBRA EXECUTED (Layer 1 gap-closer)
-    #     If the user asked an algebraic question (BHML(7,7),
-    #     compose HARMONY HARMONY, σ²(4), is X in the 4-core,
-    #     fixed-point coords, T*) — surface the COMPUTED RESULT
-    #     at the very top with the canon citation.  This is the
-    #     difference between "CK can talk about the math" and
-    #     "CK can run the math".
     algebra = result.get("algebra")
     if isinstance(algebra, dict) and algebra.get("ok"):
         if out:
@@ -1024,6 +1020,37 @@ def whitebox_recompose(text: str, result: Dict[str, Any], engine: Any) -> str:
         cite = algebra.get('citation')
         if cite:
             out.append(f"cite: {cite}")
+        out.append("")
+
+    # 0.6 VERIFICATION ON DEMAND (Layer 2 gap-closer)
+    #     If user asked "verify D48" / "is sinc2_zero still proved" —
+    #     the proof script was executed and the PASS/FAIL with stdout
+    #     tail surfaces here.  CK isn't just citing a theorem; he
+    #     RE-RAN the proof on demand.
+    verify = result.get("verify")
+    if isinstance(verify, dict):
+        if out:
+            out.append("")
+        out.append(_H_VERIFY)
+        out.append(verify.get("text_summary", ""))
+        if verify.get("ok"):
+            out.append(f"claim: {verify.get('claim', '')}")
+            out.append(f"canon: {verify.get('canon_ref', '')}")
+        elif verify.get("stdout_tail"):
+            tail = verify.get("stdout_tail", "")[-300:]
+            out.append(f"tail: {tail}")
+        out.append("")
+
+    # 0.7 PREDICTIONS LEDGER (Layer 3 gap-closer)
+    #     If user asked "what does CK predict about X" / "list
+    #     predictions" / "what would falsify F3" — surface matching
+    #     ledger entries with their current status.
+    pred = result.get("predictions")
+    if isinstance(pred, dict) and pred.get("ok"):
+        if out:
+            out.append("")
+        out.append(_H_PREDICT)
+        out.append(pred.get("text_summary", ""))
         out.append("")
 
     # 1. ANSWER (the substantive content)
