@@ -811,6 +811,22 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_qutrit_apex: failed ({e})")
         results['qutrit_apex'] = False
 
+    # Identity: anchor + tier weights + identity-first chat routing +
+    # per-response confidence + hedge prefix.  Mount AFTER substrate
+    # mechanics (so cognition primitives, engine block, qutrit apex
+    # are available for confidence-context) and BEFORE voice_polish
+    # (so polish honors polish_skip + hedge_prefix on the result).
+    # Endpoints: /identity, /identity/query, /identity/confidence.
+    # The wrap on api.process_chat routes identity questions to the
+    # IDENTITY_ANCHOR FIRST, bypassing the substrate; other questions
+    # get tier-confidence annotations on their result.
+    try:
+        from ck_identity import mount_identity  # type: ignore[import-not-found]
+        results['identity'] = mount_identity(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_identity: failed ({e})")
+        results['identity'] = False
+
     # Ollama prose polish: TEMPORARY scaffold for fluency until CK's
     # own living_lm has breathed long enough to produce coherent prose.
     # Strict fact-preservation gate (coverage >= 0.7).  CK should

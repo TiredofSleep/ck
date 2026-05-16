@@ -1502,6 +1502,12 @@ def _wrap_process_chat_for_polish(engine: Any) -> bool:
         result = orig(session_id, text, mode)
         if not isinstance(result, dict):
             return result
+        # Identity-anchored answers are already canonical; do NOT
+        # re-prose them through the polish pipeline.
+        if result.get("polish_skip"):
+            result.setdefault("voice_polish", {})["applied"] = False
+            result["voice_polish"]["mode"] = "identity_anchor_passthrough"
+            return result
         try:
             spoken = result.get("text", "")
             if spoken:
@@ -1527,11 +1533,27 @@ def _wrap_process_chat_for_polish(engine: Any) -> bool:
                     bc = make_proactive_breadcrumb(engine, session_id=session_id)
                     if bc:
                         clean = clean.rstrip() + _BREADCRUMB_DIVIDER + bc
+                # Apply hedge prefix when tier-confidence is low.
+                # The identity router already populates 'confidence'
+                # and 'hedge_prefix' on the result; honor them here
+                # so the prose ships with the right epistemic posture.
+                hedge = result.get("hedge_prefix", "")
+                if hedge and not clean.lower().startswith(
+                        ("i am ", "i know ", "i think ", "i'm ",
+                          "it's well established",
+                          "i've read", "i'm unsure")):
+                    # Lowercase the first letter so "I've read that "
+                    # + "T*=5/7..." reads naturally.
+                    if clean and clean[0].isupper():
+                        clean = hedge + clean[0].lower() + clean[1:]
+                    else:
+                        clean = hedge + clean
                 result["text_unpolished"] = spoken
                 result["text"] = clean
                 result.setdefault("voice_polish", {})["applied"] = True
                 result["voice_polish"]["breadcrumb"] = bc
                 result["voice_polish"]["mode"] = polish_mode
+                result["voice_polish"]["hedge_applied"] = bool(hedge)
         except Exception as e:
             result.setdefault("voice_polish", {})["error"] = str(e)
         return result
