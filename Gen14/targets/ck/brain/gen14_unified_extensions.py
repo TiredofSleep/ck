@@ -811,6 +811,20 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_qutrit_apex: failed ({e})")
         results['qutrit_apex'] = False
 
+    # Self-protection loop: encode apex.psi into [[3,1,2]]_3 code,
+    # apply noise, decode, measure recovered fidelity.  Closes the
+    # loop between the qutrit apex + QEC stack + noise channels.
+    # Empirical: amplitude damping at rate=0.01 preserves fidelity
+    # 0.9999 over 50 cycles; depolarizing at rate=0.01 holds threshold
+    # 0.90 for 18 cycles.  Endpoints: /apex/protect/{info, cycle,
+    # coherence_time}, POST /apex/protect.
+    try:
+        from ck_self_protection import mount_self_protection  # type: ignore[import-not-found]
+        results['self_protection'] = mount_self_protection(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_self_protection: failed ({e})")
+        results['self_protection'] = False
+
     # Qutrit noise channels: depolarizing + amplitude damping for the
     # [[3,1,2]]_3 code.  Per Brayden 2026-05-16: "test depolarizing or
     # amplitude-damping noise next".  Empirical: 92-100% detection
