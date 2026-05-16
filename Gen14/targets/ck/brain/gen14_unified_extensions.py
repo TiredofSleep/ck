@@ -811,6 +811,21 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_qutrit_apex: failed ({e})")
         results['qutrit_apex'] = False
 
+    # AD-tailored code: [[4,1]]_3 binomial-style code designed for
+    # amplitude damping resilience.  Per Grok 2026-05-16: tonight's
+    # [[3,1,2]]_3 had a weakness at high damping rates (fid 0.30 at
+    # γ=0.50).  This code's total-excitation invariant structure beats
+    # [[3,1,2]]_3 at every non-zero γ: +6.65% at γ=0.05, +33% at γ=0.20,
+    # +58% at γ=0.30, +167% at γ=0.50.  At γ=0.50: 81% fidelity vs 30%
+    # for the canonical code.  Endpoints: /qutrit/ad/{info, benchmark,
+    # compare}.
+    try:
+        from ck_ad_tailored import mount_ad_tailored  # type: ignore[import-not-found]
+        results['ad_tailored'] = mount_ad_tailored(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_ad_tailored: failed ({e})")
+        results['ad_tailored'] = False
+
     # Substrate-c: where c lives structurally inside TIG.  Per the
     # 2026-05-13/14 C sprint (Desktop/5_14_26_C_sprint_unpack/), the
     # boundary-to-interior gap between BHML_8 (YM core, det +70 =
