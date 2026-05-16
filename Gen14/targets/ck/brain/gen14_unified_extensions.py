@@ -855,6 +855,23 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_ad_tailored: failed ({e})")
         results['ad_tailored'] = False
 
+    # Breath emergence: refined c-emergence test.  Per Brayden 2026-05-16
+    # "c emerges at the first breath? 8?" -- structure must arise from
+    # primordial VOID before c can be measured.  Tests BREATH (op 8)
+    # propagation from a single defect injection in (a) pure VOID
+    # lattice, (b) COLLAPSE substrate (since TSML[8,4]=8).  Empirical
+    # finding: substrate is k-symmetric even at the emergence event;
+    # BREATH propagates to distance k at t=1 for every k.  Refines
+    # D108 falsification -- c-emergence requires a SEPARATE locality
+    # postulate; substrate alone doesn't pick a speed.  Endpoints
+    # /breath_emergence/{info, simulate, sweep, collapse_substrate}.
+    try:
+        from ck_breath_emergence import mount_breath_emergence  # type: ignore[import-not-found]
+        results['breath_emergence'] = mount_breath_emergence(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_breath_emergence: failed ({e})")
+        results['breath_emergence'] = False
+
     # Lightcone toy sim: discretized 1D ring lattice, tests c-emergence
     # conjecture by measuring 4-core preservation rate (4CPR) vs
     # propagation speed k.  HONEST RESULT: 4-core is closed under TSML
