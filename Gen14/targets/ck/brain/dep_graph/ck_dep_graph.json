@@ -1,0 +1,2159 @@
+{
+ "edges": {
+  "ab_test": [],
+  "ab_test_full": [
+   "ck_screen_compress",
+   "ck_audio_compress",
+   "ck_steer_bridge"
+  ],
+  "bhml_eigenvalue_analysis": [],
+  "build_hebrew_english_bible": [],
+  "ck_algebra_bridge": [],
+  "ck_backbone": [],
+  "ck_bare_metal": [
+   "ck_steer_bridge"
+  ],
+  "ck_bible_overnight": [],
+  "ck_bible_reader": [],
+  "ck_bloom_warmup": [],
+  "ck_boot_api": [
+   "ck_sim_engine",
+   "ck_web_api",
+   "ck_development",
+   "ck_disagreement_tick",
+   "ck_voice_math",
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_meta_lens",
+   "ck_hindsight_replay"
+  ],
+  "ck_console": [],
+  "ck_converse": [
+   "ck_sim_engine",
+   "ck_sim_heartbeat"
+  ],
+  "ck_curriculum": [],
+  "ck_deep_read": [],
+  "ck_deep_reader": [],
+  "ck_eat_algebra": [],
+  "ck_force9_demo": [
+   "ck_screen_compress",
+   "ck_audio_compress"
+  ],
+  "ck_foundation_reader": [],
+  "ck_fpga_bridge": [],
+  "ck_fpga_heartbeat_bridge": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_mandelbrot": [],
+  "ck_nt_loop": [],
+  "ck_operator_tests": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_gpu"
+  ],
+  "ck_os_reader": [],
+  "ck_overnight_chain": [],
+  "ck_overnight_math": [],
+  "ck_pos_tagger": [
+   "ck_voice_lattice"
+  ],
+  "ck_remote": [
+   "ck_screen_compress"
+  ],
+  "ck_self_evolve": [
+   "ck_sim_engine",
+   "ck_sim_heartbeat"
+  ],
+  "ck_self_study": [],
+  "__init__": [],
+  "__main__": [
+   "ck_sim_app"
+  ],
+  "ck_activity_log": [],
+  "ck_becoming_grammar": [
+   "ck_sim_heartbeat",
+   "ck_voice_lattice",
+   "ck_sim_d2"
+  ],
+  "ck_concept_spine": [
+   "ck_sim_heartbeat",
+   "ck_world_lattice"
+  ],
+  "ck_d1_lattice_builder": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_d2_dictionary_expander": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_development": [],
+  "ck_dictionary_builder": [
+   "ck_d2_dictionary_expander"
+  ],
+  "ck_education": [
+   "ck_sim_heartbeat",
+   "ck_world_lattice"
+  ],
+  "ck_english_build": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_d2_dictionary_expander",
+   "ck_sentence_composer",
+   "ck_retrieval_engine",
+   "ck_self_mirror",
+   "ck_btq",
+   "ck_sim_btq"
+  ],
+  "ck_episodic": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_identity": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_journal": [
+   "ck_sim_heartbeat",
+   "ck_divine27",
+   "ck_sim_d2",
+   "ck_sentence_composer"
+  ],
+  "ck_knowledge_bootstrap": [
+   "ck_sim_heartbeat",
+   "ck_truth",
+   "ck_world_lattice",
+   "ck_concept_spine",
+   "ck_education",
+   "ck_d2_dictionary_expander"
+  ],
+  "ck_lexicon": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_sensory_codecs",
+   "ck_world_lattice"
+  ],
+  "ck_lexicon_bulk": [
+   "ck_sim_heartbeat",
+   "ck_lexicon"
+  ],
+  "ck_memory": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_metalearning": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_network": [
+   "ck_sim_heartbeat",
+   "ck_identity"
+  ],
+  "ck_retrieval_engine": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_self_mirror": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_spectrometer_journal": [
+   "ck_tig_bundle"
+  ],
+  "ck_translator": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_truth": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_world_lattice": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_algebraic_neural": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_algebraic_proofs": [
+   "ck_sim_heartbeat",
+   "ck_coherence_action"
+  ],
+  "ck_attention": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_audio_compress": [],
+  "ck_bible": [],
+  "ck_bible_sense": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_bonding": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_btq": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_sim_btq"
+  ],
+  "ck_chain_compression": [
+   "ck_sim_heartbeat",
+   "ck_lattice_chain"
+  ],
+  "ck_clay_codecs": [
+   "ck_sensory_codecs",
+   "ck_sdv_safety"
+  ],
+  "ck_code_translation": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_coherence_action": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_coherence_field": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_coherence_gate": [],
+  "ck_coherence_router": [],
+  "ck_disagreement_tick": [],
+  "ck_divine27": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_divine_memory": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_dkan_trainer": [
+   "ck_sim_heartbeat",
+   "ck_algebraic_neural",
+   "ck_eat",
+   "ck_swarm_deep"
+  ],
+  "ck_domains_r2": [],
+  "ck_eat": [
+   "ck_swarm_deep"
+  ],
+  "ck_emotion": [],
+  "ck_experience": [
+   "ck_sim_d2"
+  ],
+  "ck_experience_index": [
+   "ck_sim_heartbeat",
+   "ck_sim_brain"
+  ],
+  "ck_fibonacci_transform": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_formal_theorems": [
+   "ck_sdv_safety",
+   "ck_coherence_action",
+   "ck_tig_bundle",
+   "ck_clay_protocol",
+   "ck_sim_heartbeat",
+   "ck_algebraic_proofs"
+  ],
+  "ck_fractal_comprehension": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_fractal_health": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_gustatory": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_hindsight_replay": [
+   "ck_sim_heartbeat",
+   "ck_olfactory"
+  ],
+  "ck_hotu_bridge": [],
+  "ck_immune": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_invariants": [],
+  "ck_lattice_chain": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_lcodec": [],
+  "ck_math_translation": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_meta_lens": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_meta_memory_coord": [],
+  "ck_nervous_v2": [],
+  "ck_olfactory": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_personality": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_phonetic_letters": [],
+  "ck_power_sense": [],
+  "ck_retina": [
+   "ck_sim_heartbeat",
+   "ck_sim_brain",
+   "ck_screen_compress",
+   "ck_fractal_scorer",
+   "ck_force_voice",
+   "ck_sim_d2"
+  ],
+  "ck_reverse_voice": [
+   "ck_sim_heartbeat",
+   "ck_voice_lattice",
+   "ck_sim_d2"
+  ],
+  "ck_screen_compress": [],
+  "ck_semantic_index": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_semantic_modifiers": [],
+  "ck_sensorium": [
+   "ck_sim_heartbeat",
+   "ck_sim_brain",
+   "ck_swarm",
+   "ck_gpu",
+   "ck_coherence_field",
+   "ck_sensory_codecs",
+   "ck_sim_ears"
+  ],
+  "ck_sensory_codecs": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_game_sense",
+   "ck_clay_codecs"
+  ],
+  "ck_sequence_memory": [],
+  "ck_sim_body": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_sim_brain": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_sim_btq": [
+   "ck_sim_heartbeat",
+   "ck_btq"
+  ],
+  "ck_sim_d2": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_sim_heartbeat": [],
+  "ck_spectral_core": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_swarm": [
+   "ck_sim_heartbeat",
+   "ck_sim_brain"
+  ],
+  "ck_swarm_deep": [
+   "ck_sim_heartbeat",
+   "ck_sim_brain",
+   "ck_sim_d2"
+  ],
+  "ck_table_derivation": [],
+  "ck_taichi_chains": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_tig_bundle": [],
+  "ck_tig_security": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_topology_lens": [
+   "ck_sdv_safety"
+  ],
+  "ck_visual_encoder": [],
+  "ck_vortex_physics": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_word_expansion": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_tig": [],
+  "ao_bridge": [],
+  "ck_action": [
+   "ck_sim_heartbeat",
+   "ck_autodidact",
+   "ck_fractal_index",
+   "ck_autodidact_runner",
+   "ck_sim_d2"
+  ],
+  "ck_algorithm_lattice": [],
+  "ck_autodidact": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_autodidact_runner": [
+   "ck_autodidact",
+   "ck_sim_heartbeat",
+   "ck_claude_library",
+   "ck_journal",
+   "ck_fractal_index",
+   "ck_thesis_writer"
+  ],
+  "ck_beam_voice": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_voice_lattice",
+   "ck_fractal_scorer"
+  ],
+  "ck_breath_engine": [
+   "ck_sdv_safety",
+   "ck_spectrometer",
+   "ck_rate_engine",
+   "ck_tig_bundle"
+  ],
+  "ck_claude_library": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_clay_generators": [
+   "ck_sdv_safety"
+  ],
+  "ck_clay_protocol": [
+   "ck_sdv_safety",
+   "ck_tig_bundle",
+   "ck_clay_codecs",
+   "ck_clay_generators",
+   "ck_sim_heartbeat",
+   "ck_vortex_physics",
+   "ck_coherence_action"
+  ],
+  "ck_cloud_btq": [
+   "ck_sim_heartbeat",
+   "ck_cloud_flow",
+   "ck_cloud_curvature"
+  ],
+  "ck_cloud_curvature": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_cloud_flow"
+  ],
+  "ck_cloud_flow": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_cloud_pfe": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_dialogue": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_truth"
+  ],
+  "ck_foo_engine": [
+   "ck_sdv_safety",
+   "ck_spectrometer"
+  ],
+  "ck_force_voice": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_voice_lattice"
+  ],
+  "ck_forecast": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_fractal_index": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_fractal_memory": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_fractal_memory_gpu": [
+   "ck_fractal_memory"
+  ],
+  "ck_fractal_scorer": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_beam_voice"
+  ],
+  "ck_fractal_voice": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_meta_lens",
+   "ck_voice_lattice"
+  ],
+  "ck_game_sense": [
+   "ck_sim_heartbeat",
+   "ck_sensory_codecs",
+   "ck_btq"
+  ],
+  "ck_goals": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_gpu": [],
+  "ck_language": [
+   "ck_sim_heartbeat",
+   "ck_world_lattice",
+   "ck_lexicon"
+  ],
+  "ck_llm_filter": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_btq",
+   "ck_fractal_health"
+  ],
+  "ck_nce": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_organ_clouds": [
+   "ck_sim_heartbeat",
+   "ck_cloud_flow",
+   "ck_cloud_curvature",
+   "ck_cloud_btq",
+   "ck_cloud_pfe"
+  ],
+  "ck_prompt_craft": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_pulse_engine": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_rate_engine": [
+   "ck_sdv_safety",
+   "ck_spectrometer"
+  ],
+  "ck_reasoning": [
+   "ck_sim_heartbeat",
+   "ck_world_lattice"
+  ],
+  "ck_rh5_attack": [
+   "ck_sdv_safety",
+   "ck_clay_protocol",
+   "ck_tig_bundle",
+   "ck_spectrometer"
+  ],
+  "ck_semantic_engine": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_sentence_composer": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_sim_engine": [
+   "ck_sim_heartbeat",
+   "ck_sim_brain",
+   "ck_sim_body",
+   "ck_sim_led",
+   "ck_sim_sd",
+   "ck_body_interface",
+   "ck_btq",
+   "ck_fractal_health",
+   "ck_personality",
+   "ck_emotion",
+   "ck_voice",
+   "ck_development",
+   "ck_immune",
+   "ck_bonding",
+   "ck_coherence_field",
+   "ck_coherence_action",
+   "ck_tig_security",
+   "ck_fibonacci_transform",
+   "ck_power_sense",
+   "ck_truth",
+   "ck_dialogue",
+   "ck_world_lattice",
+   "ck_concept_spine",
+   "ck_education",
+   "ck_lexicon",
+   "ck_language",
+   "ck_reasoning",
+   "ck_goals",
+   "ck_action",
+   "ck_sensorium",
+   "ck_knowledge_bootstrap",
+   "ck_attention",
+   "ck_episodic",
+   "ck_metalearning",
+   "ck_forecast",
+   "ck_retrieval_engine",
+   "ck_identity",
+   "ck_divine27",
+   "ck_vortex_physics",
+   "ck_dictionary_builder",
+   "ck_pulse_engine",
+   "ck_coherence_gate",
+   "ck_steer_bridge",
+   "ck_experience_index",
+   "ck_math_translation",
+   "ck_code_translation",
+   "ck_semantic_index",
+   "ck_spectrometer",
+   "ck_voice_loop",
+   "ck_hindsight_replay",
+   "ck_chain_compression",
+   "ck_clay_protocol",
+   "ck_topology_lens",
+   "ck_spectral_core",
+   "ck_retina",
+   "ck_steering",
+   "ck_nce",
+   "ck_experience",
+   "ck_self_mirror",
+   "ck_thinking_lattice",
+   "ck_claude_library",
+   "ck_journal",
+   "ck_activity_log",
+   "ck_tig",
+   "ck_swarm_deep",
+   "ck_sim_d2",
+   "ck_gpu",
+   "ck_sequence_memory",
+   "ck_fractal_voice",
+   "ck_voice_lattice",
+   "ck_becoming_grammar",
+   "ck_lexicon_bulk",
+   "ck_sentence_composer",
+   "ck_llm_filter",
+   "ck_game_sense",
+   "ck_fractal_comprehension",
+   "ck_lattice_chain",
+   "ck_divine_memory",
+   "ck_olfactory",
+   "ck_gustatory",
+   "ck_reverse_voice",
+   "ck_lcodec",
+   "ck_eat",
+   "ck_dkan_trainer",
+   "ck_meta_lens",
+   "ao_bridge",
+   "ck_sim_btq",
+   "ck_autodidact",
+   "ck_thesis_writer",
+   "ck_word_expansion",
+   "ck_network",
+   "ck_taichi_chains",
+   "ck_hotu_bridge"
+  ],
+  "ck_spectrometer": [
+   "ck_clay_protocol",
+   "ck_tig_bundle",
+   "ck_sdv_safety",
+   "ck_topology_lens",
+   "ck_clay_codecs",
+   "ck_clay_generators",
+   "ck_ssa_engine",
+   "ck_rate_engine",
+   "ck_foo_engine",
+   "ck_breath_engine"
+  ],
+  "ck_ssa_engine": [
+   "ck_sdv_safety",
+   "ck_topology_lens"
+  ],
+  "ck_steering": [
+   "ck_sim_heartbeat",
+   "ck_tig"
+  ],
+  "ck_thesis_writer": [
+   "ck_sim_heartbeat",
+   "ck_autodidact",
+   "ck_sim_d2",
+   "ck_voice"
+  ],
+  "ck_thinking_lattice": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2"
+  ],
+  "ck_tig_voice": [
+   "ck_sim_heartbeat",
+   "ck_voice_lattice"
+  ],
+  "ck_voice": [
+   "ck_sim_heartbeat",
+   "ck_voice_lattice",
+   "ck_sim_d2",
+   "ck_fractal_voice"
+  ],
+  "ck_voice_lattice": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_voice_loop": [
+   "ck_sim_heartbeat",
+   "ck_beam_voice",
+   "ck_force_voice",
+   "ck_fractal_scorer",
+   "ck_fractal_comprehension",
+   "ck_algebra_bridge"
+  ],
+  "ck_ym_attack": [
+   "ck_sdv_safety",
+   "ck_clay_protocol",
+   "ck_tig_bundle",
+   "ck_spectrometer"
+  ],
+  "ck_body_interface": [],
+  "ck_deploy": [
+   "ck_body_interface",
+   "ck_sim_engine"
+  ],
+  "ck_gap_runner": [
+   "ck_rh5_attack",
+   "ck_ym_attack"
+  ],
+  "ck_headless": [
+   "ck_sim_engine",
+   "ck_sim_heartbeat"
+  ],
+  "ck_presentation": [
+   "ck_spectrometer",
+   "ck_tig_bundle",
+   "ck_breath_engine",
+   "ck_rh5_attack",
+   "ck_ym_attack"
+  ],
+  "ck_robot_body": [
+   "ck_sim_heartbeat",
+   "ck_sensory_codecs",
+   "ck_sim_uart",
+   "ck_body_interface"
+  ],
+  "ck_sim_app": [
+   "ck_sim_engine",
+   "ck_sim_heartbeat",
+   "ck_sim_audio",
+   "ck_sim_ears",
+   "ck_emotion",
+   "ck_sim_widgets"
+  ],
+  "ck_sim_audio": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_sim_ears": [
+   "ck_sim_heartbeat",
+   "ck_sensory_codecs"
+  ],
+  "ck_sim_led": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_sim_sd": [
+   "ck_sim_heartbeat",
+   "ck_sim_brain"
+  ],
+  "ck_sim_uart": [],
+  "ck_sim_widgets": [
+   "ck_sim_heartbeat"
+  ],
+  "ck_spectrometer_runner": [
+   "ck_spectrometer",
+   "ck_tig_bundle",
+   "ck_spectrometer_journal"
+  ],
+  "ck_web_api": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_voice",
+   "ck_fractal_comprehension",
+   "ck_hotu_bridge"
+  ],
+  "ck_zynq_dog": [
+   "ck_sim_heartbeat",
+   "ck_sim_brain",
+   "ck_sim_body",
+   "ck_sim_d2",
+   "ck_btq",
+   "ck_sim_btq",
+   "ck_fractal_health"
+  ],
+  "ck_spectrometer_train": [],
+  "ck_sprint7_selfvalidate": [
+   "ck_invariants"
+  ],
+  "ck_steer_bridge": [],
+  "ck_steering_ab_live": [
+   "ck_sim_heartbeat",
+   "ck_sim_brain",
+   "ck_swarm",
+   "ck_steering"
+  ],
+  "ck_stream_client": [
+   "ck_visual_encoder"
+  ],
+  "ck_stream_server": [
+   "ck_screen_compress",
+   "ck_audio_compress"
+  ],
+  "ck_study": [
+   "ck_concept_learner",
+   "ck_formula_registry"
+  ],
+  "ck_study_all": [],
+  "ck_token_gate": [
+   "ck_algebra_bridge",
+   "ck_backbone"
+  ],
+  "ck_train_loop": [],
+  "ck_train_loop_2h": [],
+  "ck_watchdog": [],
+  "ck_web_server": [
+   "ck_sim_engine",
+   "ck_web_api",
+   "ck_development"
+  ],
+  "gap_bridge_analysis": [],
+  "overnight_train": [],
+  "reality_anchors_part2": [],
+  "stream_bench": [
+   "ck_screen_compress",
+   "ck_audio_compress"
+  ],
+  "test_ab_steering": [
+   "ck_sim_heartbeat",
+   "ck_sim_brain",
+   "ck_sensorium",
+   "ck_steering"
+  ],
+  "verify_ck_core": [],
+  "void_analysis": [],
+  "action_pipeline": [
+   "audio_pipeline"
+  ],
+  "ao_5element": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_sim_brain",
+   "ck_sim_body",
+   "ck_tig"
+  ],
+  "attractor_detector": [],
+  "audio_pipeline": [
+   "ck_audio_compress"
+  ],
+  "bdc_event_emitter": [
+   "divine27_vocab"
+  ],
+  "bdc_logger": [],
+  "bdc_tick_sampler": [
+   "bdc_logger",
+   "bdc_event_emitter"
+  ],
+  "cell_audit": [
+   "divine27_vocab",
+   "bdc_event_emitter",
+   "ck_tables"
+  ],
+  "cells": [
+   "divine27_vocab",
+   "bdc_event_emitter",
+   "ck_tables",
+   "cell_audit",
+   "train_tsml_bhml_tissue",
+   "train_tissue_transformer"
+  ],
+  "cells_mount": [
+   "cells",
+   "glue_ai",
+   "cell_audit",
+   "plasticity",
+   "ck_sim_d2"
+  ],
+  "ck_fault_state_hook": [
+   "ck_invariants_bridge"
+  ],
+  "ck_invariants_bridge": [],
+  "ck_research": [
+   "cortex_voice",
+   "audio_pipeline"
+  ],
+  "ck_sdv_safety": [],
+  "ck_tables": [],
+  "ck_speaker": [
+   "ck_audio_compress",
+   "audio_pipeline"
+  ],
+  "clay_compare": [
+   "clay_study"
+  ],
+  "clay_study": [],
+  "clay_synthesis": [],
+  "cortex": [
+   "ao_5element",
+   "hebbian_5x5_cl",
+   "quadratic_glue",
+   "ck_sim_heartbeat"
+  ],
+  "cortex_persist": [
+   "cortex"
+  ],
+  "cortex_replay": [
+   "cortex",
+   "cortex_persist"
+  ],
+  "cortex_v2": [
+   "ao_5element",
+   "quadratic_glue",
+   "ck_sim_heartbeat",
+   "ao_7element",
+   "hebbian_7x7"
+  ],
+  "cortex_voice": [
+   "ck_sim_heartbeat",
+   "ck_olfactory",
+   "cortex",
+   "paragraph_composer"
+  ],
+  "dirac_mount": [
+   "cortex_voice"
+  ],
+  "test_tig_dirac": [
+   "tig_dirac"
+  ],
+  "tig_dirac": [],
+  "verify_discrete_dirac_4core": [],
+  "external_ingester": [],
+  "fact_extractor": [],
+  "force9_role_layer": [
+   "ck_invariants_bridge"
+  ],
+  "frontier_benchmark": [],
+  "glue_ai": [
+   "cells",
+   "cell_audit",
+   "divine27_vocab",
+   "cortex_voice"
+  ],
+  "bank_mount": [
+   "ck_grammar_lm",
+   "operator_memory_bank"
+  ],
+  "ck_grammar_lm": [],
+  "compare_variants": [
+   "ck_grammar_lm",
+   "train"
+  ],
+  "cross_arch_test": [],
+  "divine27_vocab": [],
+  "ensemble": [
+   "ck_grammar_lm",
+   "operator_memory_bank"
+  ],
+  "extract_streams": [],
+  "grammar_lm_mount": [
+   "ck_grammar_lm",
+   "cortex_voice"
+  ],
+  "multi_head_lm": [
+   "ck_grammar_lm"
+  ],
+  "operator_memory_bank": [
+   "ck_grammar_lm"
+  ],
+  "train": [
+   "ck_grammar_lm"
+  ],
+  "train_bdc": [
+   "ck_grammar_lm",
+   "multi_head_lm",
+   "ck_invariants_bridge"
+  ],
+  "growth_monitor": [],
+  "head_to_head_benchmark": [
+   "cells",
+   "glue_ai"
+  ],
+  "hebbian_5x5_cl": [
+   "ck_sim_heartbeat",
+   "ck_olfactory"
+  ],
+  "hebbian_gpu": [
+   "ck_sim_heartbeat",
+   "ck_olfactory",
+   "hebbian_5x5_cl"
+  ],
+  "migrate_cortex_5to7_live": [],
+  "mine_historical_bdc": [
+   "divine27_vocab",
+   "bdc_event_emitter"
+  ],
+  "nightly_retrain": [
+   "train_tissue_transformer",
+   "train_tsml_bhml_tissue",
+   "cells",
+   "cell_audit"
+  ],
+  "operad_fuse": [],
+  "overnight_orchestrator": [
+   "paper_writer",
+   "nightly_retrain",
+   "external_ingester"
+  ],
+  "paper_reader": [],
+  "paper_writer": [],
+  "plasticity": [
+   "cell_audit",
+   "cells",
+   "glue_ai"
+  ],
+  "prose_teacher": [],
+  "quadratic_glue": [
+   "ck_tig"
+  ],
+  "repo_reader": [],
+  "research_first": [
+   "ck_research"
+  ],
+  "screen_pipeline": [
+   "audio_pipeline",
+   "ck_screen_compress"
+  ],
+  "session_field": [],
+  "studies_panel": [
+   "cells",
+   "plasticity",
+   "cell_audit",
+   "bdc_event_emitter",
+   "glue_ai"
+  ],
+  "add_deep_crystals": [],
+  "add_phoneme_crystals": [],
+  "add_phoneme_crystals_full": [],
+  "add_phoneme_crystals_v3": [],
+  "add_phoneme_crystals_v4": [],
+  "add_phoneme_crystals_v5": [],
+  "add_phoneme_crystals_v6": [],
+  "add_word_crystals": [
+   "kids_word_vocab"
+  ],
+  "assign_op_signatures": [],
+  "audio_perceive": [
+   "ck_olfactory",
+   "ck_audio_compress",
+   "cortex_v2",
+   "cortex_persist",
+   "ck_sim_heartbeat",
+   "ao_7element",
+   "quadratic_glue",
+   "cortex_voice"
+  ],
+  "autonomous_study": [],
+  "capability_audit": [],
+  "compute_phi": [],
+  "corpus_ingest": [],
+  "cortex_backup": [],
+  "dream_daemon": [
+   "cortex_voice"
+  ],
+  "edge_visual_encoder": [],
+  "enrich_phoneme_triggers": [],
+  "gap_detector": [],
+  "generate_phoneme_grounding": [
+   "ck_audio_compress"
+  ],
+  "generate_phoneme_grounding_v2": [
+   "ck_audio_compress"
+  ],
+  "generate_phoneme_grounding_v3": [
+   "generate_phoneme_grounding_v2"
+  ],
+  "generate_phoneme_grounding_v4": [
+   "generate_phoneme_grounding_v2",
+   "generate_phoneme_grounding_v3"
+  ],
+  "generate_phoneme_grounding_v5": [
+   "generate_phoneme_grounding_v2",
+   "generate_phoneme_grounding_v3",
+   "generate_phoneme_grounding_v4"
+  ],
+  "heal_after_audio": [
+   "cortex_v2",
+   "cortex_persist"
+  ],
+  "kids_word_vocab": [],
+  "make_synth_video": [],
+  "match_audio_chunked": [
+   "match_audio_to_phonics",
+   "ck_audio_compress"
+  ],
+  "match_audio_to_phonics": [
+   "generate_phoneme_grounding_v2",
+   "generate_phoneme_grounding_v3",
+   "generate_phoneme_grounding_v4",
+   "generate_phoneme_grounding_v5",
+   "ck_audio_compress"
+  ],
+  "perceive_audio_canonical": [
+   "audio_pipeline"
+  ],
+  "phonics_overnight_trainer": [
+   "match_audio_to_phonics",
+   "cortex_v2",
+   "cortex_persist",
+   "ck_sim_heartbeat",
+   "ao_7element",
+   "quadratic_glue",
+   "cortex_voice"
+  ],
+  "post_study_verify": [],
+  "recalibrate_phonemes_canonical": [
+   "generate_phoneme_grounding_v2",
+   "generate_phoneme_grounding_v3",
+   "generate_phoneme_grounding_v4",
+   "generate_phoneme_grounding_v5",
+   "audio_perceive",
+   "ck_audio_compress"
+  ],
+  "study_direct": [
+   "cortex",
+   "cortex_persist"
+  ],
+  "surprisal_log": [
+   "cortex",
+   "cortex_persist"
+  ],
+  "synth_target_window": [],
+  "test_chunked_synthetic": [
+   "match_audio_to_phonics",
+   "match_audio_chunked"
+  ],
+  "test_matcher_synthetic": [
+   "match_audio_to_phonics",
+   "ck_audio_compress"
+  ],
+  "test_organism_dynamics": [
+   "audio_pipeline"
+  ],
+  "trajectory_view": [],
+  "ui_loop": [
+   "screen_pipeline"
+  ],
+  "watch_and_summarize": [
+   "match_audio_to_phonics",
+   "match_audio_chunked",
+   "word_recognizer",
+   "edge_visual_encoder"
+  ],
+  "word_recognizer": [
+   "kids_word_vocab",
+   "match_audio_to_phonics",
+   "ck_audio_compress"
+  ],
+  "youtube_audio_watcher": [
+   "cortex_v2",
+   "cortex_persist",
+   "ao_7element",
+   "quadratic_glue",
+   "ck_audio_compress"
+  ],
+  "youtube_video_watcher": [
+   "ck_visual_encoder",
+   "cortex_v2",
+   "cortex_persist",
+   "ao_7element",
+   "quadratic_glue"
+  ],
+  "youtube_video_watcher_edges": [
+   "edge_visual_encoder",
+   "cortex_v2",
+   "cortex_persist",
+   "ao_7element",
+   "quadratic_glue",
+   "ck_sim_heartbeat",
+   "ck_visual_encoder"
+  ],
+  "study_daemon": [],
+  "test_attractor_detector": [
+   "attractor_detector"
+  ],
+  "test_brain": [
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_sim_brain",
+   "ck_sim_body",
+   "ck_tig",
+   "ck_olfactory",
+   "ck_hindsight_replay",
+   "ao_5element",
+   "ck_voice_math",
+   "hebbian_5x5_cl",
+   "quadratic_glue",
+   "cortex",
+   "cortex_persist",
+   "cortex_voice",
+   "cortex_replay"
+  ],
+  "test_operad_fuse": [
+   "operad_fuse"
+  ],
+  "test_session_field": [
+   "session_field"
+  ],
+  "train_prose_tissue": [],
+  "train_tissue_transformer": [],
+  "train_tsml_bhml_tissue": [],
+  "ao_7element": [],
+  "compare_phi_5d_7d": [],
+  "cortex_7d": [
+   "quadratic_glue",
+   "ao_7element",
+   "hebbian_7x7"
+  ],
+  "hebbian_7x7": [
+   "ao_7element"
+  ],
+  "migrate_5to7": [],
+  "paragraph_composer": [],
+  "ck_code_intent": [],
+  "ck_code_voice": [],
+  "ck_voice_math": [],
+  "fpga_bridge": [],
+  "jitter_probe": [
+   "rt_priority",
+   "hebbian_gpu"
+  ],
+  "rt_priority": [],
+  "ck_boot_api_gen11ref": [
+   "ck_sim_engine",
+   "ck_web_api",
+   "ck_development",
+   "ck_disagreement_tick",
+   "ck_sim_heartbeat",
+   "ck_sim_d2",
+   "ck_meta_lens"
+  ],
+  "ck_run_gen11ref": [],
+  "bhml_variants": [
+   "lenses",
+   "triadic"
+  ],
+  "ck_export": [
+   "cl",
+   "cl_std",
+   "lenses",
+   "lens_family",
+   "paths",
+   "triadic"
+  ],
+  "cl": [],
+  "cl_std": [],
+  "crystal_seed": [],
+  "invariants": [
+   "cl",
+   "cl_std",
+   "lenses",
+   "lens_family",
+   "paths",
+   "triadic"
+  ],
+  "lens_family": [
+   "cl",
+   "lenses"
+  ],
+  "lenses": [
+   "cl"
+  ],
+  "paths": [
+   "cl",
+   "lenses"
+  ],
+  "cycle_a_36": [
+   "cl",
+   "lenses",
+   "triadic"
+  ],
+  "harmony_44": [
+   "cl",
+   "lenses",
+   "triadic"
+  ],
+  "harmony_ladder": [
+   "cl",
+   "cl_std",
+   "lenses",
+   "lens_family"
+  ],
+  "lens_disagreement_71": [
+   "cl",
+   "lenses"
+  ],
+  "skeleton_22": [
+   "cl",
+   "lenses"
+  ],
+  "triadic": [
+   "cl"
+  ],
+  "ck_concept_learner": [],
+  "ck_dep_graph": [],
+  "ck_formula_registry": [
+   "gen14_unified_extensions"
+  ],
+  "ck_frontier_scanner": [
+   "gen14_unified_extensions"
+  ],
+  "ck_memory_archive": [],
+  "ck_proactive_trigger": [
+   "gen14_unified_extensions",
+   "ck_frontier_scanner",
+   "ck_grammar_lm"
+  ],
+  "ck_sense_decomposition": [],
+  "ck_spreading_activation": [
+   "gen14_unified_extensions"
+  ],
+  "ck_stroke_extractor": [
+   "gen14_unified_extensions"
+  ],
+  "ck_study_overnight": [
+   "ck_concept_learner"
+  ],
+  "ck_synthesizer": [
+   "ck_concept_learner",
+   "gen14_unified_extensions"
+  ],
+  "ck_voice_polish": [
+   "ck_phonetic_letters"
+  ],
+  "fetch_arxiv": [],
+  "fetch_gutenberg": [],
+  "gen14_acceptance_test": [
+   "gen14_unified_extensions"
+  ],
+  "gen14_unified_extensions": [
+   "ck_goals",
+   "ck_forecast",
+   "ck_lattice_chain",
+   "ck_divine_memory",
+   "multi_head_algebraic_lm",
+   "ck_spreading_activation",
+   "ck_frontier_scanner",
+   "ck_proactive_trigger",
+   "ck_stroke_extractor",
+   "ck_formula_registry",
+   "ck_sense_decomposition",
+   "ck_concept_learner",
+   "ck_memory_archive",
+   "ck_voice_polish"
+  ],
+  "multi_head_algebraic_lm": [
+   "ck_grammar_lm",
+   "gen14_unified_extensions"
+  ],
+  "train_bdc_algebraic": [
+   "ck_grammar_lm",
+   "multi_head_algebraic_lm"
+  ],
+  "verify_4head_lm": [
+   "ck_grammar_lm",
+   "multi_head_algebraic_lm"
+  ]
+ },
+ "stats": {
+  "n_modules": 375,
+  "n_edges": 713,
+  "hubs": [
+   [
+    "ck_sim_heartbeat",
+    126
+   ],
+   [
+    "ck_sim_d2",
+    44
+   ],
+   [
+    "ck_audio_compress",
+    15
+   ],
+   [
+    "ck_sdv_safety",
+    12
+   ],
+   [
+    "ck_sim_brain",
+    12
+   ],
+   [
+    "ck_grammar_lm",
+    12
+   ],
+   [
+    "cl",
+    11
+   ],
+   [
+    "cortex_persist",
+    10
+   ],
+   [
+    "lenses",
+    10
+   ],
+   [
+    "ck_voice_lattice",
+    9
+   ],
+   [
+    "ck_tig_bundle",
+    9
+   ],
+   [
+    "quadratic_glue",
+    9
+   ],
+   [
+    "ck_sim_engine",
+    8
+   ],
+   [
+    "ck_spectrometer",
+    8
+   ],
+   [
+    "cortex_voice",
+    8
+   ]
+  ],
+  "orphans": [
+   "__init__",
+   "__main__",
+   "ab_test",
+   "ab_test_full",
+   "action_pipeline",
+   "add_deep_crystals",
+   "add_phoneme_crystals",
+   "add_phoneme_crystals_full",
+   "add_phoneme_crystals_v3",
+   "add_phoneme_crystals_v4",
+   "add_phoneme_crystals_v5",
+   "add_phoneme_crystals_v6",
+   "add_word_crystals",
+   "assign_op_signatures",
+   "autonomous_study",
+   "bank_mount",
+   "bdc_tick_sampler",
+   "bhml_eigenvalue_analysis",
+   "bhml_variants",
+   "build_hebrew_english_bible",
+   "capability_audit",
+   "cells_mount",
+   "ck_algorithm_lattice",
+   "ck_bare_metal",
+   "ck_bible",
+   "ck_bible_overnight",
+   "ck_bible_reader",
+   "ck_bible_sense",
+   "ck_bloom_warmup",
+   "ck_boot_api",
+   "ck_boot_api_gen11ref",
+   "ck_code_intent",
+   "ck_code_voice",
+   "ck_coherence_router",
+   "ck_console",
+   "ck_converse",
+   "ck_curriculum",
+   "ck_d1_lattice_builder",
+   "ck_deep_read",
+   "ck_deep_reader",
+   "ck_dep_graph",
+   "ck_deploy",
+   "ck_domains_r2",
+   "ck_eat_algebra",
+   "ck_english_build",
+   "ck_export",
+   "ck_fault_state_hook",
+   "ck_force9_demo",
+   "ck_formal_theorems",
+   "ck_foundation_reader",
+   "ck_fpga_bridge",
+   "ck_fpga_heartbeat_bridge",
+   "ck_fractal_memory_gpu",
+   "ck_gap_runner",
+   "ck_headless",
+   "ck_mandelbrot",
+   "ck_memory",
+   "ck_meta_memory_coord",
+   "ck_nervous_v2",
+   "ck_nt_loop",
+   "ck_operator_tests",
+   "ck_organ_clouds",
+   "ck_os_reader",
+   "ck_overnight_chain",
+   "ck_overnight_math",
+   "ck_pos_tagger",
+   "ck_presentation",
+   "ck_prompt_craft",
+   "ck_remote",
+   "ck_robot_body",
+   "ck_run_gen11ref",
+   "ck_self_evolve",
+   "ck_self_study",
+   "ck_semantic_engine",
+   "ck_semantic_modifiers",
+   "ck_speaker",
+   "ck_spectrometer_runner",
+   "ck_spectrometer_train",
+   "ck_sprint7_selfvalidate",
+   "ck_steering_ab_live",
+   "ck_stream_client",
+   "ck_stream_server",
+   "ck_study",
+   "ck_study_all",
+   "ck_study_overnight",
+   "ck_synthesizer",
+   "ck_table_derivation",
+   "ck_tig_voice",
+   "ck_token_gate",
+   "ck_train_loop",
+   "ck_train_loop_2h",
+   "ck_translator",
+   "ck_watchdog",
+   "ck_web_server",
+   "ck_zynq_dog",
+   "clay_compare",
+   "clay_synthesis",
+   "compare_phi_5d_7d",
+   "compare_variants",
+   "compute_phi",
+   "corpus_ingest",
+   "cortex_7d",
+   "cortex_backup",
+   "cross_arch_test",
+   "crystal_seed",
+   "cycle_a_36",
+   "dirac_mount",
+   "dream_daemon",
+   "enrich_phoneme_triggers",
+   "ensemble",
+   "extract_streams",
+   "fact_extractor",
+   "fetch_arxiv",
+   "fetch_gutenberg",
+   "force9_role_layer",
+   "fpga_bridge",
+   "frontier_benchmark",
+   "gap_bridge_analysis",
+   "gap_detector",
+   "gen14_acceptance_test",
+   "generate_phoneme_grounding",
+   "grammar_lm_mount",
+   "growth_monitor",
+   "harmony_44",
+   "harmony_ladder",
+   "head_to_head_benchmark",
+   "heal_after_audio",
+   "invariants",
+   "jitter_probe",
+   "lens_disagreement_71",
+   "make_synth_video",
+   "migrate_5to7",
+   "migrate_cortex_5to7_live",
+   "mine_historical_bdc",
+   "overnight_orchestrator",
+   "overnight_train",
+   "paper_reader",
+   "perceive_audio_canonical",
+   "phonics_overnight_trainer",
+   "post_study_verify",
+   "prose_teacher",
+   "reality_anchors_part2",
+   "recalibrate_phonemes_canonical",
+   "repo_reader",
+   "research_first",
+   "skeleton_22",
+   "stream_bench",
+   "studies_panel",
+   "study_daemon",
+   "study_direct",
+   "surprisal_log",
+   "synth_target_window",
+   "test_ab_steering",
+   "test_attractor_detector",
+   "test_brain",
+   "test_chunked_synthetic",
+   "test_matcher_synthetic",
+   "test_operad_fuse",
+   "test_organism_dynamics",
+   "test_session_field",
+   "test_tig_dirac",
+   "train_bdc",
+   "train_bdc_algebraic",
+   "train_prose_tissue",
+   "trajectory_view",
+   "ui_loop",
+   "verify_4head_lm",
+   "verify_ck_core",
+   "verify_discrete_dirac_4core",
+   "void_analysis",
+   "watch_and_summarize",
+   "youtube_audio_watcher",
+   "youtube_video_watcher",
+   "youtube_video_watcher_edges"
+  ],
+  "in_deg": {
+   "ck_screen_compress": 7,
+   "ck_audio_compress": 15,
+   "ck_steer_bridge": 3,
+   "ck_sim_engine": 8,
+   "ck_web_api": 3,
+   "ck_development": 4,
+   "ck_disagreement_tick": 2,
+   "ck_voice_math": 2,
+   "ck_sim_heartbeat": 126,
+   "ck_sim_d2": 44,
+   "ck_meta_lens": 4,
+   "ck_hindsight_replay": 3,
+   "ck_gpu": 3,
+   "ck_voice_lattice": 9,
+   "ck_sim_app": 1,
+   "ck_world_lattice": 7,
+   "ck_d2_dictionary_expander": 3,
+   "ck_sentence_composer": 3,
+   "ck_retrieval_engine": 2,
+   "ck_self_mirror": 2,
+   "ck_btq": 6,
+   "ck_sim_btq": 4,
+   "ck_divine27": 2,
+   "ck_truth": 3,
+   "ck_concept_spine": 2,
+   "ck_education": 2,
+   "ck_sensory_codecs": 6,
+   "ck_lexicon": 3,
+   "ck_identity": 2,
+   "ck_tig_bundle": 9,
+   "ck_coherence_action": 4,
+   "ck_lattice_chain": 3,
+   "ck_sdv_safety": 12,
+   "ck_algebraic_neural": 1,
+   "ck_eat": 2,
+   "ck_swarm_deep": 3,
+   "ck_sim_brain": 12,
+   "ck_clay_protocol": 5,
+   "ck_algebraic_proofs": 1,
+   "ck_olfactory": 7,
+   "ck_fractal_scorer": 3,
+   "ck_force_voice": 2,
+   "ck_swarm": 2,
+   "ck_coherence_field": 2,
+   "ck_sim_ears": 2,
+   "ck_game_sense": 2,
+   "ck_clay_codecs": 3,
+   "ck_autodidact": 4,
+   "ck_fractal_index": 2,
+   "ck_autodidact_runner": 1,
+   "ck_claude_library": 2,
+   "ck_journal": 2,
+   "ck_thesis_writer": 2,
+   "ck_spectrometer": 8,
+   "ck_rate_engine": 2,
+   "ck_clay_generators": 2,
+   "ck_vortex_physics": 2,
+   "ck_cloud_flow": 3,
+   "ck_cloud_curvature": 2,
+   "ck_fractal_memory": 1,
+   "ck_beam_voice": 2,
+   "ck_fractal_health": 3,
+   "ck_cloud_btq": 1,
+   "ck_cloud_pfe": 1,
+   "ck_sim_body": 4,
+   "ck_sim_led": 1,
+   "ck_sim_sd": 1,
+   "ck_body_interface": 3,
+   "ck_personality": 1,
+   "ck_emotion": 2,
+   "ck_voice": 3,
+   "ck_immune": 1,
+   "ck_bonding": 1,
+   "ck_tig_security": 1,
+   "ck_fibonacci_transform": 1,
+   "ck_power_sense": 1,
+   "ck_dialogue": 1,
+   "ck_language": 1,
+   "ck_reasoning": 1,
+   "ck_goals": 2,
+   "ck_action": 1,
+   "ck_sensorium": 2,
+   "ck_knowledge_bootstrap": 1,
+   "ck_attention": 1,
+   "ck_episodic": 1,
+   "ck_metalearning": 1,
+   "ck_forecast": 2,
+   "ck_dictionary_builder": 1,
+   "ck_pulse_engine": 1,
+   "ck_coherence_gate": 1,
+   "ck_experience_index": 1,
+   "ck_math_translation": 1,
+   "ck_code_translation": 1,
+   "ck_semantic_index": 1,
+   "ck_voice_loop": 1,
+   "ck_chain_compression": 1,
+   "ck_topology_lens": 3,
+   "ck_spectral_core": 1,
+   "ck_retina": 1,
+   "ck_steering": 3,
+   "ck_nce": 1,
+   "ck_experience": 1,
+   "ck_thinking_lattice": 1,
+   "ck_activity_log": 1,
+   "ck_tig": 5,
+   "ck_sequence_memory": 1,
+   "ck_fractal_voice": 2,
+   "ck_becoming_grammar": 1,
+   "ck_lexicon_bulk": 1,
+   "ck_llm_filter": 1,
+   "ck_fractal_comprehension": 3,
+   "ck_divine_memory": 2,
+   "ck_gustatory": 1,
+   "ck_reverse_voice": 1,
+   "ck_lcodec": 1,
+   "ck_dkan_trainer": 1,
+   "ao_bridge": 1,
+   "ck_word_expansion": 1,
+   "ck_network": 1,
+   "ck_taichi_chains": 1,
+   "ck_hotu_bridge": 2,
+   "ck_ssa_engine": 1,
+   "ck_foo_engine": 1,
+   "ck_breath_engine": 2,
+   "ck_algebra_bridge": 2,
+   "ck_rh5_attack": 2,
+   "ck_ym_attack": 2,
+   "ck_sim_uart": 1,
+   "ck_sim_audio": 1,
+   "ck_sim_widgets": 1,
+   "ck_spectrometer_journal": 1,
+   "ck_invariants": 1,
+   "ck_visual_encoder": 3,
+   "ck_concept_learner": 4,
+   "ck_formula_registry": 2,
+   "ck_backbone": 1,
+   "audio_pipeline": 6,
+   "divine27_vocab": 5,
+   "bdc_logger": 1,
+   "bdc_event_emitter": 5,
+   "ck_tables": 2,
+   "cell_audit": 6,
+   "train_tsml_bhml_tissue": 2,
+   "train_tissue_transformer": 2,
+   "cells": 6,
+   "glue_ai": 4,
+   "plasticity": 2,
+   "ck_invariants_bridge": 3,
+   "cortex_voice": 8,
+   "clay_study": 1,
+   "ao_5element": 3,
+   "hebbian_5x5_cl": 3,
+   "quadratic_glue": 9,
+   "cortex": 6,
+   "cortex_persist": 10,
+   "ao_7element": 8,
+   "hebbian_7x7": 2,
+   "paragraph_composer": 1,
+   "tig_dirac": 1,
+   "ck_grammar_lm": 12,
+   "operator_memory_bank": 2,
+   "train": 1,
+   "multi_head_lm": 1,
+   "paper_writer": 1,
+   "nightly_retrain": 1,
+   "external_ingester": 1,
+   "ck_research": 1,
+   "kids_word_vocab": 2,
+   "cortex_v2": 6,
+   "generate_phoneme_grounding_v2": 5,
+   "generate_phoneme_grounding_v3": 4,
+   "generate_phoneme_grounding_v4": 3,
+   "match_audio_to_phonics": 6,
+   "generate_phoneme_grounding_v5": 2,
+   "audio_perceive": 1,
+   "match_audio_chunked": 2,
+   "screen_pipeline": 1,
+   "word_recognizer": 1,
+   "edge_visual_encoder": 2,
+   "attractor_detector": 1,
+   "cortex_replay": 1,
+   "operad_fuse": 1,
+   "session_field": 1,
+   "rt_priority": 1,
+   "hebbian_gpu": 1,
+   "lenses": 10,
+   "triadic": 5,
+   "cl": 11,
+   "cl_std": 3,
+   "lens_family": 3,
+   "paths": 2,
+   "gen14_unified_extensions": 8,
+   "ck_frontier_scanner": 2,
+   "ck_phonetic_letters": 1,
+   "multi_head_algebraic_lm": 3,
+   "ck_spreading_activation": 1,
+   "ck_proactive_trigger": 1,
+   "ck_stroke_extractor": 1,
+   "ck_sense_decomposition": 1,
+   "ck_memory_archive": 1,
+   "ck_voice_polish": 1
+  },
+  "out_deg": {
+   "ab_test": 0,
+   "ab_test_full": 3,
+   "bhml_eigenvalue_analysis": 0,
+   "build_hebrew_english_bible": 0,
+   "ck_algebra_bridge": 0,
+   "ck_backbone": 0,
+   "ck_bare_metal": 1,
+   "ck_bible_overnight": 0,
+   "ck_bible_reader": 0,
+   "ck_bloom_warmup": 0,
+   "ck_boot_api": 9,
+   "ck_console": 0,
+   "ck_converse": 2,
+   "ck_curriculum": 0,
+   "ck_deep_read": 0,
+   "ck_deep_reader": 0,
+   "ck_eat_algebra": 0,
+   "ck_force9_demo": 2,
+   "ck_foundation_reader": 0,
+   "ck_fpga_bridge": 0,
+   "ck_fpga_heartbeat_bridge": 1,
+   "ck_mandelbrot": 0,
+   "ck_nt_loop": 0,
+   "ck_operator_tests": 3,
+   "ck_os_reader": 0,
+   "ck_overnight_chain": 0,
+   "ck_overnight_math": 0,
+   "ck_pos_tagger": 1,
+   "ck_remote": 1,
+   "ck_self_evolve": 2,
+   "ck_self_study": 0,
+   "__init__": 0,
+   "__main__": 1,
+   "ck_activity_log": 0,
+   "ck_becoming_grammar": 3,
+   "ck_concept_spine": 2,
+   "ck_d1_lattice_builder": 1,
+   "ck_d2_dictionary_expander": 2,
+   "ck_development": 0,
+   "ck_dictionary_builder": 1,
+   "ck_education": 2,
+   "ck_english_build": 8,
+   "ck_episodic": 1,
+   "ck_identity": 1,
+   "ck_journal": 4,
+   "ck_knowledge_bootstrap": 6,
+   "ck_lexicon": 4,
+   "ck_lexicon_bulk": 2,
+   "ck_memory": 1,
+   "ck_metalearning": 1,
+   "ck_network": 2,
+   "ck_retrieval_engine": 2,
+   "ck_self_mirror": 2,
+   "ck_spectrometer_journal": 1,
+   "ck_translator": 1,
+   "ck_truth": 1,
+   "ck_world_lattice": 2,
+   "ck_algebraic_neural": 1,
+   "ck_algebraic_proofs": 2,
+   "ck_attention": 1,
+   "ck_audio_compress": 0,
+   "ck_bible": 0,
+   "ck_bible_sense": 2,
+   "ck_bonding": 1,
+   "ck_btq": 3,
+   "ck_chain_compression": 2,
+   "ck_clay_codecs": 2,
+   "ck_code_translation": 1,
+   "ck_coherence_action": 1,
+   "ck_coherence_field": 2,
+   "ck_coherence_gate": 0,
+   "ck_coherence_router": 0,
+   "ck_disagreement_tick": 0,
+   "ck_divine27": 2,
+   "ck_divine_memory": 1,
+   "ck_dkan_trainer": 4,
+   "ck_domains_r2": 0,
+   "ck_eat": 1,
+   "ck_emotion": 0,
+   "ck_experience": 1,
+   "ck_experience_index": 2,
+   "ck_fibonacci_transform": 2,
+   "ck_formal_theorems": 6,
+   "ck_fractal_comprehension": 2,
+   "ck_fractal_health": 1,
+   "ck_gustatory": 1,
+   "ck_hindsight_replay": 2,
+   "ck_hotu_bridge": 0,
+   "ck_immune": 1,
+   "ck_invariants": 0,
+   "ck_lattice_chain": 1,
+   "ck_lcodec": 0,
+   "ck_math_translation": 1,
+   "ck_meta_lens": 1,
+   "ck_meta_memory_coord": 0,
+   "ck_nervous_v2": 0,
+   "ck_olfactory": 1,
+   "ck_personality": 1,
+   "ck_phonetic_letters": 0,
+   "ck_power_sense": 0,
+   "ck_retina": 6,
+   "ck_reverse_voice": 3,
+   "ck_screen_compress": 0,
+   "ck_semantic_index": 1,
+   "ck_semantic_modifiers": 0,
+   "ck_sensorium": 7,
+   "ck_sensory_codecs": 4,
+   "ck_sequence_memory": 0,
+   "ck_sim_body": 1,
+   "ck_sim_brain": 1,
+   "ck_sim_btq": 2,
+   "ck_sim_d2": 1,
+   "ck_sim_heartbeat": 0,
+   "ck_spectral_core": 1,
+   "ck_swarm": 2,
+   "ck_swarm_deep": 3,
+   "ck_table_derivation": 0,
+   "ck_taichi_chains": 1,
+   "ck_tig_bundle": 0,
+   "ck_tig_security": 1,
+   "ck_topology_lens": 1,
+   "ck_visual_encoder": 0,
+   "ck_vortex_physics": 1,
+   "ck_word_expansion": 1,
+   "ck_tig": 0,
+   "ao_bridge": 0,
+   "ck_action": 5,
+   "ck_algorithm_lattice": 0,
+   "ck_autodidact": 2,
+   "ck_autodidact_runner": 6,
+   "ck_beam_voice": 4,
+   "ck_breath_engine": 4,
+   "ck_claude_library": 2,
+   "ck_clay_generators": 1,
+   "ck_clay_protocol": 7,
+   "ck_cloud_btq": 3,
+   "ck_cloud_curvature": 3,
+   "ck_cloud_flow": 1,
+   "ck_cloud_pfe": 1,
+   "ck_dialogue": 3,
+   "ck_foo_engine": 2,
+   "ck_force_voice": 3,
+   "ck_forecast": 1,
+   "ck_fractal_index": 1,
+   "ck_fractal_memory": 1,
+   "ck_fractal_memory_gpu": 1,
+   "ck_fractal_scorer": 3,
+   "ck_fractal_voice": 4,
+   "ck_game_sense": 3,
+   "ck_goals": 1,
+   "ck_gpu": 0,
+   "ck_language": 3,
+   "ck_llm_filter": 4,
+   "ck_nce": 2,
+   "ck_organ_clouds": 5,
+   "ck_prompt_craft": 1,
+   "ck_pulse_engine": 1,
+   "ck_rate_engine": 2,
+   "ck_reasoning": 2,
+   "ck_rh5_attack": 4,
+   "ck_semantic_engine": 2,
+   "ck_sentence_composer": 2,
+   "ck_sim_engine": 93,
+   "ck_spectrometer": 10,
+   "ck_ssa_engine": 2,
+   "ck_steering": 2,
+   "ck_thesis_writer": 4,
+   "ck_thinking_lattice": 2,
+   "ck_tig_voice": 2,
+   "ck_voice": 4,
+   "ck_voice_lattice": 1,
+   "ck_voice_loop": 6,
+   "ck_ym_attack": 4,
+   "ck_body_interface": 0,
+   "ck_deploy": 2,
+   "ck_gap_runner": 2,
+   "ck_headless": 2,
+   "ck_presentation": 5,
+   "ck_robot_body": 4,
+   "ck_sim_app": 6,
+   "ck_sim_audio": 1,
+   "ck_sim_ears": 2,
+   "ck_sim_led": 1,
+   "ck_sim_sd": 2,
+   "ck_sim_uart": 0,
+   "ck_sim_widgets": 1,
+   "ck_spectrometer_runner": 3,
+   "ck_web_api": 5,
+   "ck_zynq_dog": 7,
+   "ck_spectrometer_train": 0,
+   "ck_sprint7_selfvalidate": 1,
+   "ck_steer_bridge": 0,
+   "ck_steering_ab_live": 4,
+   "ck_stream_client": 1,
+   "ck_stream_server": 2,
+   "ck_study": 2,
+   "ck_study_all": 0,
+   "ck_token_gate": 2,
+   "ck_train_loop": 0,
+   "ck_train_loop_2h": 0,
+   "ck_watchdog": 0,
+   "ck_web_server": 3,
+   "gap_bridge_analysis": 0,
+   "overnight_train": 0,
+   "reality_anchors_part2": 0,
+   "stream_bench": 2,
+   "test_ab_steering": 4,
+   "verify_ck_core": 0,
+   "void_analysis": 0,
+   "action_pipeline": 1,
+   "ao_5element": 5,
+   "attractor_detector": 0,
+   "audio_pipeline": 1,
+   "bdc_event_emitter": 1,
+   "bdc_logger": 0,
+   "bdc_tick_sampler": 2,
+   "cell_audit": 3,
+   "cells": 6,
+   "cells_mount": 5,
+   "ck_fault_state_hook": 1,
+   "ck_invariants_bridge": 0,
+   "ck_research": 2,
+   "ck_sdv_safety": 0,
+   "ck_tables": 0,
+   "ck_speaker": 2,
+   "clay_compare": 1,
+   "clay_study": 0,
+   "clay_synthesis": 0,
+   "cortex": 4,
+   "cortex_persist": 1,
+   "cortex_replay": 2,
+   "cortex_v2": 5,
+   "cortex_voice": 4,
+   "dirac_mount": 1,
+   "test_tig_dirac": 1,
+   "tig_dirac": 0,
+   "verify_discrete_dirac_4core": 0,
+   "external_ingester": 0,
+   "fact_extractor": 0,
+   "force9_role_layer": 1,
+   "frontier_benchmark": 0,
+   "glue_ai": 4,
+   "bank_mount": 2,
+   "ck_grammar_lm": 0,
+   "compare_variants": 2,
+   "cross_arch_test": 0,
+   "divine27_vocab": 0,
+   "ensemble": 2,
+   "extract_streams": 0,
+   "grammar_lm_mount": 2,
+   "multi_head_lm": 1,
+   "operator_memory_bank": 1,
+   "train": 1,
+   "train_bdc": 3,
+   "growth_monitor": 0,
+   "head_to_head_benchmark": 2,
+   "hebbian_5x5_cl": 2,
+   "hebbian_gpu": 3,
+   "migrate_cortex_5to7_live": 0,
+   "mine_historical_bdc": 2,
+   "nightly_retrain": 4,
+   "operad_fuse": 0,
+   "overnight_orchestrator": 3,
+   "paper_reader": 0,
+   "paper_writer": 0,
+   "plasticity": 3,
+   "prose_teacher": 0,
+   "quadratic_glue": 1,
+   "repo_reader": 0,
+   "research_first": 1,
+   "screen_pipeline": 2,
+   "session_field": 0,
+   "studies_panel": 5,
+   "add_deep_crystals": 0,
+   "add_phoneme_crystals": 0,
+   "add_phoneme_crystals_full": 0,
+   "add_phoneme_crystals_v3": 0,
+   "add_phoneme_crystals_v4": 0,
+   "add_phoneme_crystals_v5": 0,
+   "add_phoneme_crystals_v6": 0,
+   "add_word_crystals": 1,
+   "assign_op_signatures": 0,
+   "audio_perceive": 8,
+   "autonomous_study": 0,
+   "capability_audit": 0,
+   "compute_phi": 0,
+   "corpus_ingest": 0,
+   "cortex_backup": 0,
+   "dream_daemon": 1,
+   "edge_visual_encoder": 0,
+   "enrich_phoneme_triggers": 0,
+   "gap_detector": 0,
+   "generate_phoneme_grounding": 1,
+   "generate_phoneme_grounding_v2": 1,
+   "generate_phoneme_grounding_v3": 1,
+   "generate_phoneme_grounding_v4": 2,
+   "generate_phoneme_grounding_v5": 3,
+   "heal_after_audio": 2,
+   "kids_word_vocab": 0,
+   "make_synth_video": 0,
+   "match_audio_chunked": 2,
+   "match_audio_to_phonics": 5,
+   "perceive_audio_canonical": 1,
+   "phonics_overnight_trainer": 7,
+   "post_study_verify": 0,
+   "recalibrate_phonemes_canonical": 6,
+   "study_direct": 2,
+   "surprisal_log": 2,
+   "synth_target_window": 0,
+   "test_chunked_synthetic": 2,
+   "test_matcher_synthetic": 2,
+   "test_organism_dynamics": 1,
+   "trajectory_view": 0,
+   "ui_loop": 1,
+   "watch_and_summarize": 4,
+   "word_recognizer": 3,
+   "youtube_audio_watcher": 5,
+   "youtube_video_watcher": 5,
+   "youtube_video_watcher_edges": 7,
+   "study_daemon": 0,
+   "test_attractor_detector": 1,
+   "test_brain": 15,
+   "test_operad_fuse": 1,
+   "test_session_field": 1,
+   "train_prose_tissue": 0,
+   "train_tissue_transformer": 0,
+   "train_tsml_bhml_tissue": 0,
+   "ao_7element": 0,
+   "compare_phi_5d_7d": 0,
+   "cortex_7d": 3,
+   "hebbian_7x7": 1,
+   "migrate_5to7": 0,
+   "paragraph_composer": 0,
+   "ck_code_intent": 0,
+   "ck_code_voice": 0,
+   "ck_voice_math": 0,
+   "fpga_bridge": 0,
+   "jitter_probe": 2,
+   "rt_priority": 0,
+   "ck_boot_api_gen11ref": 7,
+   "ck_run_gen11ref": 0,
+   "bhml_variants": 2,
+   "ck_export": 6,
+   "cl": 0,
+   "cl_std": 0,
+   "crystal_seed": 0,
+   "invariants": 6,
+   "lens_family": 2,
+   "lenses": 1,
+   "paths": 2,
+   "cycle_a_36": 3,
+   "harmony_44": 3,
+   "harmony_ladder": 4,
+   "lens_disagreement_71": 2,
+   "skeleton_22": 2,
+   "triadic": 1,
+   "ck_concept_learner": 0,
+   "ck_dep_graph": 0,
+   "ck_formula_registry": 1,
+   "ck_frontier_scanner": 1,
+   "ck_memory_archive": 0,
+   "ck_proactive_trigger": 3,
+   "ck_sense_decomposition": 0,
+   "ck_spreading_activation": 1,
+   "ck_stroke_extractor": 1,
+   "ck_study_overnight": 1,
+   "ck_synthesizer": 2,
+   "ck_voice_polish": 1,
+   "fetch_arxiv": 0,
+   "fetch_gutenberg": 0,
+   "gen14_acceptance_test": 1,
+   "gen14_unified_extensions": 14,
+   "multi_head_algebraic_lm": 2,
+   "train_bdc_algebraic": 2,
+   "verify_4head_lm": 2
+  }
+ }
+}
