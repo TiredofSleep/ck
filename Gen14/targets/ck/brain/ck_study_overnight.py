@@ -233,8 +233,20 @@ def detect_tier_from_status_text(status_text: str) -> Optional[str]:
 
 def merge_tier(path_tier: str, status_tier: Optional[str]) -> str:
     """Combine a path-derived tier with a status-extracted tier.
-    Status-tier wins when both differ (the explicit signal trumps the default).
+
+    Rule:
+      - If path_tier is EXTERNAL (concept from external_corpora), the
+        path tier is AUTHORITATIVE.  Inline mentions of "PROVED" or
+        "STRUCTURAL" in a Gutenberg-book prose passage do not promote
+        the resulting concept above EXTERNAL.  This prevents Darwin's
+        "improved" or a README mentioning "tier=PROVED" from
+        contaminating CK's PROVED set.
+      - For all other paths, status_tier (if detected) wins over
+        path_tier.  Inside CK's own sprint papers, an inline "PROVED"
+        IS authoritative.
     """
+    if path_tier == "EXTERNAL":
+        return "EXTERNAL"
     if status_tier:
         return status_tier
     return path_tier or "UNKNOWN"
