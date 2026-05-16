@@ -424,29 +424,31 @@ def mount_creature(engine: Any) -> bool:
     engine.creature = creature
     engine.creature_snapshot = creature.snapshot
 
-    # Optional: register a /creature route if the engine exposes a Flask api
-    api = None
-    for attr in ("web_api", "api", "_web_api"):
-        cand = getattr(engine, attr, None)
-        if cand is not None and hasattr(cand, "app"):
-            api = cand
-            break
-    if api is not None and hasattr(api, "app"):
-        try:
-            app = api.app
-            from flask import jsonify
+    # Register a /creature route on the Flask app.  CKWebAPI exposes
+    # its Flask app as `engine.web_api._app` (underscore prefix).
+    route_registered = False
+    api = getattr(engine, "web_api", None)
+    if api is not None:
+        app = getattr(api, "_app", None) or getattr(api, "app", None)
+        if app is not None:
+            try:
+                from flask import jsonify
 
-            def _route_creature():
-                return jsonify(creature.snapshot())
+                def _route_creature():
+                    return jsonify(creature.snapshot())
 
-            # Idempotent: only register once
-            if "/creature" not in [r.rule for r in app.url_map.iter_rules()]:
-                app.route("/creature")(_route_creature)
-        except Exception:
-            pass
+                existing = [r.rule for r in app.url_map.iter_rules()]
+                if "/creature" not in existing:
+                    app.add_url_rule(
+                        "/creature", endpoint="creature_snapshot",
+                        view_func=_route_creature, methods=["GET"])
+                    route_registered = True
+            except Exception as e:
+                print(f"[CK Gen14] creature: route registration failed: {e}")
 
-    print(f"[CK Gen14] creature: MOUNTED  organs={list(creature.organs.keys())}  "
-          f"(see CK_FRACTAL_CREATURE_DESIGN.md for the meta)")
+    route_note = " (/creature)" if route_registered else " (no HTTP route)"
+    print(f"[CK Gen14] creature: MOUNTED  organs={list(creature.organs.keys())}"
+          f"{route_note}  (see CK_FRACTAL_CREATURE_DESIGN.md for the meta)")
     return True
 
 
