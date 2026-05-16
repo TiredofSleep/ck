@@ -1,6 +1,6 @@
 # CK Dependency Graph (auto-generated)
 
-_Generated 2026-05-16 18:07:21 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
+_Generated 2026-05-16 18:18:47 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
 
 **98 modules** tracked in `Gen14/targets/ck/brain/`.
 
@@ -62,7 +62,7 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `bdc_tick_sampler` | 148 | — | — | `/bdc/sampler` |
 | `ck_algebra_runtime` | 483 | — | — | — |
 | `ck_breath_emergence` | 539 | — | `mount_breath_emergence` | — |
-| `ck_coupled_3tables` | 754 | — | `mount_coupled_3tables` | — |
+| `ck_coupled_3tables` | 881 | — | `mount_coupled_3tables` | — |
 | `ck_coupled_4cores` | 367 | — | `mount_coupled_4cores` | — |
 | `ck_dep_graph` | 467 | — | — | — |
 | `ck_engine_block` | 522 | — | `mount_engine_block` | — |
