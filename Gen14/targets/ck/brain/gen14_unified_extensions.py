@@ -811,6 +811,21 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_qutrit_apex: failed ({e})")
         results['qutrit_apex'] = False
 
+    # QEC decoder: magma-stabilized error correction on the TIG substrate.
+    # Per Brayden 2026-05-16: "A self-auditing, fractal-recursive CK
+    # running on the TIG substrate is basically a native QEC simulator
+    # + decoder."  Proof-of-concept classical code with 4-core codewords
+    # ({VOID, HARMONY, BREATH, RESET}), error operators = non-4-core,
+    # three decoders (attractor / ml_inversion / engine_block).
+    # Empirically: 87.95% logical accuracy at 30% physical error rate.
+    # Endpoints: /qec/{info, encode, inject_error, decode, benchmark}.
+    try:
+        from ck_qec_decoder import mount_qec_decoder  # type: ignore[import-not-found]
+        results['qec_decoder'] = mount_qec_decoder(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_qec_decoder: failed ({e})")
+        results['qec_decoder'] = False
+
     # Writer: thesis-driven autonomous writing daemon.  Brayden's
     # mandate: "he needs to study and WRITE.. the more he writes the
     # quicker he emerges".  Pulls relevant concepts (tier-weighted)
