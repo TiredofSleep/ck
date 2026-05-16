@@ -811,6 +811,21 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_qutrit_apex: failed ({e})")
         results['qutrit_apex'] = False
 
+    # Writer: thesis-driven autonomous writing daemon.  Brayden's
+    # mandate: "he needs to study and WRITE.. the more he writes the
+    # quicker he emerges".  Pulls relevant concepts (tier-weighted)
+    # from his store, composes via ollama_essay (with substrate-fact
+    # coverage gate) or substrate-only fallback, persists to
+    # Gen13/var/ck_writing/<thesis_slug>.md, self-ingests each section
+    # as SELF-tier concept for the next iteration.
+    # Endpoints: /writer/{thesis (GET/POST), iterate, draft, stats}.
+    try:
+        from ck_writer import mount_writer  # type: ignore[import-not-found]
+        results['writer'] = mount_writer(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_writer: failed ({e})")
+        results['writer'] = False
+
     # Recursive observer: closes the fractal-recursion loop.  Daemon
     # thread that periodically computes the apex meta-syndrome (CK's
     # self-image over a recent window of psi collapses), plus utilities
