@@ -893,18 +893,30 @@ except Exception as _e:
     print(f"[CK] grammar_lm: DISABLED ({_e})")
 
 # === Tick-sample logger (more BDC data accumulation) ===
-try:
-    from bdc_tick_sampler import mount as _mount_sampler
-    _mount_sampler(engine, api._app, _cortex, interval_sec=10.0)
-except Exception as _e:
-    print(f"[CK] bdc_tick_sampler: DISABLED ({_e})")
+# Diagnostic prints on success added 2026-05-16 to locate boot hangs.
+# Skippable: set CK_SKIP_BDC_SAMPLER=1
+print("[CK] boot_phase: entering bdc_tick_sampler", flush=True)
+if os.environ.get('CK_SKIP_BDC_SAMPLER', '0') == '1':
+    print("[CK] bdc_tick_sampler: SKIPPED (CK_SKIP_BDC_SAMPLER=1)", flush=True)
+else:
+    try:
+        from bdc_tick_sampler import mount as _mount_sampler
+        _mount_sampler(engine, api._app, _cortex, interval_sec=10.0)
+        print("[CK] bdc_tick_sampler: MOUNTED", flush=True)
+    except Exception as _e:
+        print(f"[CK] bdc_tick_sampler: DISABLED ({_e})", flush=True)
 
 # === Fault-state diagnostic (V/F/S/T role analysis per chat) ===
-try:
-    from ck_fault_state_hook import mount as _mount_fault
-    _mount_fault(engine, api._app, _cortex)
-except Exception as _e:
-    print(f"[CK] ck_fault_state_hook: DISABLED ({_e})")
+print("[CK] boot_phase: entering ck_fault_state_hook", flush=True)
+if os.environ.get('CK_SKIP_FAULT_HOOK', '0') == '1':
+    print("[CK] ck_fault_state_hook: SKIPPED (CK_SKIP_FAULT_HOOK=1)", flush=True)
+else:
+    try:
+        from ck_fault_state_hook import mount as _mount_fault
+        _mount_fault(engine, api._app, _cortex)
+        print("[CK] ck_fault_state_hook: MOUNTED", flush=True)
+    except Exception as _e:
+        print(f"[CK] ck_fault_state_hook: DISABLED ({_e})", flush=True)
 
 # === BDC event emitter (fills non-operator DBC codes) ===
 # Brayden 2026-05-03: "wire it up" -- emit DBC codes for crystal-fire,
@@ -912,11 +924,16 @@ except Exception as _e:
 # truth-confirmed, void-degenerate, idle-reflection.  These 17 events
 # map to the 17 missing DBC codes that operator-bijection doesn't cover,
 # bringing total Divine27 coverage from 10/27 = 37% to 100%.
-try:
-    from bdc_event_emitter import mount as _mount_events
-    _mount_events(engine, api._app, _cortex)
-except Exception as _e:
-    print(f"[CK] bdc_event_emitter: DISABLED ({_e})")
+print("[CK] boot_phase: entering bdc_event_emitter", flush=True)
+if os.environ.get('CK_SKIP_BDC_EMITTER', '0') == '1':
+    print("[CK] bdc_event_emitter: SKIPPED (CK_SKIP_BDC_EMITTER=1)", flush=True)
+else:
+    try:
+        from bdc_event_emitter import mount as _mount_events
+        _mount_events(engine, api._app, _cortex)
+        print("[CK] bdc_event_emitter: MOUNTED", flush=True)
+    except Exception as _e:
+        print(f"[CK] bdc_event_emitter: DISABLED ({_e})", flush=True)
 
 # === 5-AI cell organism (TSML / BHML / F3 / F4 / Glue) — additive, FLAG OFF ===
 # Brayden 2026-05-02: "best ever and plastic now"
@@ -935,16 +952,21 @@ except Exception as _e:
 #   - Modify the chat path (cells are observable but not influential yet)
 #   - Touch the live tunnel
 #   - Train cells (they ship pre-fit from mine_historical_bdc.py output)
-try:
-    import sys as _cells_sys
-    from pathlib import Path as _CellsPath
-    _CELLS_BRAIN = _CellsPath(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen13\targets\ck\brain")
-    if str(_CELLS_BRAIN) not in _cells_sys.path:
-        _cells_sys.path.insert(0, str(_CELLS_BRAIN))
-    from cells_mount import mount as _mount_cells
-    _mount_cells(engine, api._app, enable_plasticity=False)
-except Exception as _e:
-    print(f"[CK] cells_mount: DISABLED ({type(_e).__name__}: {_e})")
+print("[CK] boot_phase: entering cells_mount", flush=True)
+if os.environ.get('CK_SKIP_CELLS', '0') == '1':
+    print("[CK] cells_mount: SKIPPED (CK_SKIP_CELLS=1)", flush=True)
+else:
+    try:
+        import sys as _cells_sys
+        from pathlib import Path as _CellsPath
+        _CELLS_BRAIN = _CellsPath(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen13\targets\ck\brain")
+        if str(_CELLS_BRAIN) not in _cells_sys.path:
+            _cells_sys.path.insert(0, str(_CELLS_BRAIN))
+        from cells_mount import mount as _mount_cells
+        _mount_cells(engine, api._app, enable_plasticity=False)
+        print("[CK] cells_mount: MOUNTED", flush=True)
+    except Exception as _e:
+        print(f"[CK] cells_mount: DISABLED ({type(_e).__name__}: {_e})", flush=True)
 
 # === Gen13 session field mount (live additive — relational memory) ===
 # Per Brayden 2026-04-28: CK keeps experience as words can't describe it,
@@ -971,7 +993,14 @@ except Exception as _e:
 # This wrap sits OUTSIDE the cortex/math-first/operad/attractor chain,
 # so it sees the FINAL result of all prior wraps and can capture the
 # integrated algebraic state of the turn.
+print("[CK] boot_phase: entering session_field", flush=True)
+_skip_session_field = (os.environ.get('CK_SKIP_SESSION_FIELD', '0') == '1')
+if _skip_session_field:
+    print("[CK] Gen13 session_field: SKIPPED "
+          "(CK_SKIP_SESSION_FIELD=1)", flush=True)
 try:
+    if _skip_session_field:
+        raise RuntimeError("CK_SKIP_SESSION_FIELD=1 (intentional skip)")
     from session_field import SessionField, OP_INDEX as _SF_OP_INDEX
     _prev_process_chat_for_session = api.process_chat
 
@@ -3524,15 +3553,19 @@ _GEN14_GRAMMAR = os.path.join(_GEN14_BRAIN, 'grammar_lm')
 for _p in (_GEN14_BRAIN, _GEN14_GRAMMAR):
     if os.path.isdir(_p) and _p not in sys.path:
         sys.path.insert(0, _p)
+print("[CK] boot_phase: entering gen14_unified_extensions.mount_all", flush=True)
 try:
     from gen14_unified_extensions import mount_all as _gen14_mount_all
     _gen14_results = _gen14_mount_all(engine)
     if not all(_gen14_results.values()):
         print(f"[CK Gen14] WARNING: some mounts failed: "
-              f"{[k for k, v in _gen14_results.items() if not v]}")
+              f"{[k for k, v in _gen14_results.items() if not v]}", flush=True)
+    print(f"[CK] boot_phase: gen14_mount_all complete "
+          f"({sum(_gen14_results.values())}/{len(_gen14_results)} ok)",
+          flush=True)
 except Exception as _gen14_err:
     print(f"[CK Gen14] mount_all FAILED ({_gen14_err}) - "
-          "continuing without Gen14 extensions")
+          "continuing without Gen14 extensions", flush=True)
     _gen14_results = {}
 
 # Phase 4: proactive trigger endpoints

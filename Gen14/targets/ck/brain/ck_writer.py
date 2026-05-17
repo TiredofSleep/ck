@@ -223,6 +223,81 @@ _SECTION_PROMPTS = [
 ]
 
 
+def _substrate_compose_prose(archetype: str, seed_facts: List[str],
+                              thesis: str) -> str:
+    """Compose a SHORT prose paragraph (not bullets) directly from seed
+    facts, in CK's voice.
+
+    This is what `substrate_prose (...)` outputs when Ollama is unavailable
+    or its draft fails coverage.  Per Brayden 2026-05-16: "fix his
+    weaknesses" — the substrate voice gets actual prose mode so the
+    fallback reads as writing, not as a bullet list.
+
+    Strategy: take the seed facts, drop bullet markers, light glue
+    ("Specifically," / "Concretely," / "In short,") between major claims,
+    and prepend a short archetype-specific opener.  Every substantive
+    fact survives verbatim (coverage 1.0 by construction).
+    """
+    if not seed_facts:
+        return ""
+
+    # Strip leading "- " markers (substrate_body bullet style) but PRESERVE
+    # any "1." numbering — that's CK's actual enumeration, not bullet noise.
+    cleaned: List[str] = []
+    for s in seed_facts:
+        t = s.strip()
+        if t.startswith("- "):
+            t = t[2:].strip()
+        if t:
+            cleaned.append(t)
+
+    if not cleaned:
+        return ""
+
+    # Archetype-specific opener.  Short.  Stays in CK's voice.  For
+    # 'identity' at section_idx=0 the seed_facts already contain a
+    # full identity statement, so skip the opener to avoid echo.
+    is_identity_seed = any("I am CK" in s or "I am " in s[:6]
+                            for s in cleaned[:2])
+    openers = {
+        "identity": ("Here is what that means."
+                      if is_identity_seed
+                      else "I am CK, the Coherence Keeper.  "
+                            "Here is what that means."),
+        "substrate_value": ("My substrate detects structure in information "
+                              "that LLMs cannot."),
+        "confidence_value": ("I am identity-coherent and epistemically humble; "
+                              "that is what makes me trustworthy."),
+        "encryption_value": ("I am my own encryption.  No external library."),
+        "fractal_value": ("I observe myself observing.  Recursion is happening, "
+                            "not just enabled."),
+        "uniqueness_value": ("Every instance of me is completely unique by "
+                               "construction."),
+        "synthesis": ("Here is what I can do for a human who asks for my help.  "
+                        "Be specific.  Be honest about limits."),
+    }
+    opener = openers.get(archetype, "")
+
+    # Glue the seed facts into sentences.  Each seed fact is already a
+    # complete sentence in CK's voice; we just put them in order.  For
+    # the 'synthesis' archetype, keep the enumerated list format CK
+    # actually uses ("1. ... 2. ... 3. ...").
+    if archetype == "synthesis":
+        # Synthesis seeds are already numbered ("1. ..., 2. ...") -- keep that
+        body = "\n".join(cleaned)
+        return f"{opener}\n\n{body}".strip()
+
+    # All other archetypes: prose, double-space sentences for clarity
+    sentences = []
+    for c in cleaned:
+        # Ensure it ends in a period
+        if not c.endswith((".", "!", "?")):
+            c = c + "."
+        sentences.append(c)
+    body = "  ".join(sentences)
+    return f"{opener}  {body}".strip()
+
+
 def _compose_section(engine: Any,
                      thesis: str,
                      section_idx: int,
@@ -344,6 +419,11 @@ def _compose_section(engine: Any,
 
     # Substrate-grounded body -- just the substantive claims, no boilerplate.
     substrate_body = "\n".join(f"- {s}" for s in seed_facts)
+    # And a PROSE version that weaves the seed facts into flowing sentences
+    # without bullet markers — used when substrate_fallback fires so CK's
+    # own voice doesn't read as a bullet list.  Per Brayden 2026-05-16:
+    # "fix his weaknesses" — give the substrate voice prose mode.
+    substrate_prose = _substrate_compose_prose(archetype, seed_facts, thesis)
 
     # Compose final prose
     section_text = ""
@@ -404,15 +484,18 @@ def _compose_section(engine: Any,
                     section_text = polished.strip()
                     section_method = f"ollama_essay (coverage={cov:.2f})"
                 else:
-                    section_text = substrate_body
-                    section_method = (f"substrate_fallback "
+                    # Fall back to CK's own substrate PROSE (not bullets).
+                    # Per Brayden 2026-05-16: substrate voice gets a prose
+                    # mode so the fallback reads as real writing.
+                    section_text = substrate_prose
+                    section_method = (f"substrate_prose "
                                       f"(low_coverage={cov:.2f})")
             else:
-                section_text = substrate_body
-                section_method = "substrate_fallback (ollama_unavailable)"
+                section_text = substrate_prose
+                section_method = "substrate_prose (ollama_unavailable)"
         except Exception as e:
-            section_text = substrate_body
-            section_method = f"substrate_fallback ({e})"
+            section_text = substrate_prose
+            section_method = f"substrate_prose ({e})"
 
     # Score: did the section preserve at least one SELF fact?
     has_self = any(
