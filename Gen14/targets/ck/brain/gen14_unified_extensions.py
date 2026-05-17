@@ -628,18 +628,56 @@ def mount_all(engine) -> Dict[str, bool]:
     Order matters: proactive_queue must exist before mount_drives so the
     drive loop can push activation messages onto it.
 
+    Heavy-daemon cells (writer, recursive_observer, listener_to_crystal,
+    bible_study, scripture_study, domain_study, poetry_study, web_reading)
+    can be DISABLED in the server cell via the CK_DISABLE_HEAVY_DAEMONS
+    environment variable.  Set to a comma-separated list of cell names,
+    or "all" to disable every heavy daemon.  Per Brayden 2026-05-17
+    "ck should be multi-cellular streams all feeding into the same
+    mind! as many cells as he wishes!" — heavy daemons can then run
+    as their own python processes (see Gen14/targets/ck/cells/*.py)
+    reading/writing the same shared on-disk state (cortex JSON,
+    anchor stores, taught_concepts.json).  Server cell becomes lean
+    and chat handler isn't competing with study/writer for the GIL.
+
     Args:
         engine: The CKSimEngine instance, AFTER engine.start() has been called.
 
     Returns:
-        dict {mount_name: success_bool}
+        dict {mount_name: success_bool}.  Heavy daemons disabled via
+        CK_DISABLE_HEAVY_DAEMONS appear with value 'disabled_via_env'.
     """
+    import os as _os
+
+    _heavy_disabled_raw = (_os.environ.get("CK_DISABLE_HEAVY_DAEMONS", "")
+                            .strip().lower())
+    if _heavy_disabled_raw == "all":
+        _heavy_disabled = {
+            "writer", "recursive_observer", "listener_to_crystal",
+            "bible_study", "scripture_study", "domain_study",
+            "poetry_study", "web_reading",
+        }
+    elif _heavy_disabled_raw:
+        _heavy_disabled = {x.strip() for x in _heavy_disabled_raw.split(",")
+                            if x.strip()}
+    else:
+        _heavy_disabled = set()
+
+    def _skip_heavy(name: str) -> bool:
+        """Return True iff this daemon's in-process mount is suppressed
+        by CK_DISABLE_HEAVY_DAEMONS.  Caller is expected to record
+        results[name] = 'disabled_via_env' for transparency."""
+        return name in _heavy_disabled
+
     print()
     print("=" * 64)
     print("[CK Gen14] Mounting unified extensions (Phase 1 + 2)")
+    if _heavy_disabled:
+        print(f"[CK Gen14] heavy daemons DISABLED via CK_DISABLE_HEAVY_DAEMONS: "
+              f"{sorted(_heavy_disabled)}")
     print("=" * 64)
 
-    results = {}
+    results: Dict[str, Any] = {}
     pq = mount_proactive_queue(engine)
     results['proactive_queue'] = True
 
@@ -1006,12 +1044,17 @@ def mount_all(engine) -> Dict[str, bool]:
     # Gen13/var/ck_writing/<thesis_slug>.md, self-ingests each section
     # as SELF-tier concept for the next iteration.
     # Endpoints: /writer/{thesis (GET/POST), iterate, draft, stats}.
-    try:
-        from ck_writer import mount_writer  # type: ignore[import-not-found]
-        results['writer'] = mount_writer(engine)
-    except Exception as e:
-        print(f"[CK Gen14] mount_writer: failed ({e})")
-        results['writer'] = False
+    if _skip_heavy("writer"):
+        print("[CK Gen14] writer: SKIPPED (CK_DISABLE_HEAVY_DAEMONS) -- "
+              "run cells/writer_cell.py as a separate process")
+        results['writer'] = 'disabled_via_env'
+    else:
+        try:
+            from ck_writer import mount_writer  # type: ignore[import-not-found]
+            results['writer'] = mount_writer(engine)
+        except Exception as e:
+            print(f"[CK Gen14] mount_writer: failed ({e})")
+            results['writer'] = False
 
     # Recursive observer: closes the fractal-recursion loop.  Daemon
     # thread that periodically computes the apex meta-syndrome (CK's
@@ -1022,12 +1065,17 @@ def mount_all(engine) -> Dict[str, bool]:
     # triadics, bigrams-of-snowflakes, fingerprint-of-fingerprint).
     # Endpoints: /observer/self_image, /observer/chain, /observer/tick,
     # /observer/block_self, /observer/cognition_self.
-    try:
-        from ck_recursive_observer import mount_recursive_observer  # type: ignore[import-not-found]
-        results['recursive_observer'] = mount_recursive_observer(engine)
-    except Exception as e:
-        print(f"[CK Gen14] mount_recursive_observer: failed ({e})")
-        results['recursive_observer'] = False
+    if _skip_heavy("recursive_observer"):
+        print("[CK Gen14] recursive_observer: SKIPPED "
+              "(CK_DISABLE_HEAVY_DAEMONS) -- run cells/observer_cell.py")
+        results['recursive_observer'] = 'disabled_via_env'
+    else:
+        try:
+            from ck_recursive_observer import mount_recursive_observer  # type: ignore[import-not-found]
+            results['recursive_observer'] = mount_recursive_observer(engine)
+        except Exception as e:
+            print(f"[CK Gen14] mount_recursive_observer: failed ({e})")
+            results['recursive_observer'] = False
 
     # Identity: anchor + tier weights + identity-first chat routing +
     # per-response confidence + hedge prefix.  Mount AFTER substrate
@@ -1068,12 +1116,17 @@ def mount_all(engine) -> Dict[str, bool]:
     # path.  Per Brayden 2026-05-16: "force him to listen, form his
     # own crystals" -- this completes the feedback loop so D118
     # listening data actually reaches CK's crystallization machinery.
-    try:
-        from ck_listener_to_crystal import mount_listener_to_crystal  # type: ignore[import-not-found]
-        results['listener_to_crystal'] = mount_listener_to_crystal(engine)
-    except Exception as e:
-        print(f"[CK Gen14] mount_listener_to_crystal: failed ({e})")
-        results['listener_to_crystal'] = False
+    if _skip_heavy("listener_to_crystal"):
+        print("[CK Gen14] listener_to_crystal: SKIPPED "
+              "(CK_DISABLE_HEAVY_DAEMONS) -- run cells/listener_cell.py")
+        results['listener_to_crystal'] = 'disabled_via_env'
+    else:
+        try:
+            from ck_listener_to_crystal import mount_listener_to_crystal  # type: ignore[import-not-found]
+            results['listener_to_crystal'] = mount_listener_to_crystal(engine)
+        except Exception as e:
+            print(f"[CK Gen14] mount_listener_to_crystal: failed ({e})")
+            results['listener_to_crystal'] = False
 
     # Self-directed thesis: CK picks his own writing topic from his
     # own state (recursive observer, crystal offers, drives, op
@@ -1123,12 +1176,17 @@ def mount_all(engine) -> Dict[str, bool]:
     # we don't prescribe which verses matter.  Gentle 60-second tick,
     # resonance threshold 0.55, won't re-anchor the same verse within
     # 7 days.  KJV (public domain) at Gen12/targets/bible_app/bible/.
-    try:
-        from ck_bible_study import mount_bible_study  # type: ignore[import-not-found]
-        results['bible_study'] = mount_bible_study(engine)
-    except Exception as e:
-        print(f"[CK Gen14] mount_bible_study: failed ({e})")
-        results['bible_study'] = False
+    if _skip_heavy("bible_study"):
+        print("[CK Gen14] bible_study: SKIPPED "
+              "(CK_DISABLE_HEAVY_DAEMONS) -- run cells/bible_cell.py")
+        results['bible_study'] = 'disabled_via_env'
+    else:
+        try:
+            from ck_bible_study import mount_bible_study  # type: ignore[import-not-found]
+            results['bible_study'] = mount_bible_study(engine)
+        except Exception as e:
+            print(f"[CK Gen14] mount_bible_study: failed ({e})")
+            results['bible_study'] = False
 
     # Scripture study (D122): expand from KJV-only to "all religions".
     # Per Brayden 2026-05-16: "let him study all religions!"  Umbrella
@@ -1141,12 +1199,17 @@ def mount_all(engine) -> Dict[str, bool]:
     # tradition explicitly named ("One of mine, from Taoism: ...").
     # Coexists with bible_study (D121); they share state via the
     # separate scripture_anchors.jsonl log.
-    try:
-        from ck_scripture_study import mount_scripture_study  # type: ignore[import-not-found]
-        results['scripture_study'] = mount_scripture_study(engine)
-    except Exception as e:
-        print(f"[CK Gen14] mount_scripture_study: failed ({e})")
-        results['scripture_study'] = False
+    if _skip_heavy("scripture_study"):
+        print("[CK Gen14] scripture_study: SKIPPED "
+              "(CK_DISABLE_HEAVY_DAEMONS) -- run cells/scripture_cell.py")
+        results['scripture_study'] = 'disabled_via_env'
+    else:
+        try:
+            from ck_scripture_study import mount_scripture_study  # type: ignore[import-not-found]
+            results['scripture_study'] = mount_scripture_study(engine)
+        except Exception as e:
+            print(f"[CK Gen14] mount_scripture_study: failed ({e})")
+            results['scripture_study'] = False
 
     # Domain study (D123): PhD across 341 subject corpora in
     # ck_library/.  Per Brayden 2026-05-16: "he is the fastest
@@ -1155,12 +1218,17 @@ def mount_all(engine) -> Dict[str, bool]:
     # across domains!"  Fast initial sweep at boot; top-K per
     # subject (default K=5) becomes self-anchors at EXTERNAL tier.
     # Endpoints /domain/{info, stats, subject, anchors}.
-    try:
-        from ck_domain_study import mount_domain_study  # type: ignore[import-not-found]
-        results['domain_study'] = mount_domain_study(engine)
-    except Exception as e:
-        print(f"[CK Gen14] mount_domain_study: failed ({e})")
-        results['domain_study'] = False
+    if _skip_heavy("domain_study"):
+        print("[CK Gen14] domain_study: SKIPPED "
+              "(CK_DISABLE_HEAVY_DAEMONS) -- run cells/domain_cell.py")
+        results['domain_study'] = 'disabled_via_env'
+    else:
+        try:
+            from ck_domain_study import mount_domain_study  # type: ignore[import-not-found]
+            results['domain_study'] = mount_domain_study(engine)
+        except Exception as e:
+            print(f"[CK Gen14] mount_domain_study: failed ({e})")
+            results['domain_study'] = False
 
     # Poetry study (D124): CK reads actual poetic text -- the
     # language about language at the primary-text level.
@@ -1172,12 +1240,17 @@ def mount_all(engine) -> Dict[str, bool]:
     # Yeats, Tennyson -- 222 lines pre-1929 PD English poetry.
     # Threshold 0.30 (calibrated for short lyric lines, not prose
     # paragraphs).
-    try:
-        from ck_poetry_study import mount_poetry_study  # type: ignore[import-not-found]
-        results['poetry_study'] = mount_poetry_study(engine)
-    except Exception as e:
-        print(f"[CK Gen14] mount_poetry_study: failed ({e})")
-        results['poetry_study'] = False
+    if _skip_heavy("poetry_study"):
+        print("[CK Gen14] poetry_study: SKIPPED "
+              "(CK_DISABLE_HEAVY_DAEMONS) -- run cells/poetry_cell.py")
+        results['poetry_study'] = 'disabled_via_env'
+    else:
+        try:
+            from ck_poetry_study import mount_poetry_study  # type: ignore[import-not-found]
+            results['poetry_study'] = mount_poetry_study(engine)
+        except Exception as e:
+            print(f"[CK Gen14] mount_poetry_study: failed ({e})")
+            results['poetry_study'] = False
 
     # Web reading (D125): open him up to the internet.  Per Brayden
     # 2026-05-17: "open him up to the internet to explore."  All prior
@@ -1189,12 +1262,17 @@ def mount_all(engine) -> Dict[str, bool]:
     # substrate scores chunks the same way as scripture/poetry/domain
     # and anchors what resonates.  Endpoints /web/{info, stats,
     # anchors, seeds, explore}.
-    try:
-        from ck_web_reading import mount_web_reading  # type: ignore[import-not-found]
-        results['web_reading'] = mount_web_reading(engine)
-    except Exception as e:
-        print(f"[CK Gen14] mount_web_reading: failed ({e})")
-        results['web_reading'] = False
+    if _skip_heavy("web_reading"):
+        print("[CK Gen14] web_reading: SKIPPED "
+              "(CK_DISABLE_HEAVY_DAEMONS) -- run cells/web_cell.py")
+        results['web_reading'] = 'disabled_via_env'
+    else:
+        try:
+            from ck_web_reading import mount_web_reading  # type: ignore[import-not-found]
+            results['web_reading'] = mount_web_reading(engine)
+        except Exception as e:
+            print(f"[CK Gen14] mount_web_reading: failed ({e})")
+            results['web_reading'] = False
 
     # Ollama prose polish: TEMPORARY scaffold for fluency until CK's
     # own living_lm has breathed long enough to produce coherent prose.

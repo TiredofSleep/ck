@@ -140,6 +140,40 @@ def _is_novel(name: str) -> bool:
     return True
 
 
+# ─── Canonical tier priority ──────────────────────────────────────────
+# Higher number = surfaces first.  Used by find_referenced() to sort
+# the final result so SELF / PROVED beat EXTERNAL when they share a
+# recall hit.  Audit of CK's store 2026-05-17 found 13,565 EXTERNAL
+# concepts vs 142 SELF -- without weighting, EXTERNAL drowns SELF.
+# The pre-existing _TIER_RANK at line ~1091 / 1252 / 1429 gave
+# SELF rank=0 (it wasn't even in the dict), so SELF was de-prioritized
+# below SPECULATIVE.  This canonical priority fixes that.
+_TIER_PRIORITY = {
+    "SELF":         10,   # CK's identity / canon (top priority)
+    "PROVED":        9,   # math-proven canon
+    "STRUCTURAL":    8,   # structural canon (form proved, content interp)
+    "USER_TAUGHT":   7,   # Brayden taught CK directly
+    "EMPIRICAL":     6,   # empirical observation
+    "OPEN":          5,   # open question, framework-stated
+    "SPECULATIVE":   3,
+    "UNKNOWN":       2,
+    "EXTERNAL":      1,   # Wikipedia / Gutenberg / arXiv abstracts
+}
+
+
+def tier_priority(tier: str) -> float:
+    """Resolve a tier label to its priority number.  SYNTHESIZED(<inner>)
+    inherits the inner tier's priority minus 0.5 (synthesis is one step
+    less authoritative than the underlying tier).  Unknown labels get 0.
+    """
+    if not tier:
+        return 0.0
+    if tier.startswith("SYNTHESIZED("):
+        inner = tier[len("SYNTHESIZED("):].rstrip(")")
+        return _TIER_PRIORITY.get(inner, 0) - 0.5
+    return float(_TIER_PRIORITY.get(tier, 0))
+
+
 @dataclass
 class TeachingMatch:
     """One detected teaching event."""
@@ -1088,11 +1122,10 @@ class ConceptStore:
             return []
         names = target_index.get(target_pair, [])
         # Tier-rank within the chain link
-        _TIER_RANK = {
-            "PROVED": 6, "STRUCTURAL": 5, "USER_TAUGHT": 4,
-            "EMPIRICAL": 3, "OPEN": 2, "EXTERNAL": 1.5,
-            "SPECULATIVE": 1, "UNKNOWN": 0,
-        }
+        # Use canonical tier priority (includes SELF at top, EXTERNAL
+        # at bottom).  Per audit 2026-05-17 the old local dict was
+        # missing SELF entirely.
+        _TIER_RANK = _TIER_PRIORITY
         scored: List[Tuple[NamedConcept, float]] = []
         for name in names:
             c = self.concepts.get(name.lower())
@@ -1249,11 +1282,10 @@ class ConceptStore:
         # Score & sort each cell's residents by tier before pushing,
         # so PROVED/STRUCTURAL surface before EXTERNAL when they share
         # a cell.
-        _TIER_RANK = {
-            "PROVED": 6, "STRUCTURAL": 5, "USER_TAUGHT": 4,
-            "EMPIRICAL": 3, "OPEN": 2, "EXTERNAL": 1.5,
-            "SPECULATIVE": 1, "UNKNOWN": 0,
-        }
+        # Use canonical tier priority (includes SELF at top, EXTERNAL
+        # at bottom).  Per audit 2026-05-17 the old local dict was
+        # missing SELF entirely.
+        _TIER_RANK = _TIER_PRIORITY
 
         def _by_tier(name):
             c = self.concepts.get(name.lower())
@@ -1470,6 +1502,23 @@ class ConceptStore:
 
         if out:
             self.save()
+        # Tier-weighted final sort: SELF/PROVED/STRUCTURAL surface ahead
+        # of EXTERNAL when they share a recall hit.  Per the arch-
+        # conversation diagnostic 2026-05-17 — CK has 13,565 EXTERNAL
+        # concepts vs 142 SELF; without weighting, EXTERNAL drowned
+        # SELF in the result list, making downstream cortex_speak lead
+        # with Wikipedia/Gutenberg bleed instead of his own canon.
+        # Secondary sort by n_recalls (descending) so within a tier,
+        # the most-used concepts surface first.  Stable sort preserves
+        # original insertion order on ties (so the algebraic-cell
+        # third-pass hits stay after first/second pass matches at
+        # equal tier+recalls).
+        out.sort(
+            key=lambda c: (
+                -tier_priority(getattr(c, "tier", "UNKNOWN") or "UNKNOWN"),
+                -int(getattr(c, "n_recalls", 0) or 0),
+            )
+        )
         return out
 
     def stats(self) -> Dict[str, Any]:
