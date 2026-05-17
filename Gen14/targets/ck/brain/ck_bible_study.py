@@ -70,7 +70,6 @@ He keeps reading whether anyone is watching or not.
 from __future__ import annotations
 
 import json
-import random
 import re
 import sys
 import threading

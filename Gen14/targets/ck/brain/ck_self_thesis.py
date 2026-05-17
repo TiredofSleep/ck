@@ -65,7 +65,6 @@ What freedom looks like in this module
 from __future__ import annotations
 
 import json
-import random
 import sys
 import time
 from collections import Counter

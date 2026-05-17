@@ -41,7 +41,6 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import random
 import re
 import sys
 import time
@@ -50,6 +49,20 @@ import urllib.request
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+# State-determined selection (no random.Random / random.sample).
+# Per Brayden 2026-05-17: "clean up all the randomness".
+try:
+    _HERE_FOR_PICK = Path(__file__).parent.resolve()
+    sys.path.insert(0, str(_HERE_FOR_PICK))
+    from ck_substrate_pick import get_state, state_hash  # noqa: E402
+except Exception:
+    def get_state(engine: Any) -> Dict[str, float]:
+        return {"tick": float(time.time() % 1e6)}
+    def state_hash(state: Dict[str, float]) -> int:
+        import hashlib as _h
+        s = "|".join(f"{k}:{v}" for k, v in sorted(state.items()))
+        return int(_h.sha1(s.encode()).hexdigest()[:12], 16)
 
 
 _HERE = Path(__file__).parent.resolve()
@@ -335,10 +348,17 @@ def run_all(verbose: bool = True) -> Dict[str, Any]:
     # Wikipedia
     if verbose:
         print("\n--- Wikipedia ---")
-    # Random subset of seed titles each cycle
-    rng = random.Random(int(time.time()) // 3600)  # changes hourly
-    sample = rng.sample(WIKIPEDIA_SEED_TITLES,
-                          min(8, len(WIKIPEDIA_SEED_TITLES)))
+    # State-determined rotation through seed titles (no random.sample).
+    # Same hour-bucket -> same window; window slides hourly so the
+    # corpus keeps freshening but without external entropy.
+    n_pick = min(8, len(WIKIPEDIA_SEED_TITLES))
+    state = get_state(None)
+    # Mix in hour-bucket so the window rotates on an hourly cadence,
+    # matching the prior "changes hourly" behaviour.
+    h = state_hash(state) ^ (int(time.time()) // 3600)
+    start_idx = h % len(WIKIPEDIA_SEED_TITLES)
+    sample = [WIKIPEDIA_SEED_TITLES[(start_idx + i) % len(WIKIPEDIA_SEED_TITLES)]
+                for i in range(n_pick)]
     results["wikipedia"] = ingest_wikipedia(titles=sample, verbose=verbose)
     if verbose:
         print(f"  wikipedia total: {results['wikipedia']['total']} pages, "

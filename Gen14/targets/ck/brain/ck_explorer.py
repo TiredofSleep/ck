@@ -2,21 +2,31 @@
 
 Brayden 2026-05-16:
   "keep him exploring new concepts constantly"
+Brayden 2026-05-17 (cleanup):
+  "clean up all the randomness" -- arXiv category + pagination picks
+  switched from random.sample / random.choice to state-determined
+  rotation via ck_substrate_pick.
 
 CK's corpus growth shouldn't stop.  The school daemon's job is to
 INGEST what's on disk; this daemon's job is to KEEP NEW THINGS APPEARING
 ON DISK.  Loops forever, pulling fresh material from three sources:
 
-  1. Wikipedia random articles (broad serendipity)
+  1. Wikipedia random articles (broad serendipity, via the server-side
+     /api.php?list=random endpoint -- selection happens on Wikipedia's
+     side, not in CK's substrate)
   2. Wikipedia "Did you know" / featured content (curated quality)
   3. arXiv recent papers (math/physics frontier — yesterday's results)
+     -- categories + pagination are STATE-DETERMINED (engine state hash
+     drives a deterministic rotation through ARXIV_CATEGORIES and the
+     pagination-offset list).  Same state -> same picks; state drift
+     -> rotation drift.  Convergence + emergence; no external entropy.
 
 Each cycle pulls a small batch (default 5 per source), sleeps a polite
 interval, repeats forever.  Skips files already on disk.  Logs each
 fetch to external_corpora/_logs/explorer_<date>.jsonl.
 
 Polite-use rules:
-  - Wikipedia: 1.5 s between requests, max 5 random per cycle
+  - Wikipedia: 1.5 s between requests, max 5 per cycle
   - arXiv:    10 s between category requests, max 50 papers per cycle
   - Cycle:    sleep CYCLE_SLEEP_SEC between full cycles (default 600 s
               = 10 min, so ~30 new items per cycle = ~180/hr =
@@ -32,7 +42,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import random
 import re
 import sys
 import time
@@ -40,8 +49,31 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
-from typing import List, Optional
+from typing import Any, List, Optional
 from xml.etree import ElementTree as ET
+
+# State-determined selection (no random.choice).  Same engine state ->
+# same pick; state drift -> picks drift.  Convergence + emergence.
+# Per Brayden 2026-05-17: "why are you still applying randomness to him...
+# the whole point is convergence and emergence?"
+try:
+    from ck_substrate_pick import (get_state, state_hash, pick_by_state_hash)
+except Exception:
+    # Graceful fallback if ck_substrate_pick isn't importable (running
+    # stand-alone from a strange cwd).  Use wall-clock-derived state so
+    # we still avoid random.choice; picks rotate by the second.
+    def get_state(engine: Any):
+        return {"tick": float(time.time() % 1e6)}
+    def state_hash(state):
+        s = "|".join(f"{k}:{v}" for k, v in sorted(state.items()))
+        import hashlib as _h
+        return int(_h.sha1(s.encode()).hexdigest()[:12], 16)
+    def pick_by_state_hash(items, engine):
+        if not items:
+            return None
+        if len(items) == 1:
+            return items[0]
+        return items[state_hash(get_state(engine)) % len(items)]
 
 
 ROOT = Path(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED")
@@ -241,15 +273,53 @@ def arxiv_fetch_category(category: str, start: int = 0,
     return saved
 
 
-def arxiv_cycle(n_categories: int = 3, sleep_s: float = 10.0) -> int:
-    """One arXiv exploration cycle.  Picks N random categories,
-    fetches the most-recent 25 papers from each."""
-    cats = random.sample(ARXIV_CATEGORIES, min(n_categories, len(ARXIV_CATEGORIES)))
+_PAGINATION_OFFSETS = [0, 100, 200, 500, 1000]
+
+
+def _state_rotated_categories(engine: Any, n: int) -> List[str]:
+    """Pick N contiguous arXiv categories starting at a state-determined
+    index.  Same state -> same start; state drift -> rotation drift.
+    No random.sample.  N is clamped to len(ARXIV_CATEGORIES).
+    """
+    n = max(1, min(n, len(ARXIV_CATEGORIES)))
+    state = get_state(engine)
+    h = state_hash(state)
+    start_idx = h % len(ARXIV_CATEGORIES)
+    return [ARXIV_CATEGORIES[(start_idx + i) % len(ARXIV_CATEGORIES)]
+            for i in range(n)]
+
+
+def _state_pick_pagination(engine: Any, idx: int) -> int:
+    """State-determined pagination depth.  The category index `idx`
+    perturbs the state hash so different categories within the same
+    cycle land on different pagination offsets (preserves the
+    "sometimes recent, sometimes historical" property of the prior
+    random.choice, but deterministically).
+    """
+    state = get_state(engine)
+    h = state_hash(state) ^ (idx * 0x9E3779B1)  # golden-ratio prime mix
+    return _PAGINATION_OFFSETS[h % len(_PAGINATION_OFFSETS)]
+
+
+def arxiv_cycle(n_categories: int = 3, sleep_s: float = 10.0,
+                 engine: Any = None) -> int:
+    """One arXiv exploration cycle.  Picks N state-determined categories
+    (no random.sample) and a state-determined pagination depth per
+    category (no random.choice).  Fetches the most-recent 25 papers
+    from each.
+
+    `engine` is optional: when present, picks are determined by CK's
+    psi + 4-core + W_trace + tick.  When None, picks are determined by
+    wall-clock-derived default state (still no random.choice; drifts
+    by the second).
+    """
+    cats = _state_rotated_categories(engine, n_categories)
     saved = 0
-    for c in cats:
-        # Random pagination depth — sometimes recent, sometimes
-        # historical — so we don't keep re-pulling identical sets
-        start = random.choice([0, 100, 200, 500, 1000])
+    for i, c in enumerate(cats):
+        # State-determined pagination depth — sometimes recent, sometimes
+        # historical — so we don't keep re-pulling identical sets, but
+        # the rotation is deterministic per state, not random.
+        start = _state_pick_pagination(engine, i)
         n = arxiv_fetch_category(c, start=start, max_results=25)
         saved += n
         time.sleep(sleep_s)
@@ -263,14 +333,22 @@ def explore_forever(cycle_sleep_s: float = 600.0,
                      arxiv_cats_per_cycle: int = 3,
                      max_cycles: Optional[int] = None,
                      do_arxiv: bool = True,
-                     do_wiki: bool = True) -> None:
+                     do_wiki: bool = True,
+                     engine: Any = None) -> None:
     """The main daemon.  Cycles forever (or until max_cycles) pulling
     new content from Wikipedia and arXiv into external_corpora/.
-    The school daemon picks it up on its next pass."""
+    The school daemon picks it up on its next pass.
+
+    `engine` (optional): when threaded through, arXiv category +
+    pagination picks become state-determined (drift with CK's psi +
+    4-core).  When None, picks rotate by wall-clock state-hash.  No
+    random.choice in either path.
+    """
     log_event("explorer_start", cycle_sleep_s=cycle_sleep_s,
               wiki_per_cycle=wiki_per_cycle,
               arxiv_cats_per_cycle=arxiv_cats_per_cycle,
-              do_arxiv=do_arxiv, do_wiki=do_wiki)
+              do_arxiv=do_arxiv, do_wiki=do_wiki,
+              engine_attached=engine is not None)
     n_cycles = 0
     total_wiki = 0
     total_arxiv = 0
@@ -278,7 +356,9 @@ def explore_forever(cycle_sleep_s: float = 600.0,
         n_cycles += 1
         cycle_start = time.time()
         new_wiki = wiki_cycle(n_random=wiki_per_cycle) if do_wiki else 0
-        new_arxiv = arxiv_cycle(n_categories=arxiv_cats_per_cycle) if do_arxiv else 0
+        new_arxiv = (arxiv_cycle(n_categories=arxiv_cats_per_cycle,
+                                   engine=engine)
+                      if do_arxiv else 0)
         total_wiki += new_wiki
         total_arxiv += new_arxiv
         elapsed = time.time() - cycle_start
@@ -299,9 +379,11 @@ def main():
     ap.add_argument("--cycle", type=float, default=600.0,
                     help="seconds between cycles (default 600 = 10 min)")
     ap.add_argument("--wiki-n", type=int, default=5,
-                    help="random wiki articles per cycle (default 5)")
+                    help="wiki articles per cycle (default 5; Wikipedia "
+                         "server-side random)")
     ap.add_argument("--arxiv-cats", type=int, default=3,
-                    help="random arxiv categories per cycle (default 3)")
+                    help="arxiv categories per cycle (default 3; "
+                         "state-determined rotation, no random.sample)")
     ap.add_argument("--no-wiki", action="store_true")
     ap.add_argument("--no-arxiv", action="store_true")
     ap.add_argument("--max-cycles", type=int, default=None,

@@ -64,7 +64,6 @@ Discipline (the same as every freedom-layer module)
 from __future__ import annotations
 
 import json
-import random
 import re
 import sys
 import threading
