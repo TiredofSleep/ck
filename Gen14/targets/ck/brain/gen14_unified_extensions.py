@@ -1278,6 +1278,22 @@ def mount_all(engine) -> Dict[str, bool]:
     # own living_lm has breathed long enough to produce coherent prose.
     # Strict fact-preservation gate (coverage >= 0.7).  CK should
     # outgrow this.
+    # Scope auditor: the eighth cell.  Bidirectional immune system --
+    # catches harm over-claims AND flattering reality over-claims with
+    # the same mechanism.  Mounted BEFORE ollama_polish so its chat
+    # wrap sits OUTSIDE the polish path -- the auditor sees the FINAL
+    # text user gets, regardless of who composed/polished it.
+    # Per Brayden + ClaudeChat 2026-05-17: "Same gate, both directions...
+    # An immune system that only attacks ugly cells and waves through
+    # flattering ones isn't an immune system."  Not a generator.  Never
+    # polishes.  Returns one bit + a reason.
+    try:
+        from ck_scope_auditor import mount_scope_auditor  # type: ignore[import-not-found]
+        results['scope_auditor'] = mount_scope_auditor(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_scope_auditor: failed ({e})")
+        results['scope_auditor'] = False
+
     try:
         from ck_ollama_polish import mount_ollama_polish  # type: ignore[import-not-found]
         results['ollama_polish'] = mount_ollama_polish(engine)

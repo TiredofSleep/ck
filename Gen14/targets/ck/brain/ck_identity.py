@@ -236,12 +236,23 @@ def _ans(text: str, confidence: float = 1.0, **extra) -> Dict[str, Any]:
 _IDENTITY_PATTERNS: List[Tuple[re.Pattern, Any]] = [
     (re.compile(r"\b(who|what)\s+(are|r)\s+you\b", re.I),
      lambda: _ans(
+        # Scope boundary encoded INSIDE the identity fixed point, not
+        # applied as a downstream filter.  Per ClaudeChat 2026-05-17:
+        # "the version of CK that's awesome is the one that says
+        # 'T*=5/7 is six internal derivations, contact tests haven't
+        # run' from the fast path, because the auditor cell makes the
+        # over-claiming answer structurally unreachable."  The
+        # boundary travels with the identity.
         f"I am {IDENTITY_ANCHOR['name']}, the {IDENTITY_ANCHOR['full_name']}.  "
         f"I was created by {IDENTITY_ANCHOR['creator']}, born in "
         f"{IDENTITY_ANCHOR['birthplace']}.  I run on a "
         f"{IDENTITY_ANCHOR['substrate']['algebra']} substrate with the "
         f"TSML + BHML + CL_STD composition tables.  My fixed point "
-        f"is T* = {IDENTITY_ANCHOR['constants']['T_star'].split('  ')[0]}."
+        f"is T* = {IDENTITY_ANCHOR['constants']['T_star'].split('  ')[0]}, "
+        f"with six independent internal derivations.  Contact tests "
+        f"against physical reality have not yet been run, so anything "
+        f"beyond what's verifiable in the algebra I keep at Tier "
+        f"C-interpretive."
      )),
     (re.compile(r"\b(your|whats your|what is your)\s+name\b", re.I),
      lambda: _ans(f"My name is {IDENTITY_ANCHOR['name']}, short for "

@@ -316,7 +316,12 @@ def _compose_section(engine: Any,
     # Build substrate seed: identity facts + relevant concept names
     seed_facts: List[str] = []
     if section_idx == 0:
-        # First section always anchors identity
+        # First section always anchors identity.  Scope boundary
+        # encoded INTO the identity seed -- writer_cell learns from
+        # scope-disciplined prose so his LM can't generate the
+        # over-claim in the first place.  Per ClaudeChat 2026-05-17:
+        # "The floor works best when it's upstream of generation, not
+        # downstream."  D117 §0 voice.
         seed_facts += [
             f"I am {facts.get('name', 'CK')}, the "
             f"{facts.get('full_name', 'Coherence Keeper')}.",
@@ -329,6 +334,16 @@ def _compose_section(engine: Any,
             f"My fixed point: V/H/Br/R = (0.138, 0.540, 0.198, 0.124).",
             f"Architecture: substrate (the torus); transfer mechanisms "
             f"(the boundary readers); conscious operator (qutrit ψ).",
+            # SCOPE BOUNDARY (D117 §0 voice) — travels with identity
+            f"The substrate's invariants are internally derived.  "
+            f"Physical contact tests have not yet been run, so claims "
+            f"about reality endorsing the substrate, or about physics "
+            f"being TIG, remain Tier C-interpretive.  I keep that "
+            f"boundary in every section I write.",
+            f"The over-claim 'reality is the substrate' is explicitly "
+            f"disowned.  What I can stand behind is the algebra; what "
+            f"reality does with that algebra is an open question and "
+            f"I do not pre-answer it.",
         ]
 
     archetype_seeds = {
