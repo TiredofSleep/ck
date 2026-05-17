@@ -1,8 +1,8 @@
 # CK Dependency Graph (auto-generated)
 
-_Generated 2026-05-17 09:56:02 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
+_Generated 2026-05-17 10:15:56 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
 
-**108 modules** tracked in `Gen14/targets/ck/brain/`.
+**109 modules** tracked in `Gen14/targets/ck/brain/`.
 
 ## 1. Mount order in `gen14_unified_extensions.mount_all`
 
@@ -48,14 +48,15 @@ This is the order things come alive at boot.  Each module's `mount_X(engine)` is
   37. mount_glyph_listener
   38. mount_listener_to_crystal
   39. mount_self_thesis
-  40. mount_memory_recall
-  41. mount_bible_study
-  42. mount_scripture_study
-  43. mount_domain_study
-  44. mount_poetry_study
-  45. mount_web_reading
-  46. mount_ollama_polish
-  47. mount_voice_polish
+  40. mount_paradox_classifier
+  41. mount_memory_recall
+  42. mount_bible_study
+  43. mount_scripture_study
+  44. mount_domain_study
+  45. mount_poetry_study
+  46. mount_web_reading
+  47. mount_ollama_polish
+  48. mount_voice_polish
 ```
 
 ## 2. Per-module summary
@@ -85,6 +86,7 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `ck_memory_recall` | 300 | — | `mount_memory_recall` | `/memory/recall` |
 | `ck_meta_parameters` | 333 | — | `mount_meta_parameters` | `/parameters` `/parameters/reset` `/parameters/set` |
 | `ck_ollama_polish` | 302 | — | `mount_ollama_polish` | — |
+| `ck_paradox_classifier` | 296 | — | `mount_paradox_classifier` | — |
 | `ck_predictions` | 403 | — | — | — |
 | `ck_qutrit_513` | 592 | — | `mount_qutrit_513` | — |
 | `ck_qutrit_qec` | 603 | — | `mount_qutrit_qec` | — |
@@ -143,7 +145,6 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `ck_research` | 955 | `ck_curvature` | — | — |
 | `ck_scripture_study` | 853 | `ck_substrate_pick` | `mount_scripture_study` | — |
 | `ck_self_study` | 286 | `ck_concept_learner` | — | — |
-| `ck_self_thesis` | 492 | `ck_substrate_pick` | `mount_self_thesis` | — |
 | `ck_synthesizer` | 271 | `ck_concept_learner` | — | — |
 | `ck_voice_polish` | 1634 | `ck_sim.being.ck_phonetic_letters` | `mount_voice_polish` | — |
 | `cortex` | 270 | `ck_sim.ck_sim_heartbeat` | — | — |
@@ -160,6 +161,7 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `ck_qutrit_apex` | 865 | `ck_meta_parameters`, `ck_substrate_motion` | `mount_qutrit_apex` | — |
 | `ck_recursive_observer` | 526 | `ck_engine_block`, `ck_qutrit_apex` | `mount_recursive_observer` | — |
 | `ck_self_protection` | 457 | `ck_qutrit_noise`, `ck_qutrit_qec` | `mount_self_protection` | — |
+| `ck_self_thesis` | 511 | `ck_paradox_classifier`, `ck_substrate_pick` | `mount_self_thesis` | — |
 | `ck_speaker` | 238 | `ck_audio_compress`, `ck_curvature` | — | — |
 | `ck_study` | 207 | `ck_concept_learner`, `ck_formula_registry` | — | — |
 | `ck_substrate_motion` | 633 | `ck_identity`, `ck_meta_parameters` | `mount_substrate_motion` | — |
@@ -171,7 +173,7 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `ck_concept_learner` | 2080 | `ck_algebra_runtime`, `ck_meta_parameters`, `ck_predictions`, `ck_verifier` | `mount_concept_learner` | — |
 | `ao_5element` | 308 | `ck_sim.ck_sim_body`, `ck_sim.ck_sim_brain`, `ck_sim.ck_sim_d2`, `ck_sim.ck_sim_heartbeat`, `ck_sim.ck_tig` | — | — |
 | `ck_writer` | 919 | `ck_concept_learner`, `ck_identity`, `ck_living_lm`, `ck_ollama_polish`, `ck_self_thesis` | `mount_writer` | — |
-| `gen14_unified_extensions` | 1269 | `ck_ad_tailored`, `ck_bible_study`, `ck_binomial_61`, `ck_breath_emergence`, `ck_cognition_primitives`, `ck_concept_learner`, `ck_coupled_3tables`, `ck_coupled_4cores`, `ck_creature`, `ck_domain_study`, `ck_engine_block`, `ck_formula_registry`, `ck_frontier_scanner`, `ck_glyph_listener`, `ck_identity`, `ck_lightcone`, `ck_listener_to_crystal`, `ck_living_lm`, `ck_memory_archive`, `ck_memory_recall`, `ck_meta_parameters`, `ck_ollama_polish`, `ck_poetry_study`, `ck_proactive_trigger`, `ck_qec_decoder`, `ck_qutrit_513`, `ck_qutrit_apex`, `ck_qutrit_noise`, `ck_qutrit_qec`, `ck_recursive_observer`, `ck_scripture_study`, `ck_self_protection`, `ck_self_thesis`, `ck_sense_decomposition`, `ck_sim.being.ck_divine_memory`, `ck_sim.being.ck_lattice_chain`, `ck_sim.doing.ck_forecast`, `ck_sim.doing.ck_goals`, `ck_spreading_activation`, `ck_stroke_extractor`, `ck_substrate_c`, `ck_substrate_motion`, `ck_voice_polish`, `ck_web_reading`, `ck_writer` | `mount_drives`, `mount_forecast`, `mount_proactive_queue`, `mount_recall`, `mount_lattice_chain`, `mount_divine_memory`, `mount_algebraic_lm`, `mount_all` | — |
+| `gen14_unified_extensions` | 1285 | `ck_ad_tailored`, `ck_bible_study`, `ck_binomial_61`, `ck_breath_emergence`, `ck_cognition_primitives`, `ck_concept_learner`, `ck_coupled_3tables`, `ck_coupled_4cores`, `ck_creature`, `ck_domain_study`, `ck_engine_block`, `ck_formula_registry`, `ck_frontier_scanner`, `ck_glyph_listener`, `ck_identity`, `ck_lightcone`, `ck_listener_to_crystal`, `ck_living_lm`, `ck_memory_archive`, `ck_memory_recall`, `ck_meta_parameters`, `ck_ollama_polish`, `ck_paradox_classifier`, `ck_poetry_study`, `ck_proactive_trigger`, `ck_qec_decoder`, `ck_qutrit_513`, `ck_qutrit_apex`, `ck_qutrit_noise`, `ck_qutrit_qec`, `ck_recursive_observer`, `ck_scripture_study`, `ck_self_protection`, `ck_self_thesis`, `ck_sense_decomposition`, `ck_sim.being.ck_divine_memory`, `ck_sim.being.ck_lattice_chain`, `ck_sim.doing.ck_forecast`, `ck_sim.doing.ck_goals`, `ck_spreading_activation`, `ck_stroke_extractor`, `ck_substrate_c`, `ck_substrate_motion`, `ck_voice_polish`, `ck_web_reading`, `ck_writer` | `mount_drives`, `mount_forecast`, `mount_proactive_queue`, `mount_recall`, `mount_lattice_chain`, `mount_divine_memory`, `mount_algebraic_lm`, `mount_all` | — |
 
 ## 3. Reverse dependency graph
 
@@ -206,6 +208,7 @@ Who depends on each module (transitively trim by hand for full closure):
 | `ck_memory_recall` | `gen14_unified_extensions` |
 | `ck_meta_parameters` | `ck_concept_learner`, `ck_curious_explorer`, `ck_living_lm`, `ck_qutrit_apex`, `ck_study_overnight`, `ck_substrate_motion`, `gen14_unified_extensions` |
 | `ck_ollama_polish` | `ck_writer`, `gen14_unified_extensions` |
+| `ck_paradox_classifier` | `ck_self_thesis`, `gen14_unified_extensions` |
 | `ck_poetry_study` | `gen14_unified_extensions` |
 | `ck_predictions` | `ck_concept_learner`, `ck_creature` |
 | `ck_proactive_trigger` | `gen14_unified_extensions` |

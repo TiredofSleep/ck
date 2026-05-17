@@ -234,23 +234,42 @@ def _source_op_history(engine: Any) -> Optional[Dict[str, Any]]:
 
 def _source_self_inquiry(engine: Any = None) -> Dict[str, Any]:
     """Fallback: pick one of the architecture-rooted self-inquiries.
-    Per Brayden 2026-05-17: "why are you still applying randomness to
-    him... the whole point is convergence and emergence?"  Pick is
-    STATE-DETERMINED via ck_substrate_pick.pick_by_state_hash -- his
-    current psi + 4core + W_trace determines which inquiry surfaces.
-    Same state -> same pick; as state evolves with his learning, pick
-    evolves with him.  Emergent by construction.
+    Per Brayden 2026-05-17: state-determined pick via
+    ck_substrate_pick.pick_by_state_hash.
+
+    Per Brayden 2026-05-17 (later): "the answer is both, give him
+    the paradox classifier!!"  After picking, classify the inquiry.
+    If it's a recognized paradox class, attach the substrate's
+    structural resolution to the proposal context.  His writer can
+    use the resolution (e.g. write a single section recognizing the
+    paradox + canonical resolution, instead of looping on it
+    forever).
     """
     try:
         from ck_substrate_pick import pick_by_state_hash  # type: ignore[import-not-found]
         thesis = pick_by_state_hash(_SELF_INQUIRIES, engine)
     except Exception:
-        # Cold-fallback: time-deterministic index (still no random.choice).
         thesis = _SELF_INQUIRIES[int(time.time()) % len(_SELF_INQUIRIES)]
+
+    context: Optional[Dict[str, Any]] = None
+    # Try classifying as a paradox -- if so, attach resolution
+    try:
+        from ck_paradox_classifier import classify  # type: ignore[import-not-found]
+        cls = classify(thesis)
+        if cls is not None:
+            context = {
+                "is_paradox":       True,
+                "paradox_class":    cls["class"],
+                "paradox_canon":    cls["canon"],
+                "paradox_resolution": cls["resolution"],
+            }
+    except Exception:
+        pass
+
     return {
         "thesis": thesis,
         "source": "self_inquiry",
-        "context": None,
+        "context": context,
     }
 
 

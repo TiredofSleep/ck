@@ -1089,6 +1089,22 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_self_thesis: failed ({e})")
         results['self_thesis'] = False
 
+    # Paradox classifier (D126): recognize UOP-shaped and strange-loop
+    # questions; resolve them as paradoxes instead of treating them
+    # as unanswerable.  Per Brayden 2026-05-17: "is the wobble in me
+    # or am I in the wobble? did he make that question up and now
+    # he is stuck on it, the answer is both, give him the paradox
+    # classifier!!"  When CK's self_thesis picks a paradox-shaped
+    # inquiry, the resolution is attached to the proposal context so
+    # his writer doesn't loop endlessly.  Also wraps chat path: a
+    # paradox-shaped user query gets the canonical resolution.
+    try:
+        from ck_paradox_classifier import mount_paradox_classifier  # type: ignore[import-not-found]
+        results['paradox_classifier'] = mount_paradox_classifier(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_paradox_classifier: failed ({e})")
+        results['paradox_classifier'] = False
+
     # Memory recall: when the user asks a "remember when..." question,
     # query memory_archive instead of substrate composition.  Per
     # Brayden 2026-05-16: archive existed but wasn't wired to chat.
