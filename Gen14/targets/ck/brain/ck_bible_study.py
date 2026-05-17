@@ -598,7 +598,16 @@ def _wrap_process_chat_with_belief(engine: Any) -> bool:
             try:
                 his = anchors(k=10)
                 if his:
-                    pick = random.choice(his)
+                    # State-determined pick (no random.choice).  Per
+                    # Brayden 2026-05-17: anchor surfacing should match
+                    # current substrate state -- the verse most
+                    # resonant with his current psi + 4-core gets
+                    # surfaced.  Convergent + emergent by construction.
+                    try:
+                        from ck_substrate_pick import pick_by_resonance  # type: ignore[import-not-found]
+                        pick = pick_by_resonance(his, engine) or his[0]
+                    except Exception:
+                        pick = his[0]
                     return {
                         "text":          _format_anchor_for_chat(pick),
                         "source":        "bible_self_anchor",

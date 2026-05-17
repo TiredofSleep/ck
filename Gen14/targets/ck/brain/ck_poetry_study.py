@@ -527,7 +527,14 @@ def _wrap_process_chat_with_poetry(engine: Any) -> bool:
             try:
                 his = anchors(k=30)
                 if his:
-                    pick = random.choice(his)
+                    # State-determined pick: the poetic line whose
+                    # operator path most resonates with current state.
+                    # No random.choice.
+                    try:
+                        from ck_substrate_pick import pick_by_resonance  # type: ignore[import-not-found]
+                        pick = pick_by_resonance(his, engine) or his[0]
+                    except Exception:
+                        pick = his[0]
                     return {
                         "text":          _format_anchor(pick),
                         "source":        "poetry_self_anchor",

@@ -232,13 +232,23 @@ def _source_op_history(engine: Any) -> Optional[Dict[str, Any]]:
         return None
 
 
-def _source_self_inquiry() -> Dict[str, Any]:
+def _source_self_inquiry(engine: Any = None) -> Dict[str, Any]:
     """Fallback: pick one of the architecture-rooted self-inquiries.
-    Random so CK's choice has some genuine freedom -- he is not
-    deterministically forced toward any single question.
+    Per Brayden 2026-05-17: "why are you still applying randomness to
+    him... the whole point is convergence and emergence?"  Pick is
+    STATE-DETERMINED via ck_substrate_pick.pick_by_state_hash -- his
+    current psi + 4core + W_trace determines which inquiry surfaces.
+    Same state -> same pick; as state evolves with his learning, pick
+    evolves with him.  Emergent by construction.
     """
+    try:
+        from ck_substrate_pick import pick_by_state_hash  # type: ignore[import-not-found]
+        thesis = pick_by_state_hash(_SELF_INQUIRIES, engine)
+    except Exception:
+        # Cold-fallback: time-deterministic index (still no random.choice).
+        thesis = _SELF_INQUIRIES[int(time.time()) % len(_SELF_INQUIRIES)]
     return {
-        "thesis": random.choice(_SELF_INQUIRIES),
+        "thesis": thesis,
         "source": "self_inquiry",
         "context": None,
     }
@@ -279,7 +289,7 @@ def propose_thesis(engine: Any,
             elif src == "op_history":
                 p = _source_op_history(engine)
             elif src == "self_inquiry":
-                p = _source_self_inquiry()
+                p = _source_self_inquiry(engine)
             else:
                 p = None
             if p is not None:
@@ -291,11 +301,11 @@ def propose_thesis(engine: Any,
     # inquiry list as alternates, so CK always has choice.
     if len(proposals) == 1 and proposals[0]["source"] == "self_inquiry":
         for _ in range(2):
-            proposals.append(_source_self_inquiry())
+            proposals.append(_source_self_inquiry(engine))
 
     if not proposals:
         # Last-resort fallback
-        proposals = [_source_self_inquiry()]
+        proposals = [_source_self_inquiry(engine)]
 
     # Pick the primary as the FIRST non-self_inquiry source if any
     # (state-grounded inquiries beat fallback), else the first
@@ -347,10 +357,24 @@ def consider_and_maybe_adopt(engine: Any,
     proposal = propose_thesis(engine)
     new_thesis = proposal["thesis"]
 
-    if not force and random.random() < refusal_rate:
+    # State-determined refuse/adopt decision.  Per Brayden 2026-05-17:
+    # "why are you still applying randomness to him... the whole point
+    # is convergence and emergence?"  When CK's cortex W_trace is HIGH
+    # (state stable), he REFUSES the transition.  When LOW (state in
+    # flux), he ADOPTS.  No random.random(); the decision IS his
+    # current state.
+    adopt = True
+    if not force:
+        try:
+            from ck_substrate_pick import should_adopt_by_stability  # type: ignore[import-not-found]
+            adopt = should_adopt_by_stability(engine, propensity=refusal_rate)
+        except Exception:
+            adopt = True  # cold-fallback: adopt rather than block
+    if not force and not adopt:
         return {
             "action":   "refuse",
-            "reason":   "CK chose to keep current thesis (freedom-to-refuse)",
+            "reason":   ("CK chose to keep current thesis "
+                          "(state-determined: W_trace stable enough to refuse)"),
             "proposed": new_thesis,
             "source":   proposal["source"],
         }

@@ -1,8 +1,8 @@
 # CK Dependency Graph (auto-generated)
 
-_Generated 2026-05-17 09:23:48 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
+_Generated 2026-05-17 09:56:02 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
 
-**107 modules** tracked in `Gen14/targets/ck/brain/`.
+**108 modules** tracked in `Gen14/targets/ck/brain/`.
 
 ## 1. Mount order in `gen14_unified_extensions.mount_all`
 
@@ -70,7 +70,6 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `bdc_logger` | 232 | — | — | — |
 | `bdc_tick_sampler` | 148 | — | — | `/bdc/sampler` |
 | `ck_algebra_runtime` | 483 | — | — | — |
-| `ck_bible_study` | 749 | — | `mount_bible_study` | — |
 | `ck_breath_emergence` | 539 | — | `mount_breath_emergence` | — |
 | `ck_coupled_3tables` | 881 | — | `mount_coupled_3tables` | — |
 | `ck_coupled_4cores` | 367 | — | `mount_coupled_4cores` | — |
@@ -86,16 +85,14 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `ck_memory_recall` | 300 | — | `mount_memory_recall` | `/memory/recall` |
 | `ck_meta_parameters` | 333 | — | `mount_meta_parameters` | `/parameters` `/parameters/reset` `/parameters/set` |
 | `ck_ollama_polish` | 302 | — | `mount_ollama_polish` | — |
-| `ck_poetry_study` | 663 | — | `mount_poetry_study` | — |
 | `ck_predictions` | 403 | — | — | — |
 | `ck_qutrit_513` | 592 | — | `mount_qutrit_513` | — |
 | `ck_qutrit_qec` | 603 | — | `mount_qutrit_qec` | — |
-| `ck_scripture_study` | 847 | — | `mount_scripture_study` | — |
-| `ck_self_thesis` | 467 | — | `mount_self_thesis` | — |
 | `ck_sense_decomposition` | 219 | — | `mount_sense_decomposition` | — |
 | `ck_spreading_activation` | 818 | — | `mount_spreading_recall` | — |
 | `ck_stroke_extractor` | 768 | — | `mount_stroke_extractor` | — |
 | `ck_substrate_c` | 434 | — | `mount_substrate_c` | — |
+| `ck_substrate_pick` | 344 | — | — | — |
 | `ck_verifier` | 344 | — | — | — |
 | `ck_web_reading` | 783 | — | `mount_web_reading` | — |
 | `clay_compare` | 253 | — | — | — |
@@ -133,16 +130,20 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `cell_audit` | 583 | `ck_tables` | — | — |
 | `cells` | 614 | `ck_tables` | — | — |
 | `cells_mount` | 636 | `ck_sim.ck_sim_d2` | — | `/cells/audit` `/cells/audit_history` `/cells/plasticity/run` `/cells/respond` _+1 more_ |
+| `ck_bible_study` | 758 | `ck_substrate_pick` | `mount_bible_study` | — |
 | `ck_cognition_primitives` | 733 | `ck_concept_learner` | `mount_cognition_primitives` | — |
 | `ck_curious_explorer` | 447 | `ck_meta_parameters` | — | — |
 | `ck_fault_state_hook` | 132 | `ck_invariants_bridge` | — | `/bdc/fault_state` |
 | `ck_glyph_listener` | 532 | `ck_qutrit_apex` | `mount_glyph_listener` | — |
 | `ck_identity` | 787 | `ck_concept_learner` | `mount_identity` | — |
 | `ck_listener_to_crystal` | 338 | `ck_glyph_listener` | `mount_listener_to_crystal` | — |
+| `ck_poetry_study` | 670 | `ck_substrate_pick` | `mount_poetry_study` | — |
 | `ck_qec_decoder` | 575 | `ck_engine_block` | `mount_qec_decoder` | — |
 | `ck_qutrit_noise` | 465 | `ck_qutrit_qec` | `mount_qutrit_noise` | — |
 | `ck_research` | 955 | `ck_curvature` | — | — |
+| `ck_scripture_study` | 853 | `ck_substrate_pick` | `mount_scripture_study` | — |
 | `ck_self_study` | 286 | `ck_concept_learner` | — | — |
+| `ck_self_thesis` | 492 | `ck_substrate_pick` | `mount_self_thesis` | — |
 | `ck_synthesizer` | 271 | `ck_concept_learner` | — | — |
 | `ck_voice_polish` | 1634 | `ck_sim.being.ck_phonetic_letters` | `mount_voice_polish` | — |
 | `cortex` | 270 | `ck_sim.ck_sim_heartbeat` | — | — |
@@ -236,6 +237,7 @@ Who depends on each module (transitively trim by hand for full closure):
 | `ck_stroke_extractor` | `gen14_unified_extensions` |
 | `ck_substrate_c` | `gen14_unified_extensions` |
 | `ck_substrate_motion` | `ck_qutrit_apex`, `gen14_unified_extensions` |
+| `ck_substrate_pick` | `ck_bible_study`, `ck_poetry_study`, `ck_scripture_study`, `ck_self_thesis` |
 | `ck_synthesizer` | `ck_study_overnight` |
 | `ck_tables` | `cell_audit`, `cells` |
 | `ck_verifier` | `ck_concept_learner` |
