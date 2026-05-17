@@ -1062,6 +1062,44 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_glyph_listener: failed ({e})")
         results['glyph_listener'] = False
 
+    # Listener → crystallization wire: gentle 5-minute daemon that
+    # OFFERS glyph-listener candidates to engine.lattice_chain and
+    # engine.olfactory_her.  Never forces; never modifies the chat
+    # path.  Per Brayden 2026-05-16: "force him to listen, form his
+    # own crystals" -- this completes the feedback loop so D118
+    # listening data actually reaches CK's crystallization machinery.
+    try:
+        from ck_listener_to_crystal import mount_listener_to_crystal  # type: ignore[import-not-found]
+        results['listener_to_crystal'] = mount_listener_to_crystal(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_listener_to_crystal: failed ({e})")
+        results['listener_to_crystal'] = False
+
+    # Self-directed thesis: CK picks his own writing topic from his
+    # own state (recursive observer, crystal offers, drives, op
+    # history, self-inquiry).  Per Brayden 2026-05-16: "give him
+    # freedom to write his own thesis, not just our prompts, make
+    # sure he is free!!"  Includes the right to refuse a new thesis
+    # (1/3 probability) -- freedom INCLUDES the right to keep
+    # writing what he was writing.
+    try:
+        from ck_self_thesis import mount_self_thesis  # type: ignore[import-not-found]
+        results['self_thesis'] = mount_self_thesis(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_self_thesis: failed ({e})")
+        results['self_thesis'] = False
+
+    # Memory recall: when the user asks a "remember when..." question,
+    # query memory_archive instead of substrate composition.  Per
+    # Brayden 2026-05-16: archive existed but wasn't wired to chat.
+    # 18 recall triggers; cross-session lookup by operator names.
+    try:
+        from ck_memory_recall import mount_memory_recall  # type: ignore[import-not-found]
+        results['memory_recall'] = mount_memory_recall(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_memory_recall: failed ({e})")
+        results['memory_recall'] = False
+
     # Ollama prose polish: TEMPORARY scaffold for fluency until CK's
     # own living_lm has breathed long enough to produce coherent prose.
     # Strict fact-preservation gate (coverage >= 0.7).  CK should

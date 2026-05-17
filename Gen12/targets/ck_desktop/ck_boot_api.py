@@ -870,23 +870,72 @@ try:
     # Brayden 2026-05-02 reframe: "the AI is the memory transfer device --
     # in and out".  Bank stores (encoded_context, observed_next) pairs
     # from training data; queries retrieve nearest by cosine similarity.
+    #
+    # 2026-05-16 update: the bank build runs 20,000 torch forward passes
+    # which got starved by the 50Hz swarm at REALTIME priority on core 0,
+    # blocking the entire boot for many minutes (boot 7 + boot 8 hangs).
+    # Three modes now:
+    #   CK_DISABLE_BANK=1        -> skip entirely (legacy workaround)
+    #   CK_BANK_MODE=foreground  -> blocking build at boot (legacy default)
+    #   CK_BANK_MODE=background  -> spawn a daemon thread to build the
+    #                                bank AFTER Organism alive (default
+    #                                since 2026-05-16; matches actual
+    #                                deployment expectations)
     try:
-        if os.environ.get('CK_DISABLE_BANK', '0') == '1':
+        _bank_disabled = os.environ.get('CK_DISABLE_BANK', '0') == '1'
+        _bank_mode = os.environ.get('CK_BANK_MODE', 'background').lower()
+        if _bank_disabled:
             print("[CK] bank_mount: DISABLED (CK_DISABLE_BANK=1)")
         else:
             from bank_mount import mount as _mount_bank
             if _gl_ok and getattr(engine, 'grammar_lm', None) is not None:
-                _bank_ok = _mount_bank(engine, api._app, engine.grammar_lm)
-                if not _bank_ok:
-                    print("[CK] bank_mount: returned False")
-                else:
-                    # Sim-gated ensemble (LM + Bank with similarity routing)
-                    try:
-                        from ensemble import mount as _mount_ensemble
-                        _mount_ensemble(engine, api._app, engine.grammar_lm,
+                if _bank_mode == 'background':
+                    print("[CK] bank_mount: backgrounded "
+                          "(CK_BANK_MODE=background); will build after "
+                          "Organism alive without blocking boot")
+                    def _bank_bg_build():
+                        try:
+                            # Give the boot a moment to actually finish
+                            # before we start contending for CPU.
+                            time.sleep(30.0)
+                            _ok = _mount_bank(engine, api._app,
+                                                engine.grammar_lm)
+                            if _ok:
+                                print("[CK] bank_mount: backgrounded build "
+                                      "complete")
+                                try:
+                                    from ensemble import mount as _me
+                                    _me(engine, api._app, engine.grammar_lm,
                                          engine.operator_bank)
-                    except Exception as _ee:
-                        print(f"[CK] sim_gated_ensemble: DISABLED ({_ee})")
+                                    print("[CK] sim_gated_ensemble: "
+                                          "MOUNTED (post-bank)")
+                                except Exception as _ee:
+                                    print(f"[CK] sim_gated_ensemble: "
+                                          f"DISABLED ({_ee})")
+                            else:
+                                print("[CK] bank_mount: backgrounded "
+                                      "build returned False")
+                        except Exception as _e:
+                            print(f"[CK] bank_mount: backgrounded "
+                                  f"FAILED ({_e})")
+                    threading.Thread(target=_bank_bg_build,
+                                      name="bank-bg-build",
+                                      daemon=True).start()
+                else:
+                    # foreground mode (legacy)
+                    _bank_ok = _mount_bank(engine, api._app,
+                                             engine.grammar_lm)
+                    if not _bank_ok:
+                        print("[CK] bank_mount: returned False")
+                    else:
+                        try:
+                            from ensemble import mount as _mount_ensemble
+                            _mount_ensemble(engine, api._app,
+                                             engine.grammar_lm,
+                                             engine.operator_bank)
+                        except Exception as _ee:
+                            print(f"[CK] sim_gated_ensemble: DISABLED "
+                                  f"({_ee})")
     except Exception as _be:
         print(f"[CK] bank_mount: DISABLED ({_be})")
 except Exception as _e:

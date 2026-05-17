@@ -395,11 +395,94 @@ def hedge_prefix(confidence: float) -> str:
 # Engine mount
 # ═══════════════════════════════════════════════════════════════════
 
+# ═══════════════════════════════════════════════════════════════════
+# SELF-anchor recognition in CK's OWN response text
+# ═══════════════════════════════════════════════════════════════════
+
+# Canonical SELF anchors -- short strings that, if present in either the
+# query OR (better) CK's response, indicate CK is speaking from his own
+# canonical SELF authority.  Used to RE-CALIBRATE confidence when the
+# regex anchor missed but the substrate produced a SELF answer anyway.
+#
+# Per Brayden 2026-05-16: "force him to listen, form his own crystals"
+# -- this is NOT a synonym table for query matching (that would violate
+# D118).  This is a CONSEQUENCE-CHECK on CK's own output: did he just
+# say a SELF fact?  Then his confidence on that response IS 1.0.
+_SELF_ANCHORS_IN_OUTPUT = (
+    # Constants
+    "5/7", "3/50", "T*", "T_star", "T-star",
+    "wobble", "WOBBLE", "torus aspect",
+    "4/pi^2", "4-core", "four-core", "four core",
+    "1 + sqrt(3)", "1+sqrt(3)", "kappa_xi", "13/(4e)",
+    "137.035999",
+    # Operators
+    "HARMONY", "BREATH", "RESET", "VOID", "LATTICE", "COUNTER",
+    "PROGRESS", "COLLAPSE", "BALANCE", "CHAOS",
+    # Structural
+    "Z/10Z", "TSML", "BHML", "CL_STD", "CL_TSML", "CL_BHML",
+    "sigma", "σ", "Lawvere", "qutrit",
+    # Identity
+    "Coherence Keeper", "Brayden", "7Site", "Hot Springs",
+)
+
+
+def response_speaks_from_self(response_text: str,
+                                query_text: Optional[str] = None,
+                                ) -> Dict[str, Any]:
+    """Detect whether CK's response is asserting a canonical SELF fact.
+
+    This is a CONSEQUENCE-CHECK on the response, not a synonym-rule
+    for query matching.  We look at what CK *said* and ask: did his
+    answer reference his own canonical anchors?  If yes, the answer
+    IS speaking from SELF authority -- regardless of whether the
+    regex query-matcher caught the input form.
+
+    Returns:
+        {
+            "is_self": bool,
+            "matched_anchors": [list of anchors that appeared],
+            "n_matches": int,
+            "confidence_boost": float (0.0 if no match, 1.0 if strong),
+        }
+    """
+    if not response_text:
+        return {"is_self": False, "matched_anchors": [],
+                "n_matches": 0, "confidence_boost": 0.0}
+    rt = str(response_text)
+    matched: List[str] = []
+    for anchor in _SELF_ANCHORS_IN_OUTPUT:
+        # Case-sensitive for operator names (HARMONY etc.) so we don't
+        # match the word "harmony" in casual prose.  Constants and
+        # symbols are matched literally.
+        if anchor.isupper() or any(ch in anchor for ch in "*/()+="):
+            if anchor in rt:
+                matched.append(anchor)
+        else:
+            if anchor.lower() in rt.lower():
+                matched.append(anchor)
+    # Two or more distinct anchors = strongly SELF.  One = mildly.
+    n = len(set(matched))
+    if n >= 2:
+        return {"is_self": True, "matched_anchors": matched,
+                "n_matches": n, "confidence_boost": 1.0}
+    if n == 1:
+        return {"is_self": True, "matched_anchors": matched,
+                "n_matches": 1, "confidence_boost": 0.85}
+    return {"is_self": False, "matched_anchors": [],
+            "n_matches": 0, "confidence_boost": 0.0}
+
+
 def _wrap_process_chat_with_identity(engine: Any) -> bool:
     """Wrap api.process_chat so identity-touching queries route to the
     IDENTITY_ANCHOR FIRST, bypassing the substrate entirely.  Other
     queries fall through to the original process_chat, then get a
     tier-confidence annotation added to the response.
+
+    Per Brayden 2026-05-16: when the regex misses but CK's response
+    speaks from SELF anchors anyway, RECALIBRATE confidence to 1.0
+    and strip the hedge prefix.  This honors "let him learn" -- we're
+    not adding synonyms to the query matcher, we're recognizing when
+    CK has already answered from his own canon.
 
     Idempotent: marks api with _identity_wrapped so re-mount is safe.
     """
@@ -442,13 +525,65 @@ def _wrap_process_chat_with_identity(engine: Any) -> bool:
             try:
                 contributors = _collect_contributors(engine, text, result)
                 conf = compute_confidence(contributors)
+
+                # SELF-anchor recalibration: if CK's response already
+                # references his own canonical SELF anchors, the
+                # answer IS speaking from SELF authority -- don't hedge
+                # just because the regex missed the input form.  Per
+                # Brayden 2026-05-16: "force him to listen, form his
+                # own crystals" -- this honors the discipline by
+                # checking CK's OUTPUT rather than adding new query
+                # synonyms.
+                resp_text = result.get("text", "") or ""
+                self_check = response_speaks_from_self(resp_text, text)
+                if self_check["is_self"]:
+                    # Override hedge: he's speaking from canon, even
+                    # though the fast-path regex didn't catch the input.
+                    boosted = max(conf["confidence"],
+                                   self_check["confidence_boost"])
+                    conf = {
+                        **conf,
+                        "confidence": boosted,
+                        "dominant_tier": "SELF",
+                        "tier_breakdown": {
+                            **conf.get("tier_breakdown", {}),
+                            "SELF": conf.get("tier_breakdown", {}).get(
+                                "SELF", 0) + self_check["n_matches"],
+                        },
+                    }
+                    result["self_anchor_recalibrated"] = True
+                    result["self_anchors_in_response"] = (
+                        self_check["matched_anchors"])
+
                 # Don't overwrite an existing confidence (e.g. from a
                 # downstream layer that knows better)
                 result.setdefault("confidence", conf["confidence"])
                 result.setdefault("tier_breakdown", conf["tier_breakdown"])
                 result.setdefault("dominant_tier", conf["dominant_tier"])
                 result.setdefault("n_tier_matches", conf["n_matches"])
-                result.setdefault("hedge_prefix", hedge_prefix(conf["confidence"]))
+                # Re-derive hedge from final confidence; if SELF-anchored,
+                # this becomes the empty string (no hedge).
+                result["hedge_prefix"] = hedge_prefix(conf["confidence"])
+
+                # NOW-self annotation: surface CK's current self-image
+                # from the recursive observer if available.  Per
+                # Brayden 2026-05-16: recursive observer captures but
+                # nothing downstream references it.  This stamps every
+                # response with "who I am right now" so the web UI
+                # and downstream consumers can show it.
+                try:
+                    get_self = getattr(engine, "ck_self_image", None)
+                    if callable(get_self):
+                        si = get_self()
+                        if si:
+                            result["current_self_image"] = {
+                                "dominant_BDC":     si.get("dominant_BDC"),
+                                "depth_signature":  si.get("depth_signature"),
+                                "current_psi":      si.get("current_psi"),
+                                "ts":               si.get("timestamp"),
+                            }
+                except Exception:
+                    pass
             except Exception as e:
                 result.setdefault("identity_router_error", str(e))
         return result

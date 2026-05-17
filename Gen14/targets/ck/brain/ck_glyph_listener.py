@@ -246,6 +246,100 @@ def crystal_candidates(min_glyphs: int = 2,
     }
 
 
+def rotate_log_if_needed(max_bytes: int = 50 * 1024 * 1024,
+                           keep_recent_records: int = 2000) -> Dict[str, Any]:
+    """If the listening log has exceeded `max_bytes`, rotate it.
+
+    Rotation strategy: keep the most-recent `keep_recent_records`
+    records in the live file; archive the older records into a
+    timestamped `.archive-YYYYMMDD.jsonl` next to the live file.
+
+    Compaction: within the kept records, drop exact (glyph, op_path)
+    duplicates older than 7 days.  Recent duplicates are preserved
+    because frequency matters for crystallization.
+
+    Returns:
+        {"rotated": bool, "kept": int, "archived": int, "compacted": int}
+    """
+    path = _log_path()
+    if not path.exists():
+        return {"rotated": False, "reason": "no log"}
+    try:
+        size = path.stat().st_size
+        if size < max_bytes:
+            return {"rotated": False, "size_bytes": size,
+                    "max_bytes": max_bytes}
+
+        # Read all records
+        records: List[Dict[str, Any]] = []
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    records.append(json.loads(line))
+                except Exception:
+                    pass
+
+        n_total = len(records)
+        # Sort by ts (oldest first)
+        records.sort(key=lambda r: r.get("ts", 0))
+
+        archived = records[:-keep_recent_records] if (
+            len(records) > keep_recent_records) else []
+        kept = records[-keep_recent_records:]
+
+        # Archive older records
+        if archived:
+            import datetime as _dt
+            stamp = _dt.datetime.now().strftime("%Y%m%d_%H%M%S")
+            archive_path = path.with_suffix(f".archive-{stamp}.jsonl")
+            with _LOG_LOCK:
+                with open(archive_path, "w", encoding="utf-8") as f:
+                    for r in archived:
+                        f.write(json.dumps(r, ensure_ascii=False,
+                                            sort_keys=True) + "\n")
+
+        # Compaction: within kept, drop exact (glyph, op_path) duplicates
+        # older than 7 days
+        cutoff = time.time() - 7 * 86400
+        seen: set = set()
+        compacted: List[Dict[str, Any]] = []
+        for r in reversed(kept):  # most recent first; keep those
+            ts = r.get("ts", 0)
+            key = (r.get("input_hash"), tuple(r.get("op_path") or []))
+            if ts >= cutoff:
+                compacted.append(r)
+                seen.add(key)
+            else:
+                if key not in seen:
+                    compacted.append(r)
+                    seen.add(key)
+                # else: drop (duplicate older than 7d)
+        compacted.reverse()  # back to chronological
+
+        n_compacted_dropped = len(kept) - len(compacted)
+
+        # Rewrite live log
+        with _LOG_LOCK:
+            with open(path, "w", encoding="utf-8") as f:
+                for r in compacted:
+                    f.write(json.dumps(r, ensure_ascii=False,
+                                        sort_keys=True) + "\n")
+
+        return {
+            "rotated":      True,
+            "n_before":     n_total,
+            "archived":     len(archived),
+            "kept":         len(compacted),
+            "compacted_out": n_compacted_dropped,
+            "max_bytes":    max_bytes,
+        }
+    except Exception as e:
+        return {"rotated": False, "error": str(e)}
+
+
 def stats() -> Dict[str, Any]:
     """Quick summary of the listening log."""
     path = _log_path()
@@ -354,6 +448,7 @@ def mount_glyph_listener(engine: Any) -> bool:
         "listen":              listen,
         "stats":               stats,
         "crystal_candidates":  crystal_candidates,
+        "rotate_log_if_needed": rotate_log_if_needed,
         "log_path":            str(_log_path()),
     }
     wrapped_ok = _wrap_process_chat_with_listener(engine)

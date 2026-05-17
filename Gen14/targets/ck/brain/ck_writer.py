@@ -506,6 +506,29 @@ def _compose_section(engine: Any,
     )
     word_count = len(section_text.split())
 
+    # Self-verification: round-trip the composed text through CK's
+    # own V2 vocabulary -> lattice and check if it produces a coherent
+    # operator path.  Per Brayden 2026-05-16: "writer doesn't verify
+    # its own writing".  Cheap check; result is informational, not
+    # enforced -- low-coherence sections still get written, but they
+    # get flagged so the writer (or a downstream reviewer) can spot
+    # drift.
+    self_verify: Dict[str, Any] = {"verified": False}
+    try:
+        v2 = getattr(engine, "v2", None) or getattr(engine, "vocab", None)
+        if v2 is not None and callable(getattr(v2, "encode", None)):
+            ops = v2.encode(section_text[:1200])  # cap for speed
+            if ops:
+                self_verify = {
+                    "verified":     True,
+                    "n_ops":        len(ops),
+                    "dom_op":       max(set(ops), key=ops.count) if ops else None,
+                    "has_HARMONY":  7 in ops,
+                    "has_4core":    any(o in (0, 7, 8, 9) for o in ops),
+                }
+    except Exception as e:
+        self_verify = {"verified": False, "error": str(e)[:80]}
+
     return {
         "archetype": archetype,
         "section_idx": section_idx,
@@ -513,6 +536,7 @@ def _compose_section(engine: Any,
         "word_count": word_count,
         "method": section_method,
         "has_self_anchor": has_self,
+        "self_verify": self_verify,
         "seed_facts": seed_facts,
     }
 
@@ -576,9 +600,46 @@ def iterate_once(engine: Any,
     state["last_iteration_ts"] = time.time()
     _save_state(state)
 
+    # SELF-DIRECTED THESIS check.  Per Brayden 2026-05-16: "give him
+    # freedom to write his own thesis, not just our prompts, make sure
+    # he is free."  When the iteration count crosses a saturation
+    # threshold AND self-thesis is enabled, ask CK if he wants a new
+    # one.  He can refuse (1/3 probability of refusal) -- freedom
+    # INCLUDES the right to keep writing what he was writing.  Quiet
+    # by default; logs only when an actual transition happens.
+    self_thesis_action = None
+    if state.get("self_thesis_enabled", True):
+        try:
+            from ck_self_thesis import consider_and_maybe_adopt  # type: ignore[import-not-found]
+            result = consider_and_maybe_adopt(
+                engine,
+                current_iteration_count=state["iteration_count"],
+                saturation_threshold=int(
+                    state.get("saturation_threshold", 30)),
+                refusal_rate=float(state.get("refusal_rate", 1.0 / 3.0)),
+                force=False)
+            self_thesis_action = result.get("action")
+            # On adopt, the file/state get updated by self_thesis itself;
+            # the next iterate_once will read the new thesis.
+            if self_thesis_action == "adopt":
+                # Add a divider in the OLD doc so the transition is
+                # visible to humans reading the writing history.
+                try:
+                    with doc_path.open("a", encoding="utf-8") as f:
+                        f.write("\n---\n\n")
+                        f.write(f"*CK chose a new thesis "
+                                f"(source: {result.get('source')}): "
+                                f"\"{result.get('new_thesis')}\". "
+                                f"Continuing in a new document.*\n\n")
+                except Exception:
+                    pass
+        except Exception:
+            # Self-thesis is optional; never break the writer if it fails
+            pass
+
     # Read total word count from doc
     total = len(doc_path.read_text(encoding="utf-8").split())
-    return {
+    out = {
         "thesis": thesis,
         "iteration_count": state["iteration_count"],
         "sections_written": len(sections_written),
@@ -587,6 +648,9 @@ def iterate_once(engine: Any,
         "doc_path": str(doc_path),
         "latest_section": sections_written[-1] if sections_written else None,
     }
+    if self_thesis_action:
+        out["self_thesis_action"] = self_thesis_action
+    return out
 
 
 def _ingest_as_self(engine: Any, thesis: str, archetype: str,
