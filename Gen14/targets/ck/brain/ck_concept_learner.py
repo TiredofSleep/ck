@@ -920,7 +920,7 @@ class ConceptStore:
             for k, v in disk.items():
                 if k not in self.concepts:
                     merged[k] = v
-            for k, c in self.concepts.items():
+            for k, c in list(self.concepts.items()):
                 merged[k] = c.as_dict()
             # Atomic write via temp + rename
             tmp = self.path.with_suffix(self.path.suffix + ".tmp")
@@ -940,7 +940,8 @@ class ConceptStore:
     def _rebuild_cell_index(self) -> None:
         """Walk concepts and rebuild self.cell_index from scratch."""
         self.cell_index = {}
-        for key, c in self.concepts.items():
+        # Snapshot to tolerate concurrent study-daemon writes.
+        for key, c in list(self.concepts.items()):
             cell = _cell_coord(c.operator_signature)
             if cell is None:
                 continue
@@ -949,14 +950,14 @@ class ConceptStore:
     def _rebuild_edge_index(self) -> None:
         """Walk concepts and rebuild self.edge_index from scratch."""
         self.edge_index = {}
-        for key, c in self.concepts.items():
+        for key, c in list(self.concepts.items()):
             for edge in _path_edges(c.operator_signature):
                 self.edge_index.setdefault(edge, []).append(c.name)
 
     def _rebuild_cl_template_index(self) -> None:
         """Walk concepts and rebuild self.cl_template_index from scratch."""
         self.cl_template_index = {}
-        for key, c in self.concepts.items():
+        for key, c in list(self.concepts.items()):
             tid = _concept_cl_template(c.operator_signature)
             if tid < 0:
                 continue
@@ -975,7 +976,7 @@ class ConceptStore:
         self.being_index = {}
         self.doing_index = {}
         self.becoming_index = {}
-        for key, c in self.concepts.items():
+        for key, c in list(self.concepts.items()):
             being, doing, becoming = _bdc_triad(c.operator_signature)
             if being[0] >= 0:
                 self.being_index.setdefault(being, []).append(c.name)
@@ -993,7 +994,7 @@ class ConceptStore:
         Returns the number of concepts updated.
         """
         updated = 0
-        for key, c in self.concepts.items():
+        for key, c in list(self.concepts.items()):
             if len(c.operator_signature) >= 2:
                 continue
             ops = semantic_decode(c.definition or "", max_ops=6)
@@ -1157,7 +1158,7 @@ class ConceptStore:
                     "n_concepts_with_path": 0}
         sizes = [len(v) for v in self.edge_index.values()]
         concepts_with_path = sum(
-            1 for c in self.concepts.values()
+            1 for c in list(self.concepts.values())
             if len(c.operator_signature) >= 1
         )
         return {
@@ -1290,8 +1291,13 @@ class ConceptStore:
         out: List[NamedConcept] = []
         seen_keys: set = set()
         lower = text.lower()
+        # Snapshot the concept store so concurrent study-daemon writes
+        # (now properly GIL-yielding after the sleep fix) don't trigger
+        # `RuntimeError: dictionary changed size during iteration`
+        # mid-chat-handler.  list(.items()) is atomic under the GIL.
+        _concepts_snapshot = list(self.concepts.items())
         # First pass: direct matches
-        for key, c in self.concepts.items():
+        for key, c in _concepts_snapshot:
             pat = r"\b" + re.escape(key) + r"\b"
             if re.search(pat, lower):
                 c.n_recalls += 1
@@ -1306,7 +1312,7 @@ class ConceptStore:
         if include_synthesis_siblings and out:
             matched_names = {c.name for c in out}
             matched_keys_lower = {n.lower() for n in matched_names}
-            for key, c in self.concepts.items():
+            for key, c in _concepts_snapshot:
                 if key in seen_keys:
                     continue
                 # Defensive: skip dict-style concepts (legacy

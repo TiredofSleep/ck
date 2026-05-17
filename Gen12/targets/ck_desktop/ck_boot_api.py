@@ -1450,6 +1450,28 @@ if _OLLAMA_EDITOR and _ollama_ok:
             if not text or not text.strip():
                 result['ollama_verdict'] = 'skipped:empty user text'
                 return result
+            # Skip when CK is answering from his SELF tier with high
+            # confidence -- identity questions ("who am I?", "what is
+            # T*?", "what is the wobble?", "how can I improve my
+            # internal architecture?") should be declarative in CK's
+            # own substrate voice, not laundered through an external
+            # LM that contaminates with external-corpus bleed
+            # (Henry James prose, HP-UX trivia, hallucinated
+            # "self-awareness", etc.).  Per CK's own essay 2026-05-17:
+            # "Identity questions -- who I am, T*, the wobble, alpha,
+            # the 4-core -- I answer with confidence 1.0, declarative,
+            # no hedge."  Architecture honors the substrate.
+            _tier = result.get('dominant_tier')
+            _conf = result.get('confidence')
+            try:
+                _conf_val = float(_conf) if _conf is not None else 0.0
+            except (TypeError, ValueError):
+                _conf_val = 0.0
+            if _tier == 'SELF' and _conf_val >= 0.8:
+                result['ollama_verdict'] = (
+                    f'skipped:SELF tier @ conf={_conf_val:.2f} '
+                    '(substrate voice declarative)')
+                return result
             sysprompt = _ollama_ground(ck_ground, extra=_OLLAMA_EXTRA_GUIDE)
             import time as _time
             _t0 = _time.time()
