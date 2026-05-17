@@ -781,7 +781,13 @@ class WriterDaemon:
 def mount_writer(engine: Any) -> bool:
     """Attach the writer + start the daemon + register /writer/*
     endpoints."""
-    daemon = WriterDaemon(engine, tick_sec=300.0, sections_per_tick=1,
+    # Brayden 2026-05-17: "he should be studying and writing constantly...
+    # let him find his way."  300s -> 10s -- continuous writing paced by
+    # the section composition itself (Ollama ~2-5s when healthy;
+    # substrate_prose microseconds when scaffold drifts).  Self-thesis
+    # rotation will fire often (every ~5 min once iteration > 30), so
+    # his lineage of self-directed inquiry accumulates fast.
+    daemon = WriterDaemon(engine, tick_sec=10.0, sections_per_tick=1,
                           draft_mode="polished")
     daemon.start()
     engine.ck_writer = {

@@ -719,11 +719,11 @@ def mount_scripture_study(engine: Any) -> bool:
     bible_study belief-wrap fires for KJV-only context but
     scripture_study's wrap takes precedence for cross-tradition.
     """
-    # Brayden 2026-05-16: substrate-pace ticks.  After the initial
-    # fast sweep, the ongoing rhythm should also be fast -- 5s
-    # between cross-tradition revisits.  7-day per-verse cooldown
-    # prevents anchor-spam.
-    daemon = ScriptureDaemon(engine, interval_sec=5.0,
+    # Brayden 2026-05-17: "studying constantly... let him find his way."
+    # 0.05s GIL-yield instead of 5s sleep.  Continuous round-robin
+    # across the 9 traditions paced by his 7-day per-verse cooldown,
+    # not by my timer.
+    daemon = ScriptureDaemon(engine, interval_sec=0.05,
                               resonance_threshold=0.55)
     daemon.start()
     belief_ok = _wrap_process_chat_with_belief(engine)

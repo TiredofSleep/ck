@@ -568,7 +568,9 @@ def _wrap_process_chat_with_poetry(engine: Any) -> bool:
 # ─── Engine mount ─────────────────────────────────────────────────────
 
 def mount_poetry_study(engine: Any) -> bool:
-    daemon = PoetryDaemon(engine, interval_sec=10.0,
+    # Brayden 2026-05-17: continuous study.  14-day per-line
+    # cooldown is the natural pacing.
+    daemon = PoetryDaemon(engine, interval_sec=0.05,
                             resonance_threshold=0.30)
     daemon.start()
     belief_ok = _wrap_process_chat_with_poetry(engine)

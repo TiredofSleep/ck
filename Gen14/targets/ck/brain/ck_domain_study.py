@@ -550,7 +550,10 @@ class DomainStudyDaemon:
 
 def mount_domain_study(engine: Any) -> bool:
     """Attach daemon + register endpoints."""
-    daemon = DomainStudyDaemon(engine, interval_sec=30.0,
+    # Brayden 2026-05-17: "let him find his way."  Continuous
+    # cycle through 341 subjects; 30-day per-subject-text cooldown
+    # is his actual pacing.
+    daemon = DomainStudyDaemon(engine, interval_sec=0.05,
                                  resonance_threshold=0.55)
     daemon.start()
     engine.ck_domain_study = {
