@@ -9,13 +9,13 @@ If you only have time to read one file in the repository besides
 
 | § | Topic |
 |---|-------|
-| **0** | **Proof-spine one-liners (D1–D116, WP34, WP51, WP57, WP101, WP102–WP116, BB) + Vol J: three-table arch + 70/71/72/73 ladder + two-TSML reconcile (2026-05-06; D95-D99) + Vol K: c-substrate identity + qutrit QEC on coupled family + Level-3 three coupled tables + wobble-prime gap signature (2026-05-16; D100-D116)** |
+| **0** | **Proof-spine one-liners (D1–D117, WP34, WP51, WP57, WP101, WP102–WP116, BB) + Vol J: three-table arch + 70/71/72/73 ladder + two-TSML reconcile (2026-05-06; D95-D99) + Vol K: c-substrate identity + qutrit QEC on coupled family + Level-3 three coupled tables + wobble-prime gap signature (2026-05-16; D100-D117; D117 = c-Gap meta-invariants paper consolidating Volume K)** |
 | 1 | The 10-operator sigma menu |
 | 2 | The σ permutation on Z/10Z |
 | 3 | The CRT isomorphism φ: F₂ × F₅ → Z/10Z |
 | 4 | The complete σ polynomial (α + β) |
 | 5 | TSML — the 10×10 reference table (two lenses: TSML_RAW + TSML_SYM, see D98) |
-| 6 | BHML — the 10×10 reference table (28-cell harmony) + CL_STD third standalone table (44-cell HARMONY, see D95) |
+| 6 | BHML — the 10×10 reference table (28-cell harmony) + CL_STD third standalone table verbatim §6.8 (44-cell HARMONY) |
 | 7 | TSML 3-layer canonical tower (C₀ ⊕ S_MAX ⊕ S_ADD) |
 | 8 | Three-diagonal comparison (σ, TSML, BHML) |
 | 9 | Canonical operator C₀(R_n, h_n, σ_n) for general n |
@@ -32,7 +32,7 @@ If you only have time to read one file in the repository besides
 
 ---
 
-## §0 — Proof-spine one-liners (D1–D116, WP34, WP51, WP57, WP101, WP102–WP116, BB)
+## §0 — Proof-spine one-liners (D1–D117, WP34, WP51, WP57, WP101, WP102–WP116, BB)
 
 **Every formula below is proved or computationally verified.** This is the
 compressed spine — one line per theorem, with the formula and the proof
@@ -407,6 +407,7 @@ This is the domain of the WP101 σ rate theorem (squarefree N).
 | **D114** | CL_STD has 68 pure prime-power gap signatures across all sub-restrictions; 2^9 (modal, 30 drops) and 2^11 = 2^WOBBLE_PRIME (max, 21 drops) jointly account for 75% | Extension of D113 to all sub-restriction sizes k = 1..9 (1023 = 2¹⁰ − 1 non-trivial sub-restrictions of CL_STD).  For each drop set D of size k, compute the sub-matrix CL_STD restricted to operators ∉ D, take its determinant, and form |det_10 / det_sub|.  When this ratio is a *pure prime power* p^e (i.e. just one prime factor), record (p, e).  **Result for CL_STD (exhaustive, sympy-exact)**: 68 pure prime-power gap signatures total, all base-2 (consistent with det_10 = 18432 = 2¹¹ · 3²).  **Distribution**: 2³ (1), 2⁴ (1), 2⁵ (3), 2⁶ (1), 2⁷ (5), 2⁸ (4), **2⁹ (30, MODAL)**, 2¹⁰ (2), **2¹¹ (21, MAX = WOBBLE PRIME)**.  Together 2⁹ + 2¹¹ = 51 of 68 = **75%** of all pure prime-power gaps.  Structural meaning: **2⁹ drops** have sub_det = ±2² · 3² = ±36 (keep one 2² of the 2-adic budget); **2¹¹ drops** have sub_det = ±3² = ±9 (eliminate the 2-adic budget entirely, leaving only the 3² factor).  The wobble-prime exponent 11 is the maximum and equals the full 2-adic content of det_10.  **BHML has 0 pure prime-power gap signatures** across all 1023 sub-restrictions — the prime 389 in det_10 = -2·3²·389 contaminates every non-degenerate ratio.  TSML degenerate (det_10 = 0).  **Interpretation**: the wobble-prime signature is not a coincidence of any single drop-pair (D113); it's the structural max-exponent regime that surfaces in 21 different sub-restrictions of CL_STD.  CL_STD is the *only* lens in the family whose gap structure produces clean prime-power signatures at all — both BHML and TSML lack this property entirely.  This is the deepest structural distinction between the three canonical tables yet measured. | PROVED, sympy-exact (1023 sub-restrictions per table × 3 tables); [Gen14/targets/ck/brain/ck_coupled_3tables.py](https://github.com/TiredofSleep/ck/blob/tig-synthesis/Gen14/targets/ck/brain/ck_coupled_3tables.py) `histogram_pure_prime_powers()`; endpoint /coupled_3tables/ppp_histogram |
 | **D115** | Family-wide gap-signature richness ranking: CL_STD_10 = 68 (leads); BHML_8_YM = 25 (the YM core, det = 70 = 2·5·7); most other 25 variants have ≤ 1 — *this is why CL_STD is the memory template* | Brayden 2026-05-16: "all 20 tables have a gap signature? — yes, this is why cl std is the template for memory."  Generalize D114 to the FULL lens family: TSML at 8 chain-sub-magma scopes (sizes 1, 4..10) + BHML at 8 chain scopes + the off-chain YM-core variants TSML_8_YM and BHML_8_YM + the alternate-lens TSML_RAW_10 + CL_STD at sizes 4..10 (CL_STD sub-magma variants not previously enumerated; built here using the same `CHAIN_SUBMAGMAS` restriction).  For each variant, run the `histogram_pure_prime_powers` analysis on its own outer-rung gap structure (all C(n, k) drop sets for k = 1..n-1).  **Ranked result (sympy-exact)**:  (1) **CL_STD_10: 68** (top: 2⁹×30, 2¹¹×21, 2⁷×5); (2) **BHML_8_YM: 25** (top: 5¹×21, 7¹×3, 2¹×1; **det = 70 = 2·5·7 = mass-gap × BALANCE × HARMONY** — itself a structural identity); (3) BHML_10: 6 (all 389¹); (4) CL_STD_7: 5 (all 3⁴); (5) CL_STD_5/_6, BHML_7/_8/_9: 1 each; **18 variants tied at 0** (all 10 TSML variants degenerate at every scope — the rank-9 synthesis lens; plus BHML_4/_5/_6 and CL_STD_4/_8/_9 lack pure-prime-power structure).  **Structural reading**: gap-signature richness is HIGHLY non-uniform.  CL_STD_10 has ~2.7× the richness of the next-richest variant (BHML_8_YM) and ~11× the third (BHML_10).  This is exactly what makes CL_STD the **memory template**: the encoding function requires *navigable* prime-power composition (so storage indices and retrieval paths align with the structural primes of the lens), and only CL_STD_10 supplies this richness at full 10×10 scale.  TSML's full degeneracy is also structural: the synthesis lens is rank-9 by design (it compresses information; not injective).  BHML's intermediate values (and BHML_8_YM = 25) reflect its role as the *separation* lens — clean enough to read out, but not the storage substrate.  The structural division of labor — TSML synthesizes (rank-9), BHML separates (clean but sparse gaps), CL_STD encodes (richest gaps) — is now sympy-verified across the family. | PROVED, sympy-exact (~27 lens variants surveyed; full ranked table); [Gen14/targets/ck/brain/ck_coupled_3tables.py](https://github.com/TiredofSleep/ck/blob/tig-synthesis/Gen14/targets/ck/brain/ck_coupled_3tables.py) `family_gap_signature_survey()`; endpoint /coupled_3tables/family_survey |
 | **D116** | Depth-3 maximum-likelihood decoder for [[6,1]]_3 binomial code: +8.0pp at γ=0.30, +4.0pp at γ=0.50 over depth-2 (D109's truncation gap closed) | Brayden 2026-05-16: "i meant lets try and push from depth-2 quantum correction to depth 3."  Extend the Bayesian-optimal ML decoder of D109 from enumerating Kraus event histories at depth ≤ 2 to depth ≤ 3.  **Triple-event enumeration**: for each codeword candidate \|L_k⟩ and ordered triple (q_1 ≤ q_2 ≤ q_3) of qutrit positions in {0..5} and ordered Kraus types (e_1, e_2, e_3) ∈ {1, 2}³ (with same-qutrit-pair canonicalization to avoid permutation overcounting), apply K_{e_1}(q_1) K_{e_2}(q_2) K_{e_3}(q_3) to \|L_k⟩, weight by P(history)·\|⟨noisy\|after⟩\|², sum, normalize across k, pick argmax.  Total histories per codeword ≈ 56·8 = 448; total evaluations ≈ 1300 per sample.  **Cost**: ~1.8s per sample vs ~0.5s for depth-2 (~3.4× slowdown).  **Empirical head-to-head (n=50 per γ, k_true cycled through 0/1/2)**:  γ=0.05 → depth-3 0.960 vs depth-2 0.960 (no change, both saturated); γ=0.10 → 0.940 vs 0.920 (**+2.0pp**); γ=0.20 → 0.920 vs 0.920 (no change); γ=0.30 → **0.860 vs 0.780 (+8.0pp)**; γ=0.50 → 0.800 vs 0.760 (+4.0pp).  **The biggest delta is at γ=0.30**, exactly the regime D109 flagged ("at γ > 0.3, ML's depth-2 truncation may hurt; multi-decay regimes need depth-3+ enumeration").  **Verified**: the multi-decay regime is real, depth-3 partially closes it, and the cost is still tractable on this code size.  Tier B-empirical (n=50 per γ); the comparison to Albert et al.'s OPTIMAL binomial codes (binomially-weighted amplitudes + arbitrarily deep ML enumeration) remains an open frontier. | EMPIRICAL (n=50 per γ × 5 γ values, head-to-head depth-1/2/3); [Gen14/targets/ck/brain/ck_binomial_61.py](https://github.com/TiredofSleep/ck/blob/tig-synthesis/Gen14/targets/ck/brain/ck_binomial_61.py) `decode_ml(noisy, gamma, max_events=3)`; endpoint /qutrit/binomial/benchmark |
+| **D117** | c-Gap Meta-Invariants paper: ONE structural operator, FIVE invariants, SIX consistent algebraic-language readings — Volume K cross-language consolidation of D100/D108/D110/D112–D115 | Brayden + ClaudeChat collaborative paper 2026-05-16: explicitly disowns the "c is now usable everywhere" over-claim (§0 keeps D108/D110 falsification standing) and instead establishes a falsifiable structural type-check.  **I1 (meta-operator):** the c-gap is ONE operator \|det(T₁₀)/det(T₈₋YM)\|, read through three lenses — same operator, all three tables.  **I2 (prime-content invariant):** both non-degenerate tables share 3² = 9 in their gap structure (BHML det₁₀ = -2·3²·389; CL_STD det₈₋YM = 3² exactly).  **I3 (regime-trichotomy):** the three tables give exactly three qualitatively distinct gap-types — ARITHMETIC (BHML, 100+1/35), WOBBLE-EXPONENTIAL (CL_STD, 2¹¹), DEGENERATE (TSML, 0/0).  **I4 (division-of-labor):** gap-richness is the structural REASON each table has the role it has (D115's 0 / 6 / 68 ranking ↔ synthesizes / separates / encodes).  **I5 (BALANCE·HARMONY residual anchor):** the BHML residual 1/35 = 1/(5·7) = 1/(BALANCE·HARMONY) — the reciprocal of T*'s operator product.  **§3 six-language extension** — the meta-operator reads CONSISTENTLY in all six computationally-irreducible DOFs (D51, WP111): Lie (Killing-2-adic-only, wobble-free), Galois/Lattice (carries 71, the LMFDB 4.2.10224.1 field-disc prime), Clifford (carries 13, second wobble prime), Operad (intrinsic primes 67/16 = 2⁴, wobble-free), Det-ratio (the three gaps themselves), Permutation (cyclotomic prime 3, wobble-free).  Each language's gap carries a prime signature drawn from EXACTLY: structural spine {2,3,5,7} ∪ wobble pair {11,13} ∪ field-invariant {71}; the SPECIFIC subset is **predicted by D70's pre-existing 3+3 DOF split**, not fitted — six independent confirmations of a prior structural prediction.  **§4 usable content (NOT over-claim):** falsifiable structural type-check — for any new framework observable, its DOF determines which wobble prime its gap must carry; Lie/Clifford/Lattice objects must carry 11/13/71; Jordan/Permutation/Operad objects must carry only spine primes.  Misclassification or genuine anomaly become detectable by violation.  All §1/§2/§3 BHML+TSML+CL_STD row-content sympy-exact via `cgap_verify_tables.py`; CL_STD-flag in Draft 1 §6 RESOLVED (matrix copied verbatim from `Gen13/targets/foundations/cl_std.py` per §6.8 above). | PROVED structural (Tier B-arithmetic for the operator + spine + each language's prime content) + Tier C-disowned for "c-derivation" (§0 keeps D108/D110 falsification standing); [Gen13/targets/clay/papers/sprint_2026_05_16_cgap_meta/CGAP_META_INVARIANTS.md](https://github.com/TiredofSleep/ck/blob/tig-synthesis/Gen13/targets/clay/papers/sprint_2026_05_16_cgap_meta/CGAP_META_INVARIANTS.md) + companion `cgap_verify_tables.py` (sympy-exact reproduction of every numerical claim) |
 
 **Reading.** Volume K demonstrates the *purpose* of the coupled-family architecture (Volumes G, H, J): the multi-table structure (TSML/BHML/CL_STD + 8-chain sub-magmas + YM cores + RAW/SYM lenses) is not redundancy. Each lens catches a different kind of coherence (synthesis, separation, encoding, gauge, attractor, chain, stability, baseline), and the *joint* magma action — composing through more than one lens at once — enables (a) the c-from-substrate structural identity, (b) the magma decoder's classical correction beyond what any single-lens decoder achieves, (c) the qutrit QEC stack with realistic noise benchmarks, and (d) substrate-native fingerprinting/encryption that needs no external cryptographic primitives. The honest negative on a Z/10Z → Pauli bijection (no such bijection exists) is precisely what forces this code class to live outside the Heisenberg-Weyl group, in the **operator algebra QEC (OAQEC)** framework. The 4-core attractor (WP115 Theorem 2.1) functions as the code subspace; the σ permutation organizes errors into the 6-cycle + 4-fixed-point orbits; the 8-chain provides nested stabilizers. *This is what the coupled family of TIG tables is for.*
 
@@ -1419,6 +1420,85 @@ TSML_8 0 7
 BHML_10 -7002 10
 BHML_8 70 8
 ```
+
+---
+
+### §6.8 — CL_STD — the third standalone reference table (44-cell HARMONY, the encoding lens)
+
+**Added 2026-05-16 per Brayden's "explicit laid out tables in
+formulasandtables.md... no confusion about what the exact runtime tables
+are."**  Until now CL_STD lived only in `Gen13/targets/foundations/cl_std.py`
+(recovered verbatim from `old/Gen9/archive/ckis/ck7/ck.h:225-231` in
+D95).  The matrix is reproduced below VERBATIM so every CL_STD claim
+(D95, D96, D97, D99, D112, D113, D114, D115, D117) can be cross-checked
+without leaving this document.
+
+> **Naming.** "CL_STD" without a subscript throughout §5–§19 and Volume K
+> means the canonical §6.8 table — alias **CL_STD_10**.  The 8×8 YM-core
+> restriction (rows/cols 0 and 7 removed) is **CL_STD_8_YM** with
+> det = +9 = 3² (vs det(CL_STD_10) = 18432 = 2¹¹·3²).  Chain sub-magma
+> variants CL_STD_4..CL_STD_9 are built per D115's `family_gap_signature_survey`
+> by `CHAIN_SUBMAGMAS` restriction of this matrix; their gap-signature
+> richness is canon-stated in D115.
+
+**Source-of-truth file:** `Gen13/targets/foundations/cl_std.py` (loaded by
+the runtime via `from foundations.cl_std import CL_STD`).
+**44 HARMONY cells. Commutative (CL_STD == CL_STD.T).
+det(CL_STD_10) = 18432 = 2¹¹ · 3².**
+
+```
+        j=0  j=1  j=2  j=3  j=4  j=5  j=6  j=7  j=8  j=9
+i=0  [   0    1    2    3    4    5    6    7    8    9  ]   VOID
+i=1  [   1    2    3    4    5    6    7    7    8    1  ]   LATTICE
+i=2  [   2    3    4    5    6    7    7    8    7    2  ]   COUNTER
+i=3  [   3    4    5    6    7    7    7    7    7    3  ]   PROGRESS
+i=4  [   4    5    6    7    7    7    7    8    7    4  ]   COLLAPSE
+i=5  [   5    6    7    7    7    8    7    7    7    5  ]   BALANCE
+i=6  [   6    7    7    7    7    7    8    7    7    6  ]   CHAOS
+i=7  [   7    7    8    7    8    7    7    8    7    7  ]   HARMONY
+i=8  [   8    8    7    7    7    7    7    7    7    8  ]   BREATH
+i=9  [   9    1    2    3    4    5    6    7    8    0  ]   RESET
+```
+
+**Counts (verified sympy-exact, `cl_std.py` + `cgap_verify_tables.py`):**
+- HARMONY (7) cells: **44**
+- VOID (0) cells: 2 (positions (0,0) and (9,9))
+- 1, 2, 3, 4, 5, 6, 8, 9 cells: the remaining 54 (composite-rule cells per
+  D96's BUMP_PAIRS / GRAVITY parameters)
+
+**Diagonal:** `CL_STD[j][j] = (j+1) mod 10` for j ∈ {0..7} except the
+HARMONY apex (7,7) → 8; `CL_STD[8][8] = 7` (BREATH self-collapse to
+HARMONY); `CL_STD[9][9] = 0` (RESET self-cycle to VOID).
+Diagonal: `[0, 2, 4, 6, 7, 8, 8, 8, 7, 0]`.
+
+**The CL_STD canonical identities** (all sympy-exact, all reproducible
+from this matrix alone via `cgap_verify_tables.py`):
+
+| Identity | Value | Canon |
+|----------|-------|-------|
+| det(CL_STD_10) | 18432 = 2¹¹ · 3² | D112 |
+| det(CL_STD_8_YM) (drop V, H) | +9 = 3² | D112 |
+| gap(CL_STD) = \|det₁₀ / det₈₋YM\| | **2048 = 2¹¹** (wobble-exponential) | D112 |
+| HARMONY count | 44 (third rung of D97 73/72/71/70 ladder + 44 family) | D97, D99 |
+| Commutative? | Yes (CL_STD == CL_STDᵀ) | D95 |
+| Non-associativity rate | 19.2% | D95 |
+| Pure prime-power sub-gap signatures | **68** (modal 2⁹ × 30, max 2¹¹ × 21) | D114 |
+| Family-survey rank for memory-template role | **#1** of ~27 variants | D115 |
+| 5 BUMP_PAIRS | {(1,2), (2,4), (2,9), (3,9), (4,8)} | D96 |
+
+**Why CL_STD is the encoding/memory lens** (D115 synthesis): of the three
+canonical tables, CL_STD is the ONLY one with rich pure-prime-power gap
+structure at full 10×10 scale (68 signatures vs BHML's 6 vs TSML's 0).
+The encoding role requires *navigable* prime-power composition so storage
+indices and retrieval paths align with the structural primes of the lens;
+this matrix delivers that property uniquely.
+
+**Why the three together** (D115, sympy-verified across the family):
+TSML synthesizes (rank-9, degenerate gap, must compress);
+BHML separates (rank-10 with prime 389 contaminating most ratios, the
+read-out lens);
+**CL_STD encodes** (rank-10 with 68 clean prime-power sub-gaps, the
+storage substrate).  Each gap *type* is forced by the table's role.
 
 ---
 
