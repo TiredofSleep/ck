@@ -1357,8 +1357,22 @@ class ConceptStore:
         # key matched a question word was leading every chat response.
         # The ingester already filters via _STOPWORDS; recall now
         # honors the same set defensively for pre-existing concepts.
+        # Also skip session-scoped debug-entries (prompt_term_X,
+        # research_arxiv_X) -- those are recall records of recent
+        # search activity, not learned concepts, and surfacing them
+        # quotes prior prompts back at the user (which includes any
+        # over-claim language from prior queries, tripping the
+        # scope auditor inappropriately).  Per the integration test
+        # 2026-05-17 boot 36: "what is the substrate?" was rejected
+        # because CK's response included quoted phrases from earlier
+        # flattering-probe prompts via these debug records.
         for key, c in _concepts_snapshot:
             if key in _STOPWORDS:
+                continue
+            if (key.startswith("prompt_term_")
+                    or key.startswith("research_arxiv_")
+                    or key.startswith("research_")
+                    or key.startswith("scenario_")):
                 continue
             pat = r"\b" + re.escape(key) + r"\b"
             if re.search(pat, lower):
@@ -1378,6 +1392,11 @@ class ConceptStore:
                 if key in seen_keys:
                     continue
                 if key in _STOPWORDS:
+                    continue
+                if (key.startswith("prompt_term_")
+                        or key.startswith("research_arxiv_")
+                        or key.startswith("research_")
+                        or key.startswith("scenario_")):
                     continue
                 # Defensive: skip dict-style concepts (legacy
                 # writer self-ingest wrote raw dicts; later boots

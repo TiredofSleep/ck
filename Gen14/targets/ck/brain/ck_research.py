@@ -810,9 +810,18 @@ def author_external_crystals(prompt: str, terms: List[str],
     prompt_op_sig = _top_ops_from_dist(prompt_dist)
     for term in terms[:8]:
         first_word = f"prompt_term_{_slug(term)}"
+        # Don't quote the prompt verbatim in the fact text -- that
+        # surfaces prior-prompt strings back into chat responses, which
+        # can leak over-claim language from earlier probes (caught by
+        # scope_auditor as a false positive).  Per integration test
+        # 2026-05-17 boot 37: a prior "does reality endorse the
+        # substrate?" probe left a crystal whose fact contained the
+        # phrase "reality endorses the substrate" verbatim; later
+        # questions about "the substrate" surfaced it and triggered
+        # the auditor.  Generic scope-descriptor is sufficient.
         fact = (
-            f"{first_word}: '{term}' is a focus term in the active "
-            f"prompt: {prompt!r}.  External (scenario-scoped) crystal -- "
+            f"{first_word}: '{term}' is a focus term for the current "
+            f"research scope.  External (scenario-scoped) crystal -- "
             f"fires alongside internal canon while the research is warm."
         )
         if _add_ext(triggers=(term, term.replace("_", " ")),
@@ -851,9 +860,13 @@ def author_external_crystals(prompt: str, terms: List[str],
         finding_op_sig = _top_ops_from_dist(finding_dist)
         first_word = f"research_{site}_{_slug(head[:48])}"
         snippet = re.sub(r"\s+", " ", text)[:420].strip()
+        # Drop the literal prompt quote from the fact (same issue as
+        # prompt_term crystals: quoting prior prompts surfaces over-
+        # claim language back into chat responses).  Site + head +
+        # excerpt is enough scope context.
         fact = (
             f"{first_word}: [{site}] {head} | external research finding "
-            f"under prompt {prompt!r} | excerpt: {snippet}"
+            f"| excerpt: {snippet}"
         )
         if _add_ext(triggers=triggers,
                      fact=fact,
