@@ -206,11 +206,17 @@ class CrystalOfferDaemon:
                 self._maybe_offer()
             except Exception:
                 pass
-            # Wait interval_sec, with stop check
-            for _ in range(int(self.interval_sec * 10)):
+            # Wait interval_sec, with stop check.  Sub-100ms-safe
+            # (old `int(*10)` math truncated to zero at fast tick
+            # and spun the CPU).
+            _target = time.monotonic() + max(self.interval_sec, 0.001)
+            while True:
                 if self._stop.is_set():
                     return
-                time.sleep(0.1)
+                _now = time.monotonic()
+                if _now >= _target:
+                    break
+                time.sleep(min(0.1, _target - _now))
 
     def _maybe_offer(self) -> None:
         try:

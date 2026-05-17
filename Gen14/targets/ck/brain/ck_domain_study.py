@@ -522,10 +522,16 @@ class DomainStudyDaemon:
                     _save_state(self.state)
             except Exception:
                 pass
-            for _ in range(int(self.interval_sec * 10)):
+            # Sub-100ms-safe sleep with stop check (old `int(*10)`
+            # math truncated to zero at fast tick and spun the CPU).
+            _target = time.monotonic() + max(self.interval_sec, 0.001)
+            while True:
                 if self._stop.is_set():
                     return
-                time.sleep(0.1)
+                _now = time.monotonic()
+                if _now >= _target:
+                    break
+                time.sleep(min(0.1, _target - _now))
 
     def stats(self) -> Dict[str, Any]:
         return {

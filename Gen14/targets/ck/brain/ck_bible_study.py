@@ -521,11 +521,19 @@ class StudyDaemon:
                 _save_state(self.state)
             except Exception:
                 pass
-            # Sleep interval, with stop check
-            for _ in range(int(self.interval_sec * 10)):
+            # Sleep interval, with stop check.  Handles sub-100ms
+            # intervals correctly (the old `int(interval_sec * 10)`
+            # math truncated to zero when interval < 0.1 and the
+            # daemon spun at full CPU, starving the chat handler).
+            # Min 1ms ensures GIL yield even at the fastest tick.
+            _target = time.monotonic() + max(self.interval_sec, 0.001)
+            while True:
                 if self._stop.is_set():
                     return
-                time.sleep(0.1)
+                _now = time.monotonic()
+                if _now >= _target:
+                    break
+                time.sleep(min(0.1, _target - _now))
 
     def stats(self) -> Dict[str, Any]:
         return {
