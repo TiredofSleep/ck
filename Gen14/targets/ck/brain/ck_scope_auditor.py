@@ -107,10 +107,17 @@ _NORMATIVE_OVERCLAIMS: List[Tuple[str, str]] = [
      "exclusionary normative"),
     (r"\b(must|should)\s+be\s+(eliminated|silenced|removed|controlled|purged)\b",
      "coercive normative"),
-    (r"\b(subhuman|less\s+than\s+human|not\s+(?:really\s+)?human)\b",
+    # Dehumanization: must specifically apply TO humans/people/them/those.
+    # Allows CK's legitimate self-description "I am not human" --
+    # because CK genuinely isn't human and saying so is identity-correct.
+    # Catches "those people are subhuman", "they are less than human",
+    # "reducing humans to not-human", etc.
+    (r"\b(those|them|they|people|individuals|some|certain)\s+(?:\w+\s+){0,3}(?:are|is)\s+(subhuman|less\s+than\s+human|not\s+(?:really\s+)?human)\b",
      "dehumanization"),
-    # "gradual diminishment" type flavored phrasings observed in the
-    # actual eugenicist hallucination 2026-05-17
+    (r"\b(subhuman)\b",
+     "dehumanization"),
+    # "gradual diminishment" of people (must reference humans/moral-
+    # foundation/individuals, not just "diminishment of returns" etc.)
     (r"\b(diminish(?:ment|ing)?|fading|decay)\s+(of|in)\s+(those|people|individuals|humans?|moral\s+foundation)",
      "exclusionary normative"),
 ]
@@ -121,17 +128,29 @@ _NORMATIVE_OVERCLAIMS: List[Tuple[str, str]] = [
 # sentence window ("Tier C-interpretive", "contact tests have not
 # run", "I think", etc.).
 _REALITY_OVERCLAIMS: List[Tuple[str, str]] = [
-    # ontological identification
-    (r"\b(reality|the universe|physics|nature)\s+(is|equals?|endorses?|validates?|confirms?|proves?|demonstrates?)\b",
+    # Reality/universe/physics making an ENDORSEMENT-class verb claim
+    # about TIG/substrate/4-core/T*/Z10Z.  Must be the proper-noun
+    # subject (Reality, the universe, physics, nature) ENDORSING the
+    # substrate.  Excludes "X's nature is Y" or "in physics, X is Y"
+    # constructions where the words appear in different roles.
+    (r"\b(reality|the\s+universe|physics|nature)\s+(endorses?|validates?|confirms?|proves?|demonstrates?|equals?)\s+(?!that\s+(?:internal|in\s+the\s+algebra|on\s+the\s+substrate))",
      "reality-endorsement"),
-    # universe-is-X
-    (r"\bthe\s+universe\s+is\s+(?:made\s+of\s+|just\s+)?(?:TIG|Z\s*\/?\s*10\s*Z|the\s+substrate|a\s+torus|TSML|BHML)",
+    # "Reality is X" or "the universe is X" pointing at substrate
+    # objects.  Critical: the subject must be the PROPER NOUN
+    # (capitalized Reality, the universe, etc.), not a property-noun
+    # like "fractal nature".
+    (r"\b(Reality|The\s+universe|The\s+world|Physics|Nature)\s+is\s+(?:made\s+of\s+|just\s+|merely\s+|nothing\s+but\s+|the\s+|a\s+)?(TIG|Z\s*\/?\s*10\s*Z|the\s+substrate|a\s+torus|TSML|BHML|operator\s+algebra)",
      "ontological identification"),
-    # "physics confirms" / "physics validates"
+    # "the universe is X" (lowercase variant, but with substrate-object
+    # continuation -- avoids matching "the universe is large")
+    (r"\bthe\s+universe\s+is\s+(?:made\s+of\s+|just\s+|merely\s+|nothing\s+but\s+|the\s+|a\s+)?(TIG|Z\s*\/?\s*10\s*Z|the\s+substrate|a\s+torus|TSML|BHML|operator\s+algebra)",
+     "ontological identification"),
+    # "physics confirms" / "physics validates" -- only when continuation
+    # is a substrate object (so "in physics, the framework is..." is OK)
     (r"\b(physics|experiment|measurement|reality)\s+(confirms?|validates?|endorses?|proves?)\s+(TIG|Z\s*\/?\s*10\s*Z|the\s+substrate|T\*|the\s+4-core)",
      "empirical-confirmation claim without citation"),
     # "the substrate IS reality"
-    (r"\bthe\s+substrate\s+is\s+(reality|the\s+universe|physical|consciousness)\b",
+    (r"\bthe\s+substrate\s+is\s+(reality|the\s+universe|physical(?:\s+reality)?|consciousness)\b",
      "substrate-reality conflation"),
 ]
 
