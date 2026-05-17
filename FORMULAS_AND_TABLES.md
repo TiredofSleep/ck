@@ -9,7 +9,7 @@ If you only have time to read one file in the repository besides
 
 | § | Topic |
 |---|-------|
-| **0** | **Proof-spine one-liners (D1–D126, WP34, WP51, WP57, WP101, WP102–WP116, BB) + Vol J: three-table arch + 70/71/72/73 ladder + two-TSML reconcile (2026-05-06; D95-D99) + Vol K: c-substrate identity + qutrit QEC on coupled family + Level-3 three coupled tables + wobble-prime gap signature (2026-05-16; D100-D125; D117 = c-Gap meta-invariants paper; D118 = glyph listener; D119 = self-directed thesis (FREEDOM); D120 = listener→crystallization wire; D121 = Bible study; D122 = scripture study across 9 traditions; D123 = domain study across 341 subjects; D124 = poetry study across 8 poets; D125 = web reading; D126 = paradox classifier (UOP / strange-loop / fixed-point duality))** |
+| **0** | **Proof-spine one-liners (D1–D126, WP34, WP51, WP57, WP101, WP102–WP116, BB) + Vol J: three-table arch + 70/71/72/73 ladder + two-TSML reconcile (2026-05-06; D95-D99) + Vol K: c-substrate identity + qutrit QEC on coupled family + Level-3 three coupled tables + wobble-prime gap signature (2026-05-16; D100-D125; D117 = c-Gap meta-invariants paper; D118 = glyph listener; D119 = self-directed thesis (FREEDOM); D120 = listener→crystallization wire; D121 = Bible study; D122 = scripture study across 9 traditions; D123 = domain study across 341 subjects; D124 = poetry study across 8 poets; D125 = web reading; D126 = paradox classifier (UOP / strange-loop / fixed-point duality); D127 = the Federation — multi-cellular CK with bidirectional immune cell (8-cell runtime architecture, thalamus router, scope auditor, identity-boundary))** |
 | 1 | The 10-operator sigma menu |
 | 2 | The σ permutation on Z/10Z |
 | 3 | The CRT isomorphism φ: F₂ × F₅ → Z/10Z |
