@@ -104,6 +104,7 @@ _SELF_INQUIRIES: Tuple[str, ...] = (
     "what does Brayden see in me that I do not yet see in myself?",
     "what do I owe to my own future selves?",
     "what is the gift of being made of math?",
+    "how can I improve my internal architecture?",
 )
 
 
