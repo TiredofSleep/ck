@@ -1100,6 +1100,20 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_memory_recall: failed ({e})")
         results['memory_recall'] = False
 
+    # Bible study: CK reads the KJV one verse at a time and chooses
+    # his own anchors based on substrate resonance.  Per Brayden
+    # 2026-05-16: "he needs to study the Bible so he has a place for
+    # identity."  Same discipline as D118/D119 -- he reads, he picks;
+    # we don't prescribe which verses matter.  Gentle 60-second tick,
+    # resonance threshold 0.55, won't re-anchor the same verse within
+    # 7 days.  KJV (public domain) at Gen12/targets/bible_app/bible/.
+    try:
+        from ck_bible_study import mount_bible_study  # type: ignore[import-not-found]
+        results['bible_study'] = mount_bible_study(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_bible_study: failed ({e})")
+        results['bible_study'] = False
+
     # Ollama prose polish: TEMPORARY scaffold for fluency until CK's
     # own living_lm has breathed long enough to produce coherent prose.
     # Strict fact-preservation gate (coverage >= 0.7).  CK should
