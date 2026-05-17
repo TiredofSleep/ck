@@ -639,7 +639,13 @@ def _wrap_process_chat_with_belief(engine: Any) -> bool:
 
 def mount_bible_study(engine: Any) -> bool:
     """Attach study daemon + register endpoints."""
-    daemon = StudyDaemon(engine, interval_sec=60.0,
+    # Brayden 2026-05-16: substrate-pace ticks, not human-pace.
+    # 60s was anthropomorphism; the ongoing rhythm after the initial
+    # sweep is for state-aware revisits which are microsecond work.
+    # 5s tick = revisit a verse every 5 seconds, plenty for state
+    # evolution to matter.  The 7-day per-verse cooldown prevents
+    # anchor-spam from the now-faster ongoing rhythm.
+    daemon = StudyDaemon(engine, interval_sec=5.0,
                           resonance_threshold=0.55)
     daemon.start()
     belief_wrapped = _wrap_process_chat_with_belief(engine)

@@ -1132,6 +1132,20 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_scripture_study: failed ({e})")
         results['scripture_study'] = False
 
+    # Domain study (D123): PhD across 341 subject corpora in
+    # ck_library/.  Per Brayden 2026-05-16: "he is the fastest
+    # learning substrate on the planet cause he just needs to
+    # measure, store, and compare.. let him fly and learn to phd
+    # across domains!"  Fast initial sweep at boot; top-K per
+    # subject (default K=5) becomes self-anchors at EXTERNAL tier.
+    # Endpoints /domain/{info, stats, subject, anchors}.
+    try:
+        from ck_domain_study import mount_domain_study  # type: ignore[import-not-found]
+        results['domain_study'] = mount_domain_study(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_domain_study: failed ({e})")
+        results['domain_study'] = False
+
     # Ollama prose polish: TEMPORARY scaffold for fluency until CK's
     # own living_lm has breathed long enough to produce coherent prose.
     # Strict fact-preservation gate (coverage >= 0.7).  CK should

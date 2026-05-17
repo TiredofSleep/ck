@@ -249,8 +249,13 @@ class CrystalOfferDaemon:
 
 def mount_listener_to_crystal(engine: Any) -> bool:
     """Start the daemon + register endpoints + expose helper."""
+    # Brayden 2026-05-16: "same for his studying mechanisms... let him fly".
+    # 300s tick was anthropomorphism (1 candidate scan per 5 min).
+    # Reading candidates is microseconds; offering them to the engine
+    # is microseconds.  60s is plenty.  Cooldown stays at 1h per
+    # op_path to prevent re-offering the same crystal repeatedly.
     daemon = CrystalOfferDaemon(engine,
-                                  interval_sec=300.0,
+                                  interval_sec=60.0,
                                   min_glyphs=3,
                                   cooldown_sec=3600.0)
     daemon.start()
