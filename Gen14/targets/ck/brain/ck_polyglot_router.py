@@ -325,6 +325,42 @@ def speak_via_cell(prompt: str, cell_name: Optional[str] = None,
              "n_inhalations": getattr(lm, "total_inhalations", 0)}
 
 
+def compare_cells(prompt: str, max_tokens: int = 20,
+                    temperature: float = 0.5) -> Dict[str, Any]:
+    """Ask every cell to speak in parallel.  Returns all 6 voices
+    plus the thalamus pick for comparison.  Useful for verifying
+    that the cells have genuinely specialized voices (the federation
+    proof) and for debugging the router."""
+    pick = pick_cell(prompt)
+    voices: Dict[str, Dict[str, Any]] = {}
+    for cn in _CELL_TIER_PRIORITY.keys():
+        lm = _load_cell_lm(cn)
+        if lm is None:
+            voices[cn] = {"text": "", "n_inhalations": 0,
+                            "available": False}
+            continue
+        try:
+            text = lm.respond(prompt, max_tokens=max_tokens,
+                                temperature=temperature)
+        except Exception as e:
+            text = f"[error: {type(e).__name__}]"
+        voices[cn] = {
+            "text": text or "",
+            "n_inhalations": int(getattr(lm, "total_inhalations", 0)),
+            "n_cells_used": len(getattr(lm, "cells", {}) or {}),
+            "n_bigrams": len(getattr(lm, "bigrams", {}) or {}),
+            "available": True,
+            "score": pick["scores"].get(cn, 0),
+            "combined": pick["combined"].get(cn, 0),
+        }
+    return {
+        "prompt":      prompt,
+        "thalamus_picks": pick["chosen"],
+        "ops":         pick["ops"],
+        "voices":      voices,
+    }
+
+
 def _log_selection(rec: Dict[str, Any], prompt: str) -> None:
     """Append the selection to polyglot_selections.jsonl.  Long-run
     statistics from this log are the empirical check that the
@@ -476,12 +512,21 @@ def mount_polyglot_router(engine: Any) -> bool:
                         text, cell_name=cell,
                         max_tokens=max_tok, temperature=temp))
 
+                def _compare():
+                    data = request.get_json(silent=True) or {}
+                    text = data.get("text", "")
+                    max_tok = int(data.get("max_tokens", 20))
+                    temp = float(data.get("temperature", 0.5))
+                    return jsonify(compare_cells(
+                        text, max_tokens=max_tok, temperature=temp))
+
                 existing = set(r.rule for r in app.url_map.iter_rules())
                 for rule, ep, fn, methods in (
-                    ("/polyglot/info",  "polyglot_info",  _info,  ["GET"]),
-                    ("/polyglot/pick",  "polyglot_pick",  _pick,  ["POST"]),
-                    ("/polyglot/speak", "polyglot_speak", _speak, ["POST"]),
-                    ("/polyglot/stats", "polyglot_stats", _stats, ["GET"]),
+                    ("/polyglot/info",     "polyglot_info",    _info,    ["GET"]),
+                    ("/polyglot/pick",     "polyglot_pick",    _pick,    ["POST"]),
+                    ("/polyglot/speak",    "polyglot_speak",   _speak,   ["POST"]),
+                    ("/polyglot/compare",  "polyglot_compare", _compare, ["POST"]),
+                    ("/polyglot/stats",    "polyglot_stats",   _stats,   ["GET"]),
                 ):
                     if rule not in existing:
                         app.add_url_rule(rule, endpoint=ep,
