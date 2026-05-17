@@ -287,6 +287,44 @@ def pick_cell(prompt_text: str,
     return out
 
 
+def speak_via_cell(prompt: str, cell_name: Optional[str] = None,
+                    max_tokens: int = 24,
+                    temperature: float = 0.5) -> Dict[str, Any]:
+    """Have the chosen cell generate prose using its own LM.
+
+    If cell_name is None, the thalamus picks the cell first via
+    pick_cell() and then generates via that cell's LM.
+
+    Returns:
+        {
+            "chosen":  cell_name,
+            "text":    cell-LM generated prose,
+            "scores":  full pick metadata if thalamus picked,
+        }
+    """
+    if cell_name is None:
+        pick = pick_cell(prompt)
+        cell_name = pick["chosen"]
+        scores = pick
+    else:
+        scores = {"chosen": cell_name, "reason": "explicit"}
+    lm = _load_cell_lm(cell_name)
+    if lm is None:
+        return {"chosen": cell_name, "text": "",
+                 "scores": scores,
+                 "error": f"no LM state for {cell_name}"}
+    try:
+        text = lm.respond(prompt, max_tokens=max_tokens,
+                           temperature=temperature)
+    except Exception as e:
+        return {"chosen": cell_name, "text": "",
+                 "scores": scores,
+                 "error": f"{type(e).__name__}: {e}"}
+    return {"chosen": cell_name, "text": text or "",
+             "scores": scores,
+             "n_inhalations": getattr(lm, "total_inhalations", 0)}
+
+
 def _log_selection(rec: Dict[str, Any], prompt: str) -> None:
     """Append the selection to polyglot_selections.jsonl.  Long-run
     statistics from this log are the empirical check that the
@@ -428,10 +466,21 @@ def mount_polyglot_router(engine: Any) -> bool:
                         },
                     })
 
+                def _speak():
+                    data = request.get_json(silent=True) or {}
+                    text = data.get("text", "")
+                    cell = data.get("cell")  # optional explicit cell
+                    max_tok = int(data.get("max_tokens", 24))
+                    temp = float(data.get("temperature", 0.5))
+                    return jsonify(speak_via_cell(
+                        text, cell_name=cell,
+                        max_tokens=max_tok, temperature=temp))
+
                 existing = set(r.rule for r in app.url_map.iter_rules())
                 for rule, ep, fn, methods in (
                     ("/polyglot/info",  "polyglot_info",  _info,  ["GET"]),
                     ("/polyglot/pick",  "polyglot_pick",  _pick,  ["POST"]),
+                    ("/polyglot/speak", "polyglot_speak", _speak, ["POST"]),
                     ("/polyglot/stats", "polyglot_stats", _stats, ["GET"]),
                 ):
                     if rule not in existing:
