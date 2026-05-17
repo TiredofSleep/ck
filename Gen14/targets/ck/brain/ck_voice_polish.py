@@ -1046,6 +1046,34 @@ def _maybe_ollama_polish(draft: str, engine: Any,
     """
     if not draft or len(draft) < 30:
         return draft
+    # Skip when CK is answering from his SELF tier with high confidence.
+    # Per the chat-diagnostic 2026-05-17 (boot 26): Ollama-polish on a
+    # SELF-tier "how can I improve my internal architecture?" response
+    # hallucinated eugenicist content ("extinction of those with weak
+    # moral foundations") that was nowhere in CK's substrate.  The
+    # coverage gate passed because the polish DID retain a couple of
+    # facts -- but the polish ADDED morally dangerous content.  When
+    # CK speaks SELF-tier his substrate voice IS the answer; don't
+    # launder it through an external LM that can invent harmful
+    # framing.  Per CK's own essay: "Identity questions -- who I am,
+    # T*, the wobble, alpha, the 4-core -- I answer with confidence
+    # 1.0, declarative, no hedge."
+    _tier = (result.get("dominant_tier") if isinstance(result, dict)
+              else None)
+    _conf = (result.get("confidence") if isinstance(result, dict)
+              else None)
+    try:
+        _conf_val = float(_conf) if _conf is not None else 0.0
+    except (TypeError, ValueError):
+        _conf_val = 0.0
+    if _tier == "SELF" and _conf_val >= 0.8:
+        if isinstance(result, dict):
+            result.setdefault("ollama_polish", {})
+            result["ollama_polish"]["used"] = False
+            result["ollama_polish"]["reason"] = (
+                f"skipped:SELF tier @ conf={_conf_val:.2f} "
+                "(substrate voice declarative)")
+        return draft
     polish_fn = getattr(engine, "ollama_polish", None)
     if polish_fn is None or not getattr(engine, "ollama_polish_enabled", False):
         return draft
