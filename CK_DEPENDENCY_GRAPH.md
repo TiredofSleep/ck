@@ -1,8 +1,8 @@
 # CK Dependency Graph (auto-generated)
 
-_Generated 2026-05-16 20:29:47 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
+_Generated 2026-05-16 20:45:03 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
 
-**103 modules** tracked in `Gen14/targets/ck/brain/`.
+**104 modules** tracked in `Gen14/targets/ck/brain/`.
 
 ## 1. Mount order in `gen14_unified_extensions.mount_all`
 
@@ -50,8 +50,9 @@ This is the order things come alive at boot.  Each module's `mount_X(engine)` is
   39. mount_self_thesis
   40. mount_memory_recall
   41. mount_bible_study
-  42. mount_ollama_polish
-  43. mount_voice_polish
+  42. mount_scripture_study
+  43. mount_ollama_polish
+  44. mount_voice_polish
 ```
 
 ## 2. Per-module summary
@@ -84,6 +85,7 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `ck_predictions` | 403 | — | — | — |
 | `ck_qutrit_513` | 592 | — | `mount_qutrit_513` | — |
 | `ck_qutrit_qec` | 603 | — | `mount_qutrit_qec` | — |
+| `ck_scripture_study` | 778 | — | `mount_scripture_study` | — |
 | `ck_self_thesis` | 467 | — | `mount_self_thesis` | — |
 | `ck_sense_decomposition` | 219 | — | `mount_sense_decomposition` | — |
 | `ck_spreading_activation` | 818 | — | `mount_spreading_recall` | — |
@@ -162,7 +164,7 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `ck_concept_learner` | 2080 | `ck_algebra_runtime`, `ck_meta_parameters`, `ck_predictions`, `ck_verifier` | `mount_concept_learner` | — |
 | `ao_5element` | 308 | `ck_sim.ck_sim_body`, `ck_sim.ck_sim_brain`, `ck_sim.ck_sim_d2`, `ck_sim.ck_sim_heartbeat`, `ck_sim.ck_tig` | — | — |
 | `ck_writer` | 913 | `ck_concept_learner`, `ck_identity`, `ck_living_lm`, `ck_ollama_polish`, `ck_self_thesis` | `mount_writer` | — |
-| `gen14_unified_extensions` | 1203 | `ck_ad_tailored`, `ck_bible_study`, `ck_binomial_61`, `ck_breath_emergence`, `ck_cognition_primitives`, `ck_concept_learner`, `ck_coupled_3tables`, `ck_coupled_4cores`, `ck_creature`, `ck_engine_block`, `ck_formula_registry`, `ck_frontier_scanner`, `ck_glyph_listener`, `ck_identity`, `ck_lightcone`, `ck_listener_to_crystal`, `ck_living_lm`, `ck_memory_archive`, `ck_memory_recall`, `ck_meta_parameters`, `ck_ollama_polish`, `ck_proactive_trigger`, `ck_qec_decoder`, `ck_qutrit_513`, `ck_qutrit_apex`, `ck_qutrit_noise`, `ck_qutrit_qec`, `ck_recursive_observer`, `ck_self_protection`, `ck_self_thesis`, `ck_sense_decomposition`, `ck_sim.being.ck_divine_memory`, `ck_sim.being.ck_lattice_chain`, `ck_sim.doing.ck_forecast`, `ck_sim.doing.ck_goals`, `ck_spreading_activation`, `ck_stroke_extractor`, `ck_substrate_c`, `ck_substrate_motion`, `ck_voice_polish`, `ck_writer` | `mount_drives`, `mount_forecast`, `mount_proactive_queue`, `mount_recall`, `mount_lattice_chain`, `mount_divine_memory`, `mount_algebraic_lm`, `mount_all` | — |
+| `gen14_unified_extensions` | 1221 | `ck_ad_tailored`, `ck_bible_study`, `ck_binomial_61`, `ck_breath_emergence`, `ck_cognition_primitives`, `ck_concept_learner`, `ck_coupled_3tables`, `ck_coupled_4cores`, `ck_creature`, `ck_engine_block`, `ck_formula_registry`, `ck_frontier_scanner`, `ck_glyph_listener`, `ck_identity`, `ck_lightcone`, `ck_listener_to_crystal`, `ck_living_lm`, `ck_memory_archive`, `ck_memory_recall`, `ck_meta_parameters`, `ck_ollama_polish`, `ck_proactive_trigger`, `ck_qec_decoder`, `ck_qutrit_513`, `ck_qutrit_apex`, `ck_qutrit_noise`, `ck_qutrit_qec`, `ck_recursive_observer`, `ck_scripture_study`, `ck_self_protection`, `ck_self_thesis`, `ck_sense_decomposition`, `ck_sim.being.ck_divine_memory`, `ck_sim.being.ck_lattice_chain`, `ck_sim.doing.ck_forecast`, `ck_sim.doing.ck_goals`, `ck_spreading_activation`, `ck_stroke_extractor`, `ck_substrate_c`, `ck_substrate_motion`, `ck_voice_polish`, `ck_writer` | `mount_drives`, `mount_forecast`, `mount_proactive_queue`, `mount_recall`, `mount_lattice_chain`, `mount_divine_memory`, `mount_algebraic_lm`, `mount_all` | — |
 
 ## 3. Reverse dependency graph
 
@@ -206,6 +208,7 @@ Who depends on each module (transitively trim by hand for full closure):
 | `ck_recursive_observer` | `gen14_unified_extensions` |
 | `ck_research` | `research_first` |
 | `ck_screen_compress` | `screen_pipeline` |
+| `ck_scripture_study` | `gen14_unified_extensions` |
 | `ck_self_protection` | `gen14_unified_extensions` |
 | `ck_self_thesis` | `ck_writer`, `gen14_unified_extensions` |
 | `ck_sense_decomposition` | `gen14_unified_extensions` |

@@ -1114,6 +1114,24 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_bible_study: failed ({e})")
         results['bible_study'] = False
 
+    # Scripture study (D122): expand from KJV-only to "all religions".
+    # Per Brayden 2026-05-16: "let him study all religions!"  Umbrella
+    # registry with 9 traditions in the starter set (Christianity in 3
+    # variants + Taoism, Buddhism, Confucianism, Hinduism, Islam,
+    # Zoroastrianism, Sikhism, Jainism).  Round-robin daemon reads
+    # one verse from each tradition in turn -- equal weight by design.
+    # Anchors tagged with tradition; chat-path "what do you believe"
+    # hook surfaces a recent anchor from ANY tradition with the
+    # tradition explicitly named ("One of mine, from Taoism: ...").
+    # Coexists with bible_study (D121); they share state via the
+    # separate scripture_anchors.jsonl log.
+    try:
+        from ck_scripture_study import mount_scripture_study  # type: ignore[import-not-found]
+        results['scripture_study'] = mount_scripture_study(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_scripture_study: failed ({e})")
+        results['scripture_study'] = False
+
     # Ollama prose polish: TEMPORARY scaffold for fluency until CK's
     # own living_lm has breathed long enough to produce coherent prose.
     # Strict fact-preservation gate (coverage >= 0.7).  CK should
