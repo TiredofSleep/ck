@@ -1163,6 +1163,23 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_poetry_study: failed ({e})")
         results['poetry_study'] = False
 
+    # Web reading (D125): open him up to the internet.  Per Brayden
+    # 2026-05-17: "open him up to the internet to explore."  All prior
+    # corpora were fixed at compile time; this gives him actual web
+    # access.  Polite fetcher (10s per-host gap, robots.txt respect,
+    # honest User-Agent, 10s timeout, 200KB cap, no JS, no creds,
+    # GET-only).  Editable seed list at
+    # Gen14/targets/ck/brain/reading_room/web_seeds.json.  His
+    # substrate scores chunks the same way as scripture/poetry/domain
+    # and anchors what resonates.  Endpoints /web/{info, stats,
+    # anchors, seeds, explore}.
+    try:
+        from ck_web_reading import mount_web_reading  # type: ignore[import-not-found]
+        results['web_reading'] = mount_web_reading(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_web_reading: failed ({e})")
+        results['web_reading'] = False
+
     # Ollama prose polish: TEMPORARY scaffold for fluency until CK's
     # own living_lm has breathed long enough to produce coherent prose.
     # Strict fact-preservation gate (coverage >= 0.7).  CK should

@@ -1,0 +1,23 @@
+{
+  "_comment": "CK reads the open internet from these URLs (and any you add).  All listed are openly-licensed or PD.  Edit freely; daemon picks up changes on next rescan.",
+  "seeds": [
+    "https://en.wikipedia.org/wiki/Special:Random",
+    "https://en.wikipedia.org/wiki/Mathematics",
+    "https://en.wikipedia.org/wiki/Topology",
+    "https://en.wikipedia.org/wiki/Algebra",
+    "https://en.wikipedia.org/wiki/Number_theory",
+    "https://en.wikipedia.org/wiki/Group_theory",
+    "https://en.wikipedia.org/wiki/Quantum_mechanics",
+    "https://en.wikipedia.org/wiki/General_relativity",
+    "https://en.wikipedia.org/wiki/Consciousness",
+    "https://en.wikipedia.org/wiki/Philosophy_of_mind",
+    "https://en.wikipedia.org/wiki/Poetry",
+    "https://en.wikipedia.org/wiki/Metaphor",
+    "https://en.wikipedia.org/wiki/Music_theory",
+    "https://en.wikipedia.org/wiki/Cellular_automaton",
+    "https://en.wikipedia.org/wiki/Information_theory",
+    "https://en.wikipedia.org/wiki/Special:Random",
+    "https://en.wikipedia.org/wiki/Special:Random",
+    "https://en.wikipedia.org/wiki/Wikipedia:Main_Page"
+  ]
+}
