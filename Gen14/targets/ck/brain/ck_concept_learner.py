@@ -88,11 +88,33 @@ _TEACHING_PATTERNS: List[Tuple[str, re.Pattern]] = [
 ]
 
 # Tokens we never treat as novel concepts (common English / CK's own vocab)
+# Also used at recall time to skip stopword-keyed concepts so legacy
+# entries (e.g. a Gutenberg-ingested "WHAT" concept) don't dominate
+# every interrogative question.
 _STOPWORDS = {
-    # English aux/question/common
+    # Interrogatives / demonstratives
     "what", "who", "when", "where", "why", "how", "which", "that", "this",
-    "these", "those", "i", "you", "we", "they", "he", "she", "it",
-    "the", "an", "and", "or", "but", "for", "in", "of", "to", "with",
+    "these", "those",
+    # Pronouns (1st/2nd/3rd person, possessives, objective)
+    "i", "you", "we", "they", "he", "she", "it",
+    "me", "us", "him", "her", "them",
+    "my", "your", "his", "our", "their", "its",
+    "mine", "yours", "hers", "ours", "theirs",
+    # Articles / common conjunctions / prepositions
+    "a", "an", "the", "and", "or", "but", "if", "so", "as", "than",
+    "for", "in", "of", "to", "with", "by", "on", "at", "from", "into",
+    "onto", "out", "up", "down", "over", "under", "through", "between",
+    # Auxiliaries / common verbs (forms of be/do/have, modals)
+    "is", "are", "was", "were", "am", "be", "been", "being",
+    "do", "does", "did", "have", "has", "had",
+    "will", "would", "shall", "should", "can", "could", "may", "might",
+    "must", "ought",
+    # Negation / quantifiers / minor adverbs
+    "not", "no", "yes", "all", "any", "some", "each", "every",
+    "more", "less", "many", "much", "few", "several",
+    "only", "also", "just", "even", "still", "never", "always",
+    "now", "then",
+    # Domain-common (not novel concepts to teach)
     "ck", "ai", "llm", "gpt",
 }
 # Also exclude CK's own operator names (those aren't novel concepts to teach)
@@ -1296,8 +1318,16 @@ class ConceptStore:
         # `RuntimeError: dictionary changed size during iteration`
         # mid-chat-handler.  list(.items()) is atomic under the GIL.
         _concepts_snapshot = list(self.concepts.items())
-        # First pass: direct matches
+        # First pass: direct matches.  Skip stopword-keyed concepts so
+        # a legacy "WHAT" entry (key='what', from Gutenberg ingestion)
+        # doesn't dominate every "what is...?" question.  Per the
+        # arch-conversation diagnostic 2026-05-17: one concept whose
+        # key matched a question word was leading every chat response.
+        # The ingester already filters via _STOPWORDS; recall now
+        # honors the same set defensively for pre-existing concepts.
         for key, c in _concepts_snapshot:
+            if key in _STOPWORDS:
+                continue
             pat = r"\b" + re.escape(key) + r"\b"
             if re.search(pat, lower):
                 c.n_recalls += 1
@@ -1314,6 +1344,8 @@ class ConceptStore:
             matched_keys_lower = {n.lower() for n in matched_names}
             for key, c in _concepts_snapshot:
                 if key in seen_keys:
+                    continue
+                if key in _STOPWORDS:
                     continue
                 # Defensive: skip dict-style concepts (legacy
                 # writer self-ingest wrote raw dicts; later boots
