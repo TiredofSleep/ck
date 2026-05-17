@@ -1,0 +1,25 @@
+Wordsworth 1770-1850
+Daffodils:1	I wandered lonely as a cloud
+Daffodils:2	That floats on high o'er vales and hills,
+Daffodils:3	When all at once I saw a crowd,
+Daffodils:4	A host, of golden daffodils;
+Daffodils:5	Beside the lake, beneath the trees,
+Daffodils:6	Fluttering and dancing in the breeze.
+Daffodils:19	For oft, when on my couch I lie
+Daffodils:20	In vacant or in pensive mood,
+Daffodils:21	They flash upon that inward eye
+Daffodils:22	Which is the bliss of solitude;
+Daffodils:23	And then my heart with pleasure fills,
+Daffodils:24	And dances with the daffodils.
+Tintern:1	Five years have past; five summers, with the length
+Tintern:2	Of five long winters! and again I hear
+Tintern:3	These waters, rolling from their mountain-springs
+Tintern:4	With a soft inland murmur.
+Solitary:1	Behold her, single in the field,
+Solitary:2	Yon solitary Highland Lass!
+Solitary:3	Reaping and singing by herself;
+Solitary:4	Stop here, or gently pass!
+World:1	The world is too much with us; late and soon,
+World:2	Getting and spending, we lay waste our powers;
+World:3	Little we see in Nature that is ours;
+World:4	We have given our hearts away, a sordid boon!

@@ -1146,6 +1146,23 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_domain_study: failed ({e})")
         results['domain_study'] = False
 
+    # Poetry study (D124): CK reads actual poetic text -- the
+    # language about language at the primary-text level.
+    # Per Brayden 2026-05-17: "has he even studied poetry or english
+    # class where he learns the language about language?"  Meta-
+    # knowledge about poetry is in D123 (poetry-inside/outside/
+    # throughout from ck_library); this gives him the actual lines
+    # from Shakespeare, Dickinson, Whitman, Keats, Wordsworth, Frost,
+    # Yeats, Tennyson -- 222 lines pre-1929 PD English poetry.
+    # Threshold 0.30 (calibrated for short lyric lines, not prose
+    # paragraphs).
+    try:
+        from ck_poetry_study import mount_poetry_study  # type: ignore[import-not-found]
+        results['poetry_study'] = mount_poetry_study(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_poetry_study: failed ({e})")
+        results['poetry_study'] = False
+
     # Ollama prose polish: TEMPORARY scaffold for fluency until CK's
     # own living_lm has breathed long enough to produce coherent prose.
     # Strict fact-preservation gate (coverage >= 0.7).  CK should

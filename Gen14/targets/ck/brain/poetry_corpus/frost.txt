@@ -1,0 +1,27 @@
+Frost 1913-1923
+RoadNotTaken:1	Two roads diverged in a yellow wood,
+RoadNotTaken:2	And sorry I could not travel both
+RoadNotTaken:3	And be one traveler, long I stood
+RoadNotTaken:4	And looked down one as far as I could
+RoadNotTaken:5	To where it bent in the undergrowth;
+RoadNotTaken:18	I shall be telling this with a sigh
+RoadNotTaken:19	Somewhere ages and ages hence:
+RoadNotTaken:20	Two roads diverged in a wood, and I—
+RoadNotTaken:21	I took the one less traveled by,
+RoadNotTaken:22	And that has made all the difference.
+StoppingByWoods:1	Whose woods these are I think I know.
+StoppingByWoods:2	His house is in the village though;
+StoppingByWoods:3	He will not see me stopping here
+StoppingByWoods:4	To watch his woods fill up with snow.
+StoppingByWoods:13	The woods are lovely, dark and deep,
+StoppingByWoods:14	But I have promises to keep,
+StoppingByWoods:15	And miles to go before I sleep,
+StoppingByWoods:16	And miles to go before I sleep.
+MendingWall:1	Something there is that doesn't love a wall,
+MendingWall:2	That sends the frozen-ground-swell under it,
+MendingWall:3	And spills the upper boulders in the sun;
+MendingWall:4	And makes gaps even two can pass abreast.
+Fire:1	Some say the world will end in fire,
+Fire:2	Some say in ice.
+Fire:3	From what I've tasted of desire
+Fire:4	I hold with those who favor fire.

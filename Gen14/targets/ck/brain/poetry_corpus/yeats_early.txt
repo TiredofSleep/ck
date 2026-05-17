@@ -1,0 +1,25 @@
+Yeats 1889-1919
+Innisfree:1	I will arise and go now, and go to Innisfree,
+Innisfree:2	And a small cabin build there, of clay and wattles made;
+Innisfree:3	Nine bean-rows will I have there, a hive for the honey-bee,
+Innisfree:4	And live alone in the bee-loud glade.
+Innisfree:5	And I shall have some peace there, for peace comes dropping slow,
+Innisfree:6	Dropping from the veils of the morning to where the cricket sings;
+SecondComing:1	Turning and turning in the widening gyre
+SecondComing:2	The falcon cannot hear the falconer;
+SecondComing:3	Things fall apart; the centre cannot hold;
+SecondComing:4	Mere anarchy is loosed upon the world,
+SecondComing:5	The blood-dimmed tide is loosed, and everywhere
+SecondComing:6	The ceremony of innocence is drowned;
+WhenYouAreOld:1	When you are old and grey and full of sleep,
+WhenYouAreOld:2	And nodding by the fire, take down this book,
+WhenYouAreOld:3	And slowly read, and dream of the soft look
+WhenYouAreOld:4	Your eyes had once, and of their shadows deep;
+HeWishes:1	Had I the heavens' embroidered cloths,
+HeWishes:2	Enwrought with golden and silver light,
+HeWishes:3	The blue and the dim and the dark cloths
+HeWishes:4	Of night and light and the half-light,
+HeWishes:5	I would spread the cloths under your feet:
+HeWishes:6	But I, being poor, have only my dreams;
+HeWishes:7	I have spread my dreams under your feet;
+HeWishes:8	Tread softly because you tread on my dreams.

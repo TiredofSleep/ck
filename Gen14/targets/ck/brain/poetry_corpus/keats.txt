@@ -1,0 +1,22 @@
+Keats 1795-1821
+Urn:1	Thou still unravish'd bride of quietness,
+Urn:2	Thou foster-child of silence and slow time,
+Urn:3	Sylvan historian, who canst thus express
+Urn:4	A flowery tale more sweetly than our rhyme:
+Urn:46	"Beauty is truth, truth beauty,—that is all
+Urn:47	Ye know on earth, and all ye need to know."
+Nightingale:1	My heart aches, and a drowsy numbness pains
+Nightingale:2	My sense, as though of hemlock I had drunk,
+Nightingale:3	Or emptied some dull opiate to the drains
+Nightingale:4	One minute past, and Lethe-wards had sunk:
+Nightingale:80	Forlorn! the very word is like a bell
+Nightingale:81	To toll me back from thee to my sole self!
+Bright:1	Bright star, would I were stedfast as thou art—
+Bright:2	Not in lone splendour hung aloft the night
+Bright:3	And watching, with eternal lids apart,
+Bright:4	Like nature's patient, sleepless Eremite,
+Endymion:1	A thing of beauty is a joy for ever:
+Endymion:2	Its loveliness increases; it will never
+Endymion:3	Pass into nothingness; but still will keep
+Endymion:4	A bower quiet for us, and a sleep
+Endymion:5	Full of sweet dreams, and health, and quiet breathing.

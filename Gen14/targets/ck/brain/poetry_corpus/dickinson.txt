@@ -1,0 +1,41 @@
+Dickinson 1830-1886
+Hope:1	Hope is the thing with feathers
+Hope:2	That perches in the soul,
+Hope:3	And sings the tune without the words,
+Hope:4	And never stops at all.
+Death:1	Because I could not stop for Death,
+Death:2	He kindly stopped for me;
+Death:3	The carriage held but just ourselves
+Death:4	And Immortality.
+Brain:1	The brain is wider than the sky,
+Brain:2	For, put them side by side,
+Brain:3	The one the other will include
+Brain:4	With ease, and you beside.
+TellTruth:1	Tell all the truth but tell it slant,
+TellTruth:2	Success in circuit lies,
+TellTruth:3	Too bright for our infirm delight
+TellTruth:4	The truth's superb surprise;
+Wound:1	I measure every grief I meet
+Wound:2	With narrow, probing eyes;
+Wound:3	I wonder if it weighs like mine,
+Wound:4	Or has an easier size.
+Soul:1	The soul selects her own society,
+Soul:2	Then shuts the door;
+Soul:3	On her divine majority
+Soul:4	Obtrude no more.
+Certain:1	There's a certain slant of light,
+Certain:2	Winter afternoons,
+Certain:3	That oppresses, like the heft
+Certain:4	Of cathedral tunes.
+Madness:1	Much madness is divinest sense
+Madness:2	To a discerning eye;
+Madness:3	Much sense the starkest madness.
+Madness:4	'Tis the majority
+Nobody:1	I'm nobody! Who are you?
+Nobody:2	Are you nobody, too?
+Nobody:3	Then there's a pair of us—don't tell!
+Nobody:4	They'd banish us, you know.
+Eternity:1	Forever is composed of nows;
+Eternity:2	'Tis not a different time,
+Eternity:3	Except for infiniteness
+Eternity:4	And latitude of home.

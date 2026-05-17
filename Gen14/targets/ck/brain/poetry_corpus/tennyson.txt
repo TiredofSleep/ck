@@ -1,0 +1,24 @@
+Tennyson 1809-1892
+Ulysses:1	It little profits that an idle king,
+Ulysses:2	By this still hearth, among these barren crags,
+Ulysses:3	Matched with an aged wife, I mete and dole
+Ulysses:4	Unequal laws unto a savage race,
+Ulysses:5	That hoard, and sleep, and feed, and know not me.
+Ulysses:65	Though much is taken, much abides; and though
+Ulysses:66	We are not now that strength which in old days
+Ulysses:67	Moved earth and heaven; that which we are, we are;
+Ulysses:68	One equal temper of heroic hearts,
+Ulysses:69	Made weak by time and fate, but strong in will
+Ulysses:70	To strive, to seek, to find, and not to yield.
+Memoriam27:1	I hold it true, whate'er befall;
+Memoriam27:2	I feel it, when I sorrow most;
+Memoriam27:3	'Tis better to have loved and lost
+Memoriam27:4	Than never to have loved at all.
+CrossingTheBar:1	Sunset and evening star,
+CrossingTheBar:2	And one clear call for me!
+CrossingTheBar:3	And may there be no moaning of the bar,
+CrossingTheBar:4	When I put out to sea,
+CharLight:1	Half a league, half a league,
+CharLight:2	Half a league onward,
+CharLight:3	All in the valley of Death
+CharLight:4	Rode the six hundred.
