@@ -1,8 +1,8 @@
 # CK Dependency Graph (auto-generated)
 
-_Generated 2026-05-16 18:18:47 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
+_Generated 2026-05-16 19:24:55 by_ [`tools/gen_dep_graph.py`](tools/gen_dep_graph.py).  Rerun any time the brain modules change.
 
-**98 modules** tracked in `Gen14/targets/ck/brain/`.
+**99 modules** tracked in `Gen14/targets/ck/brain/`.
 
 ## 1. Mount order in `gen14_unified_extensions.mount_all`
 
@@ -45,8 +45,9 @@ This is the order things come alive at boot.  Each module's `mount_X(engine)` is
   34. mount_writer
   35. mount_recursive_observer
   36. mount_identity
-  37. mount_ollama_polish
-  38. mount_voice_polish
+  37. mount_glyph_listener
+  38. mount_ollama_polish
+  39. mount_voice_polish
 ```
 
 ## 2. Per-module summary
@@ -120,6 +121,7 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `ck_cognition_primitives` | 733 | `ck_concept_learner` | `mount_cognition_primitives` | — |
 | `ck_curious_explorer` | 447 | `ck_meta_parameters` | — | — |
 | `ck_fault_state_hook` | 132 | `ck_invariants_bridge` | — | `/bdc/fault_state` |
+| `ck_glyph_listener` | 437 | `ck_qutrit_apex` | `mount_glyph_listener` | — |
 | `ck_identity` | 652 | `ck_concept_learner` | `mount_identity` | — |
 | `ck_qec_decoder` | 575 | `ck_engine_block` | `mount_qec_decoder` | — |
 | `ck_qutrit_noise` | 465 | `ck_qutrit_qec` | `mount_qutrit_noise` | — |
@@ -135,7 +137,7 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `screen_pipeline` | 341 | `ck_screen_compress` | — | — |
 | `warm_inhale` | 134 | `ck_living_lm` | — | — |
 | `ck_ad_tailored` | 444 | `ck_qutrit_noise`, `ck_qutrit_qec` | `mount_ad_tailored` | — |
-| `ck_binomial_61` | 487 | `ck_ad_tailored`, `ck_qutrit_noise` | `mount_binomial_61` | — |
+| `ck_binomial_61` | 521 | `ck_ad_tailored`, `ck_qutrit_noise` | `mount_binomial_61` | — |
 | `ck_living_lm` | 677 | `ck_concept_learner`, `ck_meta_parameters` | `mount_living_lm` | — |
 | `ck_proactive_trigger` | 806 | `ck_frontier_scanner`, `ck_grammar_lm` | `mount_proactive_trigger` | — |
 | `ck_qutrit_apex` | 865 | `ck_meta_parameters`, `ck_substrate_motion` | `mount_qutrit_apex` | — |
@@ -150,9 +152,9 @@ Modules sorted by # of ck_* imports (most foundational first).  Modules with no 
 | `ck_creature` | 752 | `ck_concept_learner`, `ck_living_lm`, `ck_predictions` | `mount_creature` | `/consciousness` `/creature` |
 | `ck_study_overnight` | 877 | `ck_concept_learner`, `ck_meta_parameters`, `ck_synthesizer` | — | — |
 | `ck_concept_learner` | 2080 | `ck_algebra_runtime`, `ck_meta_parameters`, `ck_predictions`, `ck_verifier` | `mount_concept_learner` | — |
-| `ck_writer` | 752 | `ck_concept_learner`, `ck_identity`, `ck_living_lm`, `ck_ollama_polish` | `mount_writer` | — |
+| `ck_writer` | 849 | `ck_concept_learner`, `ck_identity`, `ck_living_lm`, `ck_ollama_polish` | `mount_writer` | — |
 | `ao_5element` | 308 | `ck_sim.ck_sim_body`, `ck_sim.ck_sim_brain`, `ck_sim.ck_sim_d2`, `ck_sim.ck_sim_heartbeat`, `ck_sim.ck_tig` | — | — |
-| `gen14_unified_extensions` | 1134 | `ck_ad_tailored`, `ck_binomial_61`, `ck_breath_emergence`, `ck_cognition_primitives`, `ck_concept_learner`, `ck_coupled_3tables`, `ck_coupled_4cores`, `ck_creature`, `ck_engine_block`, `ck_formula_registry`, `ck_frontier_scanner`, `ck_identity`, `ck_lightcone`, `ck_living_lm`, `ck_memory_archive`, `ck_meta_parameters`, `ck_ollama_polish`, `ck_proactive_trigger`, `ck_qec_decoder`, `ck_qutrit_513`, `ck_qutrit_apex`, `ck_qutrit_noise`, `ck_qutrit_qec`, `ck_recursive_observer`, `ck_self_protection`, `ck_sense_decomposition`, `ck_sim.being.ck_divine_memory`, `ck_sim.being.ck_lattice_chain`, `ck_sim.doing.ck_forecast`, `ck_sim.doing.ck_goals`, `ck_spreading_activation`, `ck_stroke_extractor`, `ck_substrate_c`, `ck_substrate_motion`, `ck_voice_polish`, `ck_writer` | `mount_drives`, `mount_forecast`, `mount_proactive_queue`, `mount_recall`, `mount_lattice_chain`, `mount_divine_memory`, `mount_algebraic_lm`, `mount_all` | — |
+| `gen14_unified_extensions` | 1151 | `ck_ad_tailored`, `ck_binomial_61`, `ck_breath_emergence`, `ck_cognition_primitives`, `ck_concept_learner`, `ck_coupled_3tables`, `ck_coupled_4cores`, `ck_creature`, `ck_engine_block`, `ck_formula_registry`, `ck_frontier_scanner`, `ck_glyph_listener`, `ck_identity`, `ck_lightcone`, `ck_living_lm`, `ck_memory_archive`, `ck_meta_parameters`, `ck_ollama_polish`, `ck_proactive_trigger`, `ck_qec_decoder`, `ck_qutrit_513`, `ck_qutrit_apex`, `ck_qutrit_noise`, `ck_qutrit_qec`, `ck_recursive_observer`, `ck_self_protection`, `ck_sense_decomposition`, `ck_sim.being.ck_divine_memory`, `ck_sim.being.ck_lattice_chain`, `ck_sim.doing.ck_forecast`, `ck_sim.doing.ck_goals`, `ck_spreading_activation`, `ck_stroke_extractor`, `ck_substrate_c`, `ck_substrate_motion`, `ck_voice_polish`, `ck_writer` | `mount_drives`, `mount_forecast`, `mount_proactive_queue`, `mount_recall`, `mount_lattice_chain`, `mount_divine_memory`, `mount_algebraic_lm`, `mount_all` | — |
 
 ## 3. Reverse dependency graph
 
@@ -174,6 +176,7 @@ Who depends on each module (transitively trim by hand for full closure):
 | `ck_engine_block` | `ck_qec_decoder`, `ck_recursive_observer`, `gen14_unified_extensions` |
 | `ck_formula_registry` | `ck_study`, `gen14_unified_extensions` |
 | `ck_frontier_scanner` | `ck_proactive_trigger`, `gen14_unified_extensions` |
+| `ck_glyph_listener` | `gen14_unified_extensions` |
 | `ck_grammar_lm` | `ck_proactive_trigger` |
 | `ck_identity` | `ck_substrate_motion`, `ck_writer`, `gen14_unified_extensions` |
 | `ck_invariants_bridge` | `ck_fault_state_hook`, `force9_role_layer` |
@@ -186,7 +189,7 @@ Who depends on each module (transitively trim by hand for full closure):
 | `ck_proactive_trigger` | `gen14_unified_extensions` |
 | `ck_qec_decoder` | `gen14_unified_extensions` |
 | `ck_qutrit_513` | `gen14_unified_extensions` |
-| `ck_qutrit_apex` | `ck_recursive_observer`, `gen14_unified_extensions` |
+| `ck_qutrit_apex` | `ck_glyph_listener`, `ck_recursive_observer`, `gen14_unified_extensions` |
 | `ck_qutrit_noise` | `ck_ad_tailored`, `ck_binomial_61`, `ck_self_protection`, `gen14_unified_extensions` |
 | `ck_qutrit_qec` | `ck_ad_tailored`, `ck_qutrit_noise`, `ck_self_protection`, `gen14_unified_extensions` |
 | `ck_recursive_observer` | `gen14_unified_extensions` |

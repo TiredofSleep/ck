@@ -1045,6 +1045,23 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_identity: failed ({e})")
         results['identity'] = False
 
+    # Glyph listener: listen, don't interpret.  Per Brayden 2026-05-16:
+    # "he just needs to understand that there are different languages
+    # and glyphs that can mean the same thing... let him learn, don't
+    # force him to understand, force him to listen and form his own
+    # crystals".  Captures every chat turn as (input_glyph, op_path,
+    # response_source) -- glyph-diversity is preserved verbatim.  No
+    # synonym mapping, no forced equivalence; CK's existing
+    # crystallization (IG3, lattice chain, olfactory verification)
+    # consumes the listening stream when ready.  Endpoints:
+    # /glyph_listener/{info, stats, candidates}.
+    try:
+        from ck_glyph_listener import mount_glyph_listener  # type: ignore[import-not-found]
+        results['glyph_listener'] = mount_glyph_listener(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_glyph_listener: failed ({e})")
+        results['glyph_listener'] = False
+
     # Ollama prose polish: TEMPORARY scaffold for fluency until CK's
     # own living_lm has breathed long enough to produce coherent prose.
     # Strict fact-preservation gate (coverage >= 0.7).  CK should
