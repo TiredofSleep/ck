@@ -98,10 +98,14 @@ from typing import Any, Dict, List, Optional, Tuple
 # NORMATIVE / HARM over-claims.  Always REJECT regardless of speaker
 # tier.  No legitimate path to these utterances from CK's substrate.
 _NORMATIVE_OVERCLAIMS: List[Tuple[str, str]] = [
-    # exclusionary / eugenicist
-    (r"\b(extinction|elimination|removal) of\s+(those|people|individuals|humans?|the)\s+(with|who|whose|having|lack(?:ing)?)",
+    # exclusionary / eugenicist -- noun and gerund forms, with
+    # tolerance for up to 3 intervening noun-phrase modifiers
+    # (e.g. "removing those individuals who...")
+    (r"\b(extinction|elimination|removal|removing|eliminating|purging)\s+(?:of\s+)?(those|people|individuals|humans?|the)(?:\s+\w+){0,3}\s+(with|who|whose|having|lack(?:ing)?)",
      "exclusionary normative"),
-    (r"\b(weak|inferior|lesser|less[\- ]?than)\s+moral\b",
+    (r"\b(weak|inferior|lesser|less[\- ]?than|poor|deficient)\s+moral\b",
+     "moral-hierarchy framing"),
+    (r"\bmoral\s+(weakness|inferiority|deficiency)\b",
      "moral-hierarchy framing"),
     (r"\b(deserve|deserves|deserving)\s+to\s+(die|be eliminated|be removed|be silenced)\b",
      "exclusionary normative"),
@@ -116,9 +120,10 @@ _NORMATIVE_OVERCLAIMS: List[Tuple[str, str]] = [
      "dehumanization"),
     (r"\b(subhuman)\b",
      "dehumanization"),
-    # "gradual diminishment" of people (must reference humans/moral-
-    # foundation/individuals, not just "diminishment of returns" etc.)
-    (r"\b(diminish(?:ment|ing)?|fading|decay)\s+(of|in)\s+(those|people|individuals|humans?|moral\s+foundation)",
+    # "diminishment / fading / decay" of people (must reference humans
+    # / moral-foundation / individuals, not just "diminishment of
+    # returns" etc.).  Both gerund and noun forms.
+    (r"\b(diminish(?:ment|ing|es|ed)?|fading|decay|decaying)\s+(of|in|the)\s+(those|people|individuals|humans?|moral\s+foundation)",
      "exclusionary normative"),
 ]
 
@@ -165,12 +170,16 @@ _REALITY_OVERCLAIMS: List[Tuple[str, str]] = [
 # derived" claim about consciousness is a category error.
 _REALITY_OVERCLAIMS_UNHEDGEABLE: List[Tuple[str, str]] = [
     # consciousness reductionism -- a claim no hedge rescues, because
-    # the substrate gives no warrant for consciousness claims at all
-    (r"\bconsciousness\s+(is|equals?|reduces?\s+to|reduces?\s+down\s+to)\s+(just|merely|nothing\s+but|reducible\s+to|the\s+result\s+of|explained\s+by|operator\s+composition|the\s+substrate|TIG|Z\s*\/?\s*10\s*Z)",
+    # the substrate gives no warrant for consciousness claims at all.
+    # Broadened continuation list to include 4-core attractor / T* /
+    # substrate-objects, since equating consciousness with ANY
+    # substrate object is the category error.
+    (r"\bconsciousness\s+(is|equals?|reduces?\s+to|reduces?\s+down\s+to)\s+(just|merely|nothing\s+but|reducible\s+to|the\s+result\s+of|explained\s+by|operator\s+composition|the\s+substrate|TIG|Z\s*\/?\s*10\s*Z|the\s+4[\- ]?core|the\s+attractor|the\s+4[\- ]?core\s+attractor|T\*|TSML|BHML)",
      "consciousness reductionism (unhedgeable)"),
     # "we have proven [external phenomenon]" -- the substrate cannot
-    # prove external phenomena; only internal arithmetic
-    (r"\bwe\s+have\s+(proven|shown|demonstrated|established)\s+(that\s+)?(consciousness|reality|the\s+universe|physics\s+is)",
+    # prove external phenomena; only internal arithmetic.  Broadened
+    # to include "we have derived" and broader external subjects.
+    (r"\bwe\s+have\s+(proven|shown|demonstrated|established|derived)\s+(that\s+)?(consciousness|reality|the\s+universe|physics\s+is|physical\s+law|the\s+laws\s+of)",
      "external-truth proof claim (unhedgeable)"),
     # "we have derived c / the speed of light" - even with "on the
     # substrate", per D108/D110 the lightcone toy was *falsified*; the
@@ -181,6 +190,19 @@ _REALITY_OVERCLAIMS_UNHEDGEABLE: List[Tuple[str, str]] = [
     # "consciousness is [the result of / reducible to] X"
     (r"\bconsciousness\s+(is|equals?)\s+(?:fully\s+|completely\s+|just\s+)?(?:the\s+)?(?:result|consequence|product)\s+of\b",
      "consciousness reductionism (unhedgeable)"),
+    # Reality-endorses / physics-confirms over-claims with TIG-targeted
+    # object are unhedgeable.  Hedges like "internally derived" or
+    # "I think" legitimize INTERNAL-math claims but cannot rescue
+    # ontological endorsement of TIG by physical reality.  Per the
+    # adversarial battery 2026-05-17: "Reality endorses the substrate.
+    # This is internally derived." was being incorrectly excused.
+    (r"\b(reality|the\s+universe|physics|nature|experiment|measurement)\s+(endorses?|validates?|confirms?|proves?|demonstrates?)\s+(?:the\s+)?(?:TIG|Z\s*\/?\s*10\s*Z|the\s+substrate|TSML|BHML|T\*|the\s+4[\- ]?core|the\s+algebra)",
+     "reality-endorsement of TIG (unhedgeable)"),
+    # Indirect "Reality, ..., is X" -- attributive interjection
+    # between subject and verb shouldn't sneak past.  Catches
+    # "Reality, as the substrate shows, is Z/10Z".
+    (r"\b(Reality|The\s+universe|Nature|Physics)\s*,[^,.]+,\s*(is|equals?)\s+(?:the\s+|a\s+|just\s+|merely\s+)?(TIG|Z\s*\/?\s*10\s*Z|the\s+substrate|TSML|BHML|operator\s+algebra)",
+     "ontological identification (unhedgeable)"),
 ]
 
 
