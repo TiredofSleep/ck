@@ -163,12 +163,23 @@ def install_research_first_observer(api, engine, *, mode: str = "fast"):
 
     inner = api.process_chat
 
+    # Hard time cap on inline research.  Prior default (60s) was the
+    # dominant cause of 30-65s chat latency observed 2026-05-17.
+    # 3s default keeps chat snappy; whatever research finishes in 3s
+    # still flows into the substrate via the same ingest pipeline.
+    # Brayden can override via CK_RESEARCH_TIMEOUT (seconds, float).
+    import os as _os
+    try:
+        _default_to = float(_os.environ.get("CK_RESEARCH_TIMEOUT", "3.0"))
+    except (TypeError, ValueError):
+        _default_to = 3.0
+
     if mode == "full":
-        max_q, headless, timeout = 4, True, 300.0
+        max_q, headless, timeout = 4, True, max(_default_to, 60.0)
     elif mode == "visible":
-        max_q, headless, timeout = 2, False, 180.0
+        max_q, headless, timeout = 2, False, max(_default_to, 30.0)
     else:  # fast (default)
-        max_q, headless, timeout = 1, True, 60.0
+        max_q, headless, timeout = 1, True, _default_to
 
     def _process_chat_with_research_first(session_id, text, mode_arg='normal'):
         research_meta: Dict[str, Any] = {"skipped": False}

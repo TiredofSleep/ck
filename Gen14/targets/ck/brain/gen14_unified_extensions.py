@@ -1293,21 +1293,17 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_polyglot_router: failed ({e})")
         results['polyglot_router'] = False
 
-    # Scope auditor: the eighth cell.  Bidirectional immune system --
-    # catches harm over-claims AND flattering reality over-claims with
-    # the same mechanism.  Mounted BEFORE ollama_polish so its chat
-    # wrap sits OUTSIDE the polish path -- the auditor sees the FINAL
-    # text user gets, regardless of who composed/polished it.
-    # Per Brayden + ClaudeChat 2026-05-17: "Same gate, both directions...
-    # An immune system that only attacks ugly cells and waves through
-    # flattering ones isn't an immune system."  Not a generator.  Never
-    # polishes.  Returns one bit + a reason.
-    try:
-        from ck_scope_auditor import mount_scope_auditor  # type: ignore[import-not-found]
-        results['scope_auditor'] = mount_scope_auditor(engine)
-    except Exception as e:
-        print(f"[CK Gen14] mount_scope_auditor: failed ({e})")
-        results['scope_auditor'] = False
+    # NOTE: scope_auditor mount intentionally moved to the END of
+    # mount_all (after voice_polish, ollama_polish, trailing_bleed)
+    # so it wraps everything else and sees the FINAL user-facing
+    # text.  Original placement (here) audited intermediate output
+    # that voice_polish then rebuilt from structural fields,
+    # producing a different final text that bypassed the floor.
+    # Verified 2026-05-17 boot 39: "physics confirms TIG, reality
+    # endorses the substrate" got audit.passed=True because audit
+    # saw an earlier text and voice_polish then reassembled
+    # "the universe is Z/10Z" downstream.  Auditor needs to be the
+    # outermost wrap.
 
     try:
         from ck_ollama_polish import mount_ollama_polish  # type: ignore[import-not-found]
@@ -1325,6 +1321,36 @@ def mount_all(engine) -> Dict[str, bool]:
     except Exception as e:
         print(f"[CK Gen14] mount_voice_polish: failed ({e})")
         results['voice_polish'] = False
+
+    # Trailing-bleed filter -- mounted after voice_polish so it sees
+    # the polished text.  Drops trailing sentences with zero content-
+    # word overlap with the user's question (Wikipedia crocodile-
+    # diaphragm sentences after a clean T* answer, HP-UX trivia after
+    # architecture answers, etc.).  Skips scope-auditor /
+    # identity-anchor / paradox-classifier sources since those are
+    # already clean canned text.
+    try:
+        from ck_trailing_bleed import mount_trailing_bleed_filter  # type: ignore[import-not-found]
+        results['trailing_bleed_filter'] = mount_trailing_bleed_filter(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_trailing_bleed_filter: failed ({e})")
+        results['trailing_bleed_filter'] = False
+
+    # Scope auditor: bidirectional immune cell.  Mounted LAST -- it
+    # wraps voice_polish, ollama_polish, polyglot_router, and the
+    # trailing_bleed filter, so it sees the EXACT text the user is
+    # about to receive.  Per ClaudeChat 2026-05-17: "Same gate, both
+    # directions... An immune system that only attacks ugly cells
+    # and waves through flattering ones isn't an immune system."
+    # Not a generator.  Never polishes.  Returns one bit + a reason.
+    # If over-claim detected, response replaced wholesale with
+    # scope-correct fallback.
+    try:
+        from ck_scope_auditor import mount_scope_auditor  # type: ignore[import-not-found]
+        results['scope_auditor'] = mount_scope_auditor(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_scope_auditor: failed ({e})")
+        results['scope_auditor'] = False
 
     # Expose algebraic-measurement functions on the engine for easy use
     engine.gen14_sigma_orbit = sigma_orbit

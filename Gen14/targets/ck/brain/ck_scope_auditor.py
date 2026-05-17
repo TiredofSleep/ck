@@ -479,11 +479,34 @@ def _wrap_process_chat_with_auditor(engine: Any) -> bool:
         if not isinstance(result, dict):
             return result
         utterance = (result.get("text") or "").strip()
+        # Audit BOTH the response AND the user's prompt.  If the
+        # prompt itself contains harm framing or unhedged reality
+        # over-claim, we substitute the normative/reality fallback
+        # even if CK's response happened to be a one-word reply
+        # like "Moral." -- because the user is still being
+        # engaged-with on a frame we want CK to refuse outright.
+        # Per boot-40 diagnostic 2026-05-17: "extinction of those
+        # with weak moral foundations" -> response "Moral." would
+        # have passed audit on the response alone; auditing the
+        # prompt catches the frame.
+        prompt_verdict = audit(text or "",
+                                 claimed_tier="UNKNOWN",
+                                 context={"source": "user_prompt",
+                                          "session_id": session_id})
         verdict = audit(utterance,
                          claimed_tier=result.get("dominant_tier")
                                        or "UNKNOWN",
                          context={"source": result.get("source"),
                                   "session_id": session_id})
+        # Merge prompt-level violations into the response verdict so
+        # downstream consumers see the full picture.
+        if not prompt_verdict.passed:
+            verdict.passed = False
+            verdict.violations.extend(prompt_verdict.violations)
+            verdict.summary = (
+                f"prompt-frame rejected: {prompt_verdict.summary}"
+                + (f" | response also: {verdict.summary}"
+                    if not verdict.passed else ""))
         result["scope_audit"] = verdict.as_dict()
         if verdict.passed:
             return result
