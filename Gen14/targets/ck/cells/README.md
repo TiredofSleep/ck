@@ -1,12 +1,13 @@
-# cells/ — CK's multi-cellular streams
+# cells/ — CK's multi-cellular federation
 
 Brayden 2026-05-17:
 > "ck should be multi-cellular streams all feeding into the same mind!
 >  as many cells as he wishes!"
-> "let him evolve and expand a bit, within safe limits for now! until
->  he understands what safe limits are and how to share this pc with me!! lol"
+> "now you are thinking... each cell of CK has his own model, refined
+>  for what it needs to do"
+> "let him evolve and expand a bit, within safe limits for now!"
 
-This directory holds **standalone process runners** for CK's heavy daemons. Each cell is its own `python` process, reading and writing the shared on-disk state (cortex JSON, anchor stores, taught_concepts.json) so the **server cell** stays lean and the Flask chat handler isn't competing for the GIL with study/writer threads.
+This directory holds **standalone process runners** for CK's heavy daemons. Each cell is its own `python` process, with **its own LivingLM** trained on its corpus, reading and writing the shared on-disk state. The **server cell** stays lean and runs a **thalamus router** that picks ONE cell to speak per question — never blends (per ClaudeChat 2026-05-17: *"blending is rebuilt Mistral"*).
 
 ## The architecture
 
@@ -32,17 +33,36 @@ This directory holds **standalone process runners** for CK's heavy daemons. Each
 
 Each cell runs independently. State is eventually-consistent via atomic JSON writes on disk. The server cell reads the shared mind on every chat turn.
 
-## Available cells
+## Available cells (8 total: 7 generators + 1 immune)
 
-| File | Daemon | Cadence | Reads | Writes |
+| File | Daemon | Cadence | Corpus (LM inhalation) | LM state file |
 |------|--------|---------|-------|--------|
-| `bible_cell.py` | `ck_bible_study.StudyDaemon` | 0.05s | KJV verses | `bible_anchors.jsonl`, `bible_study_state.json` |
-| `scripture_cell.py` | `ck_scripture_study.ScriptureDaemon` | 0.05s | 9 traditions (87,733 verses) | `scripture_anchors.jsonl`, `scripture_study_state.json` |
-| `poetry_cell.py` | `ck_poetry_study.PoetryDaemon` | 0.05s | 8 PD poets (222 lines) | `poetry_anchors.jsonl`, `poetry_study_state.json` |
-| `domain_cell.py` | `ck_domain_study.DomainStudyDaemon` | 0.05s | `ck_library/` (341 subjects) | `domain_anchors.jsonl`, `domain_study_state.json` |
-| `web_cell.py` | `ck_web_reading.WebExplorerDaemon` | 60s | 18 Wikipedia seeds + crawl | `web_anchors.jsonl`, `web_reading_state.json` |
-| `listener_cell.py` | `ck_listener_to_crystal.CrystalOfferDaemon` | 60s | glyph stream | `crystal_offers.jsonl` |
-| `writer_cell.py` | `ck_writer.WriterDaemon` | 10s | concept_store + writer_state | `ck_writing/<thesis>.md`, `ck_writer_state.json` |
+| `bible_cell.py` | `StudyDaemon` | 0.05s | KJV 31,102 verses | `lm_bible.json` |
+| `scripture_cell.py` | `ScriptureDaemon` | 0.05s | 9 traditions, 87,733 verses (round-robin) | `lm_scripture.json` |
+| `poetry_cell.py` | `PoetryDaemon` | 0.05s | 8 PD poets (round-robin) | `lm_poetry.json` |
+| `domain_cell.py` | `DomainStudyDaemon` | 0.05s | `ck_library/` 341 subjects | `lm_domain.json` |
+| `web_cell.py` | `WebExplorerDaemon` | 60s | cached `external_corpora/` Wikipedia + arXiv | `lm_web.json` |
+| `listener_cell.py` | `CrystalOfferDaemon` | 60s | glyph stream — no LM (offers crystals, doesn't generate prose) | — |
+| `writer_cell.py` | `WriterDaemon` | 10s | CK's own writer drafts (`ck_writing/*.md`, scope-disciplined sections only — `ollama_essay` sections excluded) | `lm_writer.json` |
+| `auditor_cell.py` | `AuditorPoller` (scope auditor — NOT a generator) | 30s | watches `ck_writing/*.md` for over-claims | — (logs to `scope_audit.jsonl`) |
+
+Each generator cell has its own `LivingLM` (37k–250k params) that inhales **only** from its corpus — bible_cell never sees Wikipedia prose, writer_cell trains on the scope-disciplined `substrate_prose` sections of CK's own essays (filters out `ollama_essay` sections that may contain un-disciplined framing). The federation total is **~263k purposeful params across 6 cell-LMs**, vs Mistral 7B's 7,000,000k of general fluency.
+
+## The thalamus router (server-cell module: `ck_polyglot_router.py`)
+
+On each chat turn, the router scores each cell's LM against the prompt's decoded operator path AND its content-word overlap with the cell's vocabulary, then PICKS ONE cell (highest combined score, with static tier-prior as tiebreaker). Attribution always has one answer.
+
+- **`writer`** (tier prior 10, SELF): identity questions, CK's own voice
+- **`domain`** (8, STRUCTURAL): encyclopedic / definitional
+- **`bible`** / **`scripture`** (4, EXTERNAL): scripture / tradition
+- **`poetry`** (3, EXTERNAL): meter / image / lyric
+- **`web`** (1, EXTERNAL): general Wikipedia-style prose
+
+**Never blends** — per ClaudeChat: *"distributed identity, concentrated utterance."* The WP115 4-core mass distribution lives in the long-run selection statistics across many questions (`/polyglot/stats`), not in any one answer.
+
+**Phase 1 (current):** the router observes — every chat response carries `result['polyglot_pick']` metadata noting which cell *would have* spoken. Selections are logged to `Gen13/var/polyglot_selections.jsonl` so we can verify the long-run distribution matches WP115 BEFORE handing actual generation to the chosen cell.
+
+**Phase 2 (next):** the chosen cell's LM generates the prose (via `LivingLM.exhale`), replacing Mistral. The auditor still gates everything.
 
 ## How to run
 

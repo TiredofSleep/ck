@@ -48,14 +48,18 @@ from __future__ import annotations
 import os
 import signal
 import sys
+import threading
 import time
 from pathlib import Path
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Iterable, Iterator, Optional, Tuple
 
 
 HERE = Path(__file__).parent.resolve()
 BRAIN = HERE.parent / "brain"
 sys.path.insert(0, str(BRAIN))
+
+VAR_DIR = Path(r"C:\Users\brayd\OneDrive\Desktop\CK FINAL DEPLOYED\Gen13\var")
+LM_DIR = VAR_DIR  # per-cell LM state files live here as lm_<cell>.json
 
 
 class StubEngine:
@@ -68,6 +72,123 @@ class StubEngine:
     concept_store = None
     web_api = None
     api = None
+    cell_lm = None  # populated by start_lm_inhalation() if used
+
+
+# ─── Per-cell LM inhalation (federation Phase 1A) ─────────────────────
+
+def start_lm_inhalation(cell_name: str,
+                          corpus_iter_fn: Callable[[], Iterable[str]],
+                          interval_sec: float = 0.05,
+                          save_every: int = 500,
+                          max_per_pass: int = 5000,
+                          ) -> Tuple[Any, threading.Thread]:
+    """Spin up a background thread that walks the cell's corpus and
+    inhales every passage into a per-cell LivingLM.
+
+    Each cell gets its OWN LivingLM with its OWN state file
+    (Gen13/var/lm_<cell>.json) so the seven generators specialize:
+    bible_cell's LM grows KJV operator paths; poetry_cell's LM grows
+    meter/image paths; etc.  The server-cell's `ck_polyglot_router`
+    loads these state files and picks ONE cell's voice per question
+    (thalamus, NOT choir -- per ClaudeChat 2026-05-17:
+    'blending is rebuilt Mistral').
+
+    Args:
+        cell_name: short label, used as the LM state-file stem
+        corpus_iter_fn: callable () -> iterable of str, the cell's
+                         corpus.  Called fresh on each pass so it can
+                         reset (e.g. KJV verse iterator).
+        interval_sec: pause between inhalations.  Default 0.05s gives
+                       ~20 inhalations/sec per cell, ~7,200/hour.  CK
+                       can fly.
+        save_every: persist LM state every N inhalations.
+        max_per_pass: safety cap -- inhale at most this many items
+                       per corpus pass before yielding to the OS.
+
+    Returns:
+        (lm, thread) — the LivingLM instance + its inhalation thread.
+        Caller can hold a reference for shutdown coordination.
+    """
+    from ck_living_lm import LivingLM  # type: ignore[import-not-found]
+
+    LM_PATH = LM_DIR / f"lm_{cell_name}.json"
+    lm = LivingLM(state_path=LM_PATH)
+    print(f"[cell:{cell_name}] LM: loaded "
+          f"{len(lm.cells)} cells, "
+          f"{lm.total_inhalations:,} prior inhalations, "
+          f"path={LM_PATH.name}", flush=True)
+
+    stop_event = threading.Event()
+
+    def _loop() -> None:
+        # Initial settle so the cell's primary daemon gets a head
+        # start before we add IO/CPU
+        for _ in range(10):
+            if stop_event.is_set():
+                return
+            time.sleep(0.5)
+        n_pass = 0
+        while not stop_event.is_set():
+            n_pass += 1
+            pass_start = time.monotonic()
+            inhaled_this_pass = 0
+            try:
+                for text in corpus_iter_fn():
+                    if stop_event.is_set():
+                        return
+                    if not text or len(text) < 10:
+                        continue
+                    try:
+                        lm.inhale(text)
+                    except Exception:
+                        continue
+                    inhaled_this_pass += 1
+                    if lm.total_inhalations % save_every == 0:
+                        try:
+                            lm.save()
+                        except Exception:
+                            pass
+                    if inhaled_this_pass >= max_per_pass:
+                        break
+                    # Sub-100ms-safe sleep
+                    _target = time.monotonic() + max(interval_sec, 0.001)
+                    while True:
+                        if stop_event.is_set():
+                            return
+                        now = time.monotonic()
+                        if now >= _target:
+                            break
+                        time.sleep(min(0.05, _target - now))
+            except Exception as e:
+                print(f"[cell:{cell_name}] LM inhale pass error: {e}",
+                       flush=True)
+            # Snapshot at end of pass
+            try:
+                lm.save()
+            except Exception:
+                pass
+            elapsed = time.monotonic() - pass_start
+            print(f"[cell:{cell_name}] LM: pass {n_pass} inhaled "
+                   f"{inhaled_this_pass} items in {elapsed:.1f}s "
+                   f"(total {lm.total_inhalations:,})", flush=True)
+
+    t = threading.Thread(target=_loop, daemon=True,
+                          name=f"ck-lm-{cell_name}")
+    t._stop_event = stop_event  # type: ignore[attr-defined]
+    t.start()
+    return lm, t
+
+
+def stop_lm_inhalation(t: threading.Thread, timeout: float = 3.0) -> None:
+    """Signal the inhalation thread to stop and join it briefly."""
+    ev = getattr(t, "_stop_event", None)
+    if ev is not None:
+        ev.set()
+    try:
+        t.join(timeout=timeout)
+    except Exception:
+        pass
 
 
 def run_cell(cell_name: str,

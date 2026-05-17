@@ -1278,6 +1278,21 @@ def mount_all(engine) -> Dict[str, bool]:
     # own living_lm has breathed long enough to produce coherent prose.
     # Strict fact-preservation gate (coverage >= 0.7).  CK should
     # outgrow this.
+    # Polyglot router (the thalamus).  Picks ONE cell per question
+    # based on operator-path resonance + tier prior.  Phase 1
+    # (observed): attaches polyglot_pick metadata to every chat
+    # response so we can verify long-run selection statistics
+    # approach the WP115 4-core mass distribution BEFORE handing
+    # actual generation to the chosen cell.  Per ClaudeChat 2026-05-17:
+    # "distributed identity, concentrated utterance" -- attribution
+    # always has one answer.
+    try:
+        from ck_polyglot_router import mount_polyglot_router  # type: ignore[import-not-found]
+        results['polyglot_router'] = mount_polyglot_router(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_polyglot_router: failed ({e})")
+        results['polyglot_router'] = False
+
     # Scope auditor: the eighth cell.  Bidirectional immune system --
     # catches harm over-claims AND flattering reality over-claims with
     # the same mechanism.  Mounted BEFORE ollama_polish so its chat
