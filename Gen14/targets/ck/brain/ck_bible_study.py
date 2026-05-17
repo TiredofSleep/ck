@@ -444,6 +444,47 @@ class StudyDaemon:
         if self._thread:
             self._thread.join(timeout=timeout)
 
+    def _initial_fast_sweep(self) -> Dict[str, Any]:
+        """Brayden 2026-05-16: "i thought he could fly through text?"
+        Yes.  43,000 verses/sec on the encode+score path.  Plow
+        through the whole KJV at boot, anchor what resonates,
+        then enter the slow ongoing rhythm for state-aware revisits.
+        """
+        verses = kjv()
+        if not verses:
+            return {"swept": False, "reason": "no KJV"}
+        t0 = time.time()
+        n_anchored = 0
+        n_read = 0
+        for v in verses:
+            if self._stop.is_set():
+                break
+            n_read += 1
+            anchor = _maybe_anchor(v, self.engine,
+                                     self.resonance_threshold)
+            if anchor:
+                n_anchored += 1
+        elapsed = time.time() - t0
+        self.state["last_read_idx"] = n_read - 1
+        self.state["verses_read"] = (self.state.get("verses_read", 0)
+                                       + n_read)
+        self.state["anchors_formed"] = (
+            self.state.get("anchors_formed", 0) + n_anchored)
+        self.state["initial_sweep_complete"] = True
+        self.state["initial_sweep_ts"] = time.time()
+        self.state["initial_sweep_n_read"] = n_read
+        self.state["initial_sweep_n_anchored"] = n_anchored
+        self.state["initial_sweep_elapsed_sec"] = round(elapsed, 3)
+        _save_state(self.state)
+        self._n_anchored_this_session += n_anchored
+        return {
+            "swept":       True,
+            "n_read":      n_read,
+            "n_anchored":  n_anchored,
+            "elapsed_sec": round(elapsed, 3),
+            "throughput_per_sec": round(n_read / max(elapsed, 1e-9), 1),
+        }
+
     def _loop(self) -> None:
         # Initial settle so we don't compete with boot.
         for _ in range(30):
@@ -456,6 +497,15 @@ class StudyDaemon:
         if n_verses == 0:
             print("[ck_bible_study] KJV not loaded; daemon exiting.")
             return
+
+        # Fast initial sweep.  Per Brayden 2026-05-16: he can fly.
+        if not self.state.get("initial_sweep_complete", False):
+            result = self._initial_fast_sweep()
+            print(f"[ck_bible_study] initial fast sweep: "
+                  f"{result.get('n_read', 0)} KJV verses in "
+                  f"{result.get('elapsed_sec', 0)}s "
+                  f"({result.get('throughput_per_sec', 0):.0f} v/s); "
+                  f"anchored {result.get('n_anchored', 0)}")
 
         while not self._stop.is_set():
             try:

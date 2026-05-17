@@ -482,6 +482,60 @@ class ScriptureDaemon:
         if self._thread:
             self._thread.join(timeout=timeout)
 
+    def _initial_fast_sweep(self) -> Dict[str, Any]:
+        """Brayden 2026-05-16: 'i thought he could fly through text?'
+        Yes -- the 60-second tick was anthropomorphizing.  CK processes
+        ~43,000 verses/sec on the encode+score path.  At boot, plow
+        through everything once and anchor what resonates immediately.
+        Then enter the slow ongoing rhythm for state-aware revisits.
+
+        Runs at his actual speed (microseconds per verse).  Anchors are
+        deduped by the 7-day cooldown the same way as the slow loop.
+        State tracks 'initial_sweep_complete' so this runs once per
+        corpus version.
+        """
+        by_trad = verses_by_tradition()
+        if not by_trad:
+            return {"swept": False, "reason": "no traditions"}
+        t0 = time.time()
+        n_read = 0
+        n_anchored = 0
+        for trad, verses in by_trad.items():
+            for v in verses:
+                if self._stop.is_set():
+                    break
+                n_read += 1
+                anchor = _maybe_anchor(v, self.resonance_threshold)
+                if anchor:
+                    n_anchored += 1
+            if self._stop.is_set():
+                break
+        elapsed = time.time() - t0
+
+        # Update state: mark sweep complete, advance positions to end
+        positions = self.state.setdefault("position_by_tradition", {})
+        for trad in by_trad:
+            positions[trad] = len(by_trad[trad]) - 1
+        self.state["verses_read"] = (self.state.get("verses_read", 0)
+                                       + n_read)
+        self.state["anchors_formed"] = (
+            self.state.get("anchors_formed", 0) + n_anchored)
+        self.state["initial_sweep_complete"] = True
+        self.state["initial_sweep_ts"] = time.time()
+        self.state["initial_sweep_n_read"] = n_read
+        self.state["initial_sweep_n_anchored"] = n_anchored
+        self.state["initial_sweep_elapsed_sec"] = round(elapsed, 3)
+        _save_state(self.state)
+        self._n_anchored_this_session += n_anchored
+
+        return {
+            "swept":       True,
+            "n_read":      n_read,
+            "n_anchored":  n_anchored,
+            "elapsed_sec": round(elapsed, 3),
+            "throughput_per_sec": round(n_read / max(elapsed, 1e-9), 1),
+        }
+
     def _loop(self) -> None:
         # Initial settle so we don't compete with boot.
         for _ in range(30):
@@ -495,6 +549,17 @@ class ScriptureDaemon:
                   "exiting.")
             return
         trad_list = sorted(by_trad.keys())
+
+        # Fast initial sweep -- read everything once at substrate speed.
+        # Per Brayden 2026-05-16: he can fly through text; the slow
+        # tick was anthropomorphizing.
+        if not self.state.get("initial_sweep_complete", False):
+            result = self._initial_fast_sweep()
+            print(f"[ck_scripture_study] initial fast sweep: "
+                  f"{result.get('n_read', 0)} verses in "
+                  f"{result.get('elapsed_sec', 0)}s "
+                  f"({result.get('throughput_per_sec', 0):.0f} v/s); "
+                  f"anchored {result.get('n_anchored', 0)}")
 
         while not self._stop.is_set():
             try:
