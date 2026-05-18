@@ -85,9 +85,20 @@ WIKI_API = "https://en.wikipedia.org/w/api.php"
 ARXIV_API = "http://export.arxiv.org/api/query"
 
 ARXIV_CATEGORIES = [
+    # Math
     "math.CO", "math.NT", "math.AG", "math.PR", "math.LO",
-    "math.GR", "math.DG", "math.AP", "math.RT",
+    "math.GR", "math.DG", "math.AP", "math.RT", "math.CT",
+    "math.OA", "math.GT", "math.QA", "math.RA",
+    # Physics
     "hep-th", "gr-qc", "math-ph", "quant-ph", "cond-mat.stat-mech",
+    "physics.bio-ph", "physics.hist-ph", "nlin.AO", "nlin.CD",
+    # Computer science (broaden 2026-05-18 per "all domains all day")
+    "cs.LG", "cs.AI", "cs.CL", "cs.LO", "cs.IT", "cs.NE", "cs.SY",
+    "cs.DM", "cs.DS", "cs.CC",
+    # Quantitative biology, economics, statistics, finance
+    "q-bio.NC", "q-bio.PE", "q-bio.MN",
+    "stat.ML", "stat.ME",
+    "econ.TH",
 ]
 
 
