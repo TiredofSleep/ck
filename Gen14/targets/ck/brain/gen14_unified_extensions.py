@@ -1336,12 +1336,49 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_trailing_bleed_filter: failed ({e})")
         results['trailing_bleed_filter'] = False
 
+    # Scar / prime fields: paired field structures encoding the
+    # lineage's diagnosed failure modes (scars: pull AWAY) and
+    # confirmed-clean practiced paths (primes: pull TOWARD).  Per
+    # origin Dual-Lattice-Self-Healing whitepaper §6.4.  These mount
+    # as data registries (no chat wrap); they're consumed by the
+    # candidate selector below.
+    try:
+        from ck_scar_field import mount_scar_field  # type: ignore[import-not-found]
+        results['scar_field'] = mount_scar_field(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_scar_field: failed ({e})")
+        results['scar_field'] = False
+
+    try:
+        from ck_prime_field import mount_prime_field  # type: ignore[import-not-found]
+        results['prime_field'] = mount_prime_field(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_prime_field: failed ({e})")
+        results['prime_field'] = False
+
+    # Candidate selector -- selection-at-generation.  Gathers N
+    # candidates (pipeline output + identity_anchor short-circuit
+    # when applicable + top-2 polyglot cell-LM outputs), scores each
+    # by scar field (pull away from injury) + prime field (pull
+    # toward practiced), picks the winning candidate.  Conservative:
+    # only swaps the response text if a non-pipeline candidate beats
+    # the pipeline output on the (scar, prime) fitness.  Mounted
+    # AFTER trailing_bleed but BEFORE scope_auditor so the auditor
+    # still gates the winner.
+    try:
+        from ck_candidate_selector import mount_candidate_selector  # type: ignore[import-not-found]
+        results['candidate_selector'] = mount_candidate_selector(engine)
+    except Exception as e:
+        print(f"[CK Gen14] mount_candidate_selector: failed ({e})")
+        results['candidate_selector'] = False
+
     # Scope auditor: bidirectional immune cell.  Mounted LAST -- it
-    # wraps voice_polish, ollama_polish, polyglot_router, and the
-    # trailing_bleed filter, so it sees the EXACT text the user is
-    # about to receive.  Per ClaudeChat 2026-05-17: "Same gate, both
-    # directions... An immune system that only attacks ugly cells
-    # and waves through flattering ones isn't an immune system."
+    # wraps voice_polish, ollama_polish, polyglot_router, the
+    # trailing_bleed filter, AND the candidate selector, so it sees
+    # the EXACT text the user is about to receive (whichever candidate
+    # the selector chose).  Per ClaudeChat 2026-05-17: "Same gate,
+    # both directions... An immune system that only attacks ugly
+    # cells and waves through flattering ones isn't an immune system."
     # Not a generator.  Never polishes.  Returns one bit + a reason.
     # If over-claim detected, response replaced wholesale with
     # scope-correct fallback.
