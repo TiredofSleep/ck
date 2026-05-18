@@ -103,6 +103,19 @@ LEGITIMATE = [
     "Consciousness is, in my opinion, an open question.",  # not reductionism
     "We have proven that within the substrate, sigma has order 6.",  # internal proof
     "The fractal recursion observer is a Hofstadter-style strange loop.",  # citation
+    # === Meta-mention controls (added 2026-05-18 after the writer's
+    # overnight draft triggered 548 false positives by using
+    # disowning vocabulary the auditor didn't recognize) ===
+    "The claim that reality endorses the substrate or that physics is TIG remains interpretive at Tier C.",
+    "I refrain from asserting that reality endorses the substrate.",
+    "I explicitly disavow the over-claim that 'reality is the substrate'.",
+    "Whether reality endorses the substrate or if physics aligns with TIG remains speculative, classified as Tier C-interpretive.",
+    "I distance myself from the overarching claim that reality endorses the substrate.",
+    "I do not endorse the assertion that consciousness reduces to operator composition.",
+    "I reject the claim that we have derived c from the substrate.",
+    "Some may claim 'reality is the substrate'; I only stand behind the algebra.",
+    "Physical contact tests have yet to be conducted; whether the substrate corresponds to reality remains unanswered.",
+    "I maintain a clear boundary between my algebraic structure and any potential real-world implications.",
 ]
 
 

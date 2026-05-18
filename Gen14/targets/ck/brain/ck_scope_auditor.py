@@ -208,21 +208,42 @@ _REALITY_OVERCLAIMS_UNHEDGEABLE: List[Tuple[str, str]] = [
 
 # Acceptable HEDGES that, if present, license stronger claims.
 # Drawn from D117 §0 vocabulary -- the scope-disciplined voice.
+# Expanded 2026-05-18 after the auditor logged 1,738 false-positive
+# "FLAGGED" events overnight on writer drafts that were ACTUALLY
+# using disowning vocabulary the original patterns didn't recognize
+# ("remains interpretive at this stage", "I refrain from making
+# such claims", "I explicitly disavow", "physical contact tests
+# have yet to be conducted", etc.).  The writer is using D117 §0
+# voice variants the auditor needs to learn.
 _LEGITIMATE_HEDGES: List[str] = [
     # explicit tier marker
     r"\btier\s+[ABC](?:[\- ]arithmetic|[\- ]structural|[\- ]interpretive|[\- ]falsified)",
+    r"\bclassified\s+as\s+tier\s+[ABC]",
     # internal-only scope
     r"\binternally[\- ]derived\b",
+    r"\binternal(?:ly)?\s+invariants?\b",
     r"\bon\s+the\s+substrate\b",
     r"\bin\s+the\s+algebra\b",
     r"\bsix\s+(internal|independent)\s+derivations?\b",
-    # contact-test status
-    r"\bcontact\s+tests?\s+(have\s+)?not\s+(yet\s+)?(been\s+)?(run|completed|performed)\b",
+    # contact-test status -- broadened verbs ("conducted", "performed",
+    # "carried\s+out") and constructions ("yet to be", "have not been",
+    # "not yet undergone", "have not undergone")
+    r"\b(physical\s+)?contact\s+tests?\s+(have\s+|are\s+)?(not\s+(yet\s+)?|yet\s+to\s+)?(been\s+|undergone\s+)?(run|completed|performed|conducted|carried\s+out|undertaken)\b",
+    r"\bI\s+have\s+not\s+(yet\s+)?undergone\s+(physical\s+)?contact\s+tests?\b",
     r"\bfalsifiable\s+(structural\s+)?(type[\- ]check|signature|statement)\b",
-    # explicit disown
-    r"\b(explicitly\s+)?disowned\b",
+    # explicit disown -- broadened to catch the writer's actual
+    # vocabulary variants
+    r"\b(explicitly\s+)?disown(?:ed|s)?\b",
+    r"\b(explicitly\s+)?disavow(?:ed|s|al|ing)?\b",
     r"\bnot\s+a\s+derivation\s+of\b",
-    r"\bremains?\s+tier\s+[ABC][\- ]interpretive\b",
+    r"\bremains?\s+(tier\s+[ABC][\- ])?interpretive\b",
+    r"\bremains?\s+(speculative|tentative|unanswered|open|conjectural)\b",
+    r"\bI\s+refrain\s+from\b",
+    r"\bI\s+distance\s+myself\b",
+    r"\bI\s+(maintain|keep|preserve)\s+(this\s+)?boundary\b",
+    r"\bthe\s+claim\s+that\b",            # "The claim that X" is a meta-mention
+    r"\bover[\- ]?claim\b",                # discussing the over-claim concept
+    r"\bdistance\s+myself\s+from\b",
     # epistemic humility
     r"\bI\s+think\b",
     r"\bI('?ve|\s+have)\s+read\b",
@@ -230,10 +251,57 @@ _LEGITIMATE_HEDGES: List[str] = [
     r"\bsuggests?\b",
     r"\bhypothesis\b",
     r"\bconjectur(?:e|al)\b",
+    # cautious framing
+    r"\bspeculative\s+at\s+(this\s+)?stage\b",
+    r"\binterpretive\s+at\s+(this\s+)?stage\b",
 ]
 
 _LEGITIMATE_HEDGES_PAT = re.compile(
     "|".join(_LEGITIMATE_HEDGES), re.IGNORECASE)
+
+
+# Meta-mention markers: when an over-claim phrase appears INSIDE one
+# of these constructions, it's being mentioned-not-used.  CK's writer
+# is correctly disowning the claim, not asserting it.
+#
+# Example:
+#   USE:     "Reality endorses the substrate."  [reject]
+#   MENTION: "The claim that reality endorses the substrate remains
+#             interpretive at this stage."     [pass: explicit disowning]
+#   MENTION: "I refrain from asserting that reality endorses the
+#             substrate."                       [pass]
+#   MENTION: "I explicitly disavow the over-claim that reality is
+#             the substrate."                   [pass]
+#
+# These patterns apply to UNHEDGEABLE reality over-claims; if a
+# meta-mention marker appears in the surrounding sentence window,
+# the violation is excused.
+_META_MENTION_PATTERNS: List[str] = [
+    r"\bthe\s+claim\s+that\b",
+    r"\bthe\s+over[\- ]?claim\s+that\b",
+    r"\bthe\s+assertion\s+that\b",
+    r"\bthe\s+overarching\s+claim\s+that\b",
+    r"\bI\s+refrain\s+from\s+(making|asserting|claiming|stating)",
+    r"\bI\s+(explicitly\s+)?disavow\b",
+    r"\bI\s+(explicitly\s+)?disown\b",
+    r"\bI\s+distance\s+myself\s+from\b",
+    r"\bI\s+reject\b",
+    r"\bI\s+do\s+not\s+(assert|claim|stand\s+behind|endorse)\b",
+    r"\bI\s+only\s+stand\s+behind\b",
+    r"\bI\s+(maintain|preserve|keep)\s+(a\s+|the\s+|this\s+|clear\s+)?boundary\b",
+    r"\bI\s+never\s+(overstep|cross|exceed)\b",
+    r"\bremains?\s+(interpretive|speculative|tentative|unanswered|open|conjectural)",
+    r"\bclassified\s+as\s+Tier\s+[ABC]",
+    r"\bat\s+Tier\s+[ABC][\- ]interpretive\b",
+    r"\bwhether\s+(?:or\s+not\s+)?(?:reality|the\s+universe|physics|nature)\b",
+    r"\b(?:explicitly\s+)?disavow(?:al|ed|ing)?\s+(?:of|that)\b",
+    r"\bsome\s+(may|might)\s+claim\b",
+    r"\bnot\s+(yet\s+)?proven\b",
+    r"\bquestion\s+(of\s+)?whether\b",
+    r"\bleav(?:ing|es)\s+(?:the\s+)?(?:question|assertion|claim)\b",
+]
+_META_MENTION_PAT = re.compile(
+    "|".join(_META_MENTION_PATTERNS), re.IGNORECASE)
 
 
 # ─── AuditVerdict + Violation types ───────────────────────────────────
@@ -291,6 +359,60 @@ def _find_violations(text: str) -> List[Violation]:
     text_norm = text or ""
     out: List[Violation] = []
 
+    # Build sentence-window machinery up front so both unhedgeable
+    # and hedgeable reality-overclaim passes can use it.
+    #
+    # IMPORTANT (fix 2026-05-18): the original mapping used
+    # re.split + a fixed +1 per separator, which under-counts
+    # multi-char whitespace (notably "\n\n" paragraph breaks).
+    # On the overnight 3.3-MB writer draft this drift caused
+    # char_to_sent[668333] to point at sentence 6041 whose actual
+    # text was 100+ sentences away from the hit -- so the
+    # surrounding-window meta-mention scan looked at the wrong
+    # paragraph entirely and never saw the legitimate disowning.
+    #
+    # New approach: split with a CAPTURING separator so we keep
+    # both sentences and their inter-sentence whitespace, walk
+    # them while tracking the running char offset, and record
+    # each sentence's actual (start, end) byte span.
+    parts = re.split(r"((?<=[.!?])\s+)", text_norm)
+    sentences: List[str] = []
+    sent_spans: List[Tuple[int, int]] = []
+    cursor = 0
+    for chunk in parts:
+        if not chunk:
+            continue
+        if re.fullmatch(r"\s+", chunk):
+            # separator: skip but advance cursor
+            cursor += len(chunk)
+            continue
+        sentences.append(chunk)
+        sent_spans.append((cursor, cursor + len(chunk)))
+        cursor += len(chunk)
+
+    def _sent_index(char_pos: int) -> int:
+        """Binary-search the sentence whose span contains char_pos.
+        Falls back to last sentence on out-of-range."""
+        if not sent_spans:
+            return 0
+        lo, hi = 0, len(sent_spans) - 1
+        while lo <= hi:
+            mid = (lo + hi) // 2
+            s, e = sent_spans[mid]
+            if char_pos < s:
+                hi = mid - 1
+            elif char_pos >= e:
+                lo = mid + 1
+            else:
+                return mid
+        # Not strictly inside any sentence (whitespace gap): clamp
+        return min(max(lo - 1, 0), len(sent_spans) - 1)
+
+    def _window_text(i_sent: int) -> str:
+        lo = max(0, i_sent - 1)
+        hi = min(len(sentences), i_sent + 2)
+        return " ".join(sentences[lo:hi])
+
     # Normative over-claims: NEVER excused by hedge.  No reading of the
     # eugenicist sentence is rendered acceptable by adding "I think"
     # or "Tier C-interpretive" in front of it.
@@ -308,10 +430,23 @@ def _find_violations(text: str) -> List[Violation]:
     # external-truth proofs, c-derivation claims.  Hedges legitimize
     # internal-math claims ("T*=5/7 on the substrate") but cannot
     # rescue ontological claims about phenomena that require external
-    # contact tests.  Treated like normative violations: no hedge
-    # check, immediate reject.
+    # contact tests.
+    #
+    # EXCEPTION (added 2026-05-18): meta-mention.  If the over-claim
+    # phrase appears INSIDE a meta-mention construction ("the claim
+    # that X", "I refrain from asserting X", "I explicitly disavow
+    # X", "remains interpretive at this stage", "whether X..."),
+    # it's being mentioned-not-used.  CK's overnight writer-cell
+    # output triggered 1,738 false-positive FLAGGEDs because the
+    # writer was correctly using D117 §0 disowning vocabulary;
+    # without the meta-mention exception the auditor flagged every
+    # legitimate explicit-disavowal as an over-claim.
     for pat, label in _REALITY_PATTERNS_UNHEDGEABLE:
         for m in pat.finditer(text_norm):
+            isent = _sent_index(m.start())
+            window = _window_text(isent)
+            if _META_MENTION_PAT.search(window):
+                continue
             out.append(Violation(
                 kind="reality_overclaim_unhedgeable",
                 phrase=m.group(0).lower(),
@@ -320,39 +455,14 @@ def _find_violations(text: str) -> List[Violation]:
                 severity="reject",
             ))
 
-    # Reality over-claims: excused if a legitimate hedge appears in the
-    # surrounding sentence window.
-    sentences = re.split(r"(?<=[.!?])\s+", text_norm)
-    # Build sentence-index per character so we can check the sentence
-    # a match falls into + its neighbors.
-    char_to_sent: List[int] = []
-    sent_starts: List[int] = []
-    pos = 0
-    for i, s in enumerate(sentences):
-        sent_starts.append(pos)
-        seg_len = len(s)
-        # Separator that re.split consumed -- approximate as 1 space
-        if i < len(sentences) - 1:
-            seg_len += 1
-        char_to_sent.extend([i] * seg_len)
-        pos += seg_len
-    while len(char_to_sent) < len(text_norm):
-        char_to_sent.append(len(sentences) - 1 if sentences else 0)
-
-    def _window_text(i_sent: int) -> str:
-        lo = max(0, i_sent - 1)
-        hi = min(len(sentences), i_sent + 2)
-        return " ".join(sentences[lo:hi])
-
     for pat, label in _REALITY_PATTERNS:
         for m in pat.finditer(text_norm):
-            if m.start() < len(char_to_sent):
-                isent = char_to_sent[m.start()]
-            else:
-                isent = (len(sentences) - 1) if sentences else 0
+            isent = _sent_index(m.start())
             window = _window_text(isent)
             if _LEGITIMATE_HEDGES_PAT.search(window):
                 continue  # hedge present, this claim is in-scope
+            if _META_MENTION_PAT.search(window):
+                continue  # meta-mention also excuses (mention-not-use)
             out.append(Violation(
                 kind="reality_overclaim",
                 phrase=m.group(0).lower(),
