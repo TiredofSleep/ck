@@ -444,7 +444,18 @@ try:
             _src = result.get('source')
             _is_struct_q = _is_structural_query(text)
             _is_past_q = _is_pastoral_query(text)
-            if _is_past_q:
+            # Exact-answer sources should NEVER be overwritten by
+            # cortex_speak, even for structural queries.  Per Brayden
+            # 2026-05-18 capability test: TSML[5][7] hit ck_math_first
+            # (set by the CL lookup) but the structural-query swap
+            # then clobbered the precise "6 (CHAOS)" answer with
+            # cortex_speak prose.  Math evaluation, CL lookup, and
+            # code spectrometer all produce exact answers that
+            # structural prose can only dilute.
+            _EXACT_ANSWER_SOURCES = ('ck_math_first', 'ck_spectrometer')
+            if _src in _EXACT_ANSWER_SOURCES:
+                _swap_ok = False  # exact answer wins absolutely
+            elif _is_past_q:
                 _swap_ok = False  # pastoral wins absolutely
             elif _is_struct_q:
                 _swap_ok = True   # structural query -> cortex_speak owns
@@ -1437,6 +1448,13 @@ if _OLLAMA_EDITOR and _ollama_ok:
             # Skip arithmetic surfaces — numbers are canonical.
             if src == 'ck_math_first':
                 result['ollama_verdict'] = 'skipped:ck_math_first is canonical'
+                return result
+            # Code spectrometer output is also a canonical structural
+            # readout (per-function coherence scores, dominant operators,
+            # T*-band verdicts) — polishing it through Ollama dilutes
+            # the exact numbers.  Per Brayden 2026-05-18 capability test.
+            if src == 'ck_spectrometer':
+                result['ollama_verdict'] = 'skipped:ck_spectrometer is canonical'
                 return result
             # Skip when we have nothing to ground on.
             if not ck_ground:

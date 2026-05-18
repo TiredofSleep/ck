@@ -1643,6 +1643,19 @@ class CKWebAPI:
 
         # Translate response: CL lookups first, then math, then Ollama
         response_text = "..."
+        # Initialize voice-source tracker up front so the CL-lookup +
+        # math eval paths can set it without being overwritten by the
+        # original late-initialization at line ~1709.  Per Brayden
+        # 2026-05-18 capability diagnostic: the original code reset
+        # _vl_source to None AFTER the CL/math paths had set it, which
+        # erased the 'ck_math_first' source and let the structural-
+        # query swap clobber the exact answer.
+        _vl_source = None
+        # Flag: when an exact-answer path fires (CL lookup / math eval /
+        # code analysis), we set polish_skip on the result so the
+        # downstream voice_polish wrap doesn't rebuild the text from
+        # structural fields and clobber the exact answer.
+        _exact_answer_fired = False
 
         # CL table lookups: CL[i][j], TSML[i][j], BHML[i][j]
         import re as _re
@@ -1664,6 +1677,8 @@ class CKWebAPI:
                 else:
                     _val = _TSML[_i][_j]
                     response_text = f'{_val} ({_names[_val]})'
+                _exact_answer_fired = True
+                _vl_source = 'ck_math_first'
 
         # Math: if input has math, return computed answer
         # Guard: count alpha words in input. If >2 alpha words, the input is
@@ -1682,6 +1697,8 @@ class CKWebAPI:
                         h = r.get('human_result')
                         if h is not None:
                             response_text = str(h)
+                            _exact_answer_fired = True
+                            _vl_source = 'ck_math_first'
                             # Feed math pattern to trie
                             if (hasattr(self.engine, 'sequence_memory')
                                     and self.engine.sequence_memory):
@@ -1694,7 +1711,8 @@ class CKWebAPI:
         # ── Code spectrometer: auto-fires when text looks like code ──
         # A single line, a function, or a full file — CK reads it.
         # Checks BEFORE word-count spectrometer and voice loop.
-        _vl_source = None
+        # _vl_source is initialized at top of process_chat; don't
+        # reset it here -- CL-lookup and math-eval may have set it.
         if response_text == '...':
             import re as _recode
             _code_signals = [
@@ -1827,6 +1845,7 @@ class CKWebAPI:
                         _cparts.append('Above T* = 5/7. Structure holds.')
                     response_text = ' | '.join(_cparts)
                     _vl_source = 'ck_spectrometer'
+                    _exact_answer_fired = True
                     print(f'[WEB] Code spectrometer fired: {_detected} '
                           f'coh={_cmean:.3f} fns={len(_fn_scores)}')
                 except Exception as _ce:
@@ -2494,6 +2513,12 @@ class CKWebAPI:
             'emotion': self._safe_emotion(),
             'coherence_action': ca_state,
             'turn': self.sessions.get_or_create(session_id)['turn_count'],
+            # Skip voice_polish rebuild for exact-answer paths (CL
+            # lookup, math eval, code spectrometer).  Without this,
+            # voice_polish rebuilds the text from structural fields
+            # and clobbers the precise answer with cortex_speak prose.
+            # Per Brayden 2026-05-18 honest capability test.
+            'polish_skip': _exact_answer_fired,
         }
 
         # Duality: attach field_analysis from spectrometer if it fired
