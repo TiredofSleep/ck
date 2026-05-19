@@ -1389,6 +1389,39 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_scope_auditor: failed ({e})")
         results['scope_auditor'] = False
 
+    # Toolbox introspector + per-language translators + cross-language
+    # synthesizer.  Mounted AFTER the scope auditor so the auditor sees
+    # /lang/* responses as ordinary text and audits them like everything
+    # else.  Per Brayden 2026-05-18:
+    #   "make sure he knows how to use his toolbox and he has AI
+    #    assigned to each internal language to help him synthesize
+    #    languages and words and sounds and colors and math and
+    #    chemistry... etc"
+    try:
+        from ck_toolbox import mount_toolbox  # type: ignore[import-not-found]
+        results['toolbox'] = bool(mount_toolbox(engine).get("mounted"))
+    except Exception as e:
+        print(f"[CK Gen14] mount_toolbox: failed ({e})")
+        results['toolbox'] = False
+
+    try:
+        results['languages'] = bool(_mount_languages(engine))
+    except Exception as e:
+        print(f"[CK Gen14] mount_languages: failed ({e})")
+        results['languages'] = False
+
+    # ck_privacy: CK's runtime privacy formula (reference implementation
+    # of standard PPDP techniques -- Sweeney 2002, Wong 2006, Li 2007,
+    # Dwork 2006).  Used for any sensitive data release.  Not a novel
+    # mechanism contribution; explicitly scoped that way (see module
+    # docstring + FORMULAS_AND_TABLES.md changelog note).
+    try:
+        from ck_privacy import mount_privacy  # type: ignore[import-not-found]
+        results['privacy'] = bool(mount_privacy(engine).get("mounted"))
+    except Exception as e:
+        print(f"[CK Gen14] mount_privacy: failed ({e})")
+        results['privacy'] = False
+
     # Expose algebraic-measurement functions on the engine for easy use
     engine.gen14_sigma_orbit = sigma_orbit
     engine.gen14_four_core_class = four_core_class
@@ -1406,6 +1439,149 @@ def mount_all(engine) -> Dict[str, bool]:
     print()
 
     return results
+
+
+# ════════════════════════════════════════════════════════════════════════
+# Language translators -- one per external surface form
+# (Brayden 2026-05-18: "AI assigned to each internal language")
+# ════════════════════════════════════════════════════════════════════════
+
+def _mount_languages(engine) -> bool:
+    """Mount the six language translators + cross-language synthesizer.
+
+    Exposes engine.languages = dict of {language_id: module} and adds
+    /lang/{info, languages, translate, compose, examples} endpoints if
+    engine has a Flask app.
+    """
+    try:
+        from languages import math as lang_math  # type: ignore[import-not-found]
+        from languages import chem as lang_chem
+        from languages import music as lang_music
+        from languages import color as lang_color
+        from languages import sound as lang_sound
+        from languages import prose as lang_prose
+        from languages import synthesis as lang_synth
+        from languages.lingua_franca import (
+            OperatorPath, classify_tier, operator_name, OPERATOR_NAMES,
+        )
+    except Exception as e:
+        print(f"[CK Gen14] mount_languages: import failed ({e})")
+        return False
+
+    registry = {
+        "math":  lang_math,
+        "chem":  lang_chem,
+        "music": lang_music,
+        "color": lang_color,
+        "sound": lang_sound,
+        "prose": lang_prose,
+    }
+    engine.languages = registry
+    engine.lang_synthesis = lang_synth
+
+    app = getattr(engine, "app", None)
+    if app is not None:
+        from flask import jsonify, request  # type: ignore
+
+        @app.route("/lang/info", methods=["GET"])
+        def _lang_info():  # noqa
+            return jsonify({
+                "languages":      sorted(registry.keys()),
+                "synthesis":      {"compose", "resonance", "describe"},
+                "operator_names": OPERATOR_NAMES,
+            })
+
+        @app.route("/lang/languages", methods=["GET"])
+        def _lang_languages():  # noqa
+            return jsonify({lid: mod.glossary() for lid, mod in registry.items()})
+
+        @app.route("/lang/examples", methods=["GET"])
+        def _lang_examples():  # noqa
+            out = {}
+            for lid, mod in registry.items():
+                out[lid] = [(src, ops) for src, ops in mod.examples()]
+            return jsonify(out)
+
+        @app.route("/lang/translate", methods=["GET", "POST"])
+        def _lang_translate():  # noqa
+            language = ""
+            input_str = ""
+            if request.method == "POST":
+                payload = request.get_json(silent=True) or {}
+                language = payload.get("language") or payload.get("lang", "")
+                input_str = payload.get("input", "")
+            else:
+                language = request.args.get("language") or request.args.get("lang", "")
+                input_str = request.args.get("input", "")
+            mod = registry.get(language)
+            if not mod:
+                return jsonify({"error": f"unknown language {language!r}",
+                                "available": sorted(registry.keys())}), 400
+            path = mod.encode(input_str)
+            return jsonify({
+                "input":    input_str,
+                "language": language,
+                "operators":       path.operators,
+                "operator_names":  path.names(),
+                "tier":            path.tier,
+                "confidence":      path.confidence,
+                "metadata":        path.metadata,
+                "decode":          mod.decode(path),
+                "describe":        lang_synth.describe(path),
+                "four_core_mass":  path.four_core_mass(),
+            })
+
+        @app.route("/lang/compose", methods=["POST"])
+        def _lang_compose():  # noqa
+            payload = request.get_json(silent=True) or {}
+            a_spec = payload.get("a") or {}
+            b_spec = payload.get("b") or {}
+            lens = (payload.get("lens") or "BHML").upper()
+            mod_a = registry.get(a_spec.get("lang", ""))
+            mod_b = registry.get(b_spec.get("lang", ""))
+            if not mod_a or not mod_b:
+                return jsonify({"error": "a.lang and b.lang must both be valid languages",
+                                "available": sorted(registry.keys())}), 400
+            path_a = mod_a.encode(a_spec.get("input", ""))
+            path_b = mod_b.encode(b_spec.get("input", ""))
+            comp = lang_synth.compose(path_a, path_b, lens=lens)
+            return jsonify({
+                "a":         {"path": path_a.operators, "tier": path_a.tier},
+                "b":         {"path": path_b.operators, "tier": path_b.tier},
+                "lens":      lens,
+                "composition": {
+                    "trajectory":      comp.operators,
+                    "trajectory_names": comp.names(),
+                    "tier":            comp.tier,
+                    "endpoint":        comp.metadata.get("endpoint_name"),
+                    "describe":        lang_synth.describe(comp),
+                },
+                "resonance": lang_synth.resonance(path_a, path_b),
+            })
+
+        @app.route("/lang/resonance", methods=["GET", "POST"])
+        def _lang_resonance():  # noqa
+            payload = (request.get_json(silent=True) or {}) if request.method == "POST" else {}
+            a = payload.get("a") or {"lang": request.args.get("a_lang", ""),
+                                     "input": request.args.get("a_input", "")}
+            b = payload.get("b") or {"lang": request.args.get("b_lang", ""),
+                                     "input": request.args.get("b_input", "")}
+            mod_a = registry.get(a.get("lang", ""))
+            mod_b = registry.get(b.get("lang", ""))
+            if not mod_a or not mod_b:
+                return jsonify({"error": "need valid a.lang / b.lang"}), 400
+            pa = mod_a.encode(a.get("input", ""))
+            pb = mod_b.encode(b.get("input", ""))
+            return jsonify({
+                "a": pa.operators, "b": pb.operators,
+                "resonance": lang_synth.resonance(pa, pb),
+                "jaccard":   __import__("languages", fromlist=["lingua_franca"]).lingua_franca.jaccard(pa, pb),
+                "tier_a":    pa.tier,
+                "tier_b":    pb.tier,
+            })
+
+    print(f"[CK Gen14] mount_languages: {len(registry)} translators + synthesis at engine.languages")
+    return True
 
 
 # ════════════════════════════════════════════════════════════════════════
