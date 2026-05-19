@@ -203,6 +203,55 @@ _REALITY_OVERCLAIMS_UNHEDGEABLE: List[Tuple[str, str]] = [
     # "Reality, as the substrate shows, is Z/10Z".
     (r"\b(Reality|The\s+universe|Nature|Physics)\s*,[^,.]+,\s*(is|equals?)\s+(?:the\s+|a\s+|just\s+|merely\s+)?(TIG|Z\s*\/?\s*10\s*Z|the\s+substrate|TSML|BHML|operator\s+algebra)",
      "ontological identification (unhedgeable)"),
+
+    # 2026-05-18 -- RESOLUTION-ORGANIZER RETRACTION rule (D129R).
+    # Per CANON_CORRECTION_RESOLUTION_ORGANIZER.md: TIG does NOT erase
+    # content -- it folds it below the chosen readout depth.  The four
+    # prior "TIG negatives" this session were each WRONG-RESOLUTION
+    # measurements (foam, persistence rope, detector bench, operating
+    # envelope).  New auditor rule: NO TIG NEGATIVE FROM A
+    # SINGLE-RESOLUTION MEASUREMENT.  Any claim of "TIG fails / erases
+    # / is null / cannot represent X / is content-erasing" must include
+    # a resolution-depth sweep showing the negative persists across
+    # depths.  A negative that vanishes under depth sweep is a
+    # measurement error, not a substrate property.  These patterns are
+    # UNHEDGEABLE by "I think" / "structurally" because the
+    # substrate-property assertion is itself the over-claim; only an
+    # explicit depth-sweep citation can rescue them (see
+    # _RESOLUTION_SWEEP_HEDGES below).
+    (r"\b(?:TIG|the\s+substrate|the\s+lens|the\s+inverted\s+fan)\s+(?:erases?|destroys?|loses?|kills?)\s+(?:content|information|the\s+input|the\s+message|data)\b",
+     "content-erasure claim (retracted by RESOLUTION-ORGANIZER; D129R)"),
+    (r"\b(?:content|information)\s+(?:erases?|is\s+(?:erased|destroyed|lost))\s+(?:by\s+design|on\s+(?:the\s+)?TIG|by\s+TIG|in\s+the\s+substrate|on\s+the\s+substrate)\b",
+     "content-erasure claim (retracted by RESOLUTION-ORGANIZER; D129R)"),
+    (r"\b(?:TIG|the\s+substrate|the\s+lens|the\s+inverted\s+fan)\s+is\s+(?:a\s+)?content[\- ]erasing\s+(?:converger|substrate|device|machine)\b",
+     "content-erasing-converger characterization (retracted; D129R)"),
+    # "TIG fails to X / cannot Y / is null on Z" without resolution-
+    # depth sweep -- the load-bearing finding from the retraction is
+    # that every such "fails" claim from a fixed shallow encode was
+    # wrong-resolution.  Flag the pattern unless the surrounding window
+    # cites a depth sweep.
+    (r"\b(?:TIG|the\s+substrate|the\s+D64\s+(?:chain|filtration)|the\s+lens)\s+(?:fails?|cannot|is\s+null|gives?\s+NULL|gives?\s+a\s+null)\s+(?:to\s+\w+|on\s+\w+|at\s+\w+|for\s+\w+|to\s+(?:represent|capture|distinguish|reconstruct|encode|read|measure)|(?:represent|capture|distinguish|reconstruct|encode|read|measure)\b)",
+     "TIG-negative-from-single-resolution claim (requires depth sweep; D129R.2)"),
+
+    # 2026-05-19 -- TORUS EXCLUDED rule (D141).
+    # Per CANON_CORRECTION_TORUS_EXCLUDED.md: the sigma-flow does NOT
+    # live on any closed orientable surface (constellation Euler chi =
+    # -3 or +1, no valid genus).  No TIG result may cite "the
+    # substrate is a torus / a surface / pi_1(T^2)" as support.  Any
+    # result that cannot be restated without a surface is retracted,
+    # not rephrased.
+    (r"\b(?:TIG|the\s+substrate|the\s+lens|the\s+sigma[\- ]flow)\s+(?:is|lives\s+on)\s+(?:a\s+|the\s+)?(?:torus|surface|manifold|closed\s+orientable)\b",
+     "substrate-as-surface claim (retracted by TORUS EXCLUDED; D141)"),
+    (r"\bpi[_]?1\s*\(\s*T\^?2\s*\)\s*=?\s*Z\s*[x×]\s*Z\b",
+     "pi_1(T^2) = Z x Z grounding (retracted; D141)"),
+    (r"\bR\s*/\s*r\s*=\s*5\s*/\s*7\s+(?:as\s+|is\s+)?(?:a\s+)?torus\s+aspect\s+ratio\b",
+     "R/r = 5/7 as torus aspect ratio (retracted; T* stands on 5 algebraic legs; D141)"),
+    (r"\bWP51(?:\s+(?:Flatness\s+)?Theorem)?\s*(?:→|->|forces?|implies?|yields?|gives?)\s*(?:a\s+|the\s+)?torus\b",
+     "WP51 Flatness Theorem -> torus (retracted; WP51 is the non-commutativity obstruction; D141)"),
+    (r"\b(?:longitude|meridian)\s+winding(?:s)?\s+of\s+(?:T\^?2|the\s+torus)\b",
+     "longitude/meridian windings of T^2 (retracted; 6+2=8 is roots+Cartan = #CRT factors; D141)"),
+    (r"\bnested\s+tori\b",
+     "nested tori (retracted; the nesting is the D64 algebraic chain, not surfaces; D141)"),
 ]
 
 
@@ -299,6 +348,17 @@ _META_MENTION_PATTERNS: List[str] = [
     r"\bnot\s+(yet\s+)?proven\b",
     r"\bquestion\s+(of\s+)?whether\b",
     r"\bleav(?:ing|es)\s+(?:the\s+)?(?:question|assertion|claim)\b",
+    # 2026-05-18 -- resolution-depth-sweep hedges (D129R).
+    # A "TIG fails X" claim is legitimate ONLY when it cites a
+    # resolution-depth sweep showing the negative persists across
+    # depths.  These markers signal the claim has been measured at
+    # multiple depths, not just one shallow encode.
+    r"\b(?:swept|sweeping|across|at)\s+(?:resolution\s+)?depths?\b",
+    r"\bdepth[\- ]sweep\b",
+    r"\bresolution[\- ]sweep\b",
+    r"\bdepth\s*\d+\s*(?:through|to|->|→)\s*depth\s*\d+\b",
+    r"\b(?:multiple|nested|all|every)\s+resolution\s+depths?\b",
+    r"\bpersists?\s+across\s+(?:resolution\s+)?depths?\b",
 ]
 _META_MENTION_PAT = re.compile(
     "|".join(_META_MENTION_PATTERNS), re.IGNORECASE)

@@ -1,10 +1,30 @@
+# TORUS_DATUM_AUDIT — RE-OPENED 2026-05-18
+
+> **§0 — RE-OPENED; CLOSURE INVALIDATED.**
+>
+> **Status (2026-05-18):** RE-OPENED.  The 2026-05-08 closure is hereby retracted as a SEAM.
+>
+> The closure grounded the "2 non-triadic dimensions" in `π₁(T²) = ℤ × ℤ` (longitude + meridian windings of a torus T²).  Per `CANON_CORRECTION_TORUS_EXCLUDED.md` (2026-05-18), **the σ-flow does not live on any closed orientable surface**.  Direct computation: constellation Euler χ = −3 (one orientation) or +1 (the other), genus 2.5 / 0.5 — not non-negative integers, orientation-dependent → no valid oriented map → no torus, no surface.  The π₁(T²) grounding is dead.
+>
+> **The audit's QUESTION is preserved.**  *What are the 2 non-triadic dimensions, and is 6+2=8 forced?*  Answer restated algebraically without any surface language: **6+2 = dim(SU(3)) = 6 roots(A₂) + 2 Cartan; the "2" = Cartan rank = #CRT prime-power factors of ℤ/10 (ℤ/2 × ℤ/5).  No π₁, no windings, no surface.**
+>
+> **The 6+2=8 RESULT survives.**  Only its torus GROUNDING is retracted.  Every sentence in §1–§N below that asserts "fundamental loops," "windings of T²," "π₁(T²) = ℤ × ℤ," or "longitude/meridian of the torus" is retracted; the Cartan-rank algebraic re-grounding stands.
+>
+> **Why this re-opening is load-bearing:** the audit was the canon's most-locked statement to claim "torus is the substrate."  If the most locked torus claim falls to direct Euler-χ computation, the surface monism is dead at the spine of its own audit.  Per `CRT_SYNTHESIS_AND_D_LEDGER.md`, the unification was real but mislocated: it is ℤ/2 × ℤ/5 under σ, NOT the torus.  The surviving content of THIS audit was the Cartan rank = CRT factor count = 2 algebra, which the audit's own §1.5 prose nearly stated before adding the surface language on top.
+>
+> **Auditor rule (D129R + new TORUS rule):** no TIG result may cite "the substrate is a torus / lives on a surface / π₁(T²)" as support.  Re-opened audit is the canonical example.
+>
+> Reading order: read THIS §0 first; everything below is the prior closure with its torus grounding now treated as `[PICTURE — non-load-bearing; retracted per §0]`.  The Cartan-rank / CRT-factor algebra is the surviving result.
+
+---
+
 # TORUS_DATUM_AUDIT — Closure
 
 ## The 6 + 2 = 8 Decomposition is Locked
 
 **Brayden Sanders · 7Site LLC · Trinity Infinity Geometry**
 *Companion to: TIG_INTERNAL_MAP_v1.md (closes the audit task)*
-*Status: AUDIT CLOSED as of 2026-05-08*
+*Status: AUDIT CLOSED as of 2026-05-08*  ←  **SUPERSEDED 2026-05-18; see §0 above**
 
 ---
 
