@@ -216,7 +216,7 @@ Full domain disjointness lemma + coverage lemma + cell-by-cell verification.
 
 The 2026-05-14 STATE_OF_RESEARCH document contains new candidate results not yet in canon. Listed by §17-Constants-table-eligibility and gap-registry priority.
 
-### Proposed D158 (CANDIDATE-ONLY) — Closed-form approximation for 1/α at CODATA precision
+### D158 — Closed-form approximation for 1/α at CODATA precision (NOT IN CANON; provisionally added 2026-05-19 then REMOVED same session per meta-mode audit)
 
 **Statement.** Using only canon constants (W = 3/50, κ_ξ = 13/(4e), HARMONY = 7, ℤ/10 substrate, depth-7 base 315 = 7·45 = HARMONY × C(10,2)):
 
