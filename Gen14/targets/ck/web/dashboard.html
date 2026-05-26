@@ -334,6 +334,41 @@
             </div>
         </div>
 
+        <!-- Reminders card -->
+        <div class="card" id="card-reminders">
+            <h2>
+                <span>Reminders</span>
+                <span class="endpoint">/remind/due + /remind/pending</span>
+            </h2>
+            <form id="reminder-form" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;padding:10px;background:#fbf8f3;border-radius:4px;">
+                <input id="reminder-text" placeholder="what to remind…" style="font-family:'Inter',sans-serif;font-size:13px;padding:6px;border:1px solid #e5e0d8;border-radius:3px;">
+                <div style="display:flex;gap:6px;align-items:center;">
+                    <input id="reminder-when" placeholder="when (e.g. 30m, 1h, tomorrow at 9am)" style="flex:1;font-family:'Inter',sans-serif;font-size:12px;padding:4px;border:1px solid #e5e0d8;border-radius:3px;">
+                    <input id="reminder-tags" placeholder="tags" style="width:80px;font-family:'Inter',sans-serif;font-size:12px;padding:4px;border:1px solid #e5e0d8;border-radius:3px;">
+                    <button type="submit" style="background:#1a1a1a;color:#f8f5f0;border:none;padding:5px 12px;border-radius:3px;cursor:pointer;font-size:12px;font-weight:600;">add</button>
+                </div>
+                <div id="reminder-status" style="font-size:11px;color:#888;font-family:'JetBrains Mono',monospace;min-height:14px;"></div>
+            </form>
+            <div id="reminder-body">
+                <div class="empty">loading…</div>
+            </div>
+        </div>
+
+        <!-- Unified search card -->
+        <div class="card" id="card-search">
+            <h2>
+                <span>Unified search</span>
+                <span class="endpoint">/search</span>
+            </h2>
+            <form id="search-form" style="display:flex;gap:6px;margin-bottom:12px;">
+                <input id="search-q" placeholder="search journal + bookmarks + files…" style="flex:1;font-family:'Inter',sans-serif;font-size:13px;padding:6px;border:1px solid #e5e0d8;border-radius:3px;">
+                <button type="submit" style="background:#1a1a1a;color:#f8f5f0;border:none;padding:5px 14px;border-radius:3px;cursor:pointer;font-size:12px;font-weight:600;">search</button>
+            </form>
+            <div id="search-body">
+                <div class="empty">type a query and hit search…</div>
+            </div>
+        </div>
+
     </div>
 
     <div class="footer">
@@ -487,51 +522,180 @@ function renderSummary(d) {
     $('summary-body').innerHTML = html;
 }
 
-// Quick-capture form handler
-document.addEventListener('DOMContentLoaded', () => {
-    const form = $('quick-capture');
-    if (!form) return;
-    form.addEventListener('submit', async (ev) => {
-        ev.preventDefault();
-        const text = $('capture-text').value.trim();
-        if (!text) {
-            $('capture-status').textContent = 'note text required';
-            return;
-        }
-        const tags = $('capture-tags').value.split(',').map(s => s.trim()).filter(Boolean);
-        const mood = $('capture-mood').value.trim() || null;
-        $('capture-status').textContent = 'saving…';
-        try {
-            const r = await fetch('/journal/note', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({text, tags, mood}),
-            });
-            const j = await r.json();
-            if (j.ok) {
-                $('capture-text').value = '';
-                $('capture-tags').value = '';
-                $('capture-mood').value = '';
-                $('capture-status').textContent = `saved (${j.entry.dominant_op_name})`;
-                setTimeout(() => poll(), 200);
-            } else {
-                $('capture-status').textContent = `error: ${j.error || 'unknown'}`;
-            }
-        } catch (e) {
-            $('capture-status').textContent = `failed: ${e.message}`;
-        }
+function renderReminders(due, pending) {
+    let html = '';
+    const dueList = due.reminders || [];
+    const pendList = pending.reminders || [];
+    if (dueList.length > 0) {
+        html += `<div style="font-size:12px;font-weight:600;color:#c0392b;margin-bottom:6px;">${dueList.length} DUE NOW</div>`;
+        dueList.forEach(r => {
+            const overdue = Math.max(0, (Date.now()/1000 - r.due_ts));
+            html += `<div class="rec priority-WARN" style="cursor:pointer;" data-id="${r.id}">`;
+            html += `<div class="header-line"><span class="priority-WARN">DUE</span><span style="color:#888;">overdue ${Math.round(overdue)}s · click to ack</span></div>`;
+            html += `<div>${escapeHtml(r.text)}</div></div>`;
+        });
+    }
+    if (pendList.length > 0) {
+        html += `<div style="font-size:12px;font-weight:600;color:#555;margin:10px 0 6px;">${pendList.length} upcoming</div>`;
+        pendList.slice(0, 5).forEach(r => {
+            const inSec = Math.max(0, (r.due_ts - Date.now()/1000));
+            let when;
+            if (inSec < 60) when = `${Math.round(inSec)}s`;
+            else if (inSec < 3600) when = `${Math.round(inSec/60)}m`;
+            else if (inSec < 86400) when = `${(inSec/3600).toFixed(1)}h`;
+            else when = `${Math.round(inSec/86400)}d`;
+            html += `<div style="font-size:12px;padding:4px 0;border-bottom:1px dashed #f0ece4;">`;
+            html += `<div style="display:flex;justify-content:space-between;"><span>${escapeHtml(r.text)}</span><span style="color:#888;font-family:'JetBrains Mono',monospace;">in ${when}</span></div>`;
+            html += `</div>`;
+        });
+    }
+    if (dueList.length === 0 && pendList.length === 0) {
+        html = `<div class="empty">No reminders. Add one above.</div>`;
+    }
+    $('reminder-body').innerHTML = html;
+    // Wire ack-on-click for due items
+    document.querySelectorAll('#reminder-body [data-id]').forEach(el => {
+        el.addEventListener('click', async () => {
+            const id = el.getAttribute('data-id');
+            try {
+                await fetch('/remind/ack', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({id}),
+                });
+                setTimeout(() => poll(), 100);
+            } catch {}
+        });
     });
+}
+
+function renderSearchResults(d) {
+    const results = d.results || [];
+    if (results.length === 0 && d.query) {
+        $('search-body').innerHTML = `<div class="empty">No results for "${escapeHtml(d.query)}". Try simpler keywords.</div>`;
+        return;
+    }
+    if (results.length === 0) {
+        return;  // initial state
+    }
+    let html = `<div style="font-size:12px;color:#888;margin-bottom:8px;">${results.length} result(s) for "${escapeHtml(d.query)}"</div>`;
+    results.slice(0, 12).forEach(r => {
+        const score = r._score != null ? r._score : (r._overlap || '?');
+        let body;
+        if (r.source === 'journal') {
+            body = `<div style="font-size:13px;">${escapeHtml((r.text || '').slice(0, 140))}</div>`;
+            if (r.tags && r.tags.length) body += `<div style="font-size:11px;color:#5a5a5a;margin-top:2px;">${r.tags.join(', ')}</div>`;
+        } else if (r.source === 'bookmark') {
+            body = `<div style="font-size:13px;font-weight:500;">${escapeHtml(r.title || r.url)}</div>`;
+            body += `<div style="font-size:11px;color:#888;font-family:'JetBrains Mono',monospace;">${escapeHtml(r.url)}</div>`;
+        } else if (r.source === 'file') {
+            body = `<div style="font-size:13px;font-family:'JetBrains Mono',monospace;">${escapeHtml(r.name)}</div>`;
+            body += `<div style="font-size:11px;color:#888;font-family:'JetBrains Mono',monospace;">${escapeHtml((r.path || '').slice(0, 80))}</div>`;
+        } else {
+            body = `<div>${escapeHtml(JSON.stringify(r).slice(0, 80))}</div>`;
+        }
+        html += `<div class="rec" style="border-left-color:#5a8edc;"><div class="header-line"><span style="color:#5a8edc;font-weight:600;">${r.source.toUpperCase()}</span><span style="color:#888;">score ${score}</span></div>${body}</div>`;
+    });
+    $('search-body').innerHTML = html;
+}
+
+// All form handlers
+document.addEventListener('DOMContentLoaded', () => {
+    // Quick-capture (journal)
+    const captureForm = $('quick-capture');
+    if (captureForm) {
+        captureForm.addEventListener('submit', async (ev) => {
+            ev.preventDefault();
+            const text = $('capture-text').value.trim();
+            if (!text) { $('capture-status').textContent = 'note text required'; return; }
+            const tags = $('capture-tags').value.split(',').map(s => s.trim()).filter(Boolean);
+            const mood = $('capture-mood').value.trim() || null;
+            $('capture-status').textContent = 'saving…';
+            try {
+                const r = await fetch('/journal/note', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({text, tags, mood}),
+                });
+                const j = await r.json();
+                if (j.ok) {
+                    $('capture-text').value = '';
+                    $('capture-tags').value = '';
+                    $('capture-mood').value = '';
+                    $('capture-status').textContent = `saved (${j.entry.dominant_op_name})`;
+                    setTimeout(() => poll(), 200);
+                } else {
+                    $('capture-status').textContent = `error: ${j.error || 'unknown'}`;
+                }
+            } catch (e) { $('capture-status').textContent = `failed: ${e.message}`; }
+        });
+    }
+
+    // Reminder form
+    const remForm = $('reminder-form');
+    if (remForm) {
+        remForm.addEventListener('submit', async (ev) => {
+            ev.preventDefault();
+            const text = $('reminder-text').value.trim();
+            const when = $('reminder-when').value.trim();
+            if (!text || !when) { $('reminder-status').textContent = 'text and when both required'; return; }
+            const tags = $('reminder-tags').value.split(',').map(s => s.trim()).filter(Boolean);
+            $('reminder-status').textContent = 'adding…';
+            try {
+                const r = await fetch('/remind/add', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({text, when, tags}),
+                });
+                const j = await r.json();
+                if (j.ok) {
+                    $('reminder-text').value = '';
+                    $('reminder-when').value = '';
+                    $('reminder-tags').value = '';
+                    $('reminder-status').textContent = `added (due ${j.reminder.due_iso})`;
+                    setTimeout(() => poll(), 200);
+                } else {
+                    $('reminder-status').textContent = `error: ${j.error || 'unknown'}`;
+                }
+            } catch (e) { $('reminder-status').textContent = `failed: ${e.message}`; }
+        });
+    }
+
+    // Unified search form
+    const searchForm = $('search-form');
+    if (searchForm) {
+        searchForm.addEventListener('submit', async (ev) => {
+            ev.preventDefault();
+            const q = $('search-q').value.trim();
+            if (!q) return;
+            $('search-body').innerHTML = `<div class="empty">searching…</div>`;
+            try {
+                const r = await fetch(`/search?q=${encodeURIComponent(q)}&n=8`);
+                const d = await r.json();
+                renderSearchResults(d);
+            } catch (e) {
+                $('search-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`;
+            }
+        });
+    }
 });
 
 let errors = 0;
 async function poll() {
     let allOk = true;
+    // Reminders need two fetches combined
+    const remindersPromise = Promise.all([
+        fetchJSON('/remind/due').catch(() => ({reminders: []})),
+        fetchJSON('/remind/pending').catch(() => ({reminders: []})),
+    ]).then(([due, pending]) => renderReminders(due, pending))
+       .catch(e => { allOk = false; $('reminder-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; });
     const promises = [
         fetchJSON('/pc/sense').then(renderSense).catch(e => { allOk = false; $('sense-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
         fetchJSON('/rhythm').then(renderRhythm).catch(e => { allOk = false; $('rhythm-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
         fetchJSON('/pc/recommend').then(renderRecommend).catch(e => { allOk = false; $('recommend-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
         fetchJSON('/journal/recent?n=5').then(renderJournal).catch(e => { allOk = false; $('journal-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
         fetchJSON('/summary').then(renderSummary).catch(e => { allOk = false; $('summary-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
+        remindersPromise,
     ];
     await Promise.all(promises);
     if (allOk) {
