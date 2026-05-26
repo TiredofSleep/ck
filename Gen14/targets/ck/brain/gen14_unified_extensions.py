@@ -1522,6 +1522,18 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_bookmarks: failed ({e})")
         results['bookmark'] = False
 
+    # ck_reminder: gentle time-based reminders, PULL-ONLY (user checks
+    # /remind/due; CK never pushes notifications).  Accepts relative
+    # ("30m", "1h30m", "1d4h"), ISO ("2026-05-20T09:00"), and natural
+    # ("tomorrow at 9am", "tonight at 8pm") when-specs.
+    # Endpoints /remind/{add, due, pending, ack, recent, stats, info}.
+    try:
+        from ck_reminder import mount_reminders  # type: ignore[import-not-found]
+        results['reminder'] = bool(mount_reminders(engine))
+    except Exception as e:
+        print(f"[CK Gen14] mount_reminders: failed ({e})")
+        results['reminder'] = False
+
     # Expose algebraic-measurement functions on the engine for easy use
     engine.gen14_sigma_orbit = sigma_orbit
     engine.gen14_four_core_class = four_core_class
