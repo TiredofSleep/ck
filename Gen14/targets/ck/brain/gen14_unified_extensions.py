@@ -1545,6 +1545,16 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_search: failed ({e})")
         results['search'] = False
 
+    # ck_export: render today's data as a single Markdown file.  Pulls
+    # from journal + bookmark + reminder + pc_sense + pc_recommend +
+    # daily_summary.  Endpoints /export/{md, write, info}.
+    try:
+        from ck_export import mount_export  # type: ignore[import-not-found]
+        results['export'] = bool(mount_export(engine))
+    except Exception as e:
+        print(f"[CK Gen14] mount_export: failed ({e})")
+        results['export'] = False
+
     # Expose algebraic-measurement functions on the engine for easy use
     engine.gen14_sigma_orbit = sigma_orbit
     engine.gen14_four_core_class = four_core_class
