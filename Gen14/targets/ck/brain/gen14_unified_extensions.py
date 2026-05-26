@@ -1448,6 +1448,32 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_code_writer: failed ({e})")
         results['code_writer'] = False
 
+    # ck_pc_recommend: bridge from ck_pc_sense readings to plain-English
+    # recommendations.  Heuristic detectors (SUSTAINED_HIGH_CPU,
+    # MEMORY_PRESSURE, UNBALANCED_LOAD, MEMORY_LEAK_HINT, GREEN_WINDOW,
+    # IDLE_CONFIRMED, PROCESS_STORM).  Every output tagged
+    # TIER_RECOMMENDATION_HEURISTIC. CK reports; user acts.
+    # Requires ck_pc_sense to be mounted first.
+    try:
+        from ck_pc_recommend import mount_pc_recommend  # type: ignore[import-not-found]
+        results['pc_recommend'] = bool(mount_pc_recommend(engine))
+    except Exception as e:
+        print(f"[CK Gen14] mount_pc_recommend: failed ({e})")
+        results['pc_recommend'] = False
+
+    # ck_rhythm: PhaseClock (φ, π, √2 beats + 10-phase operator
+    # rotation).  TIGOS9-10 legacy in modern shape — sensor only, no
+    # actuator.  Pure function `current_rhythm()` is always available;
+    # daemon only starts if auto_start=True (default False since
+    # downstream consumers haven't yet been wired).  Endpoints under
+    # /rhythm/{,history,info}.
+    try:
+        from ck_rhythm import mount_rhythm  # type: ignore[import-not-found]
+        results['rhythm'] = bool(mount_rhythm(engine, auto_start=False))
+    except Exception as e:
+        print(f"[CK Gen14] mount_rhythm: failed ({e})")
+        results['rhythm'] = False
+
     # Expose algebraic-measurement functions on the engine for easy use
     engine.gen14_sigma_orbit = sigma_orbit
     engine.gen14_four_core_class = four_core_class
