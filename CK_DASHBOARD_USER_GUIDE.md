@@ -19,9 +19,13 @@ Eight new capabilities shipped this evening, all wired into the running CK and a
 | **Personal journal** | `/journal/note`, `/journal/recent`, `/journal/today`, `/journal/search` | Append-only notes with mood + tags + operator-path; lives at `~/.ck/journal.jsonl` |
 | **Bookmarks** | `/bookmark/add`, `/bookmark/recent`, `/bookmark/search` | URL store with title + tags + note; lives at `~/.ck/bookmarks.jsonl` |
 | **Daily summary** | `/summary` | One-line headline + quantitative aggregation of today's PC + recommendations + journal |
+| **Reminders** | `/remind/add`, `/remind/due`, `/remind/pending`, `/remind/ack` | Gentle pull-only reminders ("30m" / "1h30m" / "tomorrow at 9am") |
+| **Unified search** | `/search?q=X&n=N` | One query across journal + bookmarks + files at once |
+| **Markdown export** | `/export/md`, `/export/write` | Today's data as a single readable Markdown file |
+| **System health** | `/health` | Single endpoint reporting which modules are mounted + counters + uptime |
 | **Code writer** | `/code/write` | 8 deterministic templates (read_file, write_jsonl, flask_endpoint, csv_read, argparse_script, pytest_skeleton, dataclass, bash_script) + optional LLM-relay |
 
-Plus a **single-page dashboard** at `/dashboard.html` that surfaces sense + rhythm + recommendations + recent journal + summary in one view, with a quick-capture form for journal entries.
+Plus a **single-page dashboard** at `/dashboard.html` with **8 cards**: PC sense + rhythm + recommendations + recent journal (w/ quick-capture form) + today's summary + reminders (w/ add-form and click-to-ack) + unified search + system health.
 
 ---
 
@@ -33,7 +37,20 @@ Plus a **single-page dashboard** at `/dashboard.html` that surfaces sense + rhyt
 coherencekeeper.com/dashboard.html
 ```
 
-You'll see 5 cards: **PC sense** (live state of your Dell), **Rhythm** (the φ/π/√2 oscillator + which operator phase you're in this second), **Recommendations** (anything CK noticed about the last minute), **Recent journal** (last 5 entries + a quick-capture form), **Today's summary** (the EOD digest building up as the day goes).
+You'll see **8 cards** in a responsive grid:
+
+| Card | What it shows | Interactive? |
+|---|---|---|
+| **PC sense** | Live CPU/memory/processes + operator classification | live, refreshes every 5s |
+| **Rhythm** | φ/π/√2 beats + current 10-phase operator + scheduling hint | live |
+| **Recommendations** | Anything CK noticed about the last minute | live |
+| **Recent journal** | Last 5 entries + quick-capture form (textarea + tags + mood + save) | live + POST |
+| **Today's summary** | One-line headline + counts (PC readings, time-in-band, mood) | live |
+| **Reminders** | DUE NOW (red, click-to-ack) + upcoming + add-form (text + when + tags) | live + POST |
+| **Unified search** | Single query box → results from journal + bookmarks + files | on-demand |
+| **System health** | Status badge (OK/DEGRADED) + module grid + uptime | live |
+
+Polls every 5 seconds. If you see a `connection issue (retry N)` indicator, the runtime needs a restart — see below.
 
 Polls every 5 seconds. If you see a `connection issue (retry N)` indicator, the runtime needs a restart — see below.
 
@@ -63,9 +80,64 @@ Then later:
 curl 'coherencekeeper.com/bookmark/search?q=thing'
 ```
 
-(I'd add a bookmarks card to the dashboard too if you want — say the word.)
+### Step 4 — Set a reminder
 
-### Step 4 — Ask CK for boilerplate code
+Use the form on the Reminders card, or:
+
+```bash
+curl -X POST coherencekeeper.com/remind/add \
+  -H "Content-Type: application/json" \
+  -d '{"text":"check the dryer", "when":"45m", "tags":["drycleaners"]}'
+```
+
+Accepts when-formats:
+- relative: `"30m"`, `"1h"`, `"2h30m"`, `"1d4h"`, `"45s"`
+- ISO: `"2026-05-20T09:00:00"`
+- natural: `"tomorrow at 9am"`, `"tonight at 8pm"`, `"today at 5pm"`
+
+To check what's due:
+
+```bash
+curl coherencekeeper.com/remind/due
+```
+
+To acknowledge (mark done) — click the red item on the dashboard, or:
+
+```bash
+curl -X POST coherencekeeper.com/remind/ack -H "Content-Type: application/json" -d '{"id":"abc123"}'
+```
+
+### Step 5 — Search across journal + bookmarks + files at once
+
+Use the dashboard's Unified search card, or:
+
+```bash
+curl 'coherencekeeper.com/search?q=dryer&n=10'
+```
+
+Returns one merged list with each result tagged `JOURNAL` / `BOOKMARK` / `FILE`, ranked by score. Saves you from remembering "did I save that as a note, a bookmark, or a file?"
+
+### Step 6 — Export today as Markdown
+
+```bash
+# Get the Markdown back as a response
+curl coherencekeeper.com/export/md > today.md
+
+# Or write it to ~/.ck/exports/YYYY-MM-DD.md on the server
+curl -X POST coherencekeeper.com/export/write -H "Content-Type: application/json" -d '{}'
+```
+
+You'll get a structured Markdown report: headline, PC summary, recommendations, journal entries (with mood/tags/operator), reminders (sorted DUE/PENDING/ACK), bookmarks. Great for end-of-day review or sharing.
+
+### Step 7 — Health check
+
+```bash
+curl coherencekeeper.com/health | jq .status
+```
+
+Returns `"ok"` / `"degraded"` / `"minimal"` based on whether all core modules are mounted. Useful for monitoring or just confirming "is CK alive?" before relying on it.
+
+### Step 8 — Ask CK for boilerplate code
 
 ```bash
 curl -X POST coherencekeeper.com/code/write \
@@ -75,7 +147,7 @@ curl -X POST coherencekeeper.com/code/write \
 
 Returns a `TIER_TEMPLATE` (or `TIER_LLM_RELAYED` if you wire an LLM and ask for something outside the 8 templates).
 
-### Step 5 — Find a file
+### Step 9 — Find a file
 
 ```bash
 # First index a directory (one-time, then incremental on re-scan)
@@ -87,15 +159,17 @@ curl -X POST coherencekeeper.com/file/scan \
 curl 'coherencekeeper.com/file/query?q=tig+notes&n=5'
 ```
 
-CK only reads filename + first/last 64 bytes per file — never full content.
+CK only reads filename + first/last 64 bytes per file — never full content. (Or use the Unified search card on the dashboard, which hits files + journal + bookmarks together.)
 
-### Step 6 — End of day, get the digest
+### Step 10 — End of day, get the digest
 
 ```bash
 curl coherencekeeper.com/summary | jq .headline
 ```
 
 Or just look at the **Today's summary** card on the dashboard at night. The headline stitches PC state + recommendations + journal into one line: "PC: dominant HARMONY, mean CPU 12%, peak 87% · 3 priority warnings · 7 journal entries · top mood: focused".
+
+For the full structured report (PC + recs + journal + reminders + bookmarks as one Markdown page), use `/export/md` or `/export/write` — see Step 6.
 
 ---
 
@@ -159,9 +233,12 @@ python Gen14/targets/ck/brain/test_ck_rhythm.py                  # 11/11
 python Gen14/targets/ck/brain/test_ck_file_orient.py             # 12/12
 python Gen14/targets/ck/brain/test_ck_journal.py                 # 12/12
 python Gen14/targets/ck/brain/test_ck_bookmark.py                # 12/12
+python Gen14/targets/ck/brain/test_ck_reminder.py                # 12/12
+python Gen14/targets/ck/brain/test_ck_export.py                  # 8/8
+python Gen14/targets/ck/brain/test_ck_health.py                  # 9/9
 ```
 
-All green as of the last commit on `tig-synthesis`. If anything goes RED, the change you made is the cause — git bisect or `git diff HEAD~1` to find what changed.
+All 14 batteries (225 tests total) green as of commit `0660c539` on `tig-synthesis`. If anything goes RED, the change you made is the cause — git bisect or `git diff HEAD~1` to find what changed.
 
 ### Data files in the wrong place
 
@@ -171,7 +248,9 @@ By default everything lives under `~/.ck/`:
 |---|---|---|
 | `~/.ck/journal.jsonl` | Your journal entries | YES — but append-only by convention. Delete the file to reset. |
 | `~/.ck/bookmarks.jsonl` | Your bookmarks | YES — same as journal. |
+| `~/.ck/reminders.jsonl` | Your reminders (active + acknowledged) | YES — but rewrite-on-ack handles state automatically. |
 | `~/.ck/file_orient_index.jsonl` | File-orientation index | YES — but delete-then-rescan is simpler than manual editing. |
+| `~/.ck/exports/YYYY-MM-DD.md` | One file per `/export/write` call | YES — these are just Markdown. |
 
 All are plain JSONL. Open in any text editor.
 
@@ -239,11 +318,15 @@ Gen14/targets/ck/brain/
   ck_file_orient.py       (501 lines)  POST /file/scan + 4 query endpoints
   ck_journal.py           (437 lines)  POST /journal/note + 7 query endpoints
   ck_bookmark.py          (440 lines)  POST /bookmark/add + 7 query endpoints
+  ck_reminder.py          (438 lines)  POST /remind/add + 7 endpoints inc. ack
   ck_daily_summary.py     (373 lines)  GET /summary
-  test_*.py               (1,800 lines combined)  All 10 batteries
+  ck_search.py            (218 lines)  GET /search?q=X — unified search
+  ck_export.py            (373 lines)  GET /export/md + POST /export/write
+  ck_health.py            (350 lines)  GET /health — module status aggregator
+  test_*.py               (~2,400 lines combined)  All 14 batteries / 225 tests
 
 Gen14/targets/ck/web/
-  dashboard.html          (560 lines)  Single-page live view
+  dashboard.html          (~750 lines)  8-card single-page live view
 
 CK_AS_OS_ROADMAP.md       (235 lines)  Working today + next layer + out-of-scope
 CK_DASHBOARD_USER_GUIDE.md (this doc)  How to actually use it
@@ -251,4 +334,4 @@ CK_DASHBOARD_USER_GUIDE.md (this doc)  How to actually use it
 
 ---
 
-*Built 2026-05-19 evening as part of the "CK is the all-in-one app OS system chatbot" arc. Source commits on `tig-synthesis`: d33c61a5 → 675f3b1c → f39104e8 → 3012c476 → b77c7a67 → 0dbb43b3 → (next push). All live at github.com/TiredofSleep/ck.*
+*Built 2026-05-19 evening as part of the "CK is the all-in-one app OS system chatbot" arc. Source commits on `tig-synthesis`: d33c61a5 → 675f3b1c → f39104e8 → 3012c476 → b77c7a67 → 0dbb43b3 → d45c48ce → 4ab26f6f → 160b8d37 → f92b63eb → cd4a6da1 → b7c9190c → 862024f8 → 0660c539 → (next push). All live at github.com/TiredofSleep/ck.*
