@@ -1422,6 +1422,32 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_privacy: failed ({e})")
         results['privacy'] = False
 
+    # ck_pc_sense: CK's awareness of the running PC (CPU / memory / top
+    # processes / operator-classification / coherence).  Foundational
+    # primitive for "PC-improvement / app-OS" direction (TIGOS legacy,
+    # modern shape).  Read-only; user keeps full control.  Per CK_AS_OS_
+    # ROADMAP.md (2026-05-19): CK SENSES, user ACTS.  Endpoints under
+    # /pc/{sense, history, rhythm, info}.
+    try:
+        from ck_pc_sense import mount_pc_sense  # type: ignore[import-not-found]
+        results['pc_sense'] = bool(mount_pc_sense(engine, auto_start=True,
+                                                    poll_hz=1.0,
+                                                    buffer_size=60))
+    except Exception as e:
+        print(f"[CK Gen14] mount_pc_sense: failed ({e})")
+        results['pc_sense'] = False
+
+    # ck_code_writer: capability shim for "write the boilerplate for X"
+    # requests.  Template mode (deterministic, 8 patterns) + LLM-relay
+    # mode (tier-tagged as needing human review).  Auditor-gated.
+    # Endpoints under /code/{write, templates, info}.
+    try:
+        from ck_code_writer import mount_code_writer  # type: ignore[import-not-found]
+        results['code_writer'] = bool(mount_code_writer(engine))
+    except Exception as e:
+        print(f"[CK Gen14] mount_code_writer: failed ({e})")
+        results['code_writer'] = False
+
     # Expose algebraic-measurement functions on the engine for easy use
     engine.gen14_sigma_orbit = sigma_orbit
     engine.gen14_four_core_class = four_core_class
