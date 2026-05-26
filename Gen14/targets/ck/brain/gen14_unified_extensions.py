@@ -1534,6 +1534,17 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_reminders: failed ({e})")
         results['reminder'] = False
 
+    # ck_search: unified search across journal + bookmark + file_orient.
+    # One endpoint, three sources, merged ranked output.  Degrades
+    # gracefully if any source isn't mounted.
+    # Endpoint GET /search?q=X&n=N.
+    try:
+        from ck_search import mount_search  # type: ignore[import-not-found]
+        results['search'] = bool(mount_search(engine))
+    except Exception as e:
+        print(f"[CK Gen14] mount_search: failed ({e})")
+        results['search'] = False
+
     # Expose algebraic-measurement functions on the engine for easy use
     engine.gen14_sigma_orbit = sigma_orbit
     engine.gen14_four_core_class = four_core_class
