@@ -1511,6 +1511,17 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_daily_summary: failed ({e})")
         results['daily_summary'] = False
 
+    # ck_bookmark: append-only URL store with operator-path tagging.
+    # Parallel to journal but for links.  Lives at ~/.ck/bookmarks.jsonl.
+    # Never fetches the URL (CK stores, user follows).
+    # Endpoints /bookmark/{add, recent, search, domain, op, stats, info}.
+    try:
+        from ck_bookmark import mount_bookmarks  # type: ignore[import-not-found]
+        results['bookmark'] = bool(mount_bookmarks(engine))
+    except Exception as e:
+        print(f"[CK Gen14] mount_bookmarks: failed ({e})")
+        results['bookmark'] = False
+
     # Expose algebraic-measurement functions on the engine for easy use
     engine.gen14_sigma_orbit = sigma_orbit
     engine.gen14_four_core_class = four_core_class
