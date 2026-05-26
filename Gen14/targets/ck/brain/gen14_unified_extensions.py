@@ -1487,6 +1487,18 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_file_orient: failed ({e})")
         results['file_orient'] = False
 
+    # ck_journal: append-only personal notes/journal with operator-path
+    # tagging.  Lives at ~/.ck/journal.jsonl by default.  Never
+    # auto-syncs anywhere.  Search by text, mood, tags, or dominant
+    # operator.  Endpoints under /journal/{note, recent, today,
+    # search, op, stats, info}.
+    try:
+        from ck_journal import mount_journal  # type: ignore[import-not-found]
+        results['journal'] = bool(mount_journal(engine))
+    except Exception as e:
+        print(f"[CK Gen14] mount_journal: failed ({e})")
+        results['journal'] = False
+
     # Expose algebraic-measurement functions on the engine for easy use
     engine.gen14_sigma_orbit = sigma_orbit
     engine.gen14_four_core_class = four_core_class
