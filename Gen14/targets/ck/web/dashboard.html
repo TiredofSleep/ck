@@ -309,7 +309,27 @@
                 <span>Recent journal</span>
                 <span class="endpoint">/journal/recent?n=5</span>
             </h2>
+            <form id="quick-capture" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;padding:10px;background:#fbf8f3;border-radius:4px;">
+                <textarea id="capture-text" placeholder="quick note…" rows="2" style="font-family:'Inter',sans-serif;font-size:13px;padding:6px;border:1px solid #e5e0d8;border-radius:3px;resize:vertical;"></textarea>
+                <div style="display:flex;gap:6px;align-items:center;">
+                    <input id="capture-tags" placeholder="tags (comma-separated)" style="flex:1;font-family:'Inter',sans-serif;font-size:12px;padding:4px;border:1px solid #e5e0d8;border-radius:3px;">
+                    <input id="capture-mood" placeholder="mood" style="width:90px;font-family:'Inter',sans-serif;font-size:12px;padding:4px;border:1px solid #e5e0d8;border-radius:3px;">
+                    <button type="submit" style="background:#1a1a1a;color:#f8f5f0;border:none;padding:5px 12px;border-radius:3px;cursor:pointer;font-size:12px;font-weight:600;">save</button>
+                </div>
+                <div id="capture-status" style="font-size:11px;color:#888;font-family:'JetBrains Mono',monospace;min-height:14px;"></div>
+            </form>
             <div id="journal-body">
+                <div class="empty">loading…</div>
+            </div>
+        </div>
+
+        <!-- Daily summary card -->
+        <div class="card" id="card-summary">
+            <h2>
+                <span>Today's summary</span>
+                <span class="endpoint">/summary</span>
+            </h2>
+            <div id="summary-body">
                 <div class="empty">loading…</div>
             </div>
         </div>
@@ -433,6 +453,76 @@ function escapeHtml(s) {
     return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 }
 
+function renderSummary(d) {
+    const h = d.headline || 'No headline.';
+    const pc = d.pc_summary || {};
+    const r = d.recommendations || {};
+    const j = d.journal || {};
+    let html = `<div style="font-size:14px;font-weight:600;margin-bottom:10px;color:#1a1a1a;line-height:1.4;">${escapeHtml(h)}</div>`;
+    if (pc.n_readings) {
+        html += `<div class="stat"><span class="label">PC readings today</span><span class="value">${pc.n_readings}</span></div>`;
+        const bg = pc.time_in_band_sec || {};
+        html += `<div class="stat"><span class="label">time GREEN/YELLOW/RED</span><span class="value">${Math.round(bg.GREEN||0)}/${Math.round(bg.YELLOW||0)}/${Math.round(bg.RED||0)}s</span></div>`;
+        html += `<div class="stat"><span class="label">dominant operator</span><span class="value op-badge">${pc.dominant_operator || '—'}</span></div>`;
+    }
+    if (r.n_unique) {
+        const by_p = r.by_priority || {};
+        const parts = [];
+        if (by_p.ALERT) parts.push(`<span class="priority-ALERT">${by_p.ALERT} ALERT</span>`);
+        if (by_p.WARN) parts.push(`<span class="priority-WARN">${by_p.WARN} WARN</span>`);
+        if (by_p.NOTICE) parts.push(`<span class="priority-NOTICE">${by_p.NOTICE} NOTICE</span>`);
+        if (by_p.INFO) parts.push(`<span class="priority-INFO">${by_p.INFO} INFO</span>`);
+        html += `<div class="stat"><span class="label">recommendations today</span><span class="value">${parts.join(' · ') || r.n_unique}</span></div>`;
+    }
+    if (j.n_entries) {
+        html += `<div class="stat"><span class="label">journal entries today</span><span class="value">${j.n_entries}</span></div>`;
+        if (j.mood_distribution && Object.keys(j.mood_distribution).length) {
+            const moods = Object.entries(j.mood_distribution).map(([m,c]) => `${m}(${c})`).join(', ');
+            html += `<div class="stat"><span class="label">moods</span><span class="value" style="font-size:11px;">${moods}</span></div>`;
+        }
+    }
+    if (!pc.n_readings && !r.n_unique && !j.n_entries) {
+        html += `<div class="empty">Quiet day — no data captured yet.</div>`;
+    }
+    $('summary-body').innerHTML = html;
+}
+
+// Quick-capture form handler
+document.addEventListener('DOMContentLoaded', () => {
+    const form = $('quick-capture');
+    if (!form) return;
+    form.addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        const text = $('capture-text').value.trim();
+        if (!text) {
+            $('capture-status').textContent = 'note text required';
+            return;
+        }
+        const tags = $('capture-tags').value.split(',').map(s => s.trim()).filter(Boolean);
+        const mood = $('capture-mood').value.trim() || null;
+        $('capture-status').textContent = 'saving…';
+        try {
+            const r = await fetch('/journal/note', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({text, tags, mood}),
+            });
+            const j = await r.json();
+            if (j.ok) {
+                $('capture-text').value = '';
+                $('capture-tags').value = '';
+                $('capture-mood').value = '';
+                $('capture-status').textContent = `saved (${j.entry.dominant_op_name})`;
+                setTimeout(() => poll(), 200);
+            } else {
+                $('capture-status').textContent = `error: ${j.error || 'unknown'}`;
+            }
+        } catch (e) {
+            $('capture-status').textContent = `failed: ${e.message}`;
+        }
+    });
+});
+
 let errors = 0;
 async function poll() {
     let allOk = true;
@@ -441,6 +531,7 @@ async function poll() {
         fetchJSON('/rhythm').then(renderRhythm).catch(e => { allOk = false; $('rhythm-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
         fetchJSON('/pc/recommend').then(renderRecommend).catch(e => { allOk = false; $('recommend-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
         fetchJSON('/journal/recent?n=5').then(renderJournal).catch(e => { allOk = false; $('journal-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
+        fetchJSON('/summary').then(renderSummary).catch(e => { allOk = false; $('summary-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
     ];
     await Promise.all(promises);
     if (allOk) {

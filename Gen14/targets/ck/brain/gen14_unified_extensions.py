@@ -1499,6 +1499,18 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_journal: failed ({e})")
         results['journal'] = False
 
+    # ck_daily_summary: end-of-day digest stitched from pc_sense +
+    # pc_recommend + journal.  Quantitative aggregation, no LLM
+    # narrative.  Headline is one-line stitched observation.
+    # Endpoint /summary[?date=YYYY-MM-DD].  Requires the upstream
+    # modules to be mounted; degrades gracefully if any are missing.
+    try:
+        from ck_daily_summary import mount_daily_summary  # type: ignore[import-not-found]
+        results['daily_summary'] = bool(mount_daily_summary(engine))
+    except Exception as e:
+        print(f"[CK Gen14] mount_daily_summary: failed ({e})")
+        results['daily_summary'] = False
+
     # Expose algebraic-measurement functions on the engine for easy use
     engine.gen14_sigma_orbit = sigma_orbit
     engine.gen14_four_core_class = four_core_class
