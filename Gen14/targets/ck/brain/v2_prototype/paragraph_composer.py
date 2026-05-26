@@ -381,7 +381,7 @@ def diagnostics():
     }
     crystals_math = [
         "wp116_lens: TIG's six DoFs are projections of a single self-dual Stern-Brocot recursion",
-        "flatness: T*=5/7 | torus R/r=5/7 | WP51 [proved]",
+        "flatness: T*=5/7 | non-commutativity obstruction | WP51 [proved; torus framing RETRACTED 2026-05-19 per D141]",
     ]
     operator_stream = [3, 7, 1, 8, 6]
     couplings = [

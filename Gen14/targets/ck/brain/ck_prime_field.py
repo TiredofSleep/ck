@@ -133,7 +133,7 @@ _PRIMES: List[Prime] = [
             r"\b4[\- ]?core\s+attractor\b",
             r"\bZ\s*/\s*10\s*Z\b",
         ),
-        prime_value="\"T* = 5/7 ≈ 0.714286 (six independent derivations: centroid/inverse on (Z/10Z)*, cyclotomic, torus aspect ratio, ...) (cite: T* = 5/7 = centroid/inverse on (Z/10Z)*; six independent derivations (D18d, ...))\"",
+        prime_value="\"T* = 5/7 ≈ 0.714286 (five algebraic derivations + FPGA silicon: centroid/inverse on (Z/10Z)*, cyclotomic, D18d, D22, D4, D14, elementary NT — the prior 'torus aspect ratio' leg is RETRACTED 2026-05-19 per D141) (cite: T* = 5/7 = centroid/inverse on (Z/10Z)*; D18d, D22, D4, D14, elementary NT, FPGA)\"",
         rule="substrate-prose composition: name the algebraic object, state the canonical value, cite the canonical D-number. No prose beyond what the substrate composes.",
     ),
     Prime(

@@ -304,10 +304,13 @@ _AO_HINTS = (
 # LLM can expand; CK alone just tells you the shape.
 _FRONTIER_FACTS: Tuple[Tuple[Tuple[str, ...], str], ...] = (
     (
-        ("flatness theorem", "flatness", "torus", "aspect ratio",
+        ("flatness theorem", "flatness", "non-commutativity",
+         "non commutativity", "obstruction",
          "t*", "t_star", "t star", "t-star", "tstar", "5/7"),
-        "flatness: T*=5/7 | torus R/r=5/7 (forced by Z/10Z 2x2) | "
-        "6 independent derivations | WP51 [proved]"
+        "flatness: T*=5/7 | non-commutativity obstruction (max commuting "
+        "subset size 1; commutator ranks 4-8 of 10) | 5 algebraic "
+        "derivations + FPGA silicon | WP51 corrected per D141 [proved; "
+        "torus framing RETRACTED 2026-05-19, no closed orientable surface]"
     ),
     (
         ("crossing lemma", "crossing", "crossings"),
@@ -1772,22 +1775,22 @@ def speak(cortex: Any, query: str, max_lines: int = 5) -> Optional[str]:
     for fact in _frontier_hits(q):
         lines.append(fact)
 
-    # 2.6) State-aware crystal surfacing -- proactive crystal mention based on
-    # CK's current cortex state, not on user keywords.  Only fires when the
-    # user's query produced ZERO keyword crystals.  Earlier this gate fired
-    # whenever len(keyword_hits) < 2 which DILUTED specific answers: e.g.
-    # "what is a nasal" matched phonetic_class_nasal (1 hit) and then
-    # state-aware appended xi/sigma_rate because cortex was BREATH/HARMONY
-    # heavy, putting an unrelated crystal first in the response.  Tightened
-    # to == 0 so when CK has a specific answer, it isn't drowned out by
-    # whatever he happens to be "feeling" (2026-05-01 phoneme-surfacing fix).
-    # record_fires=False: this is the SAME query as the call at line 1677,
-    # so we don't want to count it twice for tier promotion.
+    # 2.6) State-aware crystal surfacing was REMOVED from speak() on
+    # 2026-05-19 (this cleanup pass).  It used to proactively surface topic
+    # crystals when no keyword matched, based on operator-state overlap.
+    # Two problems:
+    #   (1) crystals like `fqh_bridge` contain prose copulas (" is the ",
+    #       "IS the") which fail the speak()-prose-leak boot-gate test.
+    #   (2) on unrelated chit-chat ("hello there", "what is the weather"),
+    #       firing crystals based on state overlap drowns out the
+    #       feel+field fallback the test expects.
+    # The cross-crystal composition at 2.7 still fires when a TOPICAL
+    # keyword crystal hit, so the network effect remains when the user
+    # asks about a topic.  Spontaneous proactive surfacing (the original
+    # intent of state-aware) belongs in a separate "volunteer" path, not
+    # in the query-response router.  Function `_state_aware_crystal_hits`
+    # is preserved for that future use.
     keyword_hits = _frontier_hits(q, record_fires=False)
-    if len(keyword_hits) == 0:
-        for fact in _state_aware_crystal_hits(cortex, threshold=0.5, max_hits=2):
-            if fact not in lines:
-                lines.append(fact)
 
     # 2.7) Cross-crystal composition graph -- when a crystal fires, surface
     # related crystals if they also match state.  This is paper 4 step 3:
