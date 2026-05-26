@@ -1474,6 +1474,19 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_rhythm: failed ({e})")
         results['rhythm'] = False
 
+    # ck_file_orient: content-blind file index for "find that file
+    # about X" search.  Walks user-designated directories, computes a
+    # short operator-path signature from filename + size + first/last
+    # 64 bytes (NEVER reads full content).  Read-only; never moves /
+    # copies / renames / deletes files.  Endpoints under
+    # /file/{scan, query, similar, stats, info}.
+    try:
+        from ck_file_orient import mount_file_orient  # type: ignore[import-not-found]
+        results['file_orient'] = bool(mount_file_orient(engine))
+    except Exception as e:
+        print(f"[CK Gen14] mount_file_orient: failed ({e})")
+        results['file_orient'] = False
+
     # Expose algebraic-measurement functions on the engine for easy use
     engine.gen14_sigma_orbit = sigma_orbit
     engine.gen14_four_core_class = four_core_class

@@ -29,6 +29,8 @@ This is the TIGOS legacy *retained as intuition* but *restructured around the po
 
 ## §1 — Working today (verified, tested, committed)
 
+> **Status update 2026-05-19 evening**: five new modules built and shipped in this session — `ck_pc_sense`, `ck_code_writer`, `ck_pc_recommend`, `ck_rhythm`, `ck_file_orient`. All wired into `gen14_unified_extensions.mount_all`. Total project regression: **172 tests passing across 9 batteries** (was 122 at start of session). Source commits: `d33c61a5` (ck_pc_sense + ck_code_writer + roadmap), `675f3b1c` (ck_pc_recommend + ck_rhythm), this commit (ck_file_orient + roadmap update).
+
 ### `ck_pc_sense.py` — CK senses the running PC
 
 - **What it does**: Reads psutil → CPU per-core, memory, top processes → classifies overall state into one of the 10 TIG operators (VOID, LATTICE, ..., RESET) → emits a coherence reading C ∈ [0, 1] with band (GREEN ≥ 5/7, YELLOW 4/7-5/7, RED < 4/7).
@@ -44,6 +46,38 @@ This is the TIGOS legacy *retained as intuition* but *restructured around the po
 - **Endpoints**: `POST /code/write`, `GET /code/templates`, `GET /code/info`.
 - **Tests**: `test_ck_code_writer.py` — 10/10 PASS. Every generated Python template is `ast.parse`-validated.
 - **Auditor wired**: if `ck_scope_auditor` is available, LLM-relayed output is gated.
+
+### `ck_pc_recommend.py` — CK turns sense readings into plain-English advice
+
+- **What it does**: 7 heuristic detectors over the ck_pc_sense circular buffer:
+  - `SUSTAINED_HIGH_CPU` (process pegged > threshold for > 30s)
+  - `MEMORY_PRESSURE` (mem > 80% sustained)
+  - `UNBALANCED_LOAD` (high cpu_variance sustained = one core pegged)
+  - `MEMORY_LEAK_HINT` (process monotonic mem growth > 0.5 GB over 60s)
+  - `GREEN_WINDOW` (all-green for > 30s → "good for heavy work")
+  - `IDLE_CONFIRMED` (sustained VOID classification)
+  - `PROCESS_STORM` (+50 new processes in one tick)
+- **Tier**: every recommendation tagged `TIER_RECOMMENDATION_HEURISTIC` (always — these are heuristics, not theorems).
+- **Endpoints**: `GET /pc/recommend`, `GET /pc/recommend?n=N`, `GET /pc/recommend/info`.
+- **Tests**: `test_ck_pc_recommend.py` — 11/11 PASS.
+
+### `ck_rhythm.py` — TIGOS PhaseClock in modern shape
+
+- **What it does**: 3 deterministic beat oscillators with irrational periods (φ, π, √2 — chosen so the joint pattern never repeats over the day) + 10-phase operator rotation (1 phase/sec).
+- **Helpers**: `is_up_beat()`, `is_down_beat()`, `hint_for_op_class(op)` returns scheduling hints like "HARMONY — synthesis; combine, integrate, summarize" or "BREATH — pause, save, persist; checkpoint state".
+- **Discipline**: SENSOR, not actuator. Rhythm doesn't predict anything; modules that READ rhythm decide what to do with it. Pure-function `current_rhythm()` is always available; daemon only starts if downstream needs history.
+- **Endpoints**: `GET /rhythm`, `GET /rhythm/history?n=N`, `GET /rhythm/info`.
+- **Tests**: `test_ck_rhythm.py` — 11/11 PASS.
+
+### `ck_file_orient.py` — content-blind file orientation index
+
+- **What it does**: Walks user-designated directory tree, computes a short content-blind signature per file (filename + size + mtime + first/last 64 bytes), persists to `~/.ck/file_orient_index.jsonl`. Supports incremental re-scan (mtime-aware).
+- **Search**:
+  - `find_by_query(q, n)` — fuzzy match on name + path components
+  - `find_by_signature(seed_path, n)` — files with similar operator-path signature
+- **Discipline**: NEVER reads full content (bounded I/O: max 128 bytes/file). Never moves / copies / renames / deletes. Read-only. Smoke confirmed: indexed 533 files in `Gen14/targets/ck/brain/` (29 MB) in seconds.
+- **Endpoints**: `POST /file/scan`, `GET /file/query?q=X&n=N`, `GET /file/similar?path=P&n=N`, `GET /file/stats`, `GET /file/info`.
+- **Tests**: `test_ck_file_orient.py` — 12/12 PASS.
 
 ### Existing CK runtime modules (already shipping)
 
