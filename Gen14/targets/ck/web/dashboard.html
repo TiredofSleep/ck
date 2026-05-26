@@ -369,6 +369,17 @@
             </div>
         </div>
 
+        <!-- Health card -->
+        <div class="card" id="card-health">
+            <h2>
+                <span>System health</span>
+                <span class="endpoint">/health</span>
+            </h2>
+            <div id="health-body">
+                <div class="empty">loading…</div>
+            </div>
+        </div>
+
     </div>
 
     <div class="footer">
@@ -569,6 +580,65 @@ function renderReminders(due, pending) {
     });
 }
 
+function renderHealth(d) {
+    const status = d.status || 'unknown';
+    const counts = d.counts || {};
+    const missing = d.missing || [];
+    const coreMissing = d.core_missing || [];
+    const statusColor = {ok: '#2d7a2d', degraded: '#b8860b', minimal: '#c0392b'}[status] || '#888';
+    let html = '';
+    // Header line
+    html += `<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">`;
+    html += `<span style="font-size:14px;font-weight:700;color:${statusColor};text-transform:uppercase;letter-spacing:0.05em;">${status}</span>`;
+    html += `<span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#888;">${counts.n_modules_mounted || 0} / ${counts.n_modules_expected || 0} modules</span>`;
+    html += `</div>`;
+    // Uptime
+    if (d.uptime_seconds != null) {
+        const u = d.uptime_seconds;
+        let utext;
+        if (u < 60) utext = `${u.toFixed(0)}s`;
+        else if (u < 3600) utext = `${(u/60).toFixed(1)}m`;
+        else if (u < 86400) utext = `${(u/3600).toFixed(1)}h`;
+        else utext = `${(u/86400).toFixed(1)}d`;
+        html += `<div class="stat"><span class="label">uptime</span><span class="value">${utext}</span></div>`;
+    }
+    // Counts
+    if (counts.n_modules_missing > 0) {
+        html += `<div class="stat"><span class="label">missing</span><span class="value">${counts.n_modules_missing}</span></div>`;
+    }
+    if (counts.n_core_missing > 0) {
+        html += `<div class="stat"><span class="label" style="color:#c0392b;">core missing</span><span class="value" style="color:#c0392b;">${coreMissing.join(', ')}</span></div>`;
+    }
+    // Module grid (compact list)
+    if (d.modules) {
+        html += `<div style="margin-top:10px;font-weight:600;font-size:12px;color:#555;">Modules:</div>`;
+        html += `<div style="margin-top:4px;font-family:'JetBrains Mono',monospace;font-size:11px;display:grid;grid-template-columns:1fr 1fr;gap:2px 8px;">`;
+        const order = ['pc_sense', 'journal', 'rhythm', 'scope_auditor',
+                        'pc_recommend', 'code_writer', 'file_orient', 'bookmark',
+                        'reminder', 'daily_summary', 'search', 'export',
+                        'anomaly_detector', 'privacy', 'toolbox', 'languages'];
+        order.forEach(k => {
+            const m = d.modules[k];
+            if (!m) return;
+            const ok = m.mounted;
+            const dot = ok ? '✓' : '✗';
+            const color = ok ? '#2d7a2d' : '#bbb';
+            let detail = '';
+            if (ok) {
+                if (m.n_entries != null) detail = ` (${m.n_entries})`;
+                else if (m.n_items != null) detail = ` (${m.n_items})`;
+                else if (m.n_total != null) detail = ` (${m.n_total})`;
+                else if (m.n_readings != null) detail = ` (${m.n_readings})`;
+                else if (m.n_files_indexed != null) detail = ` (${m.n_files_indexed})`;
+                else if (m.n_templates != null) detail = ` (${m.n_templates})`;
+            }
+            html += `<div style="color:${color};">${dot} ${k}${detail}</div>`;
+        });
+        html += `</div>`;
+    }
+    $('health-body').innerHTML = html;
+}
+
 function renderSearchResults(d) {
     const results = d.results || [];
     if (results.length === 0 && d.query) {
@@ -695,6 +765,7 @@ async function poll() {
         fetchJSON('/pc/recommend').then(renderRecommend).catch(e => { allOk = false; $('recommend-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
         fetchJSON('/journal/recent?n=5').then(renderJournal).catch(e => { allOk = false; $('journal-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
         fetchJSON('/summary').then(renderSummary).catch(e => { allOk = false; $('summary-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
+        fetchJSON('/health').then(renderHealth).catch(e => { allOk = false; $('health-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
         remindersPromise,
     ];
     await Promise.all(promises);
