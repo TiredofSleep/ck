@@ -1555,6 +1555,17 @@ def mount_all(engine) -> Dict[str, bool]:
         print(f"[CK Gen14] mount_export: failed ({e})")
         results['export'] = False
 
+    # ck_health: single /health endpoint aggregating all module status.
+    # Useful for monitoring, dashboards, and future-Claude orientation.
+    # Computes overall status (ok/degraded/minimal) + per-module
+    # counters + uptime.  Endpoints /health, /health/info.
+    try:
+        from ck_health import mount_health  # type: ignore[import-not-found]
+        results['health'] = bool(mount_health(engine))
+    except Exception as e:
+        print(f"[CK Gen14] mount_health: failed ({e})")
+        results['health'] = False
+
     # Expose algebraic-measurement functions on the engine for easy use
     engine.gen14_sigma_orbit = sigma_orbit
     engine.gen14_four_core_class = four_core_class
