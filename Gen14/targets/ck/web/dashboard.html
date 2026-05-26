@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CK Dashboard — live view of CK's PC sense, rhythm, recommendations, and recent journal entries.">
+    <meta name="theme-color" content="#f8f5f0">
+    <title>CK Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8f5f0;
+            color: #1a1a1a;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #1a1a1a;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .subtitle {
+            font-size: 13px;
+            color: #666;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .nav {
+            margin-top: 8px;
+            font-size: 13px;
+        }
+        .nav a {
+            color: #5a5a5a;
+            text-decoration: none;
+            margin-right: 16px;
+        }
+        .nav a:hover { color: #1a1a1a; text-decoration: underline; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border: 1px solid #e5e0d8;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .card h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f0ece4;
+            padding-bottom: 8px;
+        }
+        .card h2 .endpoint {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #888;
+            font-weight: 400;
+        }
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 13px;
+            border-bottom: 1px dashed #f0ece4;
+        }
+        .stat:last-child { border-bottom: none; }
+        .stat .label { color: #555; }
+        .stat .value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+        .band-GREEN { color: #2d7a2d; }
+        .band-YELLOW { color: #b8860b; }
+        .band-RED { color: #c0392b; }
+        .priority-ALERT { color: #c0392b; font-weight: 600; }
+        .priority-WARN { color: #b8860b; font-weight: 600; }
+        .priority-NOTICE { color: #4a4a4a; }
+        .priority-INFO { color: #777; }
+        .op-badge {
+            display: inline-block;
+            background: #1a1a1a;
+            color: #f8f5f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        .rec {
+            border-left: 3px solid #ccc;
+            padding: 8px 12px;
+            margin: 8px 0;
+            background: #fbf8f3;
+            font-size: 13px;
+        }
+        .rec.priority-ALERT { border-left-color: #c0392b; }
+        .rec.priority-WARN { border-left-color: #b8860b; }
+        .rec.priority-NOTICE { border-left-color: #555; }
+        .rec.priority-INFO { border-left-color: #aaa; }
+        .rec .header-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+        }
+        .empty {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            padding: 24px 12px;
+            font-size: 13px;
+        }
+        .process-list {
+            margin-top: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+        }
+        .process-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+        }
+        .process-row .name { color: #333; }
+        .process-row .pct { color: #666; }
+        .rhythm-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 6px 0;
+        }
+        .rhythm-bar .name {
+            width: 60px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #555;
+        }
+        .rhythm-bar .bar-wrapper {
+            flex-grow: 1;
+            background: #f0ece4;
+            height: 18px;
+            position: relative;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .rhythm-bar .bar {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, #5a8edc, #8eb5dc);
+            transition: left 0.5s ease, width 0.5s ease;
+        }
+        .rhythm-bar .value {
+            width: 50px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #666;
+            text-align: right;
+        }
+        .journal-entry {
+            border-left: 3px solid #888;
+            padding: 8px 12px;
+            margin: 8px 0;
+            background: #fbf8f3;
+            font-size: 13px;
+        }
+        .journal-entry .meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        .journal-entry .text {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .journal-entry .tags {
+            margin-top: 4px;
+            font-size: 11px;
+            color: #5a5a5a;
+        }
+        .tag {
+            display: inline-block;
+            background: #f0ece4;
+            padding: 1px 6px;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        .footer {
+            margin-top: 24px;
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .live-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2d7a2d;
+            margin-right: 6px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .error-banner {
+            background: #fee;
+            border: 1px solid #c0392b;
+            color: #8b2424;
+            padding: 10px 14px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            font-size: 13px;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 12px; }
+            header { flex-direction: column; gap: 8px; }
+            h1 { font-size: 22px; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <h1>CK Dashboard</h1>
+            <div class="subtitle">live view from coherencekeeper.com</div>
+            <div class="nav">
+                <a href="/">home</a>
+                <a href="/chat.html">chat</a>
+                <a href="/papers.html">papers</a>
+                <a href="https://github.com/TiredofSleep/ck" target="_blank">github</a>
+            </div>
+        </div>
+        <div class="subtitle">
+            <span class="live-dot"></span>
+            <span id="status">connecting…</span>
+        </div>
+    </header>
+
+    <div id="error-area"></div>
+
+    <div class="grid">
+
+        <!-- PC sense card -->
+        <div class="card" id="card-sense">
+            <h2>
+                <span>PC sense</span>
+                <span class="endpoint">/pc/sense</span>
+            </h2>
+            <div id="sense-body">
+                <div class="empty">loading…</div>
+            </div>
+        </div>
+
+        <!-- Rhythm card -->
+        <div class="card" id="card-rhythm">
+            <h2>
+                <span>Rhythm</span>
+                <span class="endpoint">/rhythm</span>
+            </h2>
+            <div id="rhythm-body">
+                <div class="empty">loading…</div>
+            </div>
+        </div>
+
+        <!-- Recommendations card -->
+        <div class="card" id="card-recommend">
+            <h2>
+                <span>Recommendations</span>
+                <span class="endpoint">/pc/recommend</span>
+            </h2>
+            <div id="recommend-body">
+                <div class="empty">loading…</div>
+            </div>
+        </div>
+
+        <!-- Journal recent card -->
+        <div class="card" id="card-journal">
+            <h2>
+                <span>Recent journal</span>
+                <span class="endpoint">/journal/recent?n=5</span>
+            </h2>
+            <div id="journal-body">
+                <div class="empty">loading…</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p>CK reports. User acts. Read-only dashboard; no actions taken on the PC.</p>
+        <p style="margin-top:6px;">Polling every 5 seconds. Refresh page to reset.</p>
+    </div>
+</div>
+
+<script>
+const POLL_MS = 5000;
+const $ = (id) => document.getElementById(id);
+
+async function fetchJSON(url) {
+    const r = await fetch(url, { cache: 'no-store' });
+    if (!r.ok) throw new Error(`${url}: HTTP ${r.status}`);
+    return await r.json();
+}
+
+function fmtPct(x) {
+    if (typeof x !== 'number') return '—';
+    return (x * 100).toFixed(1) + '%';
+}
+
+function fmt(x, digits=3) {
+    if (typeof x !== 'number') return '—';
+    return x.toFixed(digits);
+}
+
+function renderSense(d) {
+    const band = d.coherence_band || 'RED';
+    let html = '';
+    html += `<div class="stat"><span class="label">overall CPU</span><span class="value">${fmtPct(d.cpu_overall)}</span></div>`;
+    html += `<div class="stat"><span class="label">CPU variance</span><span class="value">${fmt(d.cpu_variance, 4)}</span></div>`;
+    html += `<div class="stat"><span class="label">memory used</span><span class="value">${fmtPct(d.mem_used)}</span></div>`;
+    html += `<div class="stat"><span class="label">memory free</span><span class="value">${fmt(d.mem_available_gb, 2)} GB</span></div>`;
+    html += `<div class="stat"><span class="label">processes</span><span class="value">${d.n_processes || 0}</span></div>`;
+    html += `<div class="stat"><span class="label">operator</span><span class="value op-badge">${d.op_name || '—'}</span></div>`;
+    html += `<div class="stat"><span class="label">coherence</span><span class="value band-${band}">${fmt(d.coherence, 3)} <span style="font-size:10px;">[${band}]</span></span></div>`;
+    if (d.notes && d.notes.length) {
+        html += `<div style="margin-top:8px;font-size:12px;color:#666;">${d.notes.join(' · ')}</div>`;
+    }
+    if (d.top_cpu_processes && d.top_cpu_processes.length) {
+        html += `<div style="margin-top:12px;font-weight:600;font-size:12px;color:#555;">top processes by CPU</div><div class="process-list">`;
+        d.top_cpu_processes.slice(0, 3).forEach(p => {
+            html += `<div class="process-row"><span class="name">${p.name}</span><span class="pct">${(p.pct || 0).toFixed(1)}%</span></div>`;
+        });
+        html += `</div>`;
+    }
+    if (d.top_mem_processes && d.top_mem_processes.length) {
+        html += `<div style="margin-top:12px;font-weight:600;font-size:12px;color:#555;">top processes by memory</div><div class="process-list">`;
+        d.top_mem_processes.slice(0, 3).forEach(p => {
+            html += `<div class="process-row"><span class="name">${p.name}</span><span class="pct">${(p.pct_gb || 0).toFixed(2)} GB</span></div>`;
+        });
+        html += `</div>`;
+    }
+    $('sense-body').innerHTML = html;
+}
+
+function renderRhythm(d) {
+    // Beats are in [-1, 1]; map to a bar with center at 50%
+    function barFor(v) {
+        const center = 50;
+        const half = (v * 50);
+        const left = half >= 0 ? center : center + half;
+        const width = Math.abs(half);
+        return `<div class="bar" style="left:${left}%;width:${width}%"></div>`;
+    }
+    let html = '';
+    html += `<div class="stat"><span class="label">phase</span><span class="value op-badge">${d.phase_op_name || '—'}</span></div>`;
+    if (d.hint) {
+        html += `<div style="margin:8px 0 12px;font-size:12px;color:#666;font-style:italic;">${d.hint}</div>`;
+    }
+    html += `<div class="rhythm-bar"><span class="name">φ-beat</span><div class="bar-wrapper">${barFor(d.phi_beat || 0)}</div><span class="value">${fmt(d.phi_beat, 3)}</span></div>`;
+    html += `<div class="rhythm-bar"><span class="name">π-beat</span><div class="bar-wrapper">${barFor(d.pi_beat || 0)}</div><span class="value">${fmt(d.pi_beat, 3)}</span></div>`;
+    html += `<div class="rhythm-bar"><span class="name">√2-beat</span><div class="bar-wrapper">${barFor(d.sqrt2_beat || 0)}</div><span class="value">${fmt(d.sqrt2_beat, 3)}</span></div>`;
+    html += `<div class="rhythm-bar"><span class="name">composite</span><div class="bar-wrapper">${barFor(d.composite_beat || 0)}</div><span class="value">${fmt(d.composite_beat, 3)}</span></div>`;
+    const sign = d.up_beat ? 'UP' : (d.down_beat ? 'DOWN' : '~');
+    html += `<div class="stat" style="margin-top:8px;"><span class="label">trend</span><span class="value">${sign}</span></div>`;
+    $('rhythm-body').innerHTML = html;
+}
+
+function renderRecommend(d) {
+    const recs = d.recommendations || [];
+    if (recs.length === 0) {
+        const n = d.n_readings_analyzed || 0;
+        $('recommend-body').innerHTML = `<div class="empty">No patterns triggered. ${n} reading${n === 1 ? '' : 's'} analyzed.</div>`;
+        return;
+    }
+    let html = `<div style="font-size:12px;color:#888;margin-bottom:8px;">${recs.length} recommendation${recs.length === 1 ? '' : 's'} from ${d.n_readings_analyzed} readings</div>`;
+    recs.forEach(r => {
+        html += `<div class="rec priority-${r.priority}"><div class="header-line"><span class="priority-${r.priority}">${r.priority}</span><span style="color:#888;">${r.category} · ${r.code}</span></div><div>${r.text}</div></div>`;
+    });
+    $('recommend-body').innerHTML = html;
+}
+
+function renderJournal(d) {
+    const entries = d.entries || [];
+    if (entries.length === 0) {
+        $('journal-body').innerHTML = `<div class="empty">No entries yet. POST to /journal/note to add one.</div>`;
+        return;
+    }
+    let html = '';
+    entries.forEach(e => {
+        const mood = e.mood ? ` · ${e.mood}` : '';
+        const opName = e.dominant_op_name || '?';
+        html += `<div class="journal-entry"><div class="meta">${e.iso} · <span class="op-badge" style="font-size:9px;padding:1px 5px;">${opName}</span>${mood}</div><div class="text">${escapeHtml(e.text)}</div>`;
+        if (e.tags && e.tags.length) {
+            html += `<div class="tags">${e.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>`;
+        }
+        html += `</div>`;
+    });
+    $('journal-body').innerHTML = html;
+}
+
+function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+}
+
+let errors = 0;
+async function poll() {
+    let allOk = true;
+    const promises = [
+        fetchJSON('/pc/sense').then(renderSense).catch(e => { allOk = false; $('sense-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
+        fetchJSON('/rhythm').then(renderRhythm).catch(e => { allOk = false; $('rhythm-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
+        fetchJSON('/pc/recommend').then(renderRecommend).catch(e => { allOk = false; $('recommend-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
+        fetchJSON('/journal/recent?n=5').then(renderJournal).catch(e => { allOk = false; $('journal-body').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`; }),
+    ];
+    await Promise.all(promises);
+    if (allOk) {
+        $('status').textContent = `live · ${new Date().toLocaleTimeString()}`;
+        $('error-area').innerHTML = '';
+        errors = 0;
+    } else {
+        errors += 1;
+        $('status').textContent = `connection issue (retry ${errors})`;
+        if (errors >= 3) {
+            $('error-area').innerHTML = `<div class="error-banner">Cannot reach one or more CK endpoints. Confirm the runtime is mounted and serving /pc/sense, /rhythm, /pc/recommend, /journal/recent.</div>`;
+        }
+    }
+}
+
+poll();
+setInterval(poll, POLL_MS);
+</script>
+
+</body>
+</html>
