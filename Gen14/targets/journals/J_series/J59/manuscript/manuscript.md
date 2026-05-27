@@ -238,18 +238,49 @@ The σ-magma satisfies all of:
 
 In universal-algebra terms: this is a **maximally indecomposable** commutative quasigroup of order 10 — it has no non-trivial automorphisms (rigid), no non-trivial homomorphic images (simple), and (almost) no non-trivial proper sub-structures. The single $\mathbb{Z}/2$ sub-magma $\{1, 6\}$ is the lone surviving piece of internal structure.
 
-### §6.1 Uniqueness conjecture (Tier C, OPEN)
+### §6.1 Uniqueness conjecture (Tier C, REFUTED in strong form)
 
-We conjecture: **the σ-magma is, up to isomorphism, the unique commutative quasigroup of order 10 satisfying all four rigidity conditions (trivial Aut + congruence-simple + unique non-trivial sub-magma + 2-generated).** Testing this requires enumerating commutative quasigroups of order 10 — a non-trivial but tractable computation (there are bounded numbers per known classification results).
+We initially conjectured: "the σ-magma is, up to isomorphism, the unique commutative quasigroup of order 10 satisfying all four rigidity conditions." **This conjecture is FALSE in its strong form.**
 
-The conjecture's significance is sharpened by the §6.2 finding that BHML and CL_STD share the σ-magma's 14-equation ETP profile. If the four rigidity theorems do distinguish σ-magma from BHML/CL_STD (which is the case for some — e.g., BHML has identity element 0 making it a loop, unlike σ-magma which is identity-free), then σ-magma is the unique "maximally rigid" 14-equation commutative quasigroup at order 10.
+After cloning the Equational Theories Project (`github.com/teorth/equational_theories`), we tested additional commutative quasigroups of order 10 with σ-like cycle structure. **At least one other magma**, with $\sigma_{10}^{\min} = [0, 2, 3, 4, 5, 6, 7, 8, 9, 1]$ (one fixed point + 9-cycle), shares ALL the rigidity properties:
 
-We verified (separately, not in this paper):
-- BHML has a 2-sided identity (0 is identity for the BHML table, by direct inspection of row 0).
-- CL_STD has a 2-sided identity (also 0).
-- The σ-magma has NO identity (by §1.2 of this paper).
+| Property | σ-magma | σ_{10}^{\min}-magma |
+|---|:---:|:---:|
+| Identity-free | ✓ | ✓ |
+| Commutative quasigroup | ✓ | ✓ |
+| Non-associative | ✓ | ✓ |
+| ETP profile size | 14 | **14** |
+| ETP equation IDs | $\{1, 43, \ldots, 4677\}$ | **identical** to σ-magma's |
+| $|\mathrm{Aut}|$ | 1 | **1** |
+| # idempotents | **3** ($\{0, 1, 2\}$) | 2 ($\{0, 9\}$) |
+| # sub-magmas | **5** | 4 |
+| Has unique non-trivial proper sub-magma | $\{1, 6\}$ | $\{4, 9\}$ |
+| 2-generated | ✓ | ✓ |
 
-So the σ-magma is the only **identity-free** member of the {σ-magma, BHML, CL_STD} trio. This itself answers the uniqueness conjecture conditionally — the σ-magma is the unique identity-free 14-equation commutative quasigroup of order 10 in the parent framework's substrate tables. Whether some OTHER identity-free commutative quasigroup of order 10 (not part of the parent framework) also has all four rigidity properties is the remaining open question.
+The two magmas satisfy the **identical** 14-equation ETP profile but are NOT isomorphic (different idempotent counts, different sub-magma counts). This is a striking example of two distinct magmas that are equationally indistinguishable within the ETP catalog but structurally distinguishable by basic invariants.
+
+**Refined statement (Tier B, OPEN)**: among commutative quasigroups of order 10 with the σ-like cycle structure (some fixed points + one cycle), the multiset of (# idempotents, # sub-magmas) distinguishes the σ-magma from all other 14-equation members. The σ-magma is the unique such magma with (3 idempotents, 5 sub-magmas).
+
+The full classification of order-10 commutative quasigroups satisfying the 14-equation minimum is an open question for follow-up enumeration.
+
+### §6.1.1 BHML and CL_STD: 14-equation but with identity
+
+BHML and CL_STD (the J35 B and S tables) also have ETP profile 14 with the SAME 14 equation IDs as the σ-magma. However:
+
+- **BHML has identity 0** (direct verification: B[0][y] = y and B[y][0] = y for all y).
+- **CL_STD has identity 0** (direct verification: S[0][y] = y and S[y][0] = y for all y).
+
+So BHML and CL_STD are commutative quasigroups WITH identity (i.e., commutative loops) of order 10. The σ-magma is the unique identity-free member of the {σ-magma, BHML, CL_STD} J35 trio.
+
+But — as noted above — σ_{10}^{\min}-magma is ALSO identity-free with the same 14 equations. So even "identity-free + 14-equation" doesn't single out the σ-magma uniquely.
+
+### §6.1.2 The 14 equations as commutativity-forced minimum
+
+The 14 ETP equations are precisely the intersection of equation profiles across ALL commutative magmas we tested (8 of them: σ-magma, BHML, CL_STD, TSML, ℤ/5, ℤ/3 = T_2, T_4 from J58, σ_{10}^{\min}). This empirically validates the handoff's hypothesis (task T-D-1, OPEN_FRONTIERS §66.15):
+
+> The 14 equations are the "commutative-forced minimum" — satisfied by every commutative magma.
+
+The σ-magma at order 10 thus realizes the absolute commutativity-forced floor in the ETP catalog. Multiple distinct magmas at order 10 do likewise (σ-magma, BHML, CL_STD, σ_{10}^{\min}); the σ-magma is **one** member of an equivalence class of "minimal-equation commutative quasigroups of order 10" rather than the unique such magma.
 
 ### §6.2 Connection to the σ-magma ETP profile (Tier A — verified)
 
