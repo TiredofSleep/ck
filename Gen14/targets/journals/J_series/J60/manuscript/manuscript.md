@@ -186,7 +186,7 @@ A much stronger statement holds: the 14 IDs of Family C are EXACTLY the implicat
 
 This upgrades Theorem 3 from "empirical intersection across 8 commutative magmas" to "exact equality with the deductive closure of commutativity in the ETP catalog." Any magma satisfying commutativity automatically satisfies the other 13 (by ETP-proved implications); and a magma satisfying ONLY commutativity (no extra equations) satisfies EXACTLY these 14.
 
-### §4.7 Conjecture 1 verified at orders 3 AND 5
+### §4.7 Conjecture 1 is a theorem at orders 3 AND 5 (Tier A by exhaustive enumeration)
 
 **Order 3.** We enumerated all 729 = $3^6$ commutative order-3 magmas (= symmetric 3×3 tables) and tested each through ETP. Of the 729:
 
@@ -215,7 +215,7 @@ This upgrades Theorem 3 from "empirical intersection across 8 commutative magmas
 
 **Cross-order verification** via $\sigma_n^{\min}$ at orders 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15: all hit profile 14 with the IDENTICAL Family C equation set.
 
-**Summary**: Conjecture 1 (Family C is the unique commutative profile-14 family) is empirically verified at orders 3 and 5, with $\sigma_n^{\min}$ evidence at orders 6-15. The conjecture remains formally OPEN at orders 4, 6, 7, 8, 9, 10, and ∞.
+**Summary**: Conjecture 1 (Family C is the unique commutative profile-14 family) is now a **theorem at orders 3 and 5** by exhaustive enumeration over all commutative magmas at those orders (Tier A, in the 4-color-theorem sense). $\sigma_n^{\min}$ evidence at orders 6-15 provides additional support. The general claim across all orders remains a Tier-C conjecture, formally open at orders 4, 6, 7, 8, 9, 10, and ∞. A uniform Tier-A proof is the natural next step; extending the exhaustive verification to order 7 (≈ 20,000 symmetric Latin squares, tractable in ~1-2 hours of compute) would give three orders of exhaustive verification and substantially strengthen the case.
 
 ---
 
