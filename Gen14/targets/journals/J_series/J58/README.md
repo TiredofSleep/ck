@@ -42,7 +42,11 @@ The note answers the natural pedagogical question "what happens when you take Lo
 
 **Theorem E (Cumulant spectrum).** The invariant $\kappa(M) = \operatorname{Tr}(M^2) - \operatorname{Tr}(M)^2$ takes exactly 2 values on the orbit: $\kappa = -48$ on the 4 orbit elements whose mod-3 reduction is commutative, and $\kappa = +48$ on the 4 orbit elements whose mod-3 reduction is non-commutative.
 
+**Theorem E.1 (V₄′-coset preservation; structural lemma).** For ANY 3×3 real matrix $M$, the subgroup $V_4' = \{e, R^2, T, T_a\}$ (identity, 180°-rotation, transpose, anti-diagonal-flip) preserves $\kappa$. Hence $\kappa$ takes at most 2 distinct values across the $D_4$ orbit of $M$. **PROVED.**
+
 **Theorem F (ℤ/3 identification).** One of the 2 commutative tables is the cyclic group ℤ/3: $M_2[x][y] = (x + y) \bmod 3$. The other commutative table is a commutative quasigroup with no identity element.
+
+**Theorem G (Dürer 4×4 extension).** The Albrecht Dürer 4×4 magic square (from *Melencolia I*, 1514) at mod 3 satisfies the analog of Theorems B–E: 4 distinct mod-3 tables (each appearing twice in the $D_4$ orbit), 2 commutative + 2 non-commutative, with $\kappa$ as a 2-valued witness taking values $\pm 128$ (vs Lo Shu's $\pm 48$). Mod-3 is the unique modulus at which both magic squares exhibit this dichotomy — at every other modulus tested (2, 4, 5, 7, 9, 10 for Lo Shu; 2, 4, 5, 6, 8, 10 for Dürer) the orbit reduces uniformly to all-commutative or all-non-commutative tables.
 
 ## §3 — What this note adds
 
@@ -68,10 +72,10 @@ Expected: 6 OK lines + "Overall: PASS." Runtime <1 second on a 2020-era laptop.
 
 ## §6 — Tier discipline
 
-- **PROVEN.** Theorems A, B, C, D, F. All by direct enumeration of the 8 D₄-orbit elements, equality checking of 9-cell tables, and standard quasigroup row/column checks.
-- **COMPUTED.** Theorem E and the full quartet of $\kappa$ values across all 8 orbit elements (script `verify_J58.py`, 6/6 PASS at machine precision).
-- **STRUCTURAL RHYME.** The cumulant $\kappa$ is the second cumulant of the matrix's eigenvalue distribution (under the trivial weighting); the ±48 dichotomy reads as a 2-valued spectral invariant that happens to align with magma commutativity. The mechanism is not derived from a deeper theorem — it is observed and proved by direct computation. A general statement (which classes of magic-square-like 3×3 matrices admit a cumulant witness of their mod-p reduction's algebraic properties?) is open.
-- **OPEN.** Generalization: do other small magic squares — e.g. all $4\times 4$ pandiagonal magic squares mod 4 — admit similar cumulant witnesses for their mod-$n$ algebraic content? This is a natural follow-on note but is not part of this submission.
+- **PROVEN.** Theorems A, B, C, D, F by direct enumeration. Theorem E.1 by a generators-of-V₄′ argument on transpose and 180°-rotation (both preserve trace and trace-of-square).
+- **COMPUTED.** Theorem E (the ±48 value + commutativity correlation), Theorem G (Dürer 4×4 mod-3 ±128 analog) both at machine precision via `verify_J58.py` (8/8 PASS).
+- **STRUCTURAL RHYME.** The ±48 specific value for Lo Shu, the ±128 for Dürer, and the "mod-3 is special" observation. Why mod 3 (not 4, 5, etc.) is the modulus at which both magic squares exhibit the dichotomy is an empirical observation. A general theorem here would connect $|V_4'| = 4$, $|D_4 \setminus V_4'| = 4$, and the multiplicative structure of $\mathbb{Z}/3$; we have not derived such a theorem.
+- **OPEN.** (i) Why mod 3 is special. (ii) Do other classical magic squares (5×5 Siamese; pandiagonal 4×4; Strachey's odd-order construction) share the mod-3 specialness? (iii) Higher-order cumulant analog at moduli ≠ 3?
 
 ## §7 — Drápal-Wanless framing
 

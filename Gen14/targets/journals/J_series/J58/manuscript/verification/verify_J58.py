@@ -1,8 +1,8 @@
-"""verify_J58.py -- machine-precision verification of all six theorems of J58.
+"""verify_J58.py -- machine-precision verification of all theorems of J58.
 
 CC-BY-4.0. (c) 2026 Brayden Ross Sanders / 7Site LLC. M. Gish co-author.
 
-Verifies:
+Verifies (Theorems A-F from §2-§4):
   A. The Lo Shu D_4 orbit has 8 distinct elements.
   B. The mod-3 reductions of the 8 orbit elements yield exactly 4 distinct
      magma tables, each appearing twice in the orbit.
@@ -14,11 +14,17 @@ Verifies:
      values across the 8 orbit elements: -48 for the 4 elements whose
      mod-3 reduction is commutative, +48 for the 4 elements whose mod-3
      reduction is non-commutative.
-  F. T_2 (one of the commutative tables) is exactly Z/3 (the cyclic
-     group: T_2[x][y] = (x + y) mod 3).
+  F. T_2 (one of the commutative tables) is exactly Z/3.
+
+Plus (Theorem E.1 from §3.2 and §7 Durer extension):
+  E1. The V_4' subgroup of D_4 preserves kappa for ANY 3x3 matrix
+      (verified on 100 random matrices).
+  G. The same pattern (4 distinct mod-3 tables, 2 comm + 2 non-comm,
+     kappa witness with values +/- 128) holds for the Durer 4x4
+     magic square.
 
 Run:  python verify_J58.py
-Runtime: under 1 second on a 2020-era laptop.
+Runtime: under 2 seconds on a 2020-era laptop.
 """
 from itertools import product
 import numpy as np
@@ -167,6 +173,93 @@ def main():
     checks.append((
         "Theorem C (two non-comm tables are opposite magmas)",
         opposite_pair
+    ))
+
+    # CHECK 7 (Theorem E.1: V_4' preserves kappa for ANY 3x3 matrix)
+    # V_4' = {e, R^2, transpose, anti-diag flip}. In numpy convention,
+    # this is the set of (rot_k, flip) with (k + int(flip)) even.
+    rng = np.random.default_rng(42)
+    v4_invariance_ok = True
+    failed_examples = []
+    for trial in range(100):
+        M = rng.integers(-10, 11, size=(3, 3))
+        kappas_v4 = []
+        kappas_other = []
+        for k in range(4):
+            for flip in (False, True):
+                B = np.rot90(M, k)
+                if flip:
+                    B = np.fliplr(B)
+                kv = cumulant(B)
+                if (k + int(flip)) % 2 == 0:
+                    kappas_v4.append(round(kv, 6))
+                else:
+                    kappas_other.append(round(kv, 6))
+        if len(set(kappas_v4)) != 1:
+            v4_invariance_ok = False
+            failed_examples.append(M.tolist())
+        if len(set(kappas_other)) != 1:
+            v4_invariance_ok = False
+            failed_examples.append(M.tolist())
+    checks.append((
+        "Theorem E.1 (V_4' preserves kappa for any 3x3 matrix; 100 trials)",
+        v4_invariance_ok
+    ))
+
+    # CHECK 8 (Theorem G: Durer 4x4 mod-3 has the same kappa-witness pattern
+    # as Lo Shu, with values +/- 128).
+    DURER = np.array([
+        [16, 3, 2, 13],
+        [5, 10, 11, 8],
+        [9, 6, 7, 12],
+        [4, 15, 14, 1],
+    ])
+
+    def is_comm_n(t):
+        n = len(t)
+        return all(t[x][y] == t[y][x]
+                   for x in range(n) for y in range(n))
+
+    def mod_n_table(M_arr, n, dim):
+        return tuple(tuple(int(M_arr[i][j]) % n for j in range(dim))
+                     for i in range(dim))
+
+    durer_orbit = []
+    for k in range(4):
+        for flip in (False, True):
+            B = np.rot90(DURER, k)
+            if flip:
+                B = np.fliplr(B)
+            durer_orbit.append(B.copy())
+
+    durer_tables = {}
+    for M_arr in durer_orbit:
+        t = mod_n_table(M_arr, 3, 4)
+        if t not in durer_tables:
+            durer_tables[t] = {"kappas": [],
+                               "is_comm": is_comm_n(t)}
+        durer_tables[t]["kappas"].append(round(cumulant(M_arr), 6))
+
+    # Test: 4 distinct tables, 2 comm + 2 noncomm, kappa = +/- 128 witnesses comm
+    n_durer_tables = len(durer_tables)
+    n_durer_comm = sum(1 for info in durer_tables.values()
+                       if info["is_comm"])
+    n_durer_noncomm = sum(1 for info in durer_tables.values()
+                          if not info["is_comm"])
+    durer_kappa_ok = True
+    for info in durer_tables.values():
+        cs = set(info["kappas"])
+        if info["is_comm"]:
+            if cs != {-128.0}:
+                durer_kappa_ok = False
+        else:
+            if cs != {128.0}:
+                durer_kappa_ok = False
+    durer_ok = (n_durer_tables == 4 and n_durer_comm == 2
+                and n_durer_noncomm == 2 and durer_kappa_ok)
+    checks.append((
+        "Theorem G (Durer 4x4 mod-3: same pattern, kappa = +/- 128)",
+        durer_ok
     ))
 
     # Print results
