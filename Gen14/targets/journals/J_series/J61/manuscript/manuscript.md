@@ -15,7 +15,7 @@ We introduce a systematic methodology, grounded in Birkhoff's variety theory (19
 
 Applied to four case studies — the Lo Shu D₄ orbit modulo 3, the σ-magma on $\mathbb{Z}/10\mathbb{Z}$, the linear magma family $(ax+by+c) \bmod n$, and the implication-closure size distribution — we find:
 
-(a) The variety of commutative magmas (anchored on equation 43, $x \cdot y = y \cdot x$) has implication-closure of size exactly 14 in ETP, equal to the σ-magma's equational theory. 480 of 720 symmetric 5×5 Latin squares at order 5 are type specimens of this variety (all sharing the IDENTICAL 14-equation theory).
+(a) The variety of commutative magmas (anchored on equation 43, $x \cdot y = y \cdot x$) has implication-closure of size exactly 14 in ETP, equal to the σ-magma's equational theory. **Conjecture 1 is empirically verified at orders 3 AND 5**: of all 729 commutative order-3 magmas, exactly 120 are type specimens of this variety (all sharing IDENTICAL Family C equation set); of all 720 symmetric 5×5 Latin squares, exactly 480 are type specimens (also all sharing the IDENTICAL Family C set). Profile 14 IS the minimum commutative profile at both orders. Cross-order $\sigma_n^{\min}$ tests at orders 6-15 provide further support.
 
 (b) Equational-theory size 14 is achieved by ETP magmas in at least 23 different equation-set families. Of these, 22 are non-commutative and anchored on single-variable power identities (depth 3-5); only the commutative variety has a 2-variable anchor.
 

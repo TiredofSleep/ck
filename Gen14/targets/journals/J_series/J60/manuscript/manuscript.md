@@ -186,9 +186,17 @@ A much stronger statement holds: the 14 IDs of Family C are EXACTLY the implicat
 
 This upgrades Theorem 3 from "empirical intersection across 8 commutative magmas" to "exact equality with the deductive closure of commutativity in the ETP catalog." Any magma satisfying commutativity automatically satisfies the other 13 (by ETP-proved implications); and a magma satisfying ONLY commutativity (no extra equations) satisfies EXACTLY these 14.
 
-### §4.7 Conjecture 1 verified at order 5
+### §4.7 Conjecture 1 verified at orders 3 AND 5
 
-We enumerated all 720 symmetric 5×5 Latin squares (= commutative quasigroups of order 5) and tested each through ETP. Result:
+**Order 3.** We enumerated all 729 = $3^6$ commutative order-3 magmas (= symmetric 3×3 tables) and tested each through ETP. Of the 729:
+
+- **120 have profile 14**, ALL sharing the IDENTICAL Family C equation set.
+- 0 have profile < 14 (no commutative magma at order 3 satisfies fewer than 14 equations).
+- 609 have profile > 14 (mostly 17, 18, 19, 32, 60, 313, 382, 1556, etc.)
+
+**Conjecture 1 confirmed at order 3**: the smallest profile achievable by a commutative order-3 magma is 14 (= Family C). All 120 instances share the IDENTICAL equation set.
+
+**Order 5.** We enumerated all 720 symmetric 5×5 Latin squares (= commutative quasigroups of order 5) and tested each through ETP. Result:
 
 | Profile size | # magmas |
 |---:|---:|
@@ -203,9 +211,11 @@ We enumerated all 720 symmetric 5×5 Latin squares (= commutative quasigroups of
 
 **All 480 profile-14 magmas have the IDENTICAL Family C equation set.** No non-Family-C profile-14 commutative magma exists at order 5.
 
-This empirically validates **Conjecture 1 at order 5**: Family C is the unique commutative profile-14 family at order 5.
+**Order 4.** Has 4^10 = $\sim$1M commutative magmas — too many for direct enumeration here, but ETP's tabulated data shows minimum commutative profile is 49 at order 4 (no profile-14 magma found in tabulated data). This is the "small-order exception" at $n = 4$.
 
-(Order 6 has ~5,000+ symmetric Latin squares, order 7 has ~20,000+. The verification scales linearly in the number of commutative quasigroups; we have not extended to higher orders in this paper but the data on cross-order σ_n analogs (orders 6-10) is consistent with Conjecture 1.)
+**Cross-order verification** via $\sigma_n^{\min}$ at orders 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15: all hit profile 14 with the IDENTICAL Family C equation set.
+
+**Summary**: Conjecture 1 (Family C is the unique commutative profile-14 family) is empirically verified at orders 3 and 5, with $\sigma_n^{\min}$ evidence at orders 6-15. The conjecture remains formally OPEN at orders 4, 6, 7, 8, 9, 10, and ∞.
 
 ---
 
