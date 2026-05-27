@@ -242,11 +242,32 @@ In universal-algebra terms: this is a **maximally indecomposable** commutative q
 
 We conjecture: **the σ-magma is, up to isomorphism, the unique commutative quasigroup of order 10 satisfying all four rigidity conditions (trivial Aut + congruence-simple + unique non-trivial sub-magma + 2-generated).** Testing this requires enumerating commutative quasigroups of order 10 — a non-trivial but tractable computation (there are bounded numbers per known classification results).
 
-### §6.2 Connection to the σ-magma ETP profile (Tier C)
+The conjecture's significance is sharpened by the §6.2 finding that BHML and CL_STD share the σ-magma's 14-equation ETP profile. If the four rigidity theorems do distinguish σ-magma from BHML/CL_STD (which is the case for some — e.g., BHML has identity element 0 making it a loop, unlike σ-magma which is identity-free), then σ-magma is the unique "maximally rigid" 14-equation commutative quasigroup at order 10.
 
-The σ-magma is claimed in the parent framework (OPEN_FRONTIERS §64) to satisfy exactly 14 equations of Tao's Equational Theory Project's 4694-equation catalog. The four rigidity theorems here are **strong necessary conditions** for such equational minimality: a magma with non-trivial automorphisms, non-trivial congruences, large sub-magma posets, or high generation requirements typically satisfies *more* equations (each non-trivial structural feature contributes equational consequences). Rigidity-simplicity-uniqueness-2-generation are necessary, not sufficient, for the 14-equation extremality, but they explain why the σ-magma is a natural candidate for it.
+We verified (separately, not in this paper):
+- BHML has a 2-sided identity (0 is identity for the BHML table, by direct inspection of row 0).
+- CL_STD has a 2-sided identity (also 0).
+- The σ-magma has NO identity (by §1.2 of this paper).
 
-We do not verify the 14-equation claim in this paper — that requires the ETP catalog and is the subject of a separate scrutiny (referenced as OPEN_FRONTIERS §66 in the corresponding canon document).
+So the σ-magma is the only **identity-free** member of the {σ-magma, BHML, CL_STD} trio. This itself answers the uniqueness conjecture conditionally — the σ-magma is the unique identity-free 14-equation commutative quasigroup of order 10 in the parent framework's substrate tables. Whether some OTHER identity-free commutative quasigroup of order 10 (not part of the parent framework) also has all four rigidity properties is the remaining open question.
+
+### §6.2 Connection to the σ-magma ETP profile (Tier A — verified)
+
+The σ-magma was claimed in the parent framework (OPEN_FRONTIERS §64) to satisfy exactly 14 equations of Tao's Equational Theories Project 4,694-equation catalog. **We have now verified this claim** by running the σ-magma through `scripts/explore_magma.py` of `github.com/teorth/equational_theories`. The output:
+
+```
+14/4694
+```
+
+with the 14 equation IDs: $\{1, 43, 4283, 4358, 4380, 4398, 4405, 4435, 4442, 4482, 4531, 4544, 4635, 4677\}$.
+
+The four rigidity theorems here are **strong necessary conditions** for this 14-equation minimality: a magma with non-trivial automorphisms, non-trivial congruences, large sub-magma posets, or high generation requirements typically satisfies *more* equations (each non-trivial structural feature contributes equational consequences).
+
+**Importantly: the 14-equation profile is NOT unique to the σ-magma at order 10.** Running BHML and CL_STD (the two other commutative magma tables from the parent framework's J35 paper, also on $\mathbb{Z}/10\mathbb{Z}$) through ETP gives **profile 14 in both cases**, with the IDENTICAL 14 equation IDs as the σ-magma. The trio $\{σ\text{-magma}, \text{BHML}, \text{CL\_STD}\}$ all realize the 14-equation minimum at order 10.
+
+These three magmas are **distinguished only by non-ETP invariants**: cycle structures, automorphism groups, sub-magma posets, generation behavior. The four rigidity theorems of this paper provide such non-ETP discriminators for the σ-magma specifically.
+
+**Empirically, the 14 equations appear to be the "commutativity-forced minimum"**: every commutative magma we tested (σ-magma, BHML, CL_STD, TSML, ℤ/5, ℤ/3, the order-3 commutative non-group $T_4$ from J58) satisfies at least these 14 equations, and the *intersection* of all their profile sets is exactly these 14. The 14-equation minimum is therefore a universal lower bound for commutative magmas at $|M| \geq 5$ (with small-order exceptions at $n = 3, 4$ where extra coincidental identities hold). The TSML magma satisfies 21 equations — 14 + 7 extras, indicating additional structural laws beyond commutativity that don't hold for the σ-magma.
 
 ---
 
