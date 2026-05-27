@@ -186,11 +186,27 @@ For $R \cdot L = \mathrm{rot}90(L) = \begin{pmatrix} 6 & 1 & 8 \\ 7 & 5 & 3 \\ 2
 
 By the Lemma, the $V_4'$-coset has $\kappa = +48$ uniformly and the other coset has $\kappa = -48$ uniformly. This is the "$\kappa$ takes only $\pm 48$" half of Theorem E.
 
-### §3.4 The commutativity correlation
+### §3.4 The commutativity correlation — half proved by a diagonal lemma
 
-The second half of Theorem E — *that the sign of $\kappa$ correlates with the commutativity of the mod-3 reduction* — is verified empirically by checking each of the 4 distinct mod-3 tables $T_1, T_2, T_3, T_4$ (Theorem B). Of these, $T_1$ and $T_3$ are non-commutative (pre-images in the $V_4'$-coset with $\kappa = +48$); $T_2$ and $T_4$ are commutative (pre-images in the other coset with $\kappa = -48$).
+The second half of Theorem E — *that the sign of $\kappa$ correlates with the commutativity of the mod-3 reduction* — is half proved structurally and half observed.
 
-We do not derive this correlation from a more general principle. The Lemma proves the κ-coset half but says nothing about whether commutativity-of-the-mod-3-table correlates with one coset over the other. For random 3×3 integer matrices, the κ-witness property holds for ~5-9% of cases (see §7.2 for incidence data on random sweeps). For Lo Shu, the alignment is by direct verification.
+**Lemma (3×3 commutative-quasigroup diagonal constraint).** Let $T$ be a $3 \times 3$ magma table on $\{0, 1, 2\}$ that is both commutative ($T[x][y] = T[y][x]$ for all $x, y$) and a quasigroup (every row and column is a permutation of $\{0, 1, 2\}$). Then the diagonal of $T$ — the multiset $\{T[0][0], T[1][1], T[2][2]\}$ — equals $\{0, 1, 2\}$ (i.e., it is a permutation of $\{0, 1, 2\}$, no repeated values).
+
+**Proof.** Suppose for contradiction $T$ has a repeated diagonal entry, WLOG $T[0][0] = T[1][1] = c$ for some $c \in \{0, 1, 2\}$. Column 0 is a permutation of $\{0, 1, 2\}$, so the off-diagonal entries $T[1][0], T[2][0]$ are exactly the two non-$c$ values; WLOG $T[1][0] = a$, $T[2][0] = b$, where $\{a, b, c\} = \{0, 1, 2\}$.
+
+By commutativity, $T[0][1] = T[1][0] = a$ and $T[0][2] = T[2][0] = b$. Row 0 is then $(c, a, b)$ — a permutation, fine.
+
+Column 1 contains $T[0][1] = a$, $T[1][1] = c$, $T[2][1] = ?$. It must be a permutation, so $T[2][1] = b$. By commutativity, $T[1][2] = T[2][1] = b$.
+
+Row 1 is then $(a, c, b)$ — a permutation, fine.
+
+Row 2 is $T[2][0] = b$, $T[2][1] = b$, $T[2][2] = ?$. The first two entries are both $b$ — contradicting row 2 being a permutation. ∎
+
+**Corollary (V₄′-coset forced non-commutativity for Lo Shu).** Every $V_4'$-coset element $g \cdot L$ has the same diagonal multiset as $L$ itself (since $V_4'$ preserves the main-diagonal positions). The diagonal of $L$ is $\{2, 5, 8\}$, which mod 3 is $\{2, 2, 2\}$ — a constant multiset. By the Lemma, no $3 \times 3$ commutative quasigroup has a constant-multiset diagonal. Since each $V_4'$-coset element's mod-3 reduction IS a quasigroup (Theorem D), it cannot be commutative. So all 4 tables in the $V_4'$-coset are non-commutative. ∎
+
+This proves *exactly half* of Theorem E's correlation: the non-commutativity of the $\kappa = +48$ coset is forced by the diagonal lemma. The other half (commutativity of the $\kappa = -48$ coset) is consistent with the Lemma (since the anti-diagonal of $L$ is $\{4, 5, 6\}$ mod 3 $= \{0, 1, 2\}$, a permutation — which is *consistent with* commutativity by the Lemma, but not forced) and is verified by direct inspection of $T_2$ and $T_4$.
+
+**Why this is striking.** The half of the correlation that is forced is exactly the half tied to the magic-square structure — the Lo Shu's diagonal mod 3 being constant is a consequence of the magic-sum property combined with the entries-multiset $\{1, 2, \ldots, 9\}$, both of which are magic-square defining conditions.
 
 ---
 

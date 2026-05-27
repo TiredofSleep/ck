@@ -262,6 +262,53 @@ def main():
         durer_ok
     ))
 
+    # CHECK 9 (Diagonal Lemma: no 3x3 commutative quasigroup table has
+    # constant-multiset diagonal). Exhaustively enumerate all 3x3 magma
+    # tables on {0,1,2} (3^9 = 19683 of them), filter to commutative
+    # quasigroups, and confirm none has a repeated diagonal entry.
+    n_comm_quasi = 0
+    n_with_repeat_diag = 0
+    bad_table = None
+    for entries in product(range(3), repeat=9):
+        t = ((entries[0], entries[1], entries[2]),
+             (entries[3], entries[4], entries[5]),
+             (entries[6], entries[7], entries[8]))
+        # Commutativity check
+        if t[0][1] != t[1][0] or t[0][2] != t[2][0] or t[1][2] != t[2][1]:
+            continue
+        # Quasigroup check
+        s = {0, 1, 2}
+        if not (set(t[0]) == s and set(t[1]) == s and set(t[2]) == s):
+            continue
+        if not (set(t[i][0] for i in range(3)) == s
+                and set(t[i][1] for i in range(3)) == s
+                and set(t[i][2] for i in range(3)) == s):
+            continue
+        n_comm_quasi += 1
+        # Diagonal check
+        diag = (t[0][0], t[1][1], t[2][2])
+        if len(set(diag)) < 3:
+            n_with_repeat_diag += 1
+            if bad_table is None:
+                bad_table = t
+    lemma_ok = (n_with_repeat_diag == 0 and n_comm_quasi > 0)
+    checks.append((
+        "Diagonal Lemma (no 3x3 comm-quasigroup has repeated diagonal; "
+        f"{n_comm_quasi} found, {n_with_repeat_diag} violations)",
+        lemma_ok
+    ))
+
+    # CHECK 10 (Corollary: V_4'-coset elements of L all have constant
+    # diagonal mod 3, so by Lemma forced non-commutative.)
+    L_diag_mod3 = sorted([int(LO_SHU[i, i]) % 3 for i in range(3)])
+    L_antidiag_mod3 = sorted([int(LO_SHU[i, 2 - i]) % 3 for i in range(3)])
+    corollary_ok = (len(set(L_diag_mod3)) == 1
+                    and len(set(L_antidiag_mod3)) == 3)
+    checks.append((
+        f"Corollary (Lo Shu diag mod 3 = {{{L_diag_mod3[0]},{L_diag_mod3[1]},{L_diag_mod3[2]}}}={'constant' if len(set(L_diag_mod3)) == 1 else 'NOT-constant'}; anti-diag mod 3 = {set(L_antidiag_mod3)})",
+        corollary_ok
+    ))
+
     # Print results
     n_pass = 0
     print("Detailed checks:")

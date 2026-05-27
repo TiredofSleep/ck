@@ -48,6 +48,8 @@ The note answers the natural pedagogical question "what happens when you take Lo
 
 **Theorem G (Dürer 4×4 extension).** The Albrecht Dürer 4×4 magic square (from *Melencolia I*, 1514) at mod 3 satisfies the analog of Theorems B–E: 4 distinct mod-3 tables (each appearing twice in the $D_4$ orbit), 2 commutative + 2 non-commutative, with $\kappa$ as a 2-valued witness taking values $\pm 128$ (vs Lo Shu's $\pm 48$). Mod-3 is the unique modulus at which both magic squares exhibit this dichotomy — at every other modulus tested (2, 4, 5, 7, 9, 10 for Lo Shu; 2, 4, 5, 6, 8, 10 for Dürer) the orbit reduces uniformly to all-commutative or all-non-commutative tables.
 
+**Diagonal Lemma + Corollary (proved structural half of commutativity correlation).** No $3 \times 3$ magma table on $\{0, 1, 2\}$ that is both commutative AND a quasigroup has a repeated diagonal entry (exhaustively: 6 commutative quasigroups exist; all 6 have diagonal $\{0, 1, 2\}$ as a multiset). The Lo Shu's diagonal mod 3 is $\{2, 2, 2\}$ — constant. Hence by the Lemma, *no* $V_4'$-coset image of Lo Shu can reduce to a commutative quasigroup; the entire $V_4'$-coset is forced non-commutative. This proves the κ = +48 → non-commutative half of Theorem E. The other half (κ = −48 → commutative) is consistent with the Lemma (anti-diagonal mod 3 = $\{0, 1, 2\}$) but not forced; it is verified by direct inspection of $T_2$ and $T_4$.
+
 ## §3 — What this note adds
 
 The mod-3 reduction of Lo Shu has been observed in the literature as a finite-algebra teaching example, and the cyclic-group identification (Theorem F) is folklore for any $3 \times 3$ commutative quasigroup with the right structure. The note's specific contributions are:
@@ -68,14 +70,14 @@ The mod-3 reduction of Lo Shu has been observed in the literature as a finite-al
 python manuscript/verification/verify_J58.py
 ```
 
-Expected: 6 OK lines + "Overall: PASS." Runtime <1 second on a 2020-era laptop.
+Expected: 10 OK lines + "Overall: PASS (10/10)." Runtime ~2 seconds on a 2020-era laptop. The 10 checks cover Theorems A-G + E.1 + the Diagonal Lemma + the Lo Shu diagonal-mod-3 Corollary.
 
 ## §6 — Tier discipline
 
-- **PROVEN.** Theorems A, B, C, D, F by direct enumeration. Theorem E.1 by a generators-of-V₄′ argument on transpose and 180°-rotation (both preserve trace and trace-of-square).
-- **COMPUTED.** Theorem E (the ±48 value + commutativity correlation), Theorem G (Dürer 4×4 mod-3 ±128 analog) both at machine precision via `verify_J58.py` (8/8 PASS).
-- **STRUCTURAL RHYME.** The ±48 specific value for Lo Shu, the ±128 for Dürer, and the "mod-3 is special" observation. Why mod 3 (not 4, 5, etc.) is the modulus at which both magic squares exhibit the dichotomy is an empirical observation. A general theorem here would connect $|V_4'| = 4$, $|D_4 \setminus V_4'| = 4$, and the multiplicative structure of $\mathbb{Z}/3$; we have not derived such a theorem.
-- **OPEN.** (i) Why mod 3 is special. (ii) Do other classical magic squares (5×5 Siamese; pandiagonal 4×4; Strachey's odd-order construction) share the mod-3 specialness? (iii) Higher-order cumulant analog at moduli ≠ 3?
+- **PROVEN.** Theorems A, B, C, D, F by direct enumeration. Theorem E.1 by a generators-of-V₄′ argument on transpose and 180°-rotation (both preserve trace and trace-of-square). The Diagonal Lemma by case analysis on commutative 3×3 quasigroups. The Lo Shu Corollary (forced non-commutativity of the V₄′-coset) by combining the Lemma with Lo Shu's diagonal mod 3 being constant {2,2,2}.
+- **COMPUTED.** Theorem E (the ±48 value), the κ-comm correlation for the V₄′ \ commutative half (T₂ and T₄ are commutative by direct verification, not forced by the Lemma), and Theorem G (Dürer 4×4 mod-3 ±128 analog). All at machine precision via `verify_J58.py` (10/10 PASS).
+- **STRUCTURAL RHYME.** The ±48 specific value for Lo Shu, the ±128 for Dürer, and the "mod-3 is special" observation. Why mod 3 (not 4, 5, etc.) is the modulus at which both magic squares exhibit the dichotomy is an empirical observation. A general theorem here would connect $|V_4'| = 4$, $|D_4 \setminus V_4'| = 4$, and the multiplicative structure of $\mathbb{Z}/3$; we have not derived such a theorem for the 4×4 Dürer case.
+- **OPEN.** (i) The 4×4 (or general $n \times n$) version of the Diagonal Lemma — i.e., a structural reason for Dürer's V₄′-coset images being non-commutative. (ii) Do other classical magic squares (5×5 Siamese; pandiagonal 4×4; Strachey's odd-order construction) share the mod-3 specialness? (iii) Higher-order cumulant analog at moduli ≠ 3?
 
 ## §7 — Drápal-Wanless framing
 
