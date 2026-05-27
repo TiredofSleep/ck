@@ -219,17 +219,32 @@ In either case, the resulting profile is $\geq 261$, far exceeding the size-14 i
 
 **Significance.** Theorem 5 is the first explicitly proved instance of an ETP equation with no finite type specimen. It is publishable on its own as a single-result note (suggested title: *"An ETP equation with no finite type specimen: equation 4295 and the projection-collapse dichotomy"*).
 
-### §6.3 The other closures (Tier B — conjectures)
+### §6.3 The other closures (Tier B — empirical evidence; earlier structural sketches RETRACTED)
 
-For C3, C4, C6, C7, C8 (anchors 1312, 2241, 4303, 4610, 4637), we have **sketched structural arguments and empirical no-counterexample evidence**, but full Tier-A proofs require case-by-case analysis. The arguments parallel C5:
+**Retraction of structural sketches.** Our earlier sketches for C3, C4, C6, C7, C8 claimed each anchor forces "projection-like or constant" structure, with profile $\geq 1214$ as a consequence. **These sketches were wrong**, in the same way the earlier "is constant" claim for C5 was wrong: confusing necessary conditions on functional iteration with actual structural collapse.
 
-- **C3 anchor (eq 1312)** $x = y \cdot (((y \cdot x) \cdot x) \cdot x)$: forces left-projection-like structure with iteration order ≤ 4 — profile ≥ 1214.
-- **C4 anchor (eq 2241)**: forces right-projection-like structure — same profile inflation.
-- **C6 (4303)**, **C7 (4610)**, **C8 (4637)**: similar single-side-independence arguments force projection-like or constant collapse.
+**Corrected empirical bounds (Tier B — computational, exhaustive at order 3).** Enumerating all $3^9 = 19{,}683$ order-3 magmas for each anchor:
 
-**Tier-B status**: each anchor admits a full Tier-A proof in the style of §6.2 with a few hours of careful case analysis. Empirical evidence: ~7,000 random magmas at orders 4-9 tested via targeted search; no profile-14 magma found realizing any of C3-C8 exactly.
+| Closure | Anchor | # order-3 satisfiers | Min profile at order 3 | Non-constant satisfiers |
+|---|---|---:|---:|:---:|
+| C3 | eq 1312, $x = y \cdot (((y \cdot x) \cdot x) \cdot x)$ | 28 | **79** | 28/28 (all) |
+| C4 | eq 2241, $x = (x \cdot (x \cdot (x \cdot y))) \cdot y$ | 28 | **79** | 28/28 (all) |
+| C6 | eq 4303, $x \cdot (x \cdot y) = z \cdot (y \cdot x)$ | 45 | **122** | 42/45 |
+| C7 | eq 4610, $(x \cdot x) \cdot y = (y \cdot z) \cdot x$ | 45 | **122** | 42/45 |
+| C8 | eq 4637, $(x \cdot y) \cdot x = (y \cdot x) \cdot z$ | 45 | **122** | 42/45 |
 
-**Conjecture C.2 (Tier C, refined)**: an implication-closure of size $k$ in ETP admits a finite type specimen iff its anchor equation does NOT force the operation to be projection-like or constant. Verified for C2 (commutative) and C1 (all-squares-equal) realized cases; verified for C5 unrealized case. Open for general $k$.
+The minimum-profile examples are NOT projection-like or constant — e.g., the C3 minimum-profile example at order 3 is $[[0, 1, 2], [0, 2, 1], [2, 1, 0]]$, a non-commutative permutation-table magma with profile 79.
+
+**Fossil-variety conclusion still holds** for C3-C8 at order 3: the minimum profile (79 or 122) far exceeds the size-14 implication-closure. Conjecture: no type specimen exists at any order, but this is now an EMPIRICAL claim (computational verification at order 3, no orders 4+ tested) — NOT a structural theorem.
+
+**Tier-B status**: C3-C8 fossil-variety claims rest on:
+- Computational fact at order 3: minimum profiles are 79 or 122 (Tier A at order 3).
+- Empirical no-counterexample at orders 4-9: no profile-14 magma found realizing any of C3-C8 in ~7,000 random trials.
+- No proof of fossil-variety at any specific higher order.
+
+**Conjecture C.2 (Tier C, REVISED — earlier formulation was wrong)**: the original claim "anchor forces projection-like or constant → no type specimen" is REFUTED by the order-3 C3 example (non-projection, non-constant, satisfies eq 1312 with profile 79). The corrected open question: characterize when an implication-closure admits a finite type specimen. Empirically: C5 has clean dichotomy proof (Theorem 5); C3-C8 satisfy this empirically at order 3 but lack a structural argument.
+
+**Honest upgrade path**: each of C3, C4, C6, C7, C8 needs a structural argument that doesn't go through "forces projection." The C5 dichotomy argument doesn't generalize directly. New approach needed — possibly bounding profile via the anchor's syntactic complexity.
 
 ## §7 The toolkit
 
