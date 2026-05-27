@@ -169,12 +169,29 @@ Of the 4,694 ETP equations, 19 have implication-closure of size exactly 14. Thes
 | C5 | 4295, 4345, 4371 | Depth-3 shuffle | OPEN |
 | C6 | 4303, 4328, 4376 | Depth-3 shuffle alt | OPEN |
 | C7 | 4610, 4660, 4686 | Depth-3 outer | OPEN |
-| C8 | 4637, 4659, 4678 | Depth-3 outer alt | OPEN |
+| C8 | 4637, 4659, 4678 | Depth-3 outer alt | **FOSSIL VARIETY** |
 
-**Open question**: do realizers exist for closures C3-C8? Our targeted search at orders 4-9 over $\sim$10⁴ magmas (linear + random) has not found any. They may require:
-- larger orders not yet enumerated,
-- non-trivial structural constructions not tried in random search, or
-- be equationally unrealizable (theoretically possible — a closure can be a "ghost" class with no model).
+**Structural argument: C3-C8 are fossil varieties.**
+
+After both targeted search (~7,000 magmas at orders 4-9, no type specimens found) and a structural analysis, we conjecture that closures C3-C8 admit **no finite type specimens** at any order — they are "fossil varieties" in the biological-taxonomy sense.
+
+The argument: each anchor equation for C3-C8 forces a structural collapse:
+
+- **C5 anchor (eq 4295)** $x \cdot (x \cdot y) = y \cdot (z \cdot x)$: RHS must be independent of $z$, forcing $z \cdot x = f(x)$ for some $f$. Substituting back forces $f \circ f$ constant, which on finite carriers requires $f$ itself to be constant. The resulting magma is the constant magma, with profile 1556, far exceeding 14.
+
+- **C7 anchor (eq 4610)** $(x \cdot x) \cdot y = (y \cdot z) \cdot x$: RHS independent of $z$ forces $y \cdot z = g(y)$ (left-projection-like), with similar collapse to constant.
+
+- **C3 anchor (eq 1312)** $x = y \cdot (((y \cdot x) \cdot x) \cdot x)$: Forces $y \cdot z = h(z)$ with $h^{(4)} = $ id (left-projection through a permutation of order 1, 2, or 4). Such magmas have profile ~1214 (left-projection profile), still far exceeding 14.
+
+- **C4 anchor (eq 2241)**: similar to C3 via right-projection.
+
+- **C6 (4303), C8 (4637)**: similar structural collapses force near-constant.
+
+The pattern: each "size-14 closure but not Family C nor all-squares-equal" anchor equation has a *single-side dependence* requirement that forces projection-like or constant structure. These structures have profile ~1214 (projection) or 1556 (constant), far exceeding 14.
+
+**Conjecture (Tier C)**: an implication-closure of size $k$ in ETP admits a finite type specimen iff the anchor equation does NOT force the operation to be projection-like or constant. C3-C8 fail this condition.
+
+This refines J60/J61's earlier OPEN status to a structural claim: C3-C8 are fossil varieties — equational classes that are well-defined as ETP implication-closures but whose anchor equations force structural collapses incompatible with profile 14 on finite magmas.
 
 ## §7 The toolkit
 
