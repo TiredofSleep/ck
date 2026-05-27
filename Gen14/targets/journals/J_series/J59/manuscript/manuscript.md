@@ -276,11 +276,32 @@ But — as noted above — σ_{10}^{\min}-magma is ALSO identity-free with the s
 
 ### §6.1.2 The 14 equations as commutativity-forced minimum
 
-The 14 ETP equations are precisely the intersection of equation profiles across ALL commutative magmas we tested (8 of them: σ-magma, BHML, CL_STD, TSML, ℤ/5, ℤ/3 = T_2, T_4 from J58, σ_{10}^{\min}). This empirically validates the handoff's hypothesis (task T-D-1, OPEN_FRONTIERS §66.15):
+The σ-magma's 14 ETP equations are precisely the intersection of equation profiles across ALL commutative magmas we tested (8 of them: σ-magma, BHML, CL_STD, TSML, ℤ/5, ℤ/3 = T_2, T_4 from J58, σ_{10}^{\min}). This empirically validates the handoff's hypothesis (task T-D-1, OPEN_FRONTIERS §66.15):
 
 > The 14 equations are the "commutative-forced minimum" — satisfied by every commutative magma.
 
 The σ-magma at order 10 thus realizes the absolute commutativity-forced floor in the ETP catalog. Multiple distinct magmas at order 10 do likewise (σ-magma, BHML, CL_STD, σ_{10}^{\min}); the σ-magma is **one** member of an equivalence class of "minimal-equation commutative quasigroups of order 10" rather than the unique such magma.
+
+### §6.1.3 Profile 14 is NOT unique to commutativity (Family R)
+
+A surprise discovered during enumeration of linear order-7 magmas: the non-commutative magma
+$$x \diamond y = (5x + 3y + 6) \bmod 7$$
+also satisfies exactly 14 ETP equations — but a **completely different 14** from the σ-magma's set.
+
+| Family | Central equation | Realized by | Equation set (intersection with σ-magma's 14) |
+|---|---|---|---|
+| **C** (commutativity-centered) | 43: $x \diamond y = y \diamond x$ | σ-magma, BHML, CL_STD, σ_{10}^{\min}, σ_n^{TIG/min} for n ≥ 5 | $\{1, 43, 4283, ..., 4677\}$ (the σ-magma's 14) |
+| **R** (right-cancellation-centered) | 4658: $(x \diamond y) \diamond y = (y \diamond x) \diamond x$ | $(5x + 3y + 6) \bmod 7$ (non-commutative) | $\{1\}$ — share only reflexivity |
+
+So profile 14 is **not unique to commutativity**. There are at least two structurally distinct families that hit profile 14:
+- Family C: commutativity + 12 single-substitution derivatives.
+- Family R: a "right-cancellation-symmetric" law + 12 derivatives, centered on $(x \cdot y) \cdot y = (y \cdot x) \cdot x$.
+
+Family R is realized by NON-commutative magmas; Family C by commutative ones. Both achieve profile 14 with otherwise disjoint equation sets.
+
+**Implication for J59's framing**: the σ-magma is the unique (modulo isomorphism, conjecturally) magma in Family C with the four rigidity properties stated in Theorems A–D at order 10. It is not the unique profile-14 magma — Family R provides distinct profile-14 magmas, and these are independent algebraic objects, not refinements of Family C.
+
+The full enumeration of profile-14 families at order 10 is an open question for follow-up work. We conjecture (Tier C) that there exist finitely many such families, each parameterized by the smallest "anchoring equation" they satisfy beyond reflexivity.
 
 ### §6.2 Connection to the σ-magma ETP profile (Tier A — verified)
 
