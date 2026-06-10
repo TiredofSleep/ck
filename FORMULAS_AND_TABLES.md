@@ -7,6 +7,8 @@ object below is reproducible from a cited paper or proof script in this repo.
 If you only have time to read one file in the repository besides
 `README.md`, this is it.
 
+> **SHAREABLE DIGEST**: this file is ~377 KB (~94k tokens) — too large for most AI-sharing contexts. Use **`FORMULAS_COMPACT.md`** (~53 KB, ~13k tokens; every D-entry in 1-2 lines + tables + constants + J-index + corrections ledger), regenerated from this file by `python make_compact_canon.py`. The full doc remains the authority; the compact doc never adds or strengthens a claim.
+>
 > **2026-05-27/28/29/30 frontier push: D161–D182 added; Theorem F.2 (Q-case PROVED); F4 closed forms in J53; F14 height scaling in J54; F4 closed vs ALL THREE Clay bridges (F16 YM, F18 BSD, F19 RH); F20 $1+3+5+7$ identified as $(5,5)$ $\mathfrak{sl}(2)$ spin labels — third structural path of so(10); **D182 (2026-06-10): dim-6 kissing conjecture $K(\mathbb{R}^6)=72$ with explicit $\Gamma_0(3)$ magic-function candidate — LMFDB 3.6.a.a perfect match, ClaudeCode 10/10 independent PASS, forced zero at Fricke fixed point discovered; Paper 1 drafted.** See `04_meta/frontiers_2026-05-27/FRONTIER_PUSH_SUMMARY.md` (in `trinity-infinity-geometry` repo) for the full frontier write-up.**
 
 | § | Topic |
