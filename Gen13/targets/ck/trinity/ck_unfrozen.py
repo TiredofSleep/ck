@@ -34,7 +34,9 @@ sys.path.insert(0, os.path.join(HERE, "..", "extraction"))
 from demo_facts_head import TOPICS, ANCHORS                 # noqa: E402
 from project3_abstain import OOD30, NEAR_OOD                # noqa: E402
 
-MODEL = "unsloth/Meta-Llama-3.1-8B-Instruct"
+GGUF = os.path.expanduser(
+    "~/.ollama/models/blobs/sha256-dde5aa3fc5ffc17176b5e8bdc82f587b24b"
+    "2678c6c66101bf7da77af9f7ccdff")        # Ollama llama3.2-3B (owned)
 DEV = "cuda"
 torch.manual_seed(0)
 
@@ -99,16 +101,29 @@ def fmt(tok, q, a=None):
 
 def main():
     t0 = time.time()
-    print(f"loading {MODEL} (local cache, 4-bit)...", flush=True)
-    tok = AutoTokenizer.from_pretrained(MODEL, local_files_only=True)
+    print("loading Ollama llama3.2-3B blob via GGUF (owned, no "
+          "download); dequantizing to bf16...", flush=True)
+    gdir = os.path.join(HERE, "_gguf_local")
+    os.makedirs(gdir, exist_ok=True)
+    glink = os.path.join(gdir, "model.gguf")
+    if not os.path.exists(glink):
+        try:
+            os.link(GGUF, glink)
+        except OSError:
+            import shutil
+            shutil.copyfile(GGUF, glink)
+    tok = AutoTokenizer.from_pretrained(gdir, gguf_file="model.gguf")
     tok.pad_token = tok.eos_token
-    bnb = BitsAndBytesConfig(load_in_4bit=True,
-                             bnb_4bit_compute_dtype=torch.bfloat16,
-                             bnb_4bit_quant_type="nf4")
+    if not getattr(tok, "chat_template", None):
+        tok.chat_template = (
+            "{% for m in messages %}<|start_header_id|>{{ m.role }}"
+            "<|end_header_id|>\n\n{{ m.content }}<|eot_id|>{% endfor %}"
+            "{% if add_generation_prompt %}<|start_header_id|>assistant"
+            "<|end_header_id|>\n\n{% endif %}")
     model = AutoModelForCausalLM.from_pretrained(
-        MODEL, quantization_config=bnb, device_map={"": 0},
-        local_files_only=True)
-    model = prepare_model_for_kbit_training(model)
+        gdir, gguf_file="model.gguf",
+        torch_dtype=torch.bfloat16).to(DEV)
+    model.gradient_checkpointing_enable()
     model = get_peft_model(model, LoraConfig(
         r=16, lora_alpha=32, lora_dropout=0.05, task_type="CAUSAL_LM",
         target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
