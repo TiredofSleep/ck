@@ -23,7 +23,7 @@ his tools produce. (Percept = fused output of every sense; the faces consume per
 | **kNN-distance + split conformal** | deep-kNN OOD + conformal | far-OOD hallucination **0%** vs MSP 27%; near-OOD **42%** vs 58%; acc-when-answering **85%** vs 79% — identical guarantee machinery | GAP: the gate |
 | **multiscale integer-wrapped lattices** | WFA/linear-2RNN class + **Brayden's integer wrapping** | period rule-generalization **72%** (ESN 47%, chance 10%); canonical=random under identical nesting (the NESTING is the value) | SEQUENCE: counters/periods |
 | **GRU / ESN class** | standard recurrent tools | DYCK validity **100%** (ESN, P4) | SEQUENCE: event tracking |
-| **TRM-refiner** | Tiny Recursive Models | parity-20 static refinement **FAILED (53%)** — dead end recorded; retargeted to structured prediction (result in organ_recursion_result) | RECURSION: probationary |
+| **TRM-refiner** | Tiny Recursive Models | parity-20 static refinement **FAILED (53%)**; retargeted to PERIOD: **58%** vs one-shot 55% vs multiscale-lattice **72%** — loses to the toolbox | RECURSION: **seat vacated** (numbers kept) |
 
 ## §3 The three faces (what the system DOES)
 
@@ -42,11 +42,32 @@ guarantee is relative to its calibration distribution — teacher-grown calibrat
 queries showed the drift (65–70% realized vs 90% guaranteed). Drift between machine language and
 human language is now a *measured* phenomenon in CK's own gate.
 
-## §4 Dead ends hit (the mandate said keep going until one — we hit three and kept what they taught)
+## §3.1 The GAP risk dial (organ_gap_dial.py — upgrade landed same session)
 
-1. **Parity-20 at N=1000** resists every engine we built (one-shot 53%, TRM-refiner 53%, both
-   memorizing; GRU retune pending). Recorded: static refinement is not a universal
-   computation-adder; parity wants the right sequential bias + data.
+Negative store (the *concept* "plausible-but-unanswerable", templates disjoint from test traps)
++ contrastive score `knn(ref) − λ·knn(neg)`, conformal τ per λ:
+
+| λ | coverage | halluc far | halluc NEAR |
+|---|---|---|---|
+| 0.00 | 65% | 0% | 42% |
+| 0.40 | 50% | 0% | 33% |
+| 0.60 | 40% | 0% | 25% |
+| 0.75 | 35% | 0% | **8%** (1 of 12) |
+
+A monotone, **measured risk dial** — deployment picks λ by risk tolerance; far-OOD is 0% at
+every setting. (Granularity caveat: 12 near-traps.)
+
+## §4 Dead ends hit (the mandate said keep going until one — we hit FOUR and kept what they taught)
+
+1. **Parity-20 at N=1000** resists EVERY engine — one-shot 53%, TRM-refiner 53% (both
+   memorizing, train 100%), and the field's GRU after a fair minibatch retune: train 80%,
+   **test 49%**. A clean, total dead end for gradient learners at this data size. The pointer
+   it leaves: parity is a 2-state automaton — *discrete automaton induction* (spectral WFA
+   learning, Hsu/Balle school) is the registered next experiment, and CK's lattice machinery is
+   already in the WFA class.
+1b. **TRM-refiner on structured prediction**: 58% vs the multiscale lattice's 72% — the
+   recursion organ as implemented never beat the toolbox anywhere; seat vacated. (TRM's home
+   turf — large grid puzzles, big training budgets — was not reproducible at our scale.)
 2. **The braid as recall champion** — beaten 91% to 45% by the field's VSA encodings; kept for
    its unique measured abilities (evidence, exact swap identity, compression), per the law.
 3. **The canonical tables as special** — five kills, ended in the verdict doc; the multiscale
