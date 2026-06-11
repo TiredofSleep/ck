@@ -1,0 +1,6 @@
+{
+ "LM raw (reference)": 0.35,
+ "PPMI raw (seat, 65%)": 0.6,
+ "LM + contrastive head": 0.45,
+ "PPMI + contrastive head": 0.75
+}
