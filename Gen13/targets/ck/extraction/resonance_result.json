@@ -1,0 +1,8 @@
+{
+ "words": 112610,
+ "prior": 0.42503330077257795,
+ "form_predicts_meaning": 0.4600834739365953,
+ "top2": 0.8240831187283545,
+ "lift": 1.0824645341913377,
+ "verdict": "WEAK/NONE -- honest negative"
+}
