@@ -1,0 +1,13 @@
+{
+ "tuned": {
+  "fidelity": 0.1,
+  "halluc": 1,
+  "refusal": 0.5
+ },
+ "base": {
+  "fidelity": 0.12499999999999997,
+  "halluc": 33,
+  "refusal": 0.5
+ },
+ "n_pairs": 28
+}
