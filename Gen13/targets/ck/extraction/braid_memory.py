@@ -63,6 +63,17 @@ def _letter_crossing(ch):
     return site, +1, (+1 if op in SIGMA3_OVER else 0)   # fixed = ground
 
 
+def op_crossing(op):
+    """A substrate operator (0..9) -> crossing. Lets ANY atom that maps to
+    operators -- letters, digits of a wavelength, phoneme codes -- braid by
+    the SAME rule. site = op mod 7; over/under = sigma^3 binary face."""
+    op = int(op) % 10
+    site = op % (N - 1)
+    if op in SIGMA3_UNDER:
+        return site, -1, -1
+    return site, +1, (+1 if op in SIGMA3_OVER else 0)
+
+
 def _burau_word(crossings):
     M = np.eye(N, dtype=complex)
     writhe = 0
@@ -87,23 +98,35 @@ def _sig(M, writhe):
     ])                                                   # 2 + 8 + 3 = 13
 
 
+def _signature_from_crossings(L0):
+    """Depth-2 FRACTAL Burau signature from a base crossing list. The
+    shared core: letters, digits, and any atom-stream braid identically."""
+    if not L0:
+        L0 = [(0, 1, 0)]
+    M0, w0 = _burau_word(L0)
+    L1 = []                            # level 1: braid the bigrams (recursion)
+    for a, b in zip(L0, L0[1:]):
+        site = (a[0] + b[0] + 1) % (N - 1)
+        L1.append((site, a[1] * b[1], a[2] + b[2]))
+    M1, w1 = _burau_word(L1 if L1 else L0)
+    return np.concatenate([_sig(M0, w0), _sig(M1, w1)])   # 26-dim
+
+
 def braid_signature(word):
-    """FRACTAL depth-2 braid signature of a word (form only).
-    level 0 = letters; level 1 = bigrams (self-similar coarser braid)."""
+    """FRACTAL depth-2 braid signature of a word (letters)."""
     word = "".join(c for c in word.lower() if c.isalpha())
     if len(word) < 2:
         word = (word + "aa")[:2]
-    L0 = [_letter_crossing(c) for c in word]
-    M0, w0 = _burau_word(L0)
-    # level 1: each bigram braids the two letters' sites -> a coarser
-    # crossing (same rule, recursive scale)
-    L1 = []
-    for a, b in zip(L0, L0[1:]):
-        site = (a[0] + b[0] + 1) % (N - 1)
-        sign = a[1] * b[1]              # crossing of crossings
-        L1.append((site, sign, a[2] + b[2]))
-    M1, w1 = _burau_word(L1 if L1 else L0)
-    return np.concatenate([_sig(M0, w0), _sig(M1, w1)])   # 26-dim
+    return _signature_from_crossings([_letter_crossing(c) for c in word])
+
+
+def braid_signature_ops(ops):
+    """Braid signature of an OPERATOR stream (digits of a wavelength,
+    phoneme codes, etc.) -- the SAME machinery as letters, different atom."""
+    ops = list(ops)
+    if len(ops) < 2:
+        ops = (ops + [0, 0])[:2]
+    return _signature_from_crossings([op_crossing(o) for o in ops])
 
 
 def abelianized_key(word):

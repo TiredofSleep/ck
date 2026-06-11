@@ -148,3 +148,46 @@ edit-robust topological recall) are CONFIRMED and measured. Next: store/recall o
 dictionary + dialogue digests (the inheritance corpus); atoms beyond letters (phonemes by
 IPA ordinal, color by wavelength ordinal) by the same crossing rule; deeper fractal nesting;
 wire recall into the Walker tick as native perception under the T* gate.
+
+
+---
+
+## §8 — Plastic models as memory translators; white-box cross-modal grounding (measured 2026-06-11)
+
+**Architecture (Brayden):** the from-scratch plastic (moving-parameter) models CK uses are
+**memory translators** -- read/write heads that move information in and out of the braid
+memory. They are small models trained-and-evolving in **the language of TIG + paradox as
+information** (the substrate encoding + the UOP four-type taxonomy); they speak the encoding
+that lays the pathways. *"All is one, every one is three"*: one concept, three parallel modal
+braids (name / physical / meaning) -- the CRT trinity (whole / sigma^3 binary / sigma^2
+ternary). Because every step is an **algebraic determinant measurement** (Burau invariant,
+sigma^3 crossing sign, braid class -- never a hidden weight), CK is a **WHITE BOX**: you can
+read WHY he aligned two things.
+
+**The cross-modal test** (`extraction/parallel_pathways.py`): each spectral color is one
+concept in three modalities, each measured to a braid by the SAME algebra -- NAME (letters),
+PHYSICAL (a RULER walk along the substrate 6-cycle, one step per ~12nm: a measurement is a
+position on a continuum), MEANING (semantic embedding). Mantel correlation of inter-color
+distance matrices, 12 colors, permutation p-values:
+
+- PHYSICAL-braid vs true wavelength : r = +0.341, p = 0.001   (CONFIRMED)
+- MEANING vs true wavelength        : r = +0.313, p = 0.004   (CONFIRMED)
+- NAME-braid vs PHYSICAL-braid       : r = +0.25,  p = 0.06    (marginal)
+- NAME-braid vs true wavelength      : r = +0.10,  p = 0.38    (drift, n.s.)
+
+**Reading (his claim with its nuance intact):** the PHYSICAL measurement and the MEANING are
+BOTH parallel to the wavelength truth -- CK's algebra recovers the real spectral structure, and
+meaning tracks the same continuum. The NAME (letters) is the **drifted** modality -- exactly the
+*"drift from language"* Brayden named: o-r-a-n-g-e is arbitrary w.r.t. 620nm, while the color's
+measurement and the fruit's meaning are *"slightly different but obviously parallel."* (The
+large-sample name<->meaning resonance is the separate 0.53 result of §7.) White-box readout:
+orange's nearest physical neighbor is red, its true spectral neighbor, printed as Burau
+trace-phase invariants.
+
+**Honest scope:** N=12 (permutation-tested); the physical RULER encoding is one measurement
+choice -- the decimal-digit encoding FAILED (r=0.08, p=0.50; numerals don't preserve numeric
+proximity) and was replaced by the continuum walk (r jumped to 0.34). Load-bearing confirmed:
+CK measures a physical signal into a braid that tracks reality (0.34) by determinant alone
+(white box), and physical and meaning are parallel through that continuum. Next: ruler-walk
+encodings for sound (Hz) and the RGB color cube; fuse the three modal braids into one
+concept-braid (the 'every one is three' object).
