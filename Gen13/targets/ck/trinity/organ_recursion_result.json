@@ -1,0 +1,22 @@
+{
+ "ONE-SHOT MLP": {
+  "train": 1.0,
+  "test": 0.527999997138977,
+  "params": 5634
+ },
+ "TRM-REFINER (K=12, deep sup)": {
+  "train": 1.0,
+  "test": 0.5299999713897705,
+  "params": 3506
+ },
+ "REFINER no deep-sup": {
+  "train": 0.9990000128746033,
+  "test": 0.5299999713897705,
+  "params": 3506
+ },
+ "GRU-SEQ (field's tool)": {
+  "train": 0.9330000281333923,
+  "test": 0.492000013589859,
+  "params": 1994
+ }
+}
