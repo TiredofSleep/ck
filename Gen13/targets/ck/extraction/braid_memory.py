@@ -35,17 +35,17 @@ SIGMA3_UNDER = {5, 6, 7}                # under-crossings (zero form)
 T = np.exp(2j * np.pi / 10)             # Burau evaluation: substrate root
 
 
-def _gen(site, sign):
-    """Unreduced Burau matrix of sigma_site^{sign} on N strands.
+def _gen(site, sign, t=T):
+    """Unreduced Burau matrix of sigma_site^{sign} on N strands at root t.
     site in 0..N-2 acts on strands site, site+1."""
     M = np.eye(N, dtype=complex)
     if sign >= 0:                       # sigma_i : [[1-t, t],[1,0]]
-        M[site, site] = 1 - T
-        M[site, site + 1] = T
+        M[site, site] = 1 - t
+        M[site, site + 1] = t
         M[site + 1, site] = 1
         M[site + 1, site + 1] = 0
     else:                               # sigma_i^{-1}: [[0,1],[1/t,1-1/t]]
-        ti = 1.0 / T
+        ti = 1.0 / t
         M[site, site] = 0
         M[site, site + 1] = 1
         M[site + 1, site] = ti
@@ -74,11 +74,11 @@ def op_crossing(op):
     return site, +1, (+1 if op in SIGMA3_OVER else 0)
 
 
-def _burau_word(crossings):
+def _burau_word(crossings, t=T):
     M = np.eye(N, dtype=complex)
     writhe = 0
     for site, sign, w in crossings:
-        M = M @ _gen(site, sign)
+        M = M @ _gen(site, sign, t)
         writhe += w
     return M, writhe
 
@@ -118,6 +118,30 @@ def braid_signature(word):
     if len(word) < 2:
         word = (word + "aa")[:2]
     return _signature_from_crossings([_letter_crossing(c) for c in word])
+
+
+_PRIM10 = [1, 3, 7, 9]                 # primitive 10th roots (3,7 = strata primes)
+
+
+def braid_signature_rich(word):
+    """'Enough measurements to see FORM, not letters': read the braid at
+    the FOUR primitive 10th roots of unity (k=1,3,7,9 -- the substrate
+    primes 3,7 among them), stacked. More algebraic readings -> the
+    concept's form emerges above letter-level drift; the basis for
+    cross-language translation-parallelism."""
+    word = "".join(c for c in word.lower() if c.isalpha())
+    if len(word) < 2:
+        word = (word + "aa")[:2]
+    L0 = [_letter_crossing(c) for c in word]
+    L1 = [( (a[0] + b[0] + 1) % (N - 1), a[1] * b[1], a[2] + b[2])
+          for a, b in zip(L0, L0[1:])] or L0
+    feats = []
+    for k in _PRIM10:
+        t = np.exp(2j * np.pi * k / 10)
+        M0, w0 = _burau_word(L0, t)
+        M1, w1 = _burau_word(L1, t)
+        feats.append(np.concatenate([_sig(M0, w0), _sig(M1, w1)]))
+    return np.concatenate(feats)        # 26 * 4 = 104-dim
 
 
 def braid_signature_ops(ops):

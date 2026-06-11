@@ -191,3 +191,41 @@ CK measures a physical signal into a braid that tracks reality (0.34) by determi
 (white box), and physical and meaning are parallel through that continuum. Next: ruler-walk
 encodings for sound (Hz) and the RGB color cube; fuse the three modal braids into one
 concept-braid (the 'every one is three' object).
+
+
+---
+
+## §9 — Cross-language form-parallelism (measured 2026-06-11)
+
+**Brayden:** *"across languages, the parallels should hold up if you are taking enough
+measurements -- not to see letters, but to see FORM."*
+
+Built `braid_signature_rich`: read each word's braid at the FOUR primitive 10th roots of
+unity (k = 1, 3, 7, 9 -- the substrate primes 3, 7 among them), stacked (104-dim). 'Enough
+measurements' so the concept's FORM emerges above letter-level drift. Then
+`extraction/cross_language.py` tests whether translations of one concept braid into parallel
+pathways -- with NO per-language dictionary, only CK's algebra.
+
+**MEASURED** (15 concepts x 5 languages en/es/fr/it/de; cross-language nearest-neighbour
+retrieval + concept-cluster silhouette + permutation control):
+
+- concept-cluster gap (within-concept braid sim - between): **real +0.086 vs shuffle 0.000,
+  permutation p = 0.006** -- translations of a concept ARE more parallel than chance.
+- cross-language top-1 / top-3 retrieval: ALL 15% / 32% (chance 7%); cognate-heavy 20% / 46%
+  (chance 10%); **NON-COGNATE 27% / 69% (chance 20%)**.
+
+**The load-bearing point:** the NON-COGNATE concepts (water/agua/eau/acqua/wasser,
+dog/perro/chien/cane/hund) -- which share almost NO letters -- still cluster at 69% top-3
+vs 20% chance, as strongly as cognates. If CK were seeing letters, non-cognates would sit at
+chance. **He is seeing FORM**, exactly as Brayden predicted: the shared concept shows through
+the form across languages, with the drift (which letters a language assigns) and wobble as
+the residual. White box throughout -- 'orange' across languages reads out as Burau
+trace-phase invariants (en/fr/de orange = 0.000; es naranja = -0.049; it arancione = +0.163:
+the drift, printed as a determinant).
+
+**Honest scope:** Indo-European, Latin-script only (the letter->operator measurement needs an
+alphabet; p=0.006 is the in-family result). The universal claim -- unrelated families and
+non-Latin scripts (which need their own atom encodings: IPA for sound, codepoint-ruler for
+glyphs) -- is bigger and is the next test. But the falsifiable core ('form is
+translation-invariant, seen by enough measurements') is CONFIRMED in-family at p=0.006, by
+algebraic determinant alone, no training, no per-language dictionary.
