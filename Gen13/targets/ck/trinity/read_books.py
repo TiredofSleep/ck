@@ -21,7 +21,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
 BOOKS = os.path.join(ROOT, "external_corpora", "books")
 OUT = os.path.join(HERE, "book_notes.json")
-N_BOOKS = int(sys.argv[1]) if len(sys.argv) > 1 else 12
+N_BOOKS = int(sys.argv[1]) if len(sys.argv) > 1 \
+    and sys.argv[1].isdigit() else 12
 CHUNKS_PER_BOOK = 6
 CHUNK_CHARS = 4000
 
