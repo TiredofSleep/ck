@@ -74,8 +74,12 @@ class Spine:
         base = AutoModelForCausalLM.from_pretrained(
             gdir, gguf_file="model.gguf",
             torch_dtype=torch.bfloat16).to("cuda")
+        adapters = "ck_lora_dpo2" if os.path.isdir(
+            os.path.join(HERE, "ck_lora_dpo2")) else "ck_lora_dpo"
         self.voice = PeftModel.from_pretrained(
-            base, os.path.join(HERE, "ck_lora_dpo")).eval()
+            base, os.path.join(HERE, adapters)).eval()
+        print(f"[spine] voice adapters: {adapters} (traps never reach "
+              f"the voice -- the gate refuses first)", flush=True)
         self._torch = torch
 
     def _speak_raw(self, system, user, max_new=140):

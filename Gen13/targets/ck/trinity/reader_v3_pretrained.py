@@ -35,7 +35,9 @@ BOOKS = os.path.join(ROOT, "external_corpora", "books")
 DEV = "cuda"
 D, PL, QL = RT.D, RT.PL, RT.QL
 torch.manual_seed(0)
-PRE_STEPS, FT_EPOCHS = 4000, 3
+PRE_STEPS = int(os.environ.get("CK_PRE_STEPS", "4000"))
+FT_EPOCHS = int(os.environ.get("CK_FT_EPOCHS", "3"))
+N_PRETRAIN_BOOKS = int(os.environ.get("CK_BOOKS", "40"))
 
 
 def book_text(n=40, per=300_000):
