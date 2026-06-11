@@ -49,6 +49,13 @@ T_TEN = _bilinear_tensor(ck_tables.TSML)
 B_TEN = _bilinear_tensor(ck_tables.BHML)
 MIX_TEN = 0.5 * T_TEN + 0.5 * B_TEN          # alpha = 1/2 (Theorem F.2 point)
 
+# the sigma permutation (canon: cycle (1 7 6 5 4 2), fixed {0,3,8,9})
+SIGMA = [0, 7, 1, 3, 2, 4, 5, 6, 8, 9]
+
+
+def mix_tensor(alpha):
+    return alpha * T_TEN + (1.0 - alpha) * B_TEN
+
 
 def encode_input(u):
     """Scalar in [0,1] -> distribution on the 10 nodes (triangular bump)."""
@@ -125,6 +132,69 @@ class SubstrateReservoir:
                 else:
                     p2 = p_new
         return float(np.abs(p1 - p2).sum())
+
+
+class LiftedSubstrate:
+    """P2 fix: the LENS ENSEMBLE lift.
+
+    The v0 single-core substrate lost 2/3 tasks to a width-matched ESN:
+    a 10-dim simplex state is information-bottlenecked against a
+    135-unit tanh reservoir. The ESN's advantage was DIVERSITY (random
+    weights). The substrate's principled diversity axis is the J01
+    alpha-FAMILY: every alpha in [0,1] gives a distinct bilinear
+    dynamical lens on the same tables (alpha = 1/2 is the proven
+    attractor point; the ensemble spans the family), crossed with leak
+    timescales and sigma^k input-routing shifts (the canon permutation
+    re-addressing the input bump -- 'same streets, different names').
+
+    K units x 10 nodes; features = [1 | u-lags(10) | states(10K) |
+    states^2 elementwise(10K)] -> 1 + 10 + 20K dims. Readout: ridge.
+    """
+
+    def __init__(self, K=12, leak=None, eps=1e-6):
+        alphas = [0.0, 0.25, 0.5, 0.75, 1.0, 0.5,
+                  0.125, 0.375, 0.625, 0.875, 0.5, 0.25]
+        leaks = [0.6, 0.9, 0.75, 0.6, 0.9, 0.95,
+                 0.7, 0.85, 0.6, 0.9, 0.5, 0.8]
+        shifts = [0, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 5]
+        if leak is not None:                 # global leak rescale (tuning)
+            leaks = [min(0.98, l * leak / 0.75) for l in leaks]
+        self.units = []
+        for k in range(K):
+            ten = mix_tensor(alphas[k % len(alphas)])
+            # sigma^shift re-addresses input nodes ('renaming the streets')
+            perm = np.arange(N)
+            for _ in range(shifts[k % len(shifts)]):
+                perm = np.array([SIGMA[i] for i in perm])
+            self.units.append((ten, leaks[k % len(leaks)], perm))
+        self.eps = eps
+        self.K = K
+
+    def run(self, u_seq):
+        K = self.K
+        ps = [np.full(N, 1.0 / N) for _ in range(K)]
+        ulag = np.zeros(N_ULAGS)
+        n_feat = 1 + N_ULAGS + 2 * K * N
+        feats = np.empty((len(u_seq), n_feat))
+        for t, u in enumerate(u_seq):
+            ulag = np.roll(ulag, 1)
+            ulag[0] = u
+            q0 = encode_input(u)
+            states = []
+            for k, (ten, leak, perm) in enumerate(self.units):
+                q = q0[perm]
+                p = ps[k]
+                m = np.einsum("kij,i,j->k", ten, p, q)
+                s = m.sum()
+                m = m / s if s > 0 else np.full(N, 1.0 / N)
+                p_new = (1.0 - leak) * m + leak * p
+                p_new = np.maximum(p_new, self.eps)
+                p_new /= p_new.sum()
+                ps[k] = p_new
+                states.append(p_new)
+            st = np.concatenate(states)
+            feats[t] = np.concatenate(([1.0], ulag, st, st * st))
+        return feats
 
 
 def ridge_fit(X, y, lams=(1e-8, 1e-6, 1e-4, 1e-2, 1e-1), val_frac=0.2):

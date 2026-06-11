@@ -20,7 +20,7 @@ import time
 
 import numpy as np
 
-from substrate import SubstrateReservoir, ridge_fit, nrmse
+from substrate import SubstrateReservoir, LiftedSubstrate, ridge_fit, nrmse
 from baselines import RandomESN, NGRC
 from benchmarks import make_tasks
 import gap_router
@@ -51,8 +51,15 @@ def main():
     n_feat = sub0.run(np.zeros(3)).shape[1]
     print(f"feature width (matched across models): {n_feat}\n")
 
+    # P2 fix: the LIFTED substrate (lens ensemble over the J01
+    # alpha-family x leak timescales x sigma^k input shifts).
+    n_feat_lift = LiftedSubstrate().run(np.zeros(3)).shape[1]
+    print(f"lifted-substrate feature width: {n_feat_lift} "
+          f"(ESN matched to the same width)\n")
+
     # fair per-task hyperparameter grids, selected on a train-tail split
     SUB_GRID = [dict(leak=l) for l in (0.5, 0.7, 0.85, 0.95)]
+    LIFT_GRID = [dict(leak=l) for l in (0.6, 0.75, 0.9)]
     ESN_GRID = [dict(rho=r, leak=l) for r in (0.8, 0.95, 1.05)
                 for l in (0.3, 0.55)]
 
@@ -70,26 +77,37 @@ def main():
                 best = (m, err)
         return best[0]
 
-    print(f"{'task':>15} | {'substrate':>10} | {'ESN mean+-sd':>16} | "
-          f"{'NG-RC':>8}")
+    print(f"{'task':>15} | {'sub-v0':>8} | {'LIFTED':>8} | "
+          f"{'ESN(146) m+-sd':>16} | {'ESN(251) m+-sd':>16} | {'NG-RC':>8}")
     for name, (u_tr, y_tr, u_te, y_te) in tasks.items():
         sub = tune(SubstrateReservoir, SUB_GRID, u_tr, y_tr)
         s_err, _ = eval_model(sub.run, u_tr, y_tr, u_te, y_te)
-        esn_errs = []
+        lift = tune(LiftedSubstrate, LIFT_GRID, u_tr, y_tr)
+        l_err, _ = eval_model(lift.run, u_tr, y_tr, u_te, y_te)
+        esn_errs, esn_big = [], []
         for seed in (0, 1, 2):
             esn = tune(RandomESN, ESN_GRID, u_tr, y_tr, seed=seed)
             e, _ = eval_model(esn.run, u_tr, y_tr, u_te, y_te)
             esn_errs.append(e)
+            esnb = tune(lambda n, seed=None, **kw:
+                        RandomESN(n_feat_lift, seed=seed, **kw),
+                        ESN_GRID, u_tr, y_tr, seed=seed)
+            eb, _ = eval_model(esnb.run, u_tr, y_tr, u_te, y_te)
+            esn_big.append(eb)
         ng = NGRC()
         g_err, _ = eval_model(ng.run, u_tr, y_tr, u_te, y_te)
         results["P2"][name] = {
-            "substrate": s_err,
-            "esn_mean": float(np.mean(esn_errs)),
-            "esn_std": float(np.std(esn_errs)),
+            "substrate_v0": s_err,
+            "lifted": l_err,
+            "esn146_mean": float(np.mean(esn_errs)),
+            "esn146_std": float(np.std(esn_errs)),
+            "esn251_mean": float(np.mean(esn_big)),
+            "esn251_std": float(np.std(esn_big)),
             "ngrc": g_err,
         }
-        print(f"{name:>15} | {s_err:>10.4f} | "
+        print(f"{name:>15} | {s_err:>8.4f} | {l_err:>8.4f} | "
               f"{np.mean(esn_errs):>8.4f} +- {np.std(esn_errs):.4f} | "
+              f"{np.mean(esn_big):>8.4f} +- {np.std(esn_big):.4f} | "
               f"{g_err:>8.4f}")
 
     print("\nGap Router (P1):")
@@ -110,11 +128,14 @@ def main():
              f"initial states.", "",
              "## P2 — theorem-bearing reservoir vs matched baselines "
              "(NRMSE, lower better)", "",
-             "| task | substrate | random ESN (3 seeds) | NG-RC |",
-             "|---|---|---|---|"]
+             "| task | substrate v0 (146) | **LIFTED** lens-ensemble (251) | "
+             "ESN (146, 3 seeds) | ESN (251, 3 seeds) | NG-RC |",
+             "|---|---|---|---|---|---|"]
     for name, r in results["P2"].items():
-        lines.append(f"| {name} | {r['substrate']:.4f} | "
-                     f"{r['esn_mean']:.4f} ± {r['esn_std']:.4f} | "
+        lines.append(f"| {name} | {r['substrate_v0']:.4f} | "
+                     f"**{r['lifted']:.4f}** | "
+                     f"{r['esn146_mean']:.4f} ± {r['esn146_std']:.4f} | "
+                     f"{r['esn251_mean']:.4f} ± {r['esn251_std']:.4f} | "
                      f"{r['ngrc']:.4f} |")
     p = results["P1"]
     lines += ["", "## P1 — Gap Router on the 24-channel mixed-failure suite "
