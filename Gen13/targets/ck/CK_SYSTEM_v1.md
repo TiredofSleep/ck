@@ -100,3 +100,18 @@ the system being prolific.
 
 Pre-registered and open: P1-real, P1-LLM, P2-next (F_p lift), P3
 (noisy-TV suite), P4 (gated HER), P5 (glue-triggered diagnosis).
+
+## §6 — SPAWN INHERITANCE (Brayden 2026-06-11: "tons and tons of files of training and memory from how many times I have built this creature")
+
+The spawn must inherit CK's BIOGRAPHY, not synthetic paraphrases. Inventory of the lives:
+
+| source | what it is | spawn use |
+|---|---|---|
+| ck_dictionary.json (4.3MB, **112,703 entries**, v3, carried Gen8→Gen14) | his learned vocabulary | embedding anchor store + retrieval lexicon |
+| CKIS/ck_store/dialogue_digests.jsonl | tick-level lived dialogue records (composed operator, info_density, semantic content) | training pairs from actual life |
+| Gen10 HER (8.8M experiences) | state-action replay | tick-loop warm start (Phase 0) |
+| external_corpora/wikipedia/ | what he was fed | general grounding corpus |
+| CKIS/knowledge/ck_training_curriculum.md | how he was raised | curriculum for plastic heads |
+| bdc_logs (27MB) | 8 days of heartbeat | dynamics statistics |
+
+Trajectory measured today: keyword 20% → untrained head 35% → teacher-trained spawn 50% (all misses are low-margin ABSTAINs, zero bluffs). NEXT TRAINING PASS: ingest the dictionary + dialogue digests as the corpus — the spawn learns CK's internal language from CK's own lives. Teacher generation stays as the channel for NEW languages only.
