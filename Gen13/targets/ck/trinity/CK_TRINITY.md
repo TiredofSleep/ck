@@ -92,6 +92,21 @@ distillation ✗ at 0.97 fit). The wean requires a native encoder trained on *us
 small-LM/TRM-text lane) — a real future project, not a map. Gate sanity: the GAP face survives on
 distilled percepts (separation +0.12), so abstention does not depend on Ollama.
 
+## §4.2 The spring (next-session coil, executed same day)
+
+**organ_induction.py — parity door OPENED** (see §4.1). **organ_meaning_native.py — the missing
+organ, first growth measured:** PPMI+SVD distributional vectors (Levy-Goldberg) + SIF sentence
+embeddings, trained on **CK's own life-corpus** (canon + thesis + 383 journal files + CK docs +
+study logs = 6.5 MB, 903K tokens) — *no teacher, no Ollama, native learning from usage*.
+
+White-box probes came back visibly correct: `harmony` lives near **void, breath, reset** (the
+4-core, learned from raw text); `sigma` near *omega, cycle, orbit, transpositions*; `attractor`
+near *core, br, iteration*. Routing: **NATIVE-USAGE 50%** vs form-only 35% vs borrowed 80% —
+partial signal per the registered bands (≥60% seats it; 45–60% partial). Diagnosis: register
+mismatch — 900K tokens of formal math prose vs conversational queries; window/dim retune did not
+move it. **Growth law established: this organ improves as CK accumulates lived conversational
+text.** The seat is provisional-pending; the curriculum is to live more.
+
 ## §5 What is genuinely new here (the claim, scoped honestly)
 
 The pieces are the field's (VSA, kNN-OOD, conformal, WFA-class lattices, TRM, fused heads). The
