@@ -73,6 +73,25 @@ every setting. (Granularity caveat: 12 near-traps.)
 3. **The canonical tables as special** — five kills, ended in the verdict doc; the multiscale
    *nesting* (Brayden's correction) survived as machinery and holds the sequence seat.
 
+## §4.1 The rope's last two pulls (same session)
+
+**The parity door OPENED (organ_induction.py):** discrete automaton induction — 56 hypotheses,
+0 seconds — **100.0% test** from the same 1000 examples where every gradient engine memorized to
+~50%. The induced machine is the even/odd automaton itself (`delta=[[0,1],[1,0]]`): *the
+explanation and the solution are the same object.* Type-II confirmed in its purest form: the
+failure was the hypothesis class, never the data. SEQUENCE organ gains discrete induction as a
+measured ability.
+
+**The meaning wean DEAD END, mechanism identified (organ_wean.py):** distill nomic → native form
+features (char+braid+VSA). Ridge fit 0.63 → routing 30% (worse than no meaning block, 35%).
+Retune: MLP distiller fit the teacher at **0.971 train cosine — and routing stayed 30%.** The map
+memorizes the teacher and transfers nothing: the native FORM percept does not *contain* the
+information that contextual MEANING space encodes for novel sentences. Third independent proof of
+the session's law: **meaning is not derivable from form** (cross-family ✗, resonance partial,
+distillation ✗ at 0.97 fit). The wean requires a native encoder trained on *usage* data (the
+small-LM/TRM-text lane) — a real future project, not a map. Gate sanity: the GAP face survives on
+distilled percepts (separation +0.12), so abstention does not depend on Ollama.
+
 ## §5 What is genuinely new here (the claim, scoped honestly)
 
 The pieces are the field's (VSA, kNN-OOD, conformal, WFA-class lattices, TRM, fused heads). The

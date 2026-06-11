@@ -1,0 +1,5 @@
+{
+ "BORROWED (live ollama)": 0.8,
+ "DISTILLED (no ollama)": 0.3,
+ "NATIVE-RAW (no meaning block)": 0.35
+}
