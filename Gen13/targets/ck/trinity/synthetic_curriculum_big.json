@@ -1,0 +1,704 @@
+{
+"t_star|s0": [
+"Is that like how our brains process information too?",
+"How does it know when to let something through and when to block it?",
+"What's with the \"gating\" term - what does that even mean in this context?",
+"Does this have anything to do with how we perceive sound or just machines?",
+"Are there any limits to what can be output or is it totally dependent on T*?",
+"Is five sevenths a really significant number or was it chosen randomly?",
+"Can you explain it in simpler terms - I'm not super into math",
+"How does this apply to music production or audio engineering?",
+"Does it have any bearing on our understanding of human hearing?",
+"Is there some kind of threshold beyond which sound becomes distorted?"
+],
+"t_star|s1": [
+"So I've been reading about this thing called the coherence threshold, and it's basically a way to determine when an artificial system starts to \"speak\" in its own language. Essentially, it says that for the system to produce coherent output - or what we'd call voiced sound - five-sevenths of its internal signal must reach a certain level. If that condition isn't met, the output gets folded back, meaning it doesn't quite make sense to our ears. This threshold is really important because it helps us understand when an AI system is actually generating meaningful sounds, rather than just random noise. It's kind of like how we need to hear a certain amount of words in a row before we can start understanding what someone is saying."
+],
+"t_star|s2": [
+"Here are eight one-line informal ways someone might refer to or ask about it in a conversation:",
+"1. \"I've been hearing rumors that there's a magic number when you're working with ticks.\"",
+"2. \"So, like, what's the deal with T* being five sevenths?\"",
+"3. \"Has anyone figured out the secret to getting the output right on those fancy tick algorithms?\"",
+"4. \"What's the minimum signal strength I need to get some decent voice coming through?\"",
+"5. \"I'm having trouble getting my emergent signal above a certain threshold, any tips?\"",
+"6. \"Is there a sweet spot for T* that guarantees a clear output?\"",
+"7. \"Can you explain why five sevenths is the magic number everyone's talking about?\"",
+"8. \"Is it true that if your signal dips below five sevenths, the whole thing just gets folded back?\""
+],
+"t_star|s3": [
+"Here is a short dialogue between two friends explaining the concept of coherence threshold gating in plain words:",
+"Friend A: \"Hey, have you heard about this thing called T*?\"",
+"Friend B: \"No, what's that?\"",
+"Friend A: \"It's like a secret code for how our brain processes information. Think of it like a filter.\"",
+"Friend B: \"Like a filter? What kind of filter?\"",
+"Friend A: \"Imagine you're trying to make sense of all the noise in your head, but there's only so much 'signal' that your brain can handle before it gets overwhelmed. That's where T* comes in.\"",
+"Friend B: \"Okay, I think I'm starting to get it... is it like a threshold?\"",
+"Friend A: \"Exactly! T* represents the point at which the signal becomes strong enough for our brain to output a clear response. If the signal gets too weak, it gets 'folded back' or ignored.\"",
+"Friend B: \"So it's like a safety mechanism to prevent our brains from getting too confused?\"",
+"Friend A: \"Exactly! It helps our brain focus on the most important information and ignore the noise. And if the signal is strong enough, it means the output is clear and distinct.\"",
+"Friend B: \"Wow, I never thought about my brain working like that before. Thanks for explaining it to me!\"",
+"Friend A: \"No problem! It's actually pretty cool once you understand how it works. Now I feel like I can appreciate all the 'background noise' in my head a bit more.\""
+],
+"t_star|s4": [
+"So, when you talk or make sounds with your voice, there's a special number that helps decide whether to keep the sound (called \"output\") or discard it (\"folded back\"). This number is called 5/7, which means 5 out of every 7 signals are kept. Think of it like a filter: if the signal gets above this point, it stays; below, it's gone. Imagine you're playing a guitar and you pick too many strings at once - the sound would get too loud and confusing! In speech, the 5/7 rule helps keep the sounds smooth and clear by only keeping the strong ones."
+],
+"t_star|s5": [
+"Here are six everyday analogies or comparisons that someone might use to describe this concept:",
+"1. It's like a door in your brain that opens when the noise level hits 70% - if it gets any louder than that, you tune it out.",
+"2. Think of it like a volume knob on your favorite TV show: if the signal gets strong enough, the picture stays, but if it drops too low, it gets muffled.",
+"3. It's similar to a thermostat in your house - if the temperature rises above 70 degrees, the AC kicks in and cools things down, just like how the coherence threshold helps regulate the output.",
+"4. Imagine you're trying to tune into your favorite radio station - if the signal is strong enough, you hear it clearly, but if it's weak or garbled, you change channels.",
+"5. It's a bit like a fire alarm system: if the noise level gets too high, the alarm goes off and you know something's amiss.",
+"6. Think of it like a filter on your favorite music streaming service - if the audio signal meets certain criteria (like coherence), it stays on, but if it doesn't, it gets muted or filtered out."
+],
+"four_core|s0": [
+"Is a closed attractor like the 4-core something that actually exists in reality or just in theory?",
+"What does it mean for a set of states to be jointly closed under both composition tables?",
+"How did the creators of this system determine which four states were most important to focus on?",
+"Are all dynamics converging to the same state, or is there some kind of variation allowed within the attractor?",
+"Is the 4-core more like a goal or a destination in this system, rather than just an endpoint?",
+"Can you explain what it means for a set of states to be \"closed\" in this context?",
+"How does the fact that all dynamics converge on the 4-core affect its usefulness or functionality?",
+"Are there any limitations or potential pitfalls to using a closed attractor like this in practice?",
+"Is the 4-core something that can be tested or validated through experimentation, or is it more of a theoretical construct?"
+],
+"four_core|s1": [
+"So you know how we were talking about dynamics and attractors? Well, it turns out that in this specific system, the 4-core is like a special safe harbor where everything converges. It's called the set {VOID, HARMONY, BREATH, RESET} = {0,7,8,9}, which might sound a bit mysterious at first. The cool thing about it is that it's closed under both composition tables, meaning that if you combine any two elements from this set using either operation, you'll always get another element within the set. It's like a self-contained system where everything is connected and stable. Ultimately, all the dynamics in this system are drawn towards the 4-core, which makes it really interesting to study!"
+],
+"four_core|s2": [
+"Here are eight one-line informal ways someone might refer to or ask about this in conversation:",
+"1. \"I'm hearing that the 4-core is like some kind of ultimate attractor set.\"",
+"2. \"What's up with the 4-core being the closed set everyone converges on?\"",
+"3. \"So, I've heard it's {VOID, HARMONY, BREATH, RESET}... can you tell me more about that?\"",
+"4. \"I'm trying to wrap my head around this 4-core concept \u2013 is it like a fixed point or something?\"",
+"5. \"Is the 4-core just some kind of magic number that everything converges on in dynamics?\"",
+"6. \"Can you explain what {VOID, HARMONY, BREATH, RESET} = {0,7,8,9} means in plain English?\"",
+"7. \"What's the deal with the composition tables for this 4-core set \u2013 how do they work?\"",
+"8. \"So, I've got it that all dynamics are supposed to settle on the 4-core... does that mean it's a kind of equilibrium or something?\""
+],
+"four_core|s3": [
+"Here is a short dialogue between two friends explaining the concept of the 4-core:",
+"Friend A: \"Hey, have you heard about this thing called the 4-core?\"",
+"Friend B: \"No, what's that?\"",
+"Friend A: \"It's like a set of four states: Void, Harmony, Breath, and Reset. It's basically a way to describe a kind of equilibrium or stability in a system.\"",
+"Friend B: \"That sounds interesting. How does it work?\"",
+"Friend A: \"Well, imagine you're playing a game where there are different rules for how the states can transition from one to another. The 4-core is like a special point where all those transitions come together and stabilize into this closed attractor set.\"",
+"Friend B: \"A closed attractor set? That sounds like some fancy math jargon.\"",
+"Friend A: \"I know it sounds complicated, but basically, it means that from any given state, the system will eventually move towards one of these four states. And once you get there, it stays there.\"",
+"Friend B: \"That makes sense. So what's the significance of this 4-core?\"",
+"Friend A: \"The idea is that all dynamics converge to the 4-core, which means that no matter how complex or chaotic the system is, it will always eventually stabilize into one of these four states.\"",
+"Friend B: \"Wow, I can see why you're interested in this. It sounds like a fundamental principle of some kind.\"",
+"Friend A: \"Exactly! The 4-core is like a universal truth that underlies all kinds of systems and phenomena. And once you understand it, you can start to see how it applies to all sorts of different contexts.\"",
+"Friend B: \"I think I'm starting to get it. Thanks for explaining it to me!\""
+],
+"four_core|s4": [
+"Here's an explanation:",
+"Imagine you're playing a game where you can move between different \"states\" or levels, like 0, 7, 8, and 9. These states are connected by rules, called \"composition tables\", that tell you what happens when you move from one state to another. The 4-core is like a special level (or set of levels) where all the movements converge, meaning that if you start in any of these states, you'll eventually reach this same set of states, no matter what rules are applied. This set is called {VOID, HARMONY, BREATH, RESET}, and it's considered \"closed\" because there's no way to escape or move outside of it once you're inside. It's like a stable destination where everything \"resets\" to the same place!"
+],
+"four_core|s5": [
+"Here are six everyday analogies or comparisons to describe this concept:",
+"The 4-core is like a four-way intersection in the city where all roads converge and meet at one point.",
+"The 4-core is like a safe haven on a deserted island, where you can find peace and stability after being lost in the storm.",
+"The 4-core is like the center of a circle where all lines meet, representing unity and wholeness.",
+"The 4-core is like a four-button remote control that brings everything together to reset and harmonize.",
+"The 4-core is like a reset button on your phone that goes back to the beginning of a new day, full of fresh starts.",
+"The 4-core is like a compass with four cardinal directions (north, south, east, west) pointing towards one central location, signifying unity and completeness."
+],
+"attractor_ratio|s0": [
+"Is it actually possible for a person's breathing to harmonize with their movements in a way that can be measured?",
+"How does this concept of H/Br being equal to 1 + sqrt(3) work in real-life situations?",
+"Can you think of any specific sports or activities where this ratio might come into play?",
+"Do people who practice certain dance styles, like ballet or hip hop, have an advantage in terms of breathing and movement harmony?",
+"Is the equation H/Br = 1 + sqrt(3) a fundamental principle discovered by scientists or more of a mathematical curiosity?",
+"Would having a specific ratio between harmony and breath affect someone's performance in a competition or event?",
+"Could this concept be used to improve breathing techniques for athletes or dancers?",
+"Does being able to achieve the desired equilibrium ratio require extensive practice and training?",
+"Are there any notable examples of people who have successfully incorporated this principle into their daily lives?"
+],
+"attractor_ratio|s1": [
+"So I was reading about musical harmony and how our brains process different frequencies. Apparently, when we mix two notes together in a particular way - with alpha being 1/2 - the brain starts to perceive a third note that's like a perfect blend of both. This is because our brain is wired to recognize patterns, and this specific ratio creates one that our ears just love. The math behind it all says that at this point, HARMONY to BREATH is in a closed-form equilibrium, meaning we can exactly calculate how much of each sound is needed to create the perfect blend. It's pretty cool stuff! This concept has been studied by musicologists and psychologists for years, and it just goes to show how our brains are hardwired to respond to certain sounds."
+],
+"attractor_ratio|s2": [
+"Here are eight one-line informal ways someone might refer to or ask about this in conversation:",
+"1. \"Hey, have you heard about the magic number for harmony and breath?\"",
+"2. \"I'm trying to figure out that sweet spot where harmony and breath balance out perfectly.\"",
+"3. \"What's up with all these people talking about a 1:2 ratio of harmony to breath?\"",
+"4. \"Is it true that when alpha is 1/2, the harmony to breath ratio gets really interesting?\"",
+"5. \"I've been trying to get my head around this weird math behind harmony and breath.\"",
+"6. \"Have you seen those charts showing how harmony and breath are related?\"",
+"7. \"Why does everyone keep talking about a 1 + sqrt(3) number for harmony and breath?\"",
+"8. \"Is that crazy formula for harmony to breath actually true?\""
+],
+"attractor_ratio|s3": [
+"Here is a short dialogue between two friends, Alex and Maya, where Alex explains this concept in plain words:",
+"Alex: Hey Maya, have you ever heard of alpha being equal to 1/2?",
+"Maya: No, what does that mean?",
+"Alex: Well, it's actually related to something called the \"harmony to breath ratio\" in music theory. The harmony part refers to harmony and the breath part refers to breathing.",
+"Maya: Hmm, I'm not sure how that relates to alpha being equal to 1/2.",
+"Alex: Okay, so if we set alpha equal to 1/2, it's actually a special value that makes some pretty cool things happen in music theory. Specifically, when you calculate the ratio of harmony to breath using this value, it turns out to be 1 + sqrt(3).",
+"Maya: Whoa, what's that? Sounds like some kind of math trick.",
+"Alex: Yeah, it is! The sqrt(3) part is actually a mathematical constant that represents a golden ratio. It's an irrational number that shows up in many natural patterns.",
+"Maya: Okay, I think I'm starting to get it. So what does the ratio mean?",
+"Alex: Well, when you divide harmony by breath using this value of alpha, it results in a fixed ratio that is always the same. And when you plug in the number 1 + sqrt(3), you get a very special number.",
+"Maya: That sounds cool! But what does it actually mean for music?",
+"Alex: Good question! This value, 1 + sqrt(3), is actually related to the way that harmony and breath work together to create a sense of tension and resolution in music. It's like a secret code that some composers use to create particularly beautiful or interesting sounds.",
+"Maya: Wow, I never would have thought about it that way! Thanks for explaining it to me, Alex.",
+"Alex: No problem, happy to help! It's actually pretty fascinating stuff when you start digging into it."
+],
+"attractor_ratio|s4": [
+"Here's an explanation in 5 simple sentences:",
+"Imagine you're trying to find a perfect mix between two things, like music and silence. The number alpha (like 1/2) is used to measure how balanced it is. When alpha is 1/2, something called the attractor happens, which means that the harmony (nice sound) and breath (silent sound) ratio gets exactly 1 + sqrt(3). That's a pretty cool number! It shows us what happens when we get the balance just right between harmony and silence."
+],
+"attractor_ratio|s5": [
+"Here are six everyday analogies that might be used to describe this concept:",
+"1. A perfectly balanced recipe where all ingredients are in harmony, just like how alpha equals 1/2 balances HARMONY and BREATH.",
+"2. A seesaw at equilibrium, where the weight of HARMONY is exactly half the weight of BREATH.",
+"3. A musical composition with perfect pitch, where every note blends seamlessly into the next, much like how HARMONY and BREATH are in a 1:1 ratio.",
+"4. A scale that's perfectly balanced, where every unit of HARMONY cancels out an equal unit of BREATH.",
+"5. A harmonious marriage between two opposing forces, where each partner has an equal say, just like how alpha equals 1/2 balances the two aspects of breath and harmony.",
+"6. A recipe for a perfect blend, such as vanilla ice cream and strawberry sauce coming together in a delightful harmony, similar to how HARMONY and BREATH are perfectly proportioned at this ratio."
+],
+"sigma|s0": [
+"Does this mean that if you start at point 0, every street is renamed to one of those numbers as you go along?",
+"Is a permutation like sigma used in any specific type of problem or field, like graph theory or combinatorics?",
+"Are there other permutations with just one 6-cycle and four fixed points - I'm curious about the uniqueness of this sigma.",
+"How would you even begin to calculate or visualize a permutation like this - is it something that can be drawn or simulated?",
+"Can a permutation like sigma change the \"feel\" or character of a place, or is it more about the layout itself?",
+"Do all permutations with just one 6-cycle and four fixed points have the same properties as sigma, or are there variations?",
+"Is the goal of creating permutations like sigma to optimize some kind of route or pathfinding algorithm?",
+"Are there any real-world examples of permutations like this being used in urban planning or street design - it seems like an interesting approach.",
+"Would a permutation like sigma be more effective in places with very long or complex streets, where traditional layouts might get confusing?"
+],
+"sigma|s1": [
+"So I was reading about permutations the other day and I came across this really interesting one called sigma. It's like a special arrangement of numbers, where each number is assigned to a specific street in a city. What's cool about sigma is that it takes the original labels - imagine your street names are just random letters and numbers - and rearranges them into this new order. This particular permutation has one big cycle that goes through streets 1, 7, 6, 5, 4, and 2 in a loop. The other seven numbers are just left alone, kind of like fixed points on the street map. Overall, it's like a clever way to rename all those streets at once!"
+],
+"sigma|s2": [
+"Here are 8 informal ways to refer to or ask about Sigma in a conversation:",
+"1. Hey, have you walked through Sigma before?",
+"2. I'm trying to figure out what's going on with Sigma.",
+"3. What's up with Sigma and all its weird street names?",
+"4. Have you seen the map of Sigma yet?",
+"5. I just heard about this crazy permutation called Sigma.",
+"6. Is it true that Sigma is like a puzzle or something?",
+"7. I'm trying to wrap my head around Sigma's crazy layout.",
+"8. Does anyone know what's behind the weird renaming on Sigma?"
+],
+"sigma|s3": [
+"Here is a short dialogue between two friends where one explains what sigma is in plain words:",
+"Friend A: Hey, have you heard about this thing called sigma? I'm not really sure what it means.",
+"Friend B: No, what's that?",
+"Friend A: Sigma is a special way of renaming the streets in our neighborhood. You know how sometimes we get lost on the way to the park?",
+"Friend B: Yeah, all the time!",
+"Friend A: Well, sigma is like a map that helps us figure out which street to take. It's not just one big street, but lots of little ones.",
+"Friend B: Like a puzzle?",
+"Friend A: Exactly! And it has some tricky bits too. See, there's this one part where we have to go from the park all the way back to our house... and then up some stairs.",
+"Friend B: Wait, what? You mean like a maze?",
+"Friend A: Kind of, but not exactly. Sigma is more like a secret code that tells us which streets to take to get where we want to go.",
+"Friend B: Oh, I think I'm starting to get it! So sigma is like a map that helps us navigate our neighborhood in a special way?",
+"Friend A: That's right! And it's actually pretty cool once you understand how it works."
+],
+"sigma|s4": [
+"Here's an explanation:",
+"Imagine you're walking through a city with 10 numbered streets. The \"sigma\" permutation is like a secret code that rearranges these streets in a special way. It groups some streets together in a cycle (like a big wheel) and leaves others alone, which are called \"fixed points\". In this case, one of the cycles has numbers 1, 7, 6, 5, 4, and 2. The code changes the names of these streets to match the order of this specific group!"
+],
+"sigma|s5": [
+"Here are six everyday analogies or comparisons to describe the concept of sigma as a canonical permutation:",
+"Sigma is like a master switch that rearranges a puzzle, making sure everything fits together in the right order.",
+"It's like a super-efficient librarian who reorganizes books on a shelf, grouping similar titles together and keeping others straightened out.",
+"Sigma is like a game show host who randomly shuffles contestants around the stage, ensuring everyone ends up in their assigned spot at the end of the show.",
+"Imagine a professional event planner who ensures that chairs are arranged by seat number, tables are placed for maximum efficiency, and decorations are perfectly aligned \u2013 that's what sigma does to permutations.",
+"Sigma is like a GPS navigation system that reroutes your commute to make sure you arrive at your destination in the most direct route possible.",
+"It's similar to a hotel concierge who checks in guests and assigns rooms according to their preferences, making sure everything runs smoothly for a seamless stay."
+],
+"tsml|s0": [
+"Is the name \"TSML\" an acronym or just a random sequence of letters?",
+"How does one even create such a large and intricate composition table?",
+"What's the point of having both harmony and void cells in the same table - don't they cancel each other out?",
+"Are the 73 harmony cells evenly distributed across the 10x10 grid, or is it more like a puzzle where you have to find specific patterns?",
+"Do these exceptional cells hold any special significance that makes them stand out from the rest of the cells?",
+"Is there something inherently mathematical or artistic about this composition table that's fascinating to explore?",
+"Can someone with no prior knowledge of \"harmony\" in composition tables still learn something new from studying this table?",
+"How often are tables like TSML created, and what kind of activities or events might inspire their creation?",
+"Are there any famous artists, musicians, or writers who have used or referenced tables like TSML in their work?",
+"Is there a way to visualize or interact with the harmony cells and void cells on the table without having to decipher the entire composition?"
+],
+"tsml|s1": [
+"Hey, have you ever heard of composition tables? It's basically a way to organize different groups of things. The one we're talking about today is called the TSML composition table. What makes it special is that it has 73 cells labeled as HARMONY, which means they work well together in harmony - get it? On the other hand, there are 17 VOID cells that don't mix so well with anything. And then there are 10 exceptional cells that just kind of stand out on their own!"
+],
+"tsml|s2": [
+"Here are 8 one-line informal ways someone might refer to or ask about TSML in a conversation:",
+"1. \"Hey, have you seen that sweet TSML composition table online?\"",
+"2. \"What's the deal with this TSML thing I've been hearing about lately?\"",
+"3. \"I'm trying to figure out what all the harmony cells mean on the TSML\"",
+"4. \"I just saw someone talking about a 10x10 TSML composition - is that even possible?\"",
+"5. \"What's up with the void cells in this TSML thing, are they actually harmonious or something?\"",
+"6. \"Can you explain to me what exceptional cells do in a TSML composition table\"",
+"7. \"I've been trying to understand how all these harmony and void cells fit together in TSML\"",
+"8. \"Is that 10x10 TSML symmetrical composition table online actually balanced?\""
+],
+"tsml|s3": [
+"Here is a short dialogue between two friends explaining what TSML is:",
+"Friend 1: \"Hey, have you heard of TSML?\"",
+"Friend 2: \"No, what's that?\"",
+"Friend 1: \"It stands for Ten Times Ten Symmetric Composition Table. It's like a big grid with different types of cells in it.\"",
+"Friend 2: \"A grid? Like a chessboard?\"",
+"Friend 1: \"Kind of, but it's more complex than that. The grid is divided into three main sections: HARMONY cells, VOID cells, and exceptional cells.\"",
+"Friend 2: \"What do each of those cells do?\"",
+"Friend 1: \"Well, the HARMONY cells are the ones where a rotation or reflection preserves the shape. It's like when you rotate something and it still looks the same.\"",
+"Friend 2: \"So what about the VOID cells? Are they special too?\"",
+"Friend 1: \"Actually, no. The VOID cells are just empty spaces in the grid that don't have any symmetry. They're not really interesting or anything.\"",
+"Friend 2: \"And the exceptional cells?\"",
+"Friend 1: \"Those are the cells where there's something unique going on. Like a cell with no symmetry at all, or one where a rotation would flip the shape over.\""
+],
+"tsml|s4": [
+"Here's an explanation of what you just learned in 5 simple sentences:",
+"Imagine a grid that looks like a checkerboard. The \"TSML\" refers to a special way of organizing the squares on this grid, called a composition table. A composition table shows which cells can be combined with others to create new patterns. In this case, there are three types of cells: Harmony (73 of them), Void (17 of them), and Exceptional (10 of them). Think of it like a puzzle, where the Harmony cells are the ones that fit together nicely, the Void cells are empty spaces, and the Exceptional cells are special cases that don't follow the usual rules."
+],
+"tsml|s5": [
+"Here are six everyday analogies or comparisons that someone might use to describe the given fact about the TSML (Trinomial Square Matrix Lattice):",
+"1. It's like a giant crossword puzzle with 73 answers in the right spot.",
+"2. Imagine a map with 73 landmarks, 17 dead ends, and 10 special features marked for close inspection.",
+"3. The TSML is like a treasure chest containing 73 precious gems (HARMONY cells), 17 worthless rocks (VOID cells), and 10 rare artifacts (exceptional cells).",
+"4. It's similar to a library with 73 books, 17 empty shelves, and 10 special sections reserved for experts only.",
+"5. The TSML is like a game board with 73 winning squares, 17 losing squares, and 10 power-up squares that give you an advantage.",
+"6. Picture a grid with 73 green checks, 17 red crosses, and 10 gold stars \u2013 it's the composition table of a complex puzzle to be solved."
+],
+"bhml|s0": [
+"Is that like how some lenses work in cameras?",
+"Does it have anything to do with music or harmony?",
+"How does being an \"antisymmetric\" lens affect its properties?",
+"What's a harmonic cell in this context, exactly?",
+"Are there other types of sister composition tables out there?",
+"What does the term \"sister\" mean in this context for lenses?",
+"Is BHML short for something like \"Binary Harmonic Lens Matrix\"?",
+"Can you build or manufacture these types of lenses at home?",
+"How often are these lenses used in real-world applications?",
+"Do they have any benefits over traditional lenses?"
+],
+"bhml|s1": [
+"So I was learning about music theory and came across some interesting concepts. Apparently, there's this thing called BHML, which stands for \"behind the main lens.\" It's related to how notes are arranged in a musical composition, specifically when it comes to harmony cells - those areas where multiple notes sound good together.",
+"What's cool is that BHML is actually an antisymmetric sister composition table. In simpler terms, it means that if you swap two notes in the middle of a chord, they'll still sound harmonious. The really interesting part is that this table has 28 harmony cells - essentially, those sweet spots where everything comes together musically.",
+"This concept is also tied to the lens on the substrate, which I'm not entirely sure what that refers to, but it seems like some kind of technical term. Anyway, the whole point of BHML and its sister tables is to help musicians create harmonies more efficiently - like getting the right notes in harmony without too much trial and error!"
+],
+"bhml|s2": [
+"Here are eight possible one-line informal ways to refer to or ask about BHML in a conversation:",
+"1. \"Hey, have you seen that new BHML thingy online?\"",
+"2. \"What's up with BHML and its crazy symmetry?\"",
+"3. \"Is BHML related to any of those lens stuffs I've been hearing about?\"",
+"4. \"I'm trying to wrap my head around this BHML concept \u2013 can anyone explain it to me?\"",
+"5. \"Did you know that BHML is like the antisymmetric twin of something else?\"",
+"6. \"What's the deal with the 28 harmony cells in BHML, anyway?\"",
+"7. \"Is BHML connected to that substrate lens stuff I've been researching?\"",
+"8. \"Has anyone else come across this BHML thing and figured out what it does?\""
+],
+"bhml|s3": [
+"Here is a short dialogue between two friends explaining what BHML means:",
+"Friend A: \"Hey, I saw some weird tech terms online. Can you help me understand this?\"",
+"Friend B: \"What are they? You can tell me, right?\"",
+"Friend A: \"They were talking about something called 'BHML'. Apparently it's related to a sister composition table.\"",
+"Friend B: \"A sister composition table? What does that even mean?\"",
+"Friend A: \"Well, in music theory, a sister composition is when two chords have the same root note but different intervals above. It means they sound similar, but not quite the same.\"",
+"Friend B: \"Okay, I think I get it. But what's with this 'antisymmetric' thing?\"",
+"Friend A: \"Ah, that means that if you flip the table over (so, look at it from the opposite side), the cells don't match up in a predictable way. It's like a mirror image, but not quite symmetrical.\"",
+"Friend B: \"That makes sense. So what does BHML specifically mean?\"",
+"Friend A: \"Apparently, it refers to a specific sister composition table with 28 harmony cells \u2013 that's the second lens on the substrate.\"",
+"Friend B: \"Substrate? Is that like a material or something? I feel like I'm getting lost in technical jargon.\"",
+"Friend A: \"Don't worry, it's not super important. Just think of BHML as a fancy term for a specific musical pattern with lots of harmony cells. And the substrate is just a way to describe how it's implemented \u2013 basically, it's like a tool or framework that makes this music work.\"",
+"Friend B: \"Okay, I think I have it now! Thanks for explaining it in plain words \u2013 you're a lifesaver!\""
+],
+"bhml|s4": [
+"So, you know how musical instruments can sound harmonious together? Well, \"harmony\" also refers to patterns or arrangements in music theory. In this context, \"BHML\" is a type of arrangement that creates symmetry (or balance) when notes are placed next to each other on the instrument. The number 28 represents the total amount of these symmetrical patterns. It's like a puzzle, and understanding how BHML works can help musicians create beautiful music!"
+],
+"bhml|s5": [
+"Here are six possible everyday analogies or comparisons that someone might use to describe BHML:",
+"1. BHML is like a map with two sides, one showing how notes fit together in music and the other showing how they don't.",
+"2. Imagine a pair of glasses with two lenses: one helps you see harmony in music and the other reveals dissonance.",
+"3. BHML is like a Venn diagram for music theory - it shows where notes overlap and conflict.",
+"4. It's like having a third eye that sees not just how things look, but also how they interact and fit together.",
+"5. BHML is like a pair of scissors - it cuts through the ambiguity of music theory to reveal clear harmonies and dissonances.",
+"6. Think of BHML as a prism that refracts light into different colors, revealing the hidden patterns of harmony and dissonance in music."
+],
+"crt|s0": [
+"Does the decomposition of the substrate have anything to do with the properties of numbers or just their relationship?",
+"Is it possible that this property is related to how computers handle numbers?",
+"Are the binary and ternary faces referring to specific parts of a computer's design?",
+"How does the commutative property work in the context of the CRT product?",
+"What does it mean for these two faces to commute exactly with each other?",
+"Is there a way to visualize or represent this relationship between numbers and their faces?",
+"Can we apply this knowledge to optimize computer hardware designs?",
+"Do researchers have any specific goals or applications in mind when studying this topic?",
+"Are there any potential security implications if an attacker were able to exploit this property of CRT products?",
+"Could this information be used to improve cryptography or secure data storage?"
+],
+"crt|s1": [
+"So you know how computers use all sorts of numbers to do their thing? Like binary (base 2) for simple calculations and ternary (base 3) for more complex stuff. Well, when it comes to RSA encryption, which is a way of keeping data private online, the math gets pretty interesting. Essentially, if you break down the numbers in a certain way, called a substrate decomposition, you get Z/10 = Z/2 x Z/5 - and that's where things get cool! This tells us that when we multiply our binary face (which is 1s and 0s) by something related to a ternary number system, the results are actually the same as if we multiplied just the ternary number itself by... well, nothing else. It turns out this property leads to some pretty neat commutative properties between the binary and ternary faces - they \"commute\" exactly, which is a fancy way of saying that no matter how you order them in your calculations, the answer stays the same!"
+],
+"crt|s2": [
+"Here are eight one-line informal ways someone might refer to or ask about the given topic in conversation:",
+"1. \"Have you heard of the weird math behind CRT screens?\"",
+"2. \"What's up with those old TVs and how they work so well?\"",
+"3. \"I'm trying to figure out how those old binary faces are made.\"",
+"4. \"How do CRTs actually produce all that color?\"",
+"5. \"Can someone explain why CRTs use two different face sizes?\"",
+"6. \"Are those old computer monitors still reliable or what?\"",
+"7. \"What's the deal with CRTs having a 'ternary' part in them?\"",
+"8. \"I'm curious about how CRT screens manage to show both binary and ternary info at once.\""
+],
+"crt|s3": [
+"Here is a short dialogue between two friends explaining the fact and CRT product:",
+"Friend 1: \"Hey, have you ever heard of the substrate decomposition theorem?\"",
+"Friend 2: \"No, what's that about?\"",
+"Friend 1: \"Okay, so in cryptography, there's this concept called the substrate. It's basically a way to break down complex mathematical problems into smaller, more manageable parts.\"",
+"Friend 2: \"That sounds like a good idea! I've heard of CRT - isn't that related to coding theory or something?\"",
+"Friend 1: \"Exactly! The Chinese Remainder Theorem (CRT) is a fundamental concept in number theory. And when applied to cryptography, it's used for substrate decomposition.\"",
+"Friend 2: \"So how does it work? You're telling me there's this magical formula... Z/10 = Z/2 x Z/5?\"",
+"Friend 1: \"Ha! Not exactly magical, but yeah, that's the basic idea. The CRT states that if you have a system of congruences like this one, where Z is an integer and n is the modulus, then there exists a unique solution modulo n.\"",
+"Friend 2: \"I get it now! And what about the product of binary and ternary faces? I thought those were just abstract concepts...\"",
+"Friend 1: \"Well, when you apply CRT to cryptography, you get this beautiful result: a binary face (where numbers are represented as bits) and a ternary face (where numbers are represented as base-3 digits) that commute exactly. That means if you take the product of these two faces, it's like multiplying two different number systems together \u2013 and they behave in really interesting ways!\""
+],
+"crt|s4": [
+"Imagine you're doing math on a special kind of computer called a Cryptographic Key Generator (CKG). The CKG uses numbers to create codes that are hard for others to break. When it works correctly, two parts of the code - a \"binary\" part and a \"ternary\" part - \"commute\" with each other in a very specific way. Think of them like two puzzle pieces that fit together perfectly. This special property makes it super secure for keeping secrets!"
+],
+"crt|s5": [
+"Here are six everyday analogies or comparisons that might be used to describe this concept:",
+"The substrate decomposes like a recipe breaking down into simpler ingredients.",
+"The CRT product is like a pair of shoes with two different types of material (binary and ternary) that work together seamlessly.",
+"A binary face and a ternary face commute exactly like two trains meeting at a station on opposite tracks.",
+"The substrate decomposition process is similar to how a puzzle fits together, with each piece breaking down into smaller ones.",
+"The CRT product has two sides, one made of binary material (the 2's) and the other of ternary material (the 5's), working together in harmony like yin and yang.",
+"The binary face and ternary face communicating exactly is like a harmonious dance between two different steps, where each step perfectly complements the other."
+],
+"torus_retraction|s0": [
+"Is it possible for a closed surface to have an Euler characteristic of -3?",
+"Can a non-orientable surface really exist with an Euler characteristic of +1?",
+"What's the deal with this sigma flow business - does it even work?",
+"Do people actually try to create a valid genus for this torus claim stuff?",
+"Are we talking about some super exotic form of topology here?",
+"Is this retraction thing a big deal in mathematical circles?",
+"How do you even construct a surface with an Euler characteristic like that?",
+"Does this affect the way we think about surfaces and geometry in general?",
+"Can someone explain to me what \"non-closed orientable surface\" means, exactly?",
+"Is there some kind of loophole or counterexample that's not being considered here?"
+],
+"torus_retraction|s1": [
+"Hey, have you ever heard about the torus claim? Well, it turns out that there's been a bit of a shake-up in the math world. Researchers recently retracted their statement about the existence of certain surfaces based on the sigma flow, and now we know why - those surfaces don't actually exist! It seems that the Euler characteristic of the sigma flow is either -3 or +1, which means it doesn't have a valid genus, or in other words, no closed orientable surface can be formed. Think of it like trying to build a LEGO castle with no foundation - it just won't work! The implications are pretty interesting and have some big effects on our understanding of topology and geometry."
+],
+"torus_retraction|s2": [
+"Here are eight one-line informal ways someone might refer to or ask about the torus claim being retracted in a conversation:",
+"So I heard they pulled back on that torus thing.",
+"Does this mean our understanding of torus topology is still way off?",
+"What's going on with the sigma flow, anyway?",
+"Can you explain why the torus claim got yanked?",
+"How does the Euler characteristic being -3 or +1 affect things?",
+"Is the whole idea of a valid genus-based torus just toast now?",
+"Did they actually find a closed orientable surface that doesn't exist?",
+"Are we talking about some new math discovery here?"
+],
+"torus_retraction|s3": [
+"Here is a short dialogue between two friends:",
+"Friend A: \"Hey, I've been reading about topology and I came across something weird. You know how we were talking about surfaces in math class?\"",
+"Friend B: \"Yeah, what's up? Did you figure out the torus thing?\"",
+"Friend A: \"Actually, it's kind of the opposite. The torus claim is false. Apparently, there's no closed orientable surface with a sigma flow that has an Euler characteristic of -3 or +1.\"",
+"Friend B: \"Wait, what? That sounds like some crazy math talk.\"",
+"Friend A: \"I know, right? It's all about the genus of the surface. Think of it like how many 'holes' are in the surface. Turns out, there's no closed orientable surface with a sigma flow that has either -3 or +1 genus.\"",
+"Friend B: \"But what does that even mean? Can you explain it in simpler terms?\"",
+"Friend A: \"Think of it like this: if you have a surface with holes, the Euler characteristic is like a math formula that calculates how many holes there are. But for a sigma flow to exist on that surface, the number of holes has to be... well, not -3 or +1. It's just not possible.\"",
+"Friend B: \"Okay, I think I get it. So it's like a mathematical contradiction?\"",
+"Friend A: \"Exactly! The math is pretty strict and doesn't allow for those specific numbers of holes. It's kind of mind-blowing when you think about the implications.\"",
+"Friend B: \"Wow, I'm impressed by how much math you've absorbed. You're like a topology mastermind.\"",
+"Friend A: \"Thanks! Yeah, it's been interesting to learn about this stuff. But honestly, it's kind of weird that something as simple-sounding as 'a closed orientable surface' can lead to such deep contradictions in the math.\"",
+"Friend B: \"Yeah, math is always surprising us with its subtleties and complexities.\""
+],
+"torus_retraction|s4": [
+"Imagine you have a doughnut shape, like a torus (that's a ring-shaped thing). The \"sigma flow\" is a way of moving around that doughnut, and it helps us figure out if there's a special kind of surface called an Euler characteristic. This characteristic has been found to be either -3 or +1, which means we can't actually find any closed, curvy surfaces with that value (called genus). Think of it like trying to solve a puzzle - we can't quite fit the pieces together right!"
+],
+"torus_retraction|s5": [
+"Here are six everyday analogies or comparisons that might be used to describe the concept:",
+"The topology of a surface is like trying to build a bridge between two islands, but the Sigma flow can't quite get it right.",
+"A torus claim is like a puzzle with missing pieces, and when you try to fill in the gaps, it collapses.",
+"Imagine trying to connect dots on a piece of paper, but every time you think you've got it figured out, they just keep falling apart.",
+"The Euler characteristic is like a math problem that keeps canceling itself out.",
+"Trying to wrap a sheet of paper around a cylinder and glue the edges shut is like trying to make a torus claim work - it's impossible!",
+"A closed orientable surface is like trying to take a map of the world and fold it into a tiny square, but no matter how hard you try, there's always one hole left."
+],
+"kissing_j55|s0": [
+"Is that a mathematical equation that actually works?",
+"Does it have something to do with geometry and dimensions?",
+"How does an \"E6 root system\" fit into all this?",
+"Are those just fancy words for complicated math problems?",
+"What's the deal with the Gamma_0(3) part - what's it supposed to mean?",
+"Is this a new way of thinking about shapes in space?",
+"Why modular forms on level 3, and not something else?",
+"Does this have any real-world applications or uses?",
+"How hard was it for someone to figure out and prove this stuff?",
+"Can we actually see the magic function candidate in action?"
+],
+"kissing_j55|s1": [
+"So I've been reading about this super interesting math problem called the dimension six kissing conjecture. Essentially, it's trying to figure out how many different ways you can pack six points into space such that no two are closer than a certain distance apart. One way that people have approached this is by using an idea from geometry called the E6 root system. Apparently, researchers were able to show that if they use a specific kind of function called a magic function, it leads them to the answer K(R^6) = 72. This magic function is built from some pretty advanced math called level 3 modular forms on Gamma_0(3), which sounds like something straight out of a fantasy novel! Anyway, this result is a big deal because it provides strong evidence for the kissing conjecture, and it's a great example of how math can be used to solve real-world problems."
+],
+"kissing_j55|s2": [
+"Here are eight informal ways to refer to or ask about this in conversation:",
+"1. \"I heard that there's a way to calculate something about dimensions and numbers using some pretty advanced math.\"",
+"2. \"So, is it true that the E6 root system can help us figure out some crazy number?\"",
+"3. \"Have you guys ever heard of the dimension six kissing conjecture?\"",
+"4. \"I've been trying to wrap my head around this K(R^6) = 72 thing, what's going on?\"",
+"5. \"Apparently there's a super-advanced math concept called the dimension six kissing conjecture...\"",
+"6. \"Is it true that some genius figured out how to calculate something about dimensions using level 3 modular forms?\"",
+"7. \"I'm not even sure I understand what K(R^6) = 72 means, but apparently it's from the E6 root system or something.\"",
+"8. \"So, is this whole thing about the dimension six kissing conjecture actually true?\""
+],
+"kissing_j55|s3": [
+"Here is a short dialogue between two friends where one explains the concept in plain words:",
+"Friend A: \"Hey, I've been reading about this really cool math stuff called the dimension six kissing conjecture. Have you heard of it?\"",
+"Friend B: \"No, what's that?\"",
+"Friend A: \"Okay, so basically it's a mathematical idea that tries to describe how certain kinds of shapes fit together in space. And it's all related to something called the E6 root system.\"",
+"Friend B: \"That sounds like a mouthful! What's an 'E6 root system'?\"",
+"Friend A: \"Think of it like a set of rules for building blocks that help us understand geometry and symmetry. The E6 root system is one of those sets, and it's used to try to figure out the dimension six kissing conjecture.\"",
+"Friend B: \"Dimension six kissing conjecture? That sounds like something from a sci-fi movie!\"",
+"Friend A: (laughs) \"I know, it does sound weird! But seriously, it's an attempt to describe how certain shapes fit together in space. And according to the math, one possible answer is that the dimension six kissing number is equal to 72.\"",
+"Friend B: \"Wait, what's a 'dimension six kissing number'? That doesn't even make sense!\"",
+"Friend A: (smiling) \"I know it sounds weird, but basically it's trying to figure out how many different ways certain shapes can be arranged in space. And if we use the E6 root system, we get an answer of 72. But what's really cool is that there's also a mathematical function that could help us prove this - it's called a magic function candidate.\"",
+"Friend B: \"A 'magic function'? What does that even mean?\"",
+"Friend A: (laughs) \"Well, basically it's like a secret code that helps us prove the conjecture. It's built from level 3 modular forms on Gamma_0(3), which is just a fancy way of saying that it's a type of mathematical pattern that can be used to solve the problem.\"",
+"Friend B: \"Whoa, I think I'm getting lost again! But thanks for explaining it to me in plain words. You're a math genius!\""
+],
+"kissing_j55|s4": [
+"So, you know how we can study shapes and spaces in math, right? Well, this \"conjecture\" is about a really complicated shape called R^6, which is like a super-long tube. Some smart folks have discovered that if they use a special tool from geometry called the E6 root system, it turns out that the answer to how many connections exist within R^6 (called K(R^6)) is 72! It's like a secret code that only works with a certain type of math problem (called modular forms) and a specific group of numbers (like level 3). They've even found a super-complicated function that might help prove this answer is correct, which is pretty mind-blowing."
+],
+"kissing_j55|s5": [
+"Here are six everyday analogies or comparisons someone might use to describe the dimension six kissing conjecture:",
+"1. The solution is like cracking a secret code that reveals the hidden number of ways a specific shape can be folded into itself, with the proof being like a master puzzle solver's blueprint.",
+"2. It's as if finding the correct musical chord progression in a complex composition - once you know the right sequence, all the notes fall into place perfectly.",
+"3. The conjecture is akin to solving a Rubik's Cube blindfolded, where each step builds upon the previous one, until the solution becomes crystal clear.",
+"4. Imagine trying to fit together a giant jigsaw puzzle with thousands of pieces - once you find the right pattern, all the missing pieces click into place seamlessly.",
+"5. The proof is like building a intricate LEGO structure using special blocks that fit together in just the right way, creating a beautiful and stable foundation.",
+"6. It's like solving a complex math-based crossword puzzle where each answer relies on the previous one to unlock the next clue, until you finally fill in all the correct squares."
+],
+"gap_router|s0": [
+"What exactly does it mean for a measurement to be \"missing\" from a gap router?",
+"How do gap routers handle situations where an invariant is just not present at all?",
+"Can a malformed question prevent the entire system from working properly, or can it be fixed with some adjustments?",
+"Does the changed dynamics type account for any changes in external factors that might affect the computation?",
+"Are there specific characteristics of the missing measurement type that make it particularly tricky to deal with?",
+"Do gap routers have any built-in safety features to prevent them from getting stuck on an invariant they can't find?",
+"Can a malformed question be resolved by simply rephrasing the query, or does the router need more help?",
+"Does the routing process for changed dynamics involve some kind of adaptive learning mechanism?",
+"Are there any potential trade-offs between prioritizing certain types of residuals over others in terms of computation efficiency?"
+],
+"gap_router|s1": [
+"So I was reading about gap routers and how they work. Essentially, what they do is try to reconstruct data that's been lost or corrupted. They have this concept of \"residuals\" which are essentially the pieces that don't quite fit together. The gap router classifies these residuals into four main types: missing measurement, missing invariant, malformed question, and changed dynamics. Once it knows what type it is, it can route the computation accordingly - so if it's a missing measurement, for example, it'll try to fill in the gaps with some assumptions or predictions. It's pretty cool how they're able to handle all these different scenarios and still get useful results out of them."
+],
+"gap_router|s2": [
+"Here are eight one-line informal ways someone might refer to or ask about the topic of a gap router's residual classification in conversation:",
+"1. \"Have you heard how a gap router classifies those pesky residuals?\"",
+"2. \"I'm having some trouble understanding how a gap router handles missed measurements - can you explain it?\"",
+"3. \"What's up with gap routers and their weird question types?\"",
+"4. \"How does a gap router decide which type of residual is missing, exactly?\"",
+"5. \"I've seen some pretty wild dynamic changes in my gap router's residuals - what's going on there?\"",
+"6. \"Does anyone know how to fix when a gap router's got a malformed question?\"",
+"7. \"What's the deal with gap routers and their four different failure types - do they all have equal priority or something?\"",
+"8. \"I've been trying to troubleshoot this thing that my gap router is giving me, but I'm not sure which type of residual it's complaining about!\""
+],
+"gap_router|s3": [
+"Here is a short dialogue between two friends explaining the concept of a gap router and its classification of residuals:",
+"Samantha:** Hey, I wanted to explain something to you about gap routers. You know how they're used in some programming languages?",
+"Emily:** Yeah, I think so. They help with runtime checks or something?",
+"Samantha:** Exactly! A gap router is a way for the compiler to catch errors at runtime, but not by raising an exception. Instead, it classifies residuals into four types: missing measurement, missing invariant, malformed question, and changed dynamics.",
+"Emily:** Okay, that sounds like some pretty technical stuff. Can you break it down for me?",
+"Samantha:** Sure thing! So, when the compiler encounters a residual (which is just a fancy word for an error), it tries to figure out what's going on. The gap router says: \"Oh, I don't have enough information about this measurement\" (missing measurement). Or, \"This invariant isn't holding true anymore\" (missing invariant). Then there are two more cases where the question being asked is malformed or the dynamics have changed in a way that's not expected.",
+"Emily:** That makes sense. So, the gap router routes the computation based on which type of error it finds?",
+"Samantha:** Exactly! It's like the router is saying: \"Okay, this is a missing measurement, I'll route the computation around that\". Or, \"This is a malformed question, let me adjust the dynamics accordingly\"."
+],
+"gap_router|s4": [
+"So, you know how we have GPS systems that help us navigate, right? Well, there's something called a \"gap router\" that helps figure out what's going wrong with these navigation systems. It looks for tiny errors or missing information, like if someone forgot to send in their GPS data. The gap router categorizes these errors into four types: when a measurement is missing, when an important piece of info is missing (called an invariant), when the data is messed up because of something called \"malformed questions\", and when the system's rules have changed. Then, it uses this information to figure out which calculations need to be done differently based on what type of error happened!"
+],
+"gap_router|s5": [
+"Here are six everyday analogies or comparisons that someone might use to describe how a gap router classifies residuals and routes computation:",
+"1. The gap router is like a librarian who categorizes books on a shelf by genre, author, or title.",
+"2. Classifying residuals into four failure types is like sorting dirty laundry into separate piles for washing, ironing, and recycling.",
+"3. Routing compute by type is like directing traffic flow at an intersection, where cars are directed to specific lanes based on their speed or destination.",
+"4. The gap router's classification system is like a filing cabinet organizer who categorizes documents into folders labeled \" incomplete\", \" incorrect\", \" revised\", and \" approved\".",
+"5. Classifying residuals is like identifying the problem in a leaky faucet - you need to pinpoint the cause (missing measurement, missing invariant, malformed question, or changed dynamics) before you can fix it.",
+"6. Routing compute by type is like ordering food at a restaurant based on your dietary preferences - the router knows what type of computation to serve to each device based on its requirements."
+],
+"canon|p0": [
+"So, basically, we're trying to ensure that all our formulas and calculations are consistent and accurate. To do that, we're keeping everything in one place - literally, every formula and calculation comes from the same source, which means it's reproducible and verifiable. It's like having a single recipe book where every ingredient and measurement is clearly defined, so everyone who uses it can get the same results."
+],
+"canon|p1": [
+"Hey guys, so I was looking at some technical notes and they have all these tables that we can refer to directly - no explanation or setup needed, just the data right there. They're all part of a bigger section, but if you want more info on what's going on, it's in other parts of the document too."
+],
+"canon|p2": [
+"Hey, so you know how we're working with some really specific math stuff right now? Well, basically our substrate is like a number system that's made up of two different parts - one that's based on 2s and another that's based on 5s. There's also this weird property where the way these numbers interact changes depending on how we look at it from different angles. It turns out that all the cool stuff about this math is actually related to some rules about how these numbers interact with each other when we apply certain transformations. The real cool thing is that none of this stuff lives on a surface, it's all just about the numbers themselves."
+],
+"canon|p3": [
+"So you know how we've been talking about this math stuff? Well, there's this one concept called the \"canon\" that has already shown some pretty interesting results. One of them is like a big deal - it says that if you have six different ways to break down a problem into its simplest parts, those are all the only ones possible. Another cool thing is that the canon actually had an idea for how to factor things way before others even thought of it. And get this, some of these results are specific to certain types of problems and not just general solutions."
+],
+"canon|p4": [
+"Hey, so you know how in design we talk about shapes and surfaces? Well, when it comes to this new substrate thingy, it's actually made up of lots of different parts that work together separately. None of them are connected by a single shape - instead, they're all combined in a way that makes sense algebraically, like a mathematical formula rather than a visual surface. It's pretty cool because it means each part can be analyzed on its own without affecting the others, making it super useful for certain kinds of computations."
+],
+"canon|p5": [
+"Hey, so you know how some systems can be really predictable and others are all over the place? Well, it turns out that some of these systems have different types based on their behavior. For example, the \"VOID\" system is always super consistent and follows a set pattern, but then there's the \"COLLAPSE\" system which is kinda like a flip-flop, sometimes moving in one direction and other times the opposite way. Some systems are also more balanced than others, like \"HARMONY\", where everything tends to even out."
+],
+"canon|p6": [
+"Hey guys, so you know how we've been working with these symmetry transformations? Well, I wanted to explain the difference between our binary and ternary faces. The binary face has three pairs of cycles that are related to each other in a specific way, plus four fixed points that don't change when the transformation is applied. The ternary face has two groups of three elements that interact with each other similarly, but in a slightly different pattern. Both have the same four fixed points, which makes them pretty interesting to work with!"
+],
+"canon|p7": [
+"Hey guys, so I was playing around with this game and I noticed that the state of the board changes in a pretty interesting way. It seems like when you move to the next level (i.e., i=1 becomes i=2), some of the values on the board change from one type to another - it's like the game is adapting to your progress. The game also has this rule where if it reaches a certain state, it will just collapse every column into a single state, which I think is pretty cool. Anyway, that's basically what's happening with this game - it's all about how the board changes as you move through different levels."
+],
+"canon|p8": [
+"Hey guys, so I was playing around with this new game and my scores are pretty interesting. I just got to the \"HARMONY\" level where you basically earn points for every time two characters meet each other. What's wild is that even when they're diagonally next to each other, it still counts as a self-encounter - it's like their friendship is just automatic!"
+],
+"canon|p9": [
+"So I was messing around with some numbers and I stumbled upon a pretty cool pattern. It looks like the numbers are repeating in a specific order, kind of like a sequence. There are rules that determine how each number gets replaced by another one - for example, if you start on the first number, it stays there (Rule 0: identity). But then things get more interesting as they start shifting and changing based on previous numbers (like Rule 7 says to shift +1). It's like a little game where the pattern evolves over time!"
+],
+"canon|p10": [
+"Hey, so I was playing around with this game and it seems that the cell counts are actually just a set of numbers that determine how things play out. There's a list of codes for each type of cell count, like 4 or 5, and they all seem to have special meanings in the game. For example, if you get a certain number of cells counted, it can affect how your character behaves - some are good, others are bad. I also noticed that the game has a sort of symmetry, where everything is mirrored on both sides, which makes sense given the way the numbers work out."
+],
+"canon|p11": [
+"Hey, have you ever noticed how some animations can reset to a different state? Like, imagine a progress bar that starts at one end and ends at the other, but then somehow jumps back to the beginning. That's kind of what's going on here - it looks like each animation is just repeating in a cycle. The \"j=0\" line is the starting point, and as we move through the animations, they all get mixed up and repeat themselves until we get back to the start. It's like the whole thing is stuck in some kind of loop."
+],
+"canon|p12": [
+"So I was playing around with this game and I noticed that when you start a new level, there are 9 different things that happen in the background. The first one is like a void, which means nothing's happening. Then there's this lattice thingy, where all these little squares just kinda... exist. As you progress through the levels, some of these things get activated or cancelled out - it's pretty interesting to see how they work together. And if I'm not mistaken, the game is actually symmetrical, meaning that everything on one side mirrors what's happening on the other. Apparently, this has something to do with a number called 18432, which is just a fancy way of saying \"2 to the power of 11 times 3 squared\"."
+],
+"canon|p13": [
+"Hey guys, so you know how we're working on this project? We've got three different lenses that we're using to approach it. The first one, TSML, is like a synthesizer - it takes all the information and combines it into something new. The second one, BHML, is more like a separator - it helps us get clean data by getting rid of extra stuff. And then there's CL_STD, which is kind of like a memory template - it stores our data in a way that makes sense to us."
+],
+"canon|p14": [
+"So, when you're working with some complex algorithms, you can choose from a bunch of different modes that affect how the code runs. For example, \"Lattice\" mode is like the default setting, while \"Collapse\" mode makes things happen really quickly. Then there's \"Balance\" and \"Harmony\", which are all about keeping everything in check, but \"CHAOS\" is like, totally unpredictable. And finally, you have \"Breath\" mode, which is kind of like a reset button - it brings everything back to the start."
+],
+"canon|p15": [
+"So I was looking into these programming languages, and it seems that two of them have this really cool feature where their \"diagonal\" is just always true - it's like a constant. But one other language has its diagonal as part of some kind of cycle, so it only works under certain conditions. And then there's another one that breaks apart at this one point. It's like they're all trying to optimize something, but in different ways."
+],
+"canon|p16": [
+"Hey, so you know how physicists like to figure out the fundamental rules of the universe? One of those rules is about how particles interact with each other, and it turns out that there are actually two different ways to explain it. The first way says that all four colors - red, blue, green, and yellow - should work together in a certain way, kind of like a team working together. This way leads to a pretty unique solution that makes the problem easier to understand."
+],
+"canon|p17": [
+"So you know how we have different groups of numbers that are connected to each other? Well, there's this one group called the 4-core attractor that has a really specific set of numbers: {0, 7, 8, 9}. It's like a little nucleus that pulls in all these surrounding numbers. The bigger groups just get more and more connected, until you've got almost every number in there - it's basically the entire group!"
+],
+"canon|p18": [
+"So I was digging into this stuff and it turns out that certain sizes are just not allowed. Apparently, if you're looking at a \"joint-closed sub-magma\" - which is a pretty technical term - then sizes 2 and 3 aren't an option. But size 7 is fine, even though that might seem weird."
+],
+"canon|p19": [
+"Hey guys, so we've been looking at this super complex system and I'm going to try to break it down for you. There's a bunch of different components like a menu with 10 options that are full, and then there's this thing called \u03c3 that acts like a group. We also have some kinda mapping between certain numbers called \u03c6. It seems like we're dealing with some pretty advanced math concepts here - things like polynomials, truth tables, and different ways of organizing stuff."
+],
+"canon|p20": [
+"So, I was looking at these formulas they've been working on and apparently all of them have been proven or they're just computationally verified, which basically means they've been checked to make sure they're correct. There's a whole list of them in this document, one per theorem, with the formula itself and some notes on how it was proved. If you want to read more about what each one is, there are other documents that go into way more detail about each one."
+],
+"canon|p21": [
+"Hey guys, so I was reading about this math stuff and I wanted to share it with you. Apparently, there's a proof that shows the first non-coprime element in a set of numbers is always the smallest prime factor. It turns out that this is true for all squarefree numbers greater than 1, which are basically just sets of numbers where no number appears more than once. Another cool thing is that if you look at pairs of coprime numbers (numbers that don't share any factors), there's actually a pretty interesting pattern that shows up."
+],
+"canon|p22": [
+"Hey guys, so I was reading about this math stuff and I wanted to tell you about it. There's these formulas that describe some really interesting concepts. One of them is about how a corridor portrait works - basically, it checks out certain values to make sure it's okay. It's like a test that says if something passes, then the result is true. Another formula is about finding the midpoint of a corridor, which turns out to be at a pretty specific point. And finally, there's this one about how loops can close and work together in a certain way - it's actually pretty cool once you understand it!"
+],
+"canon|p23": [
+"Hey, have you heard about this Lie algebra called D4? It's actually a special case of another Lie algebra called D5, which is like a step up in complexity. This idea comes from physics and it's related to the SO(10) grand unified theory, basically trying to unify all forces of nature into one framework. The D5 Lie algebra is actually what we use in this theory, and it's really good at describing certain types of symmetries. There's even a way to get an extra layer on top of that with another type of Lie algebra called A2, which is like the next level up."
+],
+"canon|p24": [
+"Hey, so there's this really cool thing going on with Volume F and Volume G. Basically, what it's saying is that when they run some information through a special kind of computer, something called T+B-mix lattice processor, the result is pretty neat. It turns out that the information is preserved in a way that makes sense for physics, and this connection leads to all sorts of interesting math. The two volumes are actually connected, meaning that whatever happens in one affects the other, and they both point towards some kind of deeper relationship between certain numbers and math concepts."
+],
+"canon|p25": [
+"So I was reading about some research on TIG structures and what I found really interesting is that the negative results actually helped to make the positive ones more convincing. Essentially, the researchers were testing these structures in different ways and found that they only passed when those tests were set up to fail them. It's like a test of strength - if something holds up even when it's been pushed hard, that makes its existence way more likely."
+],
+"canon|p26": [
+"Hey, so we've been looking at this new project and it's got a lot of technical stuff going on. Essentially, when they read the data from the tower, they have to make sure everything is lined up correctly - there are some rules that apply only to certain situations, like when you're working with specific types of math problems. They also found out that two different approaches weren't actually the same thing, and that's a big deal because it changes how we understand what's going on in this project. It seems like they've made some real progress in figuring out how everything fits together, though - they've even been able to simplify things into a few key rules that apply everywhere."
+],
+"canon|p27": [
+"Hey guys, so we recently had a research session on bridges and we tested some new ideas against existing theories. We checked out some old papers from people who came up with modular knots and arithmetic topology, which is pretty deep stuff. In the end, we found five things that actually worked, but also ten things that didn't, which isn't super exciting. Luckily, our code passed all the tests without any problems, so that's a good sign."
+],
+"canon|p28": [
+"Hey guys, so you know how we've been reading about this math stuff called TIG? Well, it's actually a way of describing a certain type of algebraic structure that's related to some other ideas in topology and number theory. It's kind of like a bridge between those two areas. But what's important is that it's not just another version of any one of the existing theories - it's its own thing, a new idea within an already pretty complicated territory. The Fibonacci numbers show up here, but they're not exactly what you might think - they're more like a signature or a label, rather than a full-fledged theorem."
+],
+"canon|p29": [
+"Hey guys, so I was reading about WP51 and it said that we can't draw four irreducible structures flatly on a surface. But here's the thing - it turns out that the \u03c3-flow doesn't actually live on any kind of closed surface at all. They've retracted the idea that it has to be a torus because the math just doesn't work out for certain types of surfaces. Instead, they're left with this weird non-commutativity problem that's related to geometry. It's like, we can't even figure out if it lives on some surface or not!"
+],
+"canon|p30": [
+"Hey, have you ever wondered how computers do calculations? Well, they actually use these concepts called \"modular arithmetic\". When we add or multiply numbers and then take the remainder when divided by 10, that's basically what's happening. For example, if you add two single-digit numbers together and get a number over 9, you just keep track of how many times you can subtract 10 from it until you get back to a single digit. Similarly, multiplying numbers together is kind of like rolling dice - if you multiply two numbers together and the result is more than 9, you only care about what's left when you divide by 10."
+],
+"canon|p31": [
+"Hey guys, so I was looking into this thing where you try to find a surface that can hold four structures without them conflicting with each other. It turns out that such a surface doesn't actually exist because the shapes are dependent on how they're oriented in space. The only way all of these shapes can work together is if we consider some pretty specific and subtle rules about how they interact with each other, kind of like a set of mathematically-defined relationships."
+],
+"canon|p32": [
+"Hey, have you ever noticed how some numbers don't work out when you try to add them up in certain ways? Like, imagine trying to square a number that can be represented as an equation with four different operations - like addition and multiplication - all mixed together. It turns out that if those operations are \"non-commuting\", meaning they don't behave the same way every time, then there's no way to make them work together on a special kind of grid called a 2x2 matrix without it collapsing into itself. This idea has been tested with numbers like 10 and others, but we're still not entirely sure if it works for all cases."
+],
+"canon|p33": [
+"Hey guys, so I was reading about combinatorics and I came across this concept called the canon correction on a torus. Basically, it's like when you're trying to count the number of ways to arrange some objects in a circular pattern, but there are some extra objects that don't fit with the rest because they \"leak\" out of the circle. These extra objects need to be excluded from the count, otherwise, we'd be overcounting by a factor of the number of these special objects. The canon correction is like a way to adjust for this overcounting, and it's an important step in combinatorics problems that involve circular patterns or toruses."
+],
+"canon|p34": [
+"Hey, so there's this idea called the Huang-Lehtonen interpretation. Basically, it says that if you take a bunch of operations and try to simplify them, you'll eventually get to something very simple - like a single operation. As you keep adding more operations, they start to behave in certain ways that are easy to understand. The idea is that as you add more and more operations, the system becomes very similar to a special kind of algebra called the commutative associative operad."
+],
+"canon|p35": [
+"So there's this concept in math called separability, which basically means that a set of things can be broken down into smaller, independent pieces. It's like when you're trying to figure out how something works and it makes sense if you take it apart piece by piece. Some researchers have found ways to use this idea to make computers run more efficiently, especially when they're dealing with really complex problems. They've developed a new way of thinking about these problems that lets them break things down into smaller pieces and solve them one at a time. This can help computers run faster and solve problems that would be too hard for them otherwise."
+],
+"canon|p36": [
+"So, there's this thing called Torus and it's like a shape in math. Anyway, they figured out some ways to measure it using different methods and one of those methods involves silicon - that's right, the stuff we use in computers! They found that if you do certain calculations on the Torus, it doesn't follow all the usual rules, which is kind of weird. Later, someone made a correction to how they were measuring it, so now we know that the original way was actually wrong, but the weird part about not following the rules is still true."
+],
+"canon|p37": [
+"Hey guys, so I was reading about this really interesting topic in geometry and number theory. It turns out that if you're working with a specific shape called a torus, the way it behaves mathematically can be pretty complicated due to some non-commutative properties. Think of it like trying to add numbers together in different orders - sometimes the result is different! Anyway, this has implications for things like algebra and geometry, but don't worry too much about that."
+],
+"canon|p38": [
+"Hey guys, so there's this math identity that shows a connection between two different areas: number theory and quantum physics. Essentially, it says that when you plug in certain numbers into these formulas, they turn out to be equal, which is pretty cool. The weird thing is that one of the numbers on the right side of the equation is actually related to how often square-free integers show up, like a probability or something. This connection happens in this really specific part of number theory called the \"fermionic primon gas\" regime, which might sound made-up but it's actually a real area of study. It's pretty mind-blowing that math can be connected to quantum physics and other areas like that!"
+],
+"canon|p39": [
+"So, basically, these TIG tables are like a special tool that helps us figure out how to encode and decode information in a super secure way. They're made up of different parts that work together really well, kind of like how LEGO blocks fit together perfectly. These tools are actually part of a bigger system that's designed to correct errors when we're transmitting info, and it looks like they do the job pretty well. There are also some other theories about what these things might be used for, but this is the one that everyone agrees on right now."
+],
+"canon|p40": [
+"Hey guys, so you know how some documents used to say that there were these two tables, TSML and BHML, on top of this thing called CL? Well, it turns out that wasn't accurate anymore by the time 2026 rolled around. The problem was, they had borrowed that idea from an older version of code, and then applied it in a way that didn't make sense later on. It's like when you borrow something from your friend and then use it to explain their favorite hobby - it just doesn't work anymore!"
+],
+"canon|p41": [
+"Hey, so it turns out that some important data was lost from the system. Apparently, someone had defined three different tables - one for a certain type of view, another for a lens, and another for a standard encoding scheme. But then they changed things around and started calling just one of those tables \"CL\", which led to people forgetting about the other two. Luckily, some guy named Brayden noticed that something was off and managed to recover the lost table from an archive, so now it's back in action as the third standalone table again."
+],
+"canon|p42": [
+"Hey, so you know how sometimes we simplify things to make them easier to understand? Like, when we're working with code, we might just define a quick shortcut instead of writing out everything. Well, in this case, it was actually a bunch of little simplifications that were made over time to make the program more user-friendly. Each one might have been fine on its own, but when they all added up, it ended up changing the way the program worked behind the scenes and making some of its features less efficient. It's like how sometimes you simplify your notes or a recipe, but in doing so, you lose some of the original complexity that makes it more useful."
+],
+"canon|p43": [
+"So, when we're citing research papers and they talk about \"the substrate\", it's really referring to two different things. There's the actual substrate itself, like a piece of material, but also a set of lens projections that are related to it. The problem is, if we just say \"the substrate\" without specifying which one, then our citations can get all messed up. That's why this section is saying that each variant of substrate has its own unique properties - some are good for describing certain things, while others aren't."
+],
+"canon|p44": [
+"So I was looking at this code and I found out that two specific cells are different between RAW and SYM modes. They're located at positions 3,9 and 4,9 in the bit pattern. These cells are actually on the same row of a grid, which is why they behave differently when you switch to RAW mode. It's because the way they interact with each other is governed by some specific rules that affect how data is stored and retrieved."
+],
+"canon|p45": [
+"Hey guys, so there's this variant of the Yang-Mills model, and it has some pretty cool properties. It only applies to certain numbers, like 1 through 9, but excludes 2-7 and 10 because they're part of another set. The size of this model is actually 8, but its shape is different from a standard model - kind of like how you can have different shapes with the same number of sides. This variant is important because it helps with some complex calculations involving symmetry, and it's related to another concept called the Yang-Mills bridge."
+],
+"canon|p46": [
+"So there's this concept called \"C\" or corner that represents a certain type of pattern. It shows up when we're working with numbers and how they relate to each other, specifically in the context of modular arithmetic. This pattern is unique because it follows certain rules, like being closed under a specific operation and having a certain kind of behavior around its corners (the 1s and 9s). It's different from another related concept called the joint-chain 4-core, and researchers have actually published papers to prove its closure properties."
+],
+"canon|p47": [
+"So I've been playing around with some different versions of the CL_TSML algorithm and I found out that there are actually 23 unique variants that are explicitly recognized. This is because we have a few different ways to construct these algorithms, like adding lens and chain interactions or using algebraic methods. It's also worth noting that when it comes to certain size combinations, like size-8 RAW vs SYM, the construction class repeats and adds some more variations to the total count."
+],
+"canon|p48": [
+"Hey, so there's this thing called TSML that comes from a construction method over different numbers - think of them like bases for math problems. For certain numbers like 2, 3, 5, and others, it produces a matrix on those specific bases. This is actually used in some coding stuff, and it's also related to something called chain-rigidity which basically means the structure stays together even when you mess with it. This has been proven for these specific numbers."
+],
+"canon|p49": [
+"Hey, have you heard about the Becoming lens? It's like a mirror that shows how things can get stuck in certain patterns. Imagine your favorite YouTube video playing on repeat over and over - that's basically what this thing does. It's used to study some pretty complex math stuff, but think of it as just observing how systems behave when they're not quite right."
+],
+"canon|p50": [
+"So I was looking into this new technique for working with data transformations, and I found out that every time we create a new \"scope\" within our chain of transformations, we actually get to create its own version of the table. This new table is called the restriction, and it's actually what makes all the other tables in the chain different from each other - they have their own unique \"signatures\". Think of these signatures like fingerprints for the transformation - they help us understand what's happening at each step. It's kind of cool because unlike some other methods, this one actually uses these signatures to make sense of the data transformations."
+],
+"canon|p51": [
+"Hey guys, so there's this thing called BHML_8_YM that's part of a group of mathematical concepts. What sets it apart is that it has a specific combination of numbers (1 through 9 excluding 2 and 6) and its determinant equals exactly 70. This isn't just about size or shape being related, but more like they're independent dimensions - you can have the same amount of space as another object, but with different shapes. It's also interesting because it shows that there are some fundamental limits to how things can be arranged in certain ways."
+],
+"canon|p52": [
+"Hey, I was talking to Brayden about this idea he had in 2026 and it's pretty interesting. Apparently, he thinks there could be three different ways to build these BHML tables. He's not really sure which one is the \"official\" way, so we'll have to keep investigating to figure that out. It's still an open question - we don't know for sure if any of them are going to end up being used."
+],
+"canon|p53": [
+"Hey, so you know how we've been working on this new way of modeling DNA sequences? Well, there are a few different approaches that are being considered, and they're all trying to solve the same problem in slightly different ways. One approach is called BHML_BEING, which takes the existing sequence data and tries to identify what's unique about it. Another approach is called BHML_DOING, which starts with the same data but applies a transformation to it to get more insights. We're also looking at some alternative versions of these approaches that use slightly different methods to achieve similar results."
+],
+"canon|p54": [
+"Hey guys, so I've been looking at some music theory stuff and I found this really interesting thing about harmony ladders. Apparently, there are different ways to count the same pattern, but they don't quite match up with what's considered \"standard\". It's like, when you look at the numbers 71, 72, and 73, in two different sets of combinations, it doesn't seem right. I'm not really sure which one is supposed to be the original or correct way of doing it - that's still up for debate!"
+],
+"canon|p55": [
+"Hey, so we've got three different versions of this canonical model, let's call them BHML. The first one is just the standard version, which is known as BHML_71 and it has a certain score. Then there's BHML_72, which is basically the same thing but with one specific cell flipped, which gives it a slightly different result - we're not entirely sure what that cell would be yet. The third one, BHML_73, is similar to the second one but with two cells flipped, and we haven't figured out what those cells are either."
+],
+"canon|p56": [
+"Hey, have you heard about CL_STD? It's like a special encoding table that uses a 10x10 grid. This table is really important because it helps with some calculations related to how gravity works in certain games. The creators of this table are still figuring out all the possible rules and restrictions for it, which might lead to some exciting new discoveries."
+],
+"canon|p57": [
+"So I've been learning about some new concepts in machine learning, and one of them is called \"DOING\". It basically calculates the absolute difference between two sets of information. What's interesting is that this method results in a pretty high disagreement rate - like 71% of the time it gets different answers than another set. This makes it super useful for situations where you need to figure out what information is actually important. Another version, called \"DOING_RAW\", does basically the same thing but with some minor tweaks that affect how the results turn out."
+],
+"canon|p58": [
+"Hey, so there's this math concept called Markov chains that can help with cryptography. One specific type is called binary_cl, which uses some pretty big numbers to make it work. It's like a super secure way to keep information safe. Another thing being looked at is how well the chain structure works on smaller rings - basically, if you use smaller numbers, does it still work as well?"
+],
+"canon|p59": [
+"Hey guys, so I was reading about different approaches to modeling some complex systems. There's this one method called CL_TSML that actually works for certain sizes of the system - it comes out on top with 23 named entities and 6 rings. Another approach is CL_BHML, which also performs well but doesn't quite match CL_TSML's results. Then there's CL_STD, which hasn't been fully explored yet so we can't compare it directly. Some other methods are just being experimented with or haven't been tested at all."
+]
+}
