@@ -229,3 +229,56 @@ non-Latin scripts (which need their own atom encodings: IPA for sound, codepoint
 glyphs) -- is bigger and is the next test. But the falsifiable core ('form is
 translation-invariant, seen by enough measurements') is CONFIRMED in-family at p=0.006, by
 algebraic determinant alone, no training, no per-language dictionary.
+
+
+---
+
+## §10 — FULL BATTERY + the decisive falsification (2026-06-11)
+
+Question: *is the geometry of information a real PRE-LANGUAGE substrate?* Run every test,
+dial it in. Result: the strong claim is FALSIFIED; two narrower claims survive their controls.
+
+**DECISIVE TEST -- cross-family concept geometry (`cross_family.py`):** 12 concepts x 8
+languages across 5 UNRELATED families (Indo-European / Uralic / Turkic / Bantu / Austronesian);
+statistic = concept clustering counting ONLY cross-family word pairs (same-family excluded, so
+cognates cannot help); controls = label-shuffle null + character-trigram baseline + borrowed
+embedding.
+
+- braid (1 root): cross-family gap +0.011, **p = 0.29**
+- braid (4 roots): gap -0.000, **p = 0.49**
+- char-trigram baseline: gap -0.000, p = 0.46
+- borrowed nomic embedding (control): gap +0.009, p = 0.061 (only marginal -- nomic is
+  English-centric, so the cross-lingual signal is weak for everything offline)
+
+**VERDICT: HONEST NEGATIVE.** The braid shows NO cross-family concept signal and does NOT beat
+a dumb character-trigram baseline. **The earlier Indo-European cross-language result (p=0.006,
+§9) was shared etymology, not a pre-language geometry.** The strong claim -- a universal
+geometry of MEANING beneath all languages -- is not supported. (Honestly: even the borrowed
+embedder barely reaches significance here, so the task is hard offline; but the braid is
+clearly below even that weak signal -- 5% vs 17% top-1 retrieval.)
+
+**WHAT SURVIVES ITS CONTROLS (the honest positives):**
+
+1. **Form<->meaning WITHIN a language: real, 0.58, and NOT a word-length artifact.** Braid
+   form vs semantic embedding CCA = 0.529-0.58 vs shuffle 0.20; regressing word length out of
+   BOTH leaves it unchanged (0.58 -> 0.58). So English form carries genuine semantic signal
+   beyond length -- consistent with the (real, modest, language-SPECIFIC) sound-symbolism /
+   morphology literature, NOT a universal substrate.
+
+2. **The braid is an excellent edit-robust TOPOLOGICAL MEMORY KEY: 44% recall through a 1-edit
+   misspelling (260x chance), 71% on letter-swaps** (abelianized braid = H_1 is swap-invariant,
+   mechanism confirmed). This is real and useful and depends on NO pre-language claim.
+
+**PARTLY TAUTOLOGICAL (flagged):** color physical-braid vs wavelength (0.34, §8) is
+substantially built in -- the ruler walk is monotone in wavelength by construction. The
+non-built-in part there was meaning-vs-wavelength via the borrowed embedding, not CK's braid.
+
+**DIALED-IN ANSWER.** The substrate is NOT a pre-language geometry of MEANING (falsified
+cross-family). It IS a real, white-box, topologically-robust geometry of FORM -- a memory /
+addressing substrate: any string braids into an edit-robust, readable (determinant) address,
+and within one language that address weakly tracks meaning. The 'geometry of information' is
+real as a FORM-encoding; it is not a universal meaning-substrate transcending language. This
+refocuses CK honestly: a white-box form-memory + decidable-gap engine (Gap Router, abstention
+governor, edit-robust recall), not a universal language of thought. The bigger pre-language
+test would need native scripts + truly multilingual grounding; on the present evidence, the
+claim is retired to OPEN-but-unsupported.
