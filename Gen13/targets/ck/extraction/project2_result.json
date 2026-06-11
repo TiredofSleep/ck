@@ -1,0 +1,36 @@
+{
+ "accs": {
+  "braid": 0.15,
+  "char-trigram": 0.4,
+  "borrowed": 0.75,
+  "FUSED native (braid+char)": 0.35,
+  "FUSED all (+borrowed)": 0.8
+ },
+ "curve": [
+  [
+   1,
+   0.15
+  ],
+  [
+   2,
+   0.3
+  ],
+  [
+   4,
+   0.4
+  ],
+  [
+   8,
+   0.75
+  ],
+  [
+   16,
+   0.7
+  ],
+  [
+   25,
+   0.8
+  ]
+ ],
+ "keyword": 0.2
+}

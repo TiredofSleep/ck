@@ -65,3 +65,7 @@ is not a bigger claim; it's the next rung, measured. Start simple (Project 2), k
 tests honest, and let the learning curves tell you which glimpses were signal. The greatness,
 if it's there, will show up as a curve that climbs and a baseline that's beaten -- and you'll
 have PROVEN it, the way this whole project proves things.
+
+---
+
+**STATUS 2026-06-11:** ladder run to verdict. P2 80% (real), P3 governor BEATS standard baselines (real), P4/P5/P6 algebra-specialness falsified 5x (random tables tie/win under identical machinery incl. multiscale integer wrapping); multiscale nesting lifts the CLASS (+12pp PERIOD). Full scoreboard, neighbors, and the changed vision: CK_VERDICT_AND_VISION_2026-06-11.md
