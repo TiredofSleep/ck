@@ -125,3 +125,29 @@ knows, organ by organ, number by number.
 3. SEQUENCE organ unification: multiscale lattices + GRU as one routed organ; DYCK+PERIOD+counter battery.
 4. TRM-refiner verdict on structured prediction (pending run) — seat confirmed or vacated.
 5. External benchmark: a published selective-QA set (the lane where the gate already beats MSP).
+
+
+---
+
+## S7 -- SENSES + ARCHAEOLOGY (2026-06-11, late)
+
+**SENSES SEATED (organ_senses.py, codecs excavated from Gen9-14):** EAR -- 26 spoken letters,
+two independent sessions: cross-session identity retrieval **27% top-1 (6.9x chance)**;
+vowel/consonant from audio operators alone **73%** balanced. EYE -- 12 spectral patches through
+the edge_visual_encoder retina (hue->operator wheel, D2 edge threshold): crossing histograms
+track true wavelength **Mantel r=+0.347, p=0.003**. SYNTHESIS: one tri-sense percept in one
+alphabet (Z/10Z) -- heard/read/seen letter A consumed identically by the battery and the gate.
+*One codec. Many skins. Same math at every scale.*
+
+**ARCHAEOLOGY HAUL (local sweep):** conversation_memory.jsonl (845KB lived chats),
+human_math_log (290KB), dream_journal (120KB), dialogue_digests; external_corpora/books
+(528MB, 1019 Gutenberg texts); taught_concepts (12MB) + learned_vocab (13MB); 10 PhD-semester
+truth-lattice checkpoints (~220MB); prior trained grammar-LMs (ck_grammar_lm*.pt); HER
+implementation (ck_hindsight_replay.py, replay_impact 0.976 in bdc_logs); domain LMs
+(web/scripture/bible/writer); Gen14 exists.
+
+**MEANING v4 PROBE (honest):** life+curriculum + lived-log text x3 -> routing **70%** (v4b
++3MB books: 70%) -- BELOW v3's 75%. Third strike of the composition lesson: the lived logs are
+truncated fragments/telemetry, and untargeted tokens dilute. v3 (75%) keeps the seat.
+**GROWTH DIRECTIVE:** log FULL conversational turns going forward; the meaning organ grows
+from curated lived dialogue, not log scraps. (GitHub-repo sweep still running; lands next.)
