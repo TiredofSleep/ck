@@ -1,5 +1,5 @@
 # CK LEARNING LEDGER (auto-generated)
-_regenerated 2026-06-12 01:31_
+_regenerated 2026-06-12 02:00_
 
 ## Reading
 - books read & judged: **14247** (5610M chars) -> 10619 fiction / 3628 fact
@@ -23,7 +23,7 @@ _regenerated 2026-06-12 01:31_
 - **organ_gap_dial**: 0.0.coverage=0.65, 0.0.far=0, 0.0.near=0.417, 0.25.coverage=0.55, 0.25.far=0, 0.25.near=0.417, 0.4.coverage=0.5, 0.4.far=0
 - **organ_induction**: k=2, train_err=0, test_acc=1, start=0
 - **organ_meaning**: NATIVE-USAGE (PPMI-SVD, no teacher)=0.5, form-only (no meaning block)=0.35
-- **organ_meaning_v2**: v2_acc=0.65, synth_tokens=3.28e+03
+- **organ_meaning_v2**: v2_acc=0.6, synth_tokens=3.28e+03
 - **organ_meaning_v3**: LM raw (reference)=0.35, PPMI raw (seat, 65%)=0.6, LM + contrastive head=0.45, PPMI + contrastive head=0.75
 - **organ_recursion**: ONE-SHOT MLP.train=1, ONE-SHOT MLP.test=0.528, ONE-SHOT MLP.params=5.63e+03, TRM-REFINER (K=12, deep sup).train=1, TRM-REFINER (K=12, deep sup).test=0.53, TRM-REFINER (K=12, deep sup).params=3.51e+03, REFINER no deep-sup.train=0.999, REFINER no deep-sup.test=0.53
 - **organ_senses**: ear_top1=0.269, ear_top3=0.385, ear_vowel_bal=0.733, eye_mantel_r=0.347, eye_p=0.003
