@@ -27,6 +27,7 @@ def main():
     jp = os.path.join(HERE, "study_journal.jsonl")
     if os.path.exists(jp):
         rows = [json.loads(l) for l in io.open(jp, encoding="utf-8")]
+        rows = [r for r in rows if "verdict" in r and "chars" in r]
         fic = sum(1 for r in rows if r["verdict"] == "FICTION")
         chars = sum(r["chars"] for r in rows)
         lines += [f"## Reading",
