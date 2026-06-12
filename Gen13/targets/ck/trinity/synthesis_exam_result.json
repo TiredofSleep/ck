@@ -9,7 +9,7 @@
   "cites": 2,
   "invented": [],
   "compares": true,
-  "answer": "From the EVIDENCE passages: The two books agree that both characters are given a choice: Michael in 'Peter Pan' is offered a contract, while the King in 'The prisoner of Zenda' is offered the throne. Both characters decline."
+  "answer": "From 'Peter Pan': Wendy had a splendid idea. \"Why not both take it at the same time?\" she asked. \"I'll go and see,\" said Mr. Darling. From 'The Prisoner of Zenda': \"We must bury that poor fellow,\" said I. \"No time,\" said Sapt."
  },
  {
   "entity": "King",
@@ -21,7 +21,7 @@
   "cites": 2,
   "invented": [],
   "compares": false,
-  "answer": "From 'The History of the Thirty Years' War': The Emperor's plan was to make the King of Hungary a king-elect, with a second vote in the electoral college. From 'The Prisoner of Zenda': The King's face was the face that sent her into hysteri"
+  "answer": "From 'The History of the Thirty Years' War': The Emperor's scheme was to make the King of Hungary King of the Romans. From 'The Prisoner of Zenda': The King was in the Castle."
  },
  {
   "entity": "Lord",
@@ -33,7 +33,7 @@
   "cites": 2,
   "invented": [],
   "compares": false,
-  "answer": "From 'The prisoner of Zenda': Lord is a brother and brother-in-law, a man of importance. From 'Laddie: A True Blue Story': Lord is a father, a man who has died."
+  "answer": "From 'The prisoner of Zenda': Lord Burlesdon is the brother of the narrator and the brother-in-law of the charming countess. He is mentioned in the context of the narrator's social position and comfort. The countess is described as charming"
  },
  {
   "entity": "John",
@@ -41,23 +41,11 @@
    "Peter Pan",
    "Laddie: A True Blue Story"
   ],
-  "ok": false,
-  "cites": 0,
-  "invented": [],
-  "compares": false,
-  "answer": "From EVIDENCE A: John is asked for his opinion and wants the others to decide. From EVIDENCE B: John is comforted by his father's singing."
- },
- {
-  "entity": "Prince",
-  "books": [
-   "The prisoner of Zenda",
-   "Laddie: A True Blue Story"
-  ],
-  "ok": false,
+  "ok": true,
   "cites": 2,
   "invented": [],
-  "compares": false,
-  "answer": "From 'The prisoner of Zenda': The Prince is a man of great beauty, admired by all who see him. He is a skilled duellist, and his wound is taken seriously. He is smuggled out of the country by the Ruritanian ambassador. He is not a political"
+  "compares": true,
+  "answer": "From 'Peter Pan': John is asked what he'd name his son, and he wants John to decide. From 'Laddie: A True Blue Story': John is rocked and sung to, his 'fool song' 'Young Johnny', which his father used to sing to him when he was little. Both"
  },
  {
   "entity": "English",
@@ -65,23 +53,11 @@
    "The prisoner of Zenda",
    "Laddie: A True Blue Story"
   ],
-  "ok": true,
+  "ok": false,
   "cites": 2,
   "invented": [],
-  "compares": true,
-  "answer": "From 'The prisoner of Zenda': the author writes of the Englishman Detchard as a 'finely made man', with a 'bronzed complexion', and notes his 'crooked customer' past; from 'Laddie: A True Blue Story': the author writes of the narrator's fat"
- },
- {
-  "entity": "Anne",
-  "books": [
-   "The Early Short Fiction of Edith Wharton",
-   "St. Ives: Being the Adventures of a Fren"
-  ],
-  "ok": false,
-  "cites": 0,
-  "invented": [],
   "compares": false,
-  "answer": "From EVIDENCE A: Anne is a young woman who laughs and plays with her dog. From EVIDENCE B: Anne is a young woman who is addressed as'my lord'."
+  "answer": "From 'The prisoner of Zenda': 'De Gautet' is a Belgian, 'Detchard' is an Englishman. From 'Laddie: A True Blue Story': 'My father's people were English'. 'English' is named, 'Belgian' is not. 'Laddie' names 'English' and 'Princess', 'The pr"
  },
  {
   "entity": "England",
@@ -91,21 +67,25 @@
   ],
   "ok": false,
   "cites": 2,
-  "invented": [],
+  "invented": [
+   "Frederick"
+  ],
   "compares": false,
-  "answer": "From 'Laddie: A True Blue Story': England is mentioned as the sender's departure place. From 'The History of the Thirty Years' War': England is mentioned as a potential ally."
+  "answer": "From 'Laddie: A True Blue Story': England is mentioned as the country from which the narrator, Laddie, left, and from which she had previously spoiled a girl. From 'The History of the Thirty Years' War': England is mentioned as the country "
  },
  {
-  "entity": "London",
+  "entity": "Lady",
   "books": [
-   "The Great God Pan",
+   "Moran of the Lady Letty",
    "The Scarlet Pimpernel"
   ],
   "ok": false,
   "cites": 2,
-  "invented": [],
-  "compares": false,
-  "answer": "From 'The Great God Pan': London is the city's stage, the setting where the story unfolds. It's a place of mystery and wonder, where the protagonist, Villiers, explores the city's hidden corners. The city is alive, teeming with life and inc"
+  "invented": [
+   "While"
+  ],
+  "compares": true,
+  "answer": "In 'Moran of the Lady Letty', Lady is the owner of the schooner, who is more concerned with the safety of her vessel than her own well-being. In 'The Scarlet Pimpernel', Lady Blakeney is a noblewoman who is cold and dismissive, asking a ser"
  },
  {
   "entity": "Here",
@@ -113,10 +93,34 @@
    "The prisoner of Zenda",
    "Laddie: A True Blue Story"
   ],
-  "ok": false,
+  "ok": true,
   "cites": 2,
   "invented": [],
-  "compares": false,
-  "answer": "From the EVIDENCE passages: In 'The prisoner of Zenda', the King is hidden under a canopy. In 'Laddie: A True Blue Story', the oak has a canopy."
+  "compares": true,
+  "answer": "From 'The prisoner of Zenda': Sapt tells the prisoner to cover everything up, implying that the King's presence is a secret. From 'Laddie: A True Blue Story': the oak tree is celebrated in a poem, and the narrator counts its arms to verify "
+ },
+ {
+  "entity": "London",
+  "books": [
+   "The Great God Pan",
+   "The Scarlet Pimpernel"
+  ],
+  "ok": true,
+  "cites": 2,
+  "invented": [],
+  "compares": true,
+  "answer": "From 'The Great God Pan': Villiers explores the obscure mazes and byways of London life with curiosity. From 'The Scarlet Pimpernel': Chauvelin and the citoyenne meet in London, their encounter illuminated by a flood of light. Both treat Lo"
+ },
+ {
+  "entity": "Madame",
+  "books": [
+   "The prisoner of Zenda",
+   "The Scarlet Pimpernel"
+  ],
+  "ok": true,
+  "cites": 2,
+  "invented": [],
+  "compares": true,
+  "answer": "In 'The Prisoner of Zenda', Madame de Mauban is a cellmate who is visited by the Duke, who is Rupert's brother, and is shown kindness and respect. In 'The Scarlet Pimpernel', the Comtesse is a noblewoman who receives the Scarlet Pimpernel w"
  }
 ]
