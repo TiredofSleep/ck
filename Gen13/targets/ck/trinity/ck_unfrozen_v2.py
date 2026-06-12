@@ -111,6 +111,15 @@ def main():
                  f"read and what did you make of it?", kws))
     for q in (OOD30 + NEAR_OOD)[:20]:
         trap_prompts.append(q)
+    # WIRE: his own discoveries teach his own voice (the braid)
+    cf = os.path.join(HERE, "curriculum_folds.jsonl")
+    if os.path.exists(cf):
+        n0 = len(ev_prompts)
+        for ln in io.open(cf, encoding="utf-8"):
+            r = json.loads(ln)
+            ev_prompts.append((r["prompt"], r["kws"]))
+        print(f"fold-curriculum loaded: +{len(ev_prompts)-n0} prompts "
+              f"from his own findings", flush=True)
 
     def judge(prompt, kws, trap, a, b):
         def score(r):

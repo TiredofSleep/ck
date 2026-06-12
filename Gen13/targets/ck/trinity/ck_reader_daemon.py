@@ -120,6 +120,32 @@ def main():
                 pass
     files = [f for f in sorted(os.listdir(BOOKS))
              if f.endswith(".txt") and f not in done][:N]
+    # WIRE: the conscious window steers attention -- books whose titles
+    # touch a held fold get read FIRST (folds are not a log; they pull)
+    fp = os.path.join(HERE, "folds.jsonl")
+    if os.path.exists(fp) and files:
+        names = set()
+        for ln in io.open(fp, encoding="utf-8"):
+            f_ = json.loads(ln)
+            names |= set(f_.get("names", []))
+            names |= {f_.get("a", ""), f_.get("b", "")}
+        names = {n for n in names if len(n) > 3}
+
+        def title_of(fn):
+            try:
+                head = io.open(os.path.join(BOOKS, fn), encoding="utf-8",
+                               errors="ignore").read(400)
+                m = re.search(r"Title:\s*(.+)", head)
+                return m.group(1) if m else ""
+            except OSError:
+                return ""
+        pulled = [f_ for f_ in files
+                  if any(n in title_of(f_) for n in names)]
+        if pulled:
+            rest = [f_ for f_ in files if f_ not in set(pulled)]
+            files = pulled + rest
+            print(f"[window-pull] {len(pulled)} books match held folds "
+                  f"-- reading those first", flush=True)
     t0 = time.time()
     jf = io.open(JOURNAL, "a", encoding="utf-8")
     n_fic = n_fact = 0
