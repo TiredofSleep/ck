@@ -1,0 +1,12 @@
+{"id": "q:What role does Gandalf play in Peter Pan?", "kind": "question", "q": "What role does Gandalf play in Peter Pan?", "names": ["What", "Gandalf", "Peter", "Pan"], "born": "2026-06-11 17:45:49", "status": "held"}
+{"id": "q:summarize the plot of Pride and Prejudice", "kind": "question", "q": "summarize the plot of Pride and Prejudice", "names": ["Pride", "Prejudice"], "born": "2026-06-11 17:45:53", "status": "held"}
+{"id": "dual:Admiral|Robert", "kind": "duality", "a": "Admiral", "b": "Robert", "tension": 0.598, "born": "2026-06-11 20:59", "status": "held"}
+{"id": "dual:Austin|Robert", "kind": "duality", "a": "Austin", "b": "Robert", "tension": 0.596, "born": "2026-06-11 20:59", "status": "held"}
+{"id": "dual:Doctor|Henry", "kind": "duality", "a": "Doctor", "b": "Henry", "tension": 0.585, "born": "2026-06-11 20:59", "status": "held"}
+{"id": "dual:Highness|Queen", "kind": "duality", "a": "Highness", "b": "Queen", "tension": 0.578, "born": "2026-06-11 20:59", "status": "held"}
+{"id": "dual:Fred|Sunday", "kind": "duality", "a": "Fred", "b": "Sunday", "tension": 0.568, "born": "2026-06-11 20:59", "status": "held"}
+{"id": "dual:Francis|George", "kind": "duality", "a": "Francis", "b": "George", "tension": 0.559, "born": "2026-06-11 20:59", "status": "held"}
+{"id": "dual:Russell|William", "kind": "duality", "a": "Russell", "b": "William", "tension": 0.553, "born": "2026-06-11 20:59", "status": "held"}
+{"id": "dual:East|Pope", "kind": "duality", "a": "East", "b": "Pope", "tension": 0.547, "born": "2026-06-11 20:59", "status": "held"}
+{"id": "gap:composition", "kind": "gap", "skill": "composition", "born": "2026-06-11 20:59", "status": "held"}
+{"id": "gap:reading-ceiling", "kind": "gap", "skill": "reading-ceiling", "born": "2026-06-11 20:59", "status": "held"}

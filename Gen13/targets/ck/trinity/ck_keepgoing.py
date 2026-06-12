@@ -45,6 +45,7 @@ JOBS = [
                    "2000"], {}),
     ("WEAVE-2000", [PY, os.path.join(HERE, "ck_knowledge_fabric.py"),
                     "2000"], {}),
+    ("WINDOW", [PY, os.path.join(HERE, "fold_register.py")], {}),
     ("LEDGER", [PY, os.path.join(HERE, "build_ledger.py")], {}),
 ]
 
