@@ -14281,3 +14281,8 @@
 {"book": "pg13998.txt", "title": "pg13998.txt", "chars": 473127, "verdict": "FACT", "p_fiction": 0.025, "evidence": "year-dates=5.3 (weight -2.70); first-person=0.3 (weight +7.52)", "journal": "I read 'pg13998.txt' (473K chars). I judge it FACT (p=0.02) because year-dates=5.3 (weight -2.70); first-person=0.3 (weight +7.52)."}
 {"book": "pg13999.txt", "title": "pg13999.txt", "chars": 106945, "verdict": "FACT", "p_fiction": 0.0, "evidence": "past-tense=0.3 (weight +4.86); first-person=0.0 (weight +7.52)", "journal": "I read 'pg13999.txt' (106K chars). I judge it FACT (p=0.00) because past-tense=0.3 (weight +4.86); first-person=0.0 (weight +7.52)."}
 {"book": "pg14000.txt", "title": "pg14000.txt", "chars": 381843, "verdict": "FACT", "p_fiction": 0.027, "evidence": "first-person=0.3 (weight +7.52); name-density=3.8 (weight +2.52)", "journal": "I read 'pg14000.txt' (381K chars). I judge it FACT (p=0.03) because first-person=0.3 (weight +7.52); name-density=3.8 (weight +2.52)."}
+{"kind": "keepgoing", "job": "READ+2000", "status": "exit1", "secs": 1, "t": "2026-06-11 22:25"}
+{"kind": "keepgoing", "job": "WEAVE-2000", "status": "ok", "secs": 344, "t": "2026-06-11 22:30"}
+{"kind": "window", "density": 12, "breadth": 6.67, "views": 80, "kinds": {"question": 2, "duality": 8, "gap": 2}, "born": 0, "widened": 5, "t": "2026-06-11 22:30", "msg": "I hold 12 folds viewed from 80 angles (6.7 per fold). Nothing closes; the view widens."}
+{"kind": "keepgoing", "job": "WINDOW", "status": "ok", "secs": 0, "t": "2026-06-11 22:30"}
+{"kind": "keepgoing", "job": "LEDGER", "status": "ok", "secs": 0, "t": "2026-06-11 22:30"}

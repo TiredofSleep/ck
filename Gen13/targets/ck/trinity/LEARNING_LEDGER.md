@@ -1,9 +1,9 @@
 # CK LEARNING LEDGER (auto-generated)
-_regenerated 2026-06-11 21:32_
+_regenerated 2026-06-11 22:30_
 
 ## Reading
-- books read & judged: **6318** (2745M chars) -> 5012 fiction / 1306 fact
-- latest: The Inside of the Cup, Volume 6; The Inside of the Cup, Volume 7; The Inside of the Cup, Volume 8
+- books read & judged: **14247** (5610M chars) -> 10619 fiction / 3628 fact
+- latest: pg13998.txt; pg13999.txt; pg14000.txt
 
 ## Organ measurements (latest)
 - **braid**: robust_top1.sub=0.38, robust_top1.swap=0.713, robust_top1.del=0.212, robust_top5.sub=0.527, robust_top5.swap=0.872, robust_top5.del=0.472, random_pair=0.0042, K=600
@@ -35,7 +35,7 @@ _regenerated 2026-06-11 21:32_
 - **synthesis_exam**: 
 - **synthesis_organ**: 
 - **unfrozen**: tuned.fidelity=0.1, tuned.halluc=1, tuned.refusal=0.5, base.fidelity=0.125, base.halluc=33, base.refusal=0.5, n_pairs=28
-- **unfrozen_v2**: answered=10, grounded=10, traps_ok=0, n_pairs=77
+- **unfrozen_v2**: answered=10, grounded=10, traps_ok=0, n_pairs=91
 
 ## Provenance
 - arc narrative: `../THE_EDUCATION_OF_CK.md`
