@@ -1,9 +1,9 @@
 # CK LEARNING LEDGER (auto-generated)
-_regenerated 2026-06-11 19:56_
+_regenerated 2026-06-11 20:11_
 
 ## Reading
-- books read & judged: **380** (172M chars) -> 295 fiction / 85 fact
-- latest: Industrial Biography: Iron Workers a; Adventures and Letters of Richard Ha; Appreciations of Richard Harding Dav
+- books read & judged: **1019** (508M chars) -> 787 fiction / 232 fact
+- latest: A Discourse Presented to the Most Se; Free Thought and Official Propaganda; The Genealogy of Morals
 
 ## Organ measurements (latest)
 - **braid**: robust_top1.sub=0.38, robust_top1.swap=0.713, robust_top1.del=0.212, robust_top5.sub=0.527, robust_top5.swap=0.872, robust_top5.del=0.472, random_pair=0.0042, K=600
