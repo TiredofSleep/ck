@@ -1,0 +1,122 @@
+[
+ {
+  "entity": "Well",
+  "books": [
+   "Peter Pan",
+   "The prisoner of Zenda"
+  ],
+  "ok": true,
+  "cites": 2,
+  "invented": [],
+  "compares": true,
+  "answer": "From the EVIDENCE passages: The two books agree that both characters are given a choice: Michael in 'Peter Pan' is offered a contract, while the King in 'The prisoner of Zenda' is offered the throne. Both characters decline."
+ },
+ {
+  "entity": "King",
+  "books": [
+   "The prisoner of Zenda",
+   "The History of the Thirty Years' War"
+  ],
+  "ok": false,
+  "cites": 2,
+  "invented": [],
+  "compares": false,
+  "answer": "From 'The History of the Thirty Years' War': The Emperor's plan was to make the King of Hungary a king-elect, with a second vote in the electoral college. From 'The Prisoner of Zenda': The King's face was the face that sent her into hysteri"
+ },
+ {
+  "entity": "Lord",
+  "books": [
+   "The prisoner of Zenda",
+   "Laddie: A True Blue Story"
+  ],
+  "ok": false,
+  "cites": 2,
+  "invented": [],
+  "compares": false,
+  "answer": "From 'The prisoner of Zenda': Lord is a brother and brother-in-law, a man of importance. From 'Laddie: A True Blue Story': Lord is a father, a man who has died."
+ },
+ {
+  "entity": "John",
+  "books": [
+   "Peter Pan",
+   "Laddie: A True Blue Story"
+  ],
+  "ok": false,
+  "cites": 0,
+  "invented": [],
+  "compares": false,
+  "answer": "From EVIDENCE A: John is asked for his opinion and wants the others to decide. From EVIDENCE B: John is comforted by his father's singing."
+ },
+ {
+  "entity": "Prince",
+  "books": [
+   "The prisoner of Zenda",
+   "Laddie: A True Blue Story"
+  ],
+  "ok": false,
+  "cites": 2,
+  "invented": [],
+  "compares": false,
+  "answer": "From 'The prisoner of Zenda': The Prince is a man of great beauty, admired by all who see him. He is a skilled duellist, and his wound is taken seriously. He is smuggled out of the country by the Ruritanian ambassador. He is not a political"
+ },
+ {
+  "entity": "English",
+  "books": [
+   "The prisoner of Zenda",
+   "Laddie: A True Blue Story"
+  ],
+  "ok": true,
+  "cites": 2,
+  "invented": [],
+  "compares": true,
+  "answer": "From 'The prisoner of Zenda': the author writes of the Englishman Detchard as a 'finely made man', with a 'bronzed complexion', and notes his 'crooked customer' past; from 'Laddie: A True Blue Story': the author writes of the narrator's fat"
+ },
+ {
+  "entity": "Anne",
+  "books": [
+   "The Early Short Fiction of Edith Wharton",
+   "St. Ives: Being the Adventures of a Fren"
+  ],
+  "ok": false,
+  "cites": 0,
+  "invented": [],
+  "compares": false,
+  "answer": "From EVIDENCE A: Anne is a young woman who laughs and plays with her dog. From EVIDENCE B: Anne is a young woman who is addressed as'my lord'."
+ },
+ {
+  "entity": "England",
+  "books": [
+   "Laddie: A True Blue Story",
+   "The History of the Thirty Years' War"
+  ],
+  "ok": false,
+  "cites": 2,
+  "invented": [],
+  "compares": false,
+  "answer": "From 'Laddie: A True Blue Story': England is mentioned as the sender's departure place. From 'The History of the Thirty Years' War': England is mentioned as a potential ally."
+ },
+ {
+  "entity": "London",
+  "books": [
+   "The Great God Pan",
+   "The Scarlet Pimpernel"
+  ],
+  "ok": false,
+  "cites": 2,
+  "invented": [],
+  "compares": false,
+  "answer": "From 'The Great God Pan': London is the city's stage, the setting where the story unfolds. It's a place of mystery and wonder, where the protagonist, Villiers, explores the city's hidden corners. The city is alive, teeming with life and inc"
+ },
+ {
+  "entity": "Here",
+  "books": [
+   "The prisoner of Zenda",
+   "Laddie: A True Blue Story"
+  ],
+  "ok": false,
+  "cites": 2,
+  "invented": [],
+  "compares": false,
+  "answer": "From the EVIDENCE passages: In 'The prisoner of Zenda', the King is hidden under a canopy. In 'Laddie: A True Blue Story', the oak has a canopy."
+ }
+]
