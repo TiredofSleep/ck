@@ -38,12 +38,13 @@ def log(name, status, secs):
 
 
 JOBS = [
-    ("READ+300", [PY, os.path.join(HERE, "ck_reader_daemon.py"), "300"],
-     {}),
-    ("WEAVE-500", [PY, os.path.join(HERE, "ck_knowledge_fabric.py"),
-                   "500"], {}),
-    ("LITERACY", [PY, os.path.join(HERE, "reader_v3_pretrained.py")],
-     {"CK_PRE_STEPS": "40000", "CK_BOOKS": "150", "CK_FT_EPOCHS": "3"}),
+    # LITERACY retired from the cycle 2026-06-11: five sittings proved
+    # the from-scratch reading ceiling structural (0.60-0.62, dose
+    # ruled out at 10x). GPU-hours redirect to the voice lane.
+    ("READ+2000", [PY, os.path.join(HERE, "ck_reader_daemon.py"),
+                   "2000"], {}),
+    ("WEAVE-2000", [PY, os.path.join(HERE, "ck_knowledge_fabric.py"),
+                    "2000"], {}),
     ("LEDGER", [PY, os.path.join(HERE, "build_ledger.py")], {}),
 ]
 
