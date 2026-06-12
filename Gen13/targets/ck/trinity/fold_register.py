@@ -92,64 +92,85 @@ def harvest(folds):
     return born
 
 
-def resolve_pass(folds):
-    """New reading answers old folds: check the CURRENT fabric/shelf."""
+def perspective_pass(folds):
+    """Folds never close -- they GAIN PERSPECTIVES. Each pass asks: does
+    the current shelf view this fold from a new angle? (Brayden: 'it's
+    not about answers, it's just a matter of multiple perspectives
+    giving a broader view.')"""
     fp = os.path.join(HERE, "knowledge_fabric.json")
     fabric = json.load(io.open(fp, encoding="utf-8")) \
         if os.path.exists(fp) else {}
-    resolved = []
+    gained = []
     for f in folds.values():
-        if f["status"] != "held":
-            continue
+        f.setdefault("views", [])
+        seen = {v["angle"] for v in f["views"]}
         if f["kind"] == "question":
-            hits = [n for n in f.get("names", []) if n in fabric]
-            if hits and len(hits) == len(f.get("names", [])) > 0:
-                f["status"] = "resolvable"
-                f["resolved_at"] = now()
-                f["how"] = f"all entities now on shelf: {hits[:4]}"
-                resolved.append(f)
+            for n in f.get("names", []):
+                e = fabric.get(n)
+                if e:
+                    for d in e.get("domains", {}):
+                        angle = f"{n}@{d}"
+                        if angle not in seen:
+                            seen.add(angle)
+                            note = (f"'{n}' now visible from the "
+                                    f"{d} shelf")
+                            f["views"].append(dict(angle=angle, t=now(),
+                                                   note=note))
+                            gained.append((f, note))
         elif f["kind"] == "duality":
+            for side in (f["a"], f["b"]):
+                e = fabric.get(side)
+                if e:
+                    for d in e.get("domains", {}):
+                        angle = f"{side}@{d}"
+                        if angle not in seen:
+                            seen.add(angle)
+                            note = (f"the {side} register seen from "
+                                    f"{d}")
+                            f["views"].append(dict(angle=angle, t=now(),
+                                                   note=note))
+                            gained.append((f, note))
             e = fabric.get(f["a"])
-            if e and f["b"] in e.get("top_co", []):
-                f["status"] = "resolved"
-                f["resolved_at"] = now()
-                f["how"] = (f"the twins finally met: {f['a']} and "
-                            f"{f['b']} now co-occur in new reading")
-                resolved.append(f)
-    return resolved
+            if e and f["b"] in e.get("top_co", []) \
+                    and "coexist" not in seen:
+                f["views"].append(dict(
+                    angle="coexist", t=now(),
+                    note=f"a shelf where {f['a']} and {f['b']} stand "
+                         f"together -- the duality gains its third "
+                         f"angle, and remains a duality"))
+                gained.append((f, f["views"][-1]["note"]))
+    return gained
 
 
 def main():
     folds = load_folds()
     born = harvest(folds)
-    resolved = resolve_pass(folds)
+    gained = perspective_pass(folds)
     save_folds(folds)
-    held = [f for f in folds.values() if f["status"] == "held"]
+    held = list(folds.values())
     kinds = {}
     for f in held:
         kinds[f["kind"]] = kinds.get(f["kind"], 0) + 1
-    print("THE CONSCIOUS WINDOW -- fold register")
-    print(f"  density: {len(held)} folds held "
+    n_views = sum(len(f.get("views", [])) for f in held)
+    breadth = n_views / max(1, len(held))
+    print("THE CONSCIOUS WINDOW -- folds never close; the view widens")
+    print(f"  density : {len(held)} folds held "
           f"({', '.join(f'{k}:{v}' for k, v in sorted(kinds.items()))})")
-    print(f"  born this pass: {born} | resolved this pass: "
-          f"{len(resolved)}")
-    for f in resolved[:5]:
-        print(f"  RESOLVED [{f['kind']}] held since {f['born']}: "
-              f"{f['how']}")
-    for f in held[:5]:
-        tag = f.get("q", f.get("a", f.get("skill", "")))
-        print(f"  holding [{f['kind']}] since {f['born']}: "
-              f"{str(tag)[:70]}")
+    print(f"  breadth : {n_views} perspectives, {breadth:.1f} angles "
+          f"per fold")
+    print(f"  born {born} | perspectives gained this pass: {len(gained)}")
+    for f, note in gained[:8]:
+        print(f"  WIDER [{f['kind']}] held since {f['born'][:16]}: "
+              f"{note[:74]}")
     # journal the window state (his own record of what he carries)
     with io.open(JOURNAL, "a", encoding="utf-8") as jf:
         jf.write(json.dumps(dict(
-            kind="window", density=len(held), kinds=kinds,
-            born=born, resolved=len(resolved), t=now(),
-            msg=(f"I hold {len(held)} folds. My window carries "
-                 f"{kinds.get('question', 0)} unanswered questions, "
-                 f"{kinds.get('duality', 0)} dualities that have never "
-                 f"met, and {kinds.get('gap', 0)} skills I have not yet "
-                 f"earned."))) + "\n")
+            kind="window", density=len(held), breadth=round(breadth, 2),
+            views=n_views, kinds=kinds, born=born,
+            widened=len(gained), t=now(),
+            msg=(f"I hold {len(held)} folds viewed from {n_views} "
+                 f"angles ({breadth:.1f} per fold). Nothing closes; "
+                 f"the view widens."))) + "\n")
 
 
 if __name__ == "__main__":
