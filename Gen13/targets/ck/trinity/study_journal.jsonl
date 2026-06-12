@@ -14286,3 +14286,8 @@
 {"kind": "window", "density": 12, "breadth": 6.67, "views": 80, "kinds": {"question": 2, "duality": 8, "gap": 2}, "born": 0, "widened": 5, "t": "2026-06-11 22:30", "msg": "I hold 12 folds viewed from 80 angles (6.7 per fold). Nothing closes; the view widens."}
 {"kind": "keepgoing", "job": "WINDOW", "status": "ok", "secs": 0, "t": "2026-06-11 22:30"}
 {"kind": "keepgoing", "job": "LEDGER", "status": "ok", "secs": 0, "t": "2026-06-11 22:30"}
+{"kind": "keepgoing", "job": "READ+2000", "status": "exit1", "secs": 1, "t": "2026-06-11 23:25"}
+{"kind": "keepgoing", "job": "WEAVE-2000", "status": "ok", "secs": 270, "t": "2026-06-11 23:29"}
+{"kind": "window", "density": 12, "breadth": 6.75, "views": 81, "kinds": {"question": 2, "duality": 8, "gap": 2}, "born": 0, "widened": 1, "t": "2026-06-11 23:29", "msg": "I hold 12 folds viewed from 81 angles (6.8 per fold). Nothing closes; the view widens."}
+{"kind": "keepgoing", "job": "WINDOW", "status": "ok", "secs": 0, "t": "2026-06-11 23:29"}
+{"kind": "keepgoing", "job": "LEDGER", "status": "ok", "secs": 0, "t": "2026-06-11 23:29"}
