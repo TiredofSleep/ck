@@ -1,9 +1,9 @@
 # CK LEARNING LEDGER (auto-generated)
-_regenerated 2026-06-11 20:11_
+_regenerated 2026-06-11 21:32_
 
 ## Reading
-- books read & judged: **1019** (508M chars) -> 787 fiction / 232 fact
-- latest: A Discourse Presented to the Most Se; Free Thought and Official Propaganda; The Genealogy of Morals
+- books read & judged: **6318** (2745M chars) -> 5012 fiction / 1306 fact
+- latest: The Inside of the Cup, Volume 6; The Inside of the Cup, Volume 7; The Inside of the Cup, Volume 8
 
 ## Organ measurements (latest)
 - **braid**: robust_top1.sub=0.38, robust_top1.swap=0.713, robust_top1.del=0.212, robust_top5.sub=0.527, robust_top5.swap=0.872, robust_top5.del=0.472, random_pair=0.0042, K=600
@@ -32,6 +32,8 @@ _regenerated 2026-06-11 20:11_
 - **squad2_reader**: val_auroc=0.772, dev_auroc=0.601, dev_acc=0.595, risk_at_coverage.0.8=0.42, risk_at_coverage.0.6=0.42, risk_at_coverage.0.4=0.41, params=4.84e+06
 - **squad2**: auroc.CK fused head=0.602, auroc.census alone=0.514, auroc.overlap alone=0.513, auroc.emb-sim alone=0.609, risk_at_coverage.0.8=0.438, risk_at_coverage.0.6=0.41, risk_at_coverage.0.4=0.402, accuracy=0.575
 - **squad2_v3**: dev_auroc=0.606, val_auroc=0.699, risk.0.8=0.424, risk.0.6=0.398, risk.0.4=0.392
+- **synthesis_exam**: 
+- **synthesis_organ**: 
 - **unfrozen**: tuned.fidelity=0.1, tuned.halluc=1, tuned.refusal=0.5, base.fidelity=0.125, base.halluc=33, base.refusal=0.5, n_pairs=28
 - **unfrozen_v2**: answered=10, grounded=10, traps_ok=0, n_pairs=77
 
