@@ -43,6 +43,10 @@ from ck_unfrozen import canon_text, SYS                     # noqa: E402
 torch.manual_seed(0)
 GDIR = os.path.join(HERE, "_gguf_local")
 refuse_re = re.compile(r"refuse|not on my shelves|cannot measure", re.I)
+compare_re = re.compile(r"while|whereas|both|in contrast|unlike|similarly|differ|however|share", re.I)
+FUNC_CAPS = {"While", "However", "Although", "Whereas", "Both", "Unlike",
+             "Similarly", "Thus", "Therefore", "Moreover", "Indeed",
+             "Instead", "Meanwhile", "Finally", "Despite", "Between"}
 
 
 def fmt(tok, q, a=None):
@@ -130,6 +134,7 @@ def main():
             else:
                 s += 2.0 * sum(1.0 for k in kws if k in rl)
                 s -= 4.0 if refuse_re.search(rl) else 0.0   # the v2 fix
+                s += 1.5 if compare_re.search(rl) else 0.0  # turn-2: pay for comparison
             ents = set(re.findall(r"\b[A-Z][a-z]{4,}\b", r))
             allowed = prompt.lower() + " " + canon
             s -= 0.7 * sum(1 for e in ents if e.lower() not in allowed)

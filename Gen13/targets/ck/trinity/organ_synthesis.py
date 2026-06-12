@@ -52,7 +52,7 @@ STOP2 = STOP | {"Well", "Here", "There", "King", "Lord", "Lady", "Good",
                 "Whose", "John", "Mary", "Anne", "English", "England",
                 "French", "America", "American", "God"}
 T_STAR = 5 / 7
-N_BOOKS = 700
+N_BOOKS = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else 700
 MIN_BOOKS = 4
 
 

@@ -43,8 +43,8 @@ JOBS = [
     # ruled out at 10x). GPU-hours redirect to the voice lane.
     ("READ+2000", [PY, os.path.join(HERE, "ck_reader_daemon.py"),
                    "2000"], {}),
-    ("WEAVE-2000", [PY, os.path.join(HERE, "ck_knowledge_fabric.py"),
-                    "2000"], {}),
+    ("WEAVE-ALL", [PY, os.path.join(HERE, "ck_knowledge_fabric.py"),
+                    "99999"], {}),
     ("WINDOW", [PY, os.path.join(HERE, "fold_register.py")], {}),
     ("LEDGER", [PY, os.path.join(HERE, "build_ledger.py")], {}),
 ]
