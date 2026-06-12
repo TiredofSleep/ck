@@ -1,182 +1,182 @@
 {
  "null": [
-  0.17079877853393555,
-  0.13409514725208282
+  0.09759553521871567,
+  0.09304285794496536
  ],
  "resonance": [
   [
-   "Addison",
-   "Biol",
-   0.9497719407081604
+   "Sicherheit",
+   "Whrung",
+   0.9667329788208008
   ],
   [
-   "Biol",
-   "Physiol",
-   0.949216365814209
+   "Kredit",
+   "Whrung",
+   0.9667329788208008
   ],
   [
-   "Physiol",
-   "Pref",
-   0.9472196102142334
+   "Whrung",
+   "Zinsen",
+   0.9656082391738892
   ],
   [
-   "Goth",
-   "Physiol",
-   0.9445464015007019
+   "Verpflichtung",
+   "Whrung",
+   0.960034191608429
   ],
   [
-   "Addison",
-   "Macaulay",
-   0.9421964883804321
+   "Banken",
+   "Whrung",
+   0.95993971824646
   ],
   [
-   "Icel",
-   "Illust",
-   0.9385623931884766
+   "Jarniman",
+   "Themison",
+   0.9530918002128601
   ],
   [
-   "Addison",
-   "Anat",
-   0.9376181364059448
+   "Fredi",
+   "Themison",
+   0.9530918002128601
   ],
   [
-   "Bacon",
-   "Biol",
-   0.9372530579566956
+   "Burman",
+   "Themison",
+   0.9530918002128601
   ]
  ],
  "duality": [
   [
-   "Admiral",
-   "Robert",
-   0.5980579853057861
+   "Certainly",
+   "Phaedrus",
+   0.786467969417572
   ],
   [
-   "Austin",
-   "Robert",
-   0.5964279174804688
+   "Administration",
+   "Constitution",
+   0.7799457907676697
   ],
   [
-   "Doctor",
-   "Henry",
-   0.5851929187774658
+   "Bruder",
+   "Kinder",
+   0.7750802636146545
   ],
   [
-   "Highness",
-   "Queen",
-   0.578285813331604
+   "Address",
+   "Secretary",
+   0.7722163796424866
   ],
   [
-   "Fred",
-   "Sunday",
-   0.5683588981628418
+   "Certainly",
+   "Sophists",
+   0.7649903893470764
   ],
   [
-   "Francis",
-   "George",
-   0.5586327910423279
+   "Bureau",
+   "Constitution",
+   0.73697429895401
   ],
   [
-   "Russell",
-   "William",
-   0.552984356880188
+   "Berthier",
+   "Brienne",
+   0.7284466028213501
   ],
   [
-   "East",
-   "Pope",
-   0.5471645593643188
+   "Lyons",
+   "Marquis",
+   0.7240244746208191
   ]
  ],
  "triads": [
   [
-   "Jerusalem",
-   "Egypt",
-   "Egyptians",
-   0.190476194024086
+   "Orange",
+   "Netherlands",
+   "Maurice",
+   0.21233493089675903
   ],
   [
-   "Sloane",
-   "Rachel",
-   "Canaan",
-   0.1764705926179886
+   "Orange",
+   "Netherlands",
+   "Barneveld",
+   0.20110417902469635
   ],
   [
-   "Marilla",
-   "Rachel",
-   "Canaan",
-   0.1764705926179886
+   "Barneveld",
+   "Netherlands",
+   "Antwerp",
+   0.1811145544052124
   ],
   [
-   "Lynde",
-   "Rachel",
-   "Canaan",
-   0.1764705926179886
+   "Brussels",
+   "Netherlands",
+   "Maurice",
+   0.17428052425384521
   ],
   [
-   "Gilbert",
-   "Rachel",
-   "Canaan",
-   0.1764705926179886
+   "Maurice",
+   "Netherlands",
+   "Antwerp",
+   0.16954271495342255
   ],
   [
-   "Gables",
-   "Rachel",
-   "Canaan",
-   0.1764705926179886
+   "October",
+   "December",
+   "Senate",
+   0.14399971067905426
   ],
   [
-   "Diana",
-   "Rachel",
-   "Canaan",
-   0.1764705926179886
+   "Treasury",
+   "December",
+   "February",
+   0.13308581709861755
   ],
   [
-   "Avonlea",
-   "Rachel",
-   "Canaan",
-   0.1764705926179886
+   "Scene",
+   "Enter",
+   "Noble",
+   0.13197968900203705
   ]
  ],
  "coherent": [
   [
-   "Shak",
-   0.884614904721578,
+   "Wazir",
+   0.873460054397583,
+   2
+  ],
+  [
+   "Chump",
+   0.8703583478927612,
+   2
+  ],
+  [
+   "Brookfield",
+   0.8703583478927612,
+   2
+  ],
+  [
+   "Hypothek",
+   0.8644468983014425,
    3
   ],
   [
-   "Milton",
-   0.884614904721578,
+   "Dokumente",
+   0.8644468983014425,
    3
   ],
   [
-   "Dryden",
-   0.8779598673184713,
+   "Aktien",
+   0.8644468983014425,
    3
   ],
   [
-   "Spenser",
-   0.8777184883753458,
-   3
+   "Pepys",
+   0.863604724407196,
+   2
   ],
   [
-   "Chem",
-   0.876301129659017,
-   3
-  ],
-  [
-   "Chaucer",
-   0.8758791089057922,
-   3
-  ],
-  [
-   "Anat",
-   0.8704489469528198,
-   3
-  ],
-  [
-   "Macaulay",
-   0.8659462928771973,
-   3
+   "Shahrazad",
+   0.8629383444786072,
+   2
   ]
  ]
 }
