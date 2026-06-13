@@ -173,12 +173,13 @@ def main():
             rate = (i + 1) / max(1e-9, time.time() - t0) * 60
             print(f"[{i+1:>3}/{len(files)}] {verdict:7} p={p_fic:.2f} "
                   f"{title[:44]:46} ({rate:.0f} books/min)", flush=True)
-    dt = time.time() - t0
+    dt = max(1e-9, time.time() - t0)
+    if not files:
+        print("shelf fully read -- nothing new; the plate is clean.")
+        return
     print(f"\nSESSION: {len(files)} books in {dt:.0f}s "
           f"({len(files)/dt*60:.0f} books/min) -> {n_fic} fiction, "
           f"{n_fact} fact. Journal: {JOURNAL}")
-    print(f"the whole library (1,019) at this rate: "
-          f"{1019/(len(files)/dt)/60:.0f} minutes")
 
 
 if __name__ == "__main__":
