@@ -135,6 +135,11 @@ def main():
                 s += 2.0 * sum(1.0 for k in kws if k in rl)
                 s -= 4.0 if refuse_re.search(rl) else 0.0   # the v2 fix
                 s += 1.5 if compare_re.search(rl) else 0.0  # turn-2: pay for comparison
+                # turn-3: COMPLETE the judge -- pay for citing sources
+                # (the last unpaid exam gate; turns 1-2 proved unpriced
+                # virtues decay)
+                for ttl in re.findall(r"from '([^']{6,})'", prompt):
+                    s += 1.2 if ttl[:12].lower() in rl else 0.0
             ents = set(re.findall(r"\b[A-Z][a-z]{4,}\b", r))
             allowed = prompt.lower() + " " + canon
             s -= 0.7 * sum(1 for e in ents if e.lower() not in allowed)

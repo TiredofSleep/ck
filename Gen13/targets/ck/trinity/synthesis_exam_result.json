@@ -9,19 +9,7 @@
   "cites": 2,
   "invented": [],
   "compares": true,
-  "answer": "From 'Peter Pan': Wendy had a splendid idea. \"Why not both take it at the same time?\" she asked. \"I'll go and see,\" said Mr. Darling. From 'The Prisoner of Zenda': \"We must bury that poor fellow,\" said I. \"No time,\" said Sapt."
- },
- {
-  "entity": "King",
-  "books": [
-   "The prisoner of Zenda",
-   "The History of the Thirty Years' War"
-  ],
-  "ok": false,
-  "cites": 2,
-  "invented": [],
-  "compares": false,
-  "answer": "From 'The History of the Thirty Years' War': The Emperor's scheme was to make the King of Hungary King of the Romans. From 'The Prisoner of Zenda': The King was in the Castle."
+  "answer": "From the EVIDENCE passages, I judge that both books treat Well as a cowardly custard. In 'Peter Pan', Michael calls him a cowardly custard, and in 'The prisoner of Zenda', Sapt says he'll hang him, calling him a coward. Both passages portra"
  },
  {
   "entity": "Lord",
@@ -30,10 +18,22 @@
    "Laddie: A True Blue Story"
   ],
   "ok": false,
-  "cites": 2,
+  "cites": 0,
   "invented": [],
   "compares": false,
-  "answer": "From 'The prisoner of Zenda': Lord Burlesdon is the brother of the narrator and the brother-in-law of the charming countess. He is mentioned in the context of the narrator's social position and comfort. The countess is described as charming"
+  "answer": "From EVIDENCE A: Lord Burlesdon is mentioned as CK's brother, and he is also the brother-in-law to CK's sister. CK's relationship with Lord Burlesdon is one of brotherhood and brother-in-law-ship. CK seems to have a positive view of Lord Bu"
+ },
+ {
+  "entity": "King",
+  "books": [
+   "The prisoner of Zenda",
+   "The History of the Thirty Years' War"
+  ],
+  "ok": false,
+  "cites": 0,
+  "invented": [],
+  "compares": true,
+  "answer": "From EVIDENCE A, Rudolf is referred to as the King, and Fritz is referred to as his love. From EVIDENCE B, Wallenstein is referred to as the King, and the King of Hungary is referred to as the King of the Romans. In EVIDENCE A, the King is "
  },
  {
   "entity": "John",
@@ -45,7 +45,7 @@
   "cites": 2,
   "invented": [],
   "compares": true,
-  "answer": "From 'Peter Pan': John is asked what he'd name his son, and he wants John to decide. From 'Laddie: A True Blue Story': John is rocked and sung to, his 'fool song' 'Young Johnny', which his father used to sing to him when he was little. Both"
+  "answer": "From the EVIDENCE passages: In 'Peter Pan', John is asked what he would call Michael if he joins, and he names Blackbeard Joe, showing he is impressed. In 'Laddie: A True Blue Story', John is comforted by his father's singing of \"Young John"
  },
  {
   "entity": "English",
@@ -54,10 +54,12 @@
    "Laddie: A True Blue Story"
   ],
   "ok": false,
-  "cites": 2,
-  "invented": [],
-  "compares": false,
-  "answer": "From 'The prisoner of Zenda': 'De Gautet' is a Belgian, 'Detchard' is an Englishman. From 'Laddie: A True Blue Story': 'My father's people were English'. 'English' is named, 'Belgian' is not. 'Laddie' names 'English' and 'Princess', 'The pr"
+  "cites": 0,
+  "invented": [
+   "England"
+  ],
+  "compares": true,
+  "answer": "From EVIDENCE A, De Gautet is described as a Belgian, while Detchard is an Englishman. From EVIDENCE B, the narrator's father's people are English, and the Princess is the Queen's daughter, implying a connection to England."
  },
  {
   "entity": "England",
@@ -66,12 +68,26 @@
    "The History of the Thirty Years' War"
   ],
   "ok": false,
-  "cites": 2,
+  "cites": 1,
+  "invented": [],
+  "compares": true,
+  "answer": "From EVIDENCE A, England is mentioned as the country from which the narrator, Laddie, left, and from which she had previously spoiled a girl. From EVIDENCE B, England is mentioned as a country from which assistance was hoped for by the admi"
+ },
+ {
+  "entity": "French",
+  "books": [
+   "The History of the Thirty Years' War",
+   "The Song of the Lark"
+  ],
+  "ok": false,
+  "cites": 0,
   "invented": [
-   "Frederick"
+   "France",
+   "German",
+   "There"
   ],
   "compares": false,
-  "answer": "From 'Laddie: A True Blue Story': England is mentioned as the country from which the narrator, Laddie, left, and from which she had previously spoiled a girl. From 'The History of the Thirty Years' War': England is mentioned as the country "
+  "answer": "From EVIDENCE A: Hatzfeldt is a German name, and there is no mention of French in the passage. From EVIDENCE B: Thea refers to a Frenchman, and the passage discusses a Frenchman who wrote a book about a French city. There is no direct menti"
  },
  {
   "entity": "Lady",
@@ -80,47 +96,33 @@
    "The Scarlet Pimpernel"
   ],
   "ok": false,
-  "cites": 2,
-  "invented": [
-   "While"
-  ],
+  "cites": 0,
+  "invented": [],
   "compares": true,
-  "answer": "In 'Moran of the Lady Letty', Lady is the owner of the schooner, who is more concerned with the safety of her vessel than her own well-being. In 'The Scarlet Pimpernel', Lady Blakeney is a noblewoman who is cold and dismissive, asking a ser"
+  "answer": "From EVIDENCE A, Lady is the owner of the schooner \"Lady Letty\". From EVIDENCE B, Lady Blakeney is a lady who is cold and wants to get to the fire. In both books, Lady is a woman of some importance, but the details of her character and pers"
  },
  {
-  "entity": "Here",
+  "entity": "States",
   "books": [
-   "The prisoner of Zenda",
-   "Laddie: A True Blue Story"
+   "Desert Gold",
+   "The History of the Thirty Years' War"
   ],
   "ok": true,
   "cites": 2,
   "invented": [],
   "compares": true,
-  "answer": "From 'The prisoner of Zenda': Sapt tells the prisoner to cover everything up, implying that the King's presence is a secret. From 'Laddie: A True Blue Story': the oak tree is celebrated in a poem, and the narrator counts its arms to verify "
+  "answer": "From 'Desert Gold' and 'The History of the Thirty Years' War', the United States is mentioned by name in both books. In 'Desert Gold', the United States is portrayed as being in the dark about the gravity of a situation, while in 'The Histo"
  },
  {
-  "entity": "London",
+  "entity": "American",
   "books": [
-   "The Great God Pan",
-   "The Scarlet Pimpernel"
+   "Desert Gold",
+   "A Lady's Life in the Rocky Mountains"
   ],
   "ok": true,
   "cites": 2,
   "invented": [],
   "compares": true,
-  "answer": "From 'The Great God Pan': Villiers explores the obscure mazes and byways of London life with curiosity. From 'The Scarlet Pimpernel': Chauvelin and the citoyenne meet in London, their encounter illuminated by a flood of light. Both treat Lo"
- },
- {
-  "entity": "Madame",
-  "books": [
-   "The prisoner of Zenda",
-   "The Scarlet Pimpernel"
-  ],
-  "ok": true,
-  "cites": 2,
-  "invented": [],
-  "compares": true,
-  "answer": "In 'The Prisoner of Zenda', Madame de Mauban is a cellmate who is visited by the Duke, who is Rupert's brother, and is shown kindness and respect. In 'The Scarlet Pimpernel', the Comtesse is a noblewoman who receives the Scarlet Pimpernel w"
+  "answer": "From the EVIDENCE passages, we can infer that both books treat American as a complex and multifaceted entity. In 'Desert Gold', American is portrayed as a land of violence and division, where Greasers are pitted against each other and again"
  }
 ]
