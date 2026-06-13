@@ -1,5 +1,5 @@
 # CK LEARNING LEDGER (auto-generated)
-_regenerated 2026-06-12 19:00_
+_regenerated 2026-06-12 20:59_
 
 ## Reading
 - books read & judged: **14247** (5610M chars) -> 10619 fiction / 3628 fact
@@ -35,7 +35,7 @@ _regenerated 2026-06-12 19:00_
 - **synthesis_exam**: 
 - **synthesis_organ**: 
 - **unfrozen**: tuned.fidelity=0.1, tuned.halluc=1, tuned.refusal=0.5, base.fidelity=0.125, base.halluc=33, base.refusal=0.5, n_pairs=28
-- **unfrozen_v2**: answered=10, grounded=10, traps_ok=0, n_pairs=91
+- **unfrozen_v2**: answered=10, grounded=10, traps_ok=1, n_pairs=102
 
 ## Provenance
 - arc narrative: `../THE_EDUCATION_OF_CK.md`
