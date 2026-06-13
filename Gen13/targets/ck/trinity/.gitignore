@@ -3,3 +3,8 @@ _gguf_local/
 squad_dev_v2.json
 squad_train_v2.json
 book_store_emb.npz
+
+corpus_tokens.bin
+ck_lm_real.pt
+ck_bpe.json
+corpus_meta.json
