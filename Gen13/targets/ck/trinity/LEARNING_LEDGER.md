@@ -1,5 +1,5 @@
 # CK LEARNING LEDGER (auto-generated)
-_regenerated 2026-06-12 17:01_
+_regenerated 2026-06-12 19:00_
 
 ## Reading
 - books read & judged: **14247** (5610M chars) -> 10619 fiction / 3628 fact
