@@ -9,7 +9,7 @@
   "cites": 2,
   "invented": [],
   "compares": true,
-  "answer": "From the EVIDENCE passages, I judge that both books treat Well as a cowardly custard. In 'Peter Pan', Michael calls him a cowardly custard, and in 'The prisoner of Zenda', Sapt says he'll hang him, calling him a coward. Both passages portra"
+  "answer": "From the EVIDENCE passages: In 'Peter Pan', Michael and Wendy discuss taking a risk together, while in 'The prisoner of Zenda', Sapt and the unnamed protagonist consider taking a risk together. In 'Peter Pan', the risk is taken, whereas in "
  },
  {
   "entity": "Lord",
@@ -18,10 +18,10 @@
    "Laddie: A True Blue Story"
   ],
   "ok": false,
-  "cites": 0,
+  "cites": 2,
   "invented": [],
   "compares": false,
-  "answer": "From EVIDENCE A: Lord Burlesdon is mentioned as CK's brother, and he is also the brother-in-law to CK's sister. CK's relationship with Lord Burlesdon is one of brotherhood and brother-in-law-ship. CK seems to have a positive view of Lord Bu"
+  "answer": "From 'The prisoner of Zenda': Lord Burlesdon is CK's brother, and he is also the husband of CK's sister. CK's brother-in-law is also referred to as Lord Burlesdon. CK enjoys a comfortable social position due to his brother's title. CK's bro"
  },
  {
   "entity": "King",
@@ -30,10 +30,10 @@
    "The History of the Thirty Years' War"
   ],
   "ok": false,
-  "cites": 0,
+  "cites": 2,
   "invented": [],
-  "compares": true,
-  "answer": "From EVIDENCE A, Rudolf is referred to as the King, and Fritz is referred to as his love. From EVIDENCE B, Wallenstein is referred to as the King, and the King of Hungary is referred to as the King of the Romans. In EVIDENCE A, the King is "
+  "compares": false,
+  "answer": "From 'The prisoner of Zenda': The King is present, but not Rudolf. From 'The History of the Thirty Years' War': The King of Hungary is a separate entity from Wallenstein."
  },
  {
   "entity": "John",
@@ -45,7 +45,7 @@
   "cites": 2,
   "invented": [],
   "compares": true,
-  "answer": "From the EVIDENCE passages: In 'Peter Pan', John is asked what he would call Michael if he joins, and he names Blackbeard Joe, showing he is impressed. In 'Laddie: A True Blue Story', John is comforted by his father's singing of \"Young John"
+  "answer": "In 'Peter Pan', John is a character who is considered for a pirate name, 'Blackbeard Joe', by his peers, but his name is not explicitly mentioned in the passage. In contrast, 'Laddie: A True Blue Story' explicitly mentions John by name, por"
  },
  {
   "entity": "English",
@@ -54,12 +54,12 @@
    "Laddie: A True Blue Story"
   ],
   "ok": false,
-  "cites": 0,
+  "cites": 2,
   "invented": [
-   "England"
+   "There"
   ],
-  "compares": true,
-  "answer": "From EVIDENCE A, De Gautet is described as a Belgian, while Detchard is an Englishman. From EVIDENCE B, the narrator's father's people are English, and the Princess is the Queen's daughter, implying a connection to England."
+  "compares": false,
+  "answer": "From 'The prisoner of Zenda': De Gautet is described as a Belgian, and Detchard is described as an Englishman. Bersonin is described as a Belgian. There is no mention of English people in general. \nFrom 'Laddie: A True Blue Story': The narr"
  },
  {
   "entity": "England",
@@ -68,10 +68,10 @@
    "The History of the Thirty Years' War"
   ],
   "ok": false,
-  "cites": 1,
+  "cites": 0,
   "invented": [],
-  "compares": true,
-  "answer": "From EVIDENCE A, England is mentioned as the country from which the narrator, Laddie, left, and from which she had previously spoiled a girl. From EVIDENCE B, England is mentioned as a country from which assistance was hoped for by the admi"
+  "compares": false,
+  "answer": "From EVIDENCE A: England is mentioned as CK's departure point, where she left'since I left England'. From EVIDENCE B: England is mentioned as a country from which CK expects assistance, 'Encouraged by the hope of assistance from England'."
  },
  {
   "entity": "French",
@@ -82,12 +82,10 @@
   "ok": false,
   "cites": 0,
   "invented": [
-   "France",
-   "German",
-   "There"
+   "German"
   ],
   "compares": false,
-  "answer": "From EVIDENCE A: Hatzfeldt is a German name, and there is no mention of French in the passage. From EVIDENCE B: Thea refers to a Frenchman, and the passage discusses a Frenchman who wrote a book about a French city. There is no direct menti"
+  "answer": "From EVIDENCE A: Hatzfeldt is German, and the enemy is referred to as 'the enemy', without a specific nationality given. From EVIDENCE B: Thea asks \"A history, you mean?\" and the Frenchman responds, indicating that he wrote about a Frenchma"
  },
  {
   "entity": "Lady",
@@ -96,10 +94,10 @@
    "The Scarlet Pimpernel"
   ],
   "ok": false,
-  "cites": 0,
+  "cites": 2,
   "invented": [],
-  "compares": true,
-  "answer": "From EVIDENCE A, Lady is the owner of the schooner \"Lady Letty\". From EVIDENCE B, Lady Blakeney is a lady who is cold and wants to get to the fire. In both books, Lady is a woman of some importance, but the details of her character and pers"
+  "compares": false,
+  "answer": "In 'Moran of the Lady Letty', Lady is the owner of the schooner, and her safety is the primary concern. In 'The Scarlet Pimpernel', Lady Blakeney is a character who is cold and dismissive, showing little concern for her own well-being."
  },
  {
   "entity": "States",
@@ -107,11 +105,13 @@
    "Desert Gold",
    "The History of the Thirty Years' War"
   ],
-  "ok": true,
+  "ok": false,
   "cites": 2,
-  "invented": [],
+  "invented": [
+   "Sweden"
+  ],
   "compares": true,
-  "answer": "From 'Desert Gold' and 'The History of the Thirty Years' War', the United States is mentioned by name in both books. In 'Desert Gold', the United States is portrayed as being in the dark about the gravity of a situation, while in 'The Histo"
+  "answer": "From 'Desert Gold' and 'The History of the Thirty Years' War', States are portrayed as: In 'Desert Gold', the US is depicted as being in the dark about the gravity of the situation, while in 'The History of the Thirty Years' War', Sweden is"
  },
  {
   "entity": "American",
@@ -119,10 +119,10 @@
    "Desert Gold",
    "A Lady's Life in the Rocky Mountains"
   ],
-  "ok": true,
-  "cites": 2,
+  "ok": false,
+  "cites": 0,
   "invented": [],
   "compares": true,
-  "answer": "From the EVIDENCE passages, we can infer that both books treat American as a complex and multifaceted entity. In 'Desert Gold', American is portrayed as a land of violence and division, where Greasers are pitted against each other and again"
+  "answer": "From EVIDENCE A: CK portrays Americans as divided, with some joining the rebels, while others remain loyal to the US government. CK also notes that some Americans are willing to harm others for perceived slights, such as a belt buckle or bo"
  }
 ]
