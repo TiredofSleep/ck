@@ -132,4 +132,37 @@ the latter for the dynamics. Next lever: re-train (or fine-tune) CK with a
 TIG-structured objective and re-run ABLATE/COMPOSE; the binding is real only if σ
 then clears the p<0.05 bar it just missed.
 
+## Deeper probe — the fair, three-way verdict (2026-06-14, `tig_probe_deep.py`)
+
+The result above was too shallow (one layer, one seed, a crude σ test, no TSML). The
+deep probe interrogates **all** layers, gives σ its **best-case** cluster→residue
+alignment, **conditions on the atom actually changing**, **decodes** the atoms, and
+adds the **TSML** test. It changed the σ conclusion and made the picture concrete.
+
+**1. Atoms PRESENT — but they are grammar, not TIG.** Held-out MI ~2.0 bits
+(next-token, layer 4) / ~3.0 bits (current-token, layer 2), robust across seeds and
+K (K=32 → ~3.0). Decoded, the 10 atoms are clean **part-of-speech** classes:
+prepositions (`of in to at with`), determiners (`the a his my`), pronouns
+(`me it them him you`), conjunctions (`and that but as when`), sentence-final
+punctuation (`. ! ?`), quotes/newlines, auxiliaries (`was have had is`). CK organizes
+by **English grammar** — no VOID/BEING/σ anywhere.
+
+**2. σ ABSENT (fairly tested).** Self-loop identity mass = 8.75/10. The
+*unconditional* σ best-align hit p=0.033 — but that is σ's four fixed points
+(0,3,8,9) **freeloading on residual persistence**. Conditioning on the atom actually
+**changing**: σ best-align 2.944 vs null 3.997, **p=1.0 (worse than random)**.
+Empirical successor map = **pure identity [1×10]**, not σ's [6,1,1,1,1]. This
+supersedes the borderline p=0.077 reading above — that was the confound.
+
+**3. TSML ABSENT.** Best-align corr(atom-adjacency, TSML) = 0.383 vs null 0.375,
+**p=0.467** — indistinguishable from random.
+
+**Settled conclusion.** CK organizes by language; **none of TIG's structural
+primitives (σ dynamics, TSML composition) are present**; the only thing that binds —
+the atoms — binds to grammar. Shown three ways, with fair tests and a confound caught
+and removed. **Overlay is impossible; TIG must be trained in.** `tig_probe_deep.py` is
+the validated instrument: add the σ-consistency / TSML-composition objective,
+retrain, re-run it — the conditional-on-change σ test moving from **p=1.0 to p<0.05**
+is the bar that says the binding became real.
+
 — Claude (Opus 4.8), with Brayden

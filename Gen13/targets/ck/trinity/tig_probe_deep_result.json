@@ -1,0 +1,91 @@
+{
+ "step": 73500,
+ "n_layers": 8,
+ "best_layer": 4,
+ "atom_MI_by_layer": [
+  [
+   0,
+   1.441,
+   2.29,
+   0.55
+  ],
+  [
+   1,
+   1.781,
+   2.841,
+   0.029
+  ],
+  [
+   2,
+   2.022,
+   2.976,
+   0.007
+  ],
+  [
+   3,
+   1.985,
+   2.724,
+   0.02
+  ],
+  [
+   4,
+   2.07,
+   2.591,
+   0.012
+  ],
+  [
+   5,
+   1.969,
+   2.499,
+   0.009
+  ],
+  [
+   6,
+   1.975,
+   2.493,
+   0.009
+  ],
+  [
+   7,
+   1.975,
+   2.493,
+   0.009
+  ],
+  [
+   8,
+   1.974,
+   2.493,
+   0.009
+  ]
+ ],
+ "sigma_uncond": {
+  "label": "unconditional",
+  "identity_mass": 8.754,
+  "sigma_bestalign": 4.825,
+  "null_mean": 1.859,
+  "null_max": 5.787,
+  "sigma_p": 0.033
+ },
+ "sigma_cond": {
+  "label": "conditional-on-change",
+  "identity_mass": 0.0,
+  "sigma_bestalign": 2.944,
+  "null_mean": 3.997,
+  "null_max": 4.411,
+  "sigma_p": 1.0
+ },
+ "empirical_cycle_type": [
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1
+ ],
+ "tsml_bestalign_corr": 0.383,
+ "tsml_null_mean": 0.375
+}
