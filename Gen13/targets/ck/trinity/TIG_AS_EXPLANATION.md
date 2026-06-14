@@ -109,4 +109,27 @@ arbitrary and needs a better binding rule before σ/TSML tests are worth running
 Then ABLATE (σ vs. measured transition matrix), then COMPOSE (TSML vs. measured
 interactions). Each result logged, win or lose.
 
+## First experiment — RESULT (2026-06-14, `tig_probe.py`)
+
+Ran PREDICT and a first ABLATE (σ-dynamics) on the model mid-training (~step 66k,
+6 active layers), CPU, on held-out book tokens. Honest outcome:
+
+| test | result | reading |
+|---|---|---|
+| **PREDICT** (atoms predict next-token) | 0.093 atoms vs 0.039 shuffled vs 0.073 baseline | **PASS** — atoms beat baseline; the vocabulary layer is non-arbitrary |
+| **σ-DYNAMICS** (does σ describe transitions?) | σ matches 0.3/10; identity matches **0.9/10**; σ p=0.077 | **FAIL** — CK's atom dynamics are ≈ identity (representations persist), not σ's 6-cycle; σ not significant |
+
+**The load-bearing conclusion:** TIG's *atoms* bind to CK (clustering finds real
+structure), but TIG's *dynamics* (σ) do **not** — because CK was trained on book
+text with zero knowledge of TIG, nothing put σ there to find. **You cannot
+faithfully overlay TIG's dynamics on a TIG-naive model.** To make σ/TSML genuinely
+*true* of CK — so his self-explanation is faithful, not narration — the structure
+must be **trained in**, e.g. a σ-consistency / TSML-composition regularizer on the
+training objective, so the geometry actually forms that way. This is the difference
+between a white-box-by-construction model and a black box with a TIG story painted
+over it. The probe is what tells us which we have — and right now, honestly, it's
+the latter for the dynamics. Next lever: re-train (or fine-tune) CK with a
+TIG-structured objective and re-run ABLATE/COMPOSE; the binding is real only if σ
+then clears the p<0.05 bar it just missed.
+
 — Claude (Opus 4.8), with Brayden
