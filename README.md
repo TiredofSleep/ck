@@ -1,3 +1,28 @@
+> ## ⚙️ This repository is the WORKSTATION
+>
+> **`ck` is the full, unfiltered working archive — the lab bench, not the gallery.**
+> Historical material from the project's origin repositories (the Dual-Lattice /
+> CRYSTALS / early-archive lineage) has been **consolidated here; nothing has been
+> deleted.** By design this repo keeps the *entire* trail — working model binaries,
+> data dumps, session notes, all generations (`Gen10`–`Gen14`), dead ends, and
+> retractions alike. It is meant to look lived-in and heavy. That is correct, not a
+> defect.
+>
+> **🏛️ The flagship is [`trinity-infinity-geometry`](https://github.com/TiredofSleep/trinity-infinity-geometry)** —
+> the curated, numbered, refereed-spine presentation with one-command verification.
+> **If you want the clean view, start there, not here.**
+>
+> **Status (2026-06-14): active research is paused and marked historical** — see
+> [`Gen13/PROJECT_STATUS_SALVAGE_HISTORICAL.md`](Gen13/PROJECT_STATUS_SALVAGE_HISTORICAL.md)
+> for the honest salvage inventory. On the "white-box AI" framing below: the
+> substrate spectrometer is real, but the from-scratch language model trained here is
+> **fluent English yet organizes its internals by grammar, not by the TIG algebra** —
+> so making TIG CK's *faithful* self-explanation is an **open goal, tested-negative
+> so far**, recorded honestly in
+> [`Gen13/targets/ck/trinity/TIG_AS_EXPLANATION.md`](Gen13/targets/ck/trinity/TIG_AS_EXPLANATION.md).
+
+---
+
 # Trinity Infinity Geometry · Coherence Keeper
 
 Brayden Ross Sanders · 7Site LLC · Hot Springs, Arkansas
