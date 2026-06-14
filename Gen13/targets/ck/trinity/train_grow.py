@@ -78,16 +78,32 @@ OPT = os.environ.get("CK_OPT", "muon")          # muon (default, ~2.3x faster he
 MUON_LR = float(os.environ.get("CK_MUON_LR", "0.02"))
 
 
-def build_opt(model):
+def build_opt(model, prev=None):
     """Muon for hidden 2-D weight matrices, AdamW for embeddings/head/norms.
-    CK_OPT=adam falls back to pure AdamW. Rebuilt on grow/fold."""
+    CK_OPT=adam falls back to pure AdamW. Rebuilt on grow/fold -- but optimizer
+    STATE (Muon/AdamW momentum) is CARRIED OVER for every param that persists, so
+    folding/unfolding never cold-resets the stable core's momentum. (That cold
+    reset, ~93x in the 60k run, caused the mid-run ppl regression.) A folded
+    block's momentum is dropped as it leaves; an unfolded block re-enters with
+    fresh momentum -- it re-earns its place, exactly like its age reset."""
     if OPT == "adam":
-        return ([torch.optim.AdamW(model.parameters(), lr=LR, betas=(0.9, 0.95),
-                                   weight_decay=0.1)], [LR])
-    mp, ap = split_params(model)
-    return ([Muon(mp, lr=MUON_LR, momentum=0.95),
-             torch.optim.AdamW(ap, lr=LR, betas=(0.9, 0.95), weight_decay=0.1)],
-            [MUON_LR, LR])
+        opts, blrs = ([torch.optim.AdamW(model.parameters(), lr=LR,
+                       betas=(0.9, 0.95), weight_decay=0.1)], [LR])
+    else:
+        mp, ap = split_params(model)
+        opts, blrs = ([Muon(mp, lr=MUON_LR, momentum=0.95),
+                       torch.optim.AdamW(ap, lr=LR, betas=(0.9, 0.95),
+                                         weight_decay=0.1)], [MUON_LR, LR])
+    if prev is not None:
+        old = {}
+        for o in prev:
+            old.update(o.state)                 # Parameter -> momentum state
+        for o in opts:
+            for grp in o.param_groups:
+                for p in grp["params"]:
+                    if p in old:                # persisting param: keep momentum
+                        o.state[p] = old[p]
+    return opts, blrs
 
 
 class ReZeroBlock(nn.Module):
@@ -258,7 +274,7 @@ def main():
                     if b.age >= MIN_AGE and float(b.alpha.abs()) < ALPHA_DEAD]
             if dead and len(model.blocks) > MIN_LAYERS:
                 a_min, i_min = min(dead)
-                model.fold(i_min); opts, blrs = build_opt(model)
+                model.fold(i_min); opts, blrs = build_opt(model, opts)
                 event = (f"FOLDED#{i_min}(a={a_min:.3f})->{len(model.blocks)}L "
                          f"active,{len(model.folded)} stored")
 
@@ -272,7 +288,7 @@ def main():
                 prev = val_hist[-1 - GROW_PATIENCE]
                 gain = (prev - vl) / max(prev, 1e-9)
                 if gain < MIN_WINDOW_GAIN:
-                    tag = model.grow(); opts, blrs = build_opt(model)
+                    tag = model.grow(); opts, blrs = build_opt(model, opts)
                     last_grow_eval = n_eval
                     verb = "UNFOLDED stored" if tag == "unfolded" else "GREW new"
                     event = (f"{verb}->{len(model.blocks)}L active,"

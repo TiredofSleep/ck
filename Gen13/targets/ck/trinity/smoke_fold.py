@@ -47,4 +47,38 @@ while len(m3.blocks) < 4:
     m3.grow()
 m3.load_state_dict(ck_legacy)   # 0 folded -> empty ModuleList adds no keys
 print("legacy (no-folded) checkpoint loads: OK")
+
+
+# --- momentum preservation across fold (build_opt(prev=...)) ---
+def state_of(opts, p):
+    for o in opts:
+        if p in o.state:
+            return o.state[p]
+    return None
+
+
+m4 = G.GrowGPT(4)
+opts, _ = G.build_opt(m4)
+idx = torch.randint(0, G.VOCAB, (2, 16))
+tgt = torch.randint(0, G.VOCAB, (2, 16))
+_, loss = m4(idx, tgt)
+for o in opts:
+    o.zero_grad()
+loss.backward()
+for o in opts:
+    o.step()                                   # populates per-param momentum state
+shared = state_of(opts, m4.tok.weight)         # whichever optimizer owns it
+active = state_of(opts, m4.blocks[0].mlp[0].weight)
+assert shared and active, "params should carry optimizer state after a step"
+
+m4.fold(3)
+opts2, _ = G.build_opt(m4, opts)               # rebuild WITH prev -> carry momentum
+assert state_of(opts2, m4.tok.weight) is shared, \
+    "shared param momentum must persist across fold (same state object)"
+assert state_of(opts2, m4.blocks[0].mlp[0].weight) is active, \
+    "surviving active block momentum must persist across fold"
+opts_cold, _ = G.build_opt(m4)                 # no prev -> the old cold reset
+assert state_of(opts_cold, m4.tok.weight) is None, \
+    "cold rebuild starts empty (the bug the fix removes)"
+print("momentum preserved across fold (cold rebuild loses it): OK")
 print("ALL SMOKE TESTS PASSED")
