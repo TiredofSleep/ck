@@ -8,6 +8,16 @@ overlapping numbering schemes. Here is the paper-by-paper map. **Condensing is
 folding, not pruning** — every original stays in git history; only the active
 surface shrinks.
 
+> **UPDATE 2026-06-14 — Step 0 executed.** The title-keyed crosswalk is done
+> (`J_SERIES_CROSSWALK.md`) and **NOTE-N is written**
+> (`J_SERIES_NOTE_N_WHAT_DIDNT_HOLD.md`). Key finding: the published TIG repo
+> (`trinity-infinity-geometry/05_papers/`) is **already ~80% consolidated** (merges
+> done, retirements moved to `04_meta`, taxonomy factored). So the real plan is:
+> **adopt the TIG repo as canonical**, treat the working-dir `J_series/` as a frozen
+> archive (fold, not delete), and finish three gaps — NOTE-N (now done), **PAPER-0
+> prominence** (the σ-magma/ETP taxonomy trilogy = TIG `algebra/J03,J04,J05`), and a
+> few live merges (Paper 2 near-dups, Paper 5 label-stripping).
+
 ## Step 0 (do this first): reconcile the two numbering schemes
 
 There are **two** J-numbering systems and they don't match:
