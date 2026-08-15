@@ -1,9 +1,28 @@
+> # ⛔ RETRACTED AS GEOMETRY — read this before the paper
+>
+> **The torus in this paper is positively excluded.** `CANON_CORRECTION_TORUS_EXCLUDED.md` (2026-05-18)
+> supersedes every torus-grounded claim below, including this paper's headline: **R/r = T\* = 5/7 as a torus
+> aspect ratio is retracted**, and with it the claim that this is "the sixth independent derivation of T\*"
+> or "the first purely geometric one." The σ-flow does not live on any closed orientable surface — the Euler
+> characteristic came out orientation-dependent (χ = −3 or +1, genus 2.5 / 0.5, which are not genera), and
+> Poincaré–Hopf index sums disagreed across two embeddings at the σ-fixed points {8,9}.
+>
+> **What survives, and it is the real result:** the four irreducible structures (ADD, MUL, +flow, ×flow)
+> **cannot be simultaneously flattened.** Every pairwise commutator is nonzero, ranks 4–8 of 10, and the
+> largest mutually-commuting subset has **size 1**. That obstruction is computable, basis-independent and
+> surface-free. **WP51's content is non-commutativity, not topology.**
+>
+> The paper is kept unedited below rather than rewritten, so the correction can be checked against what it
+> corrects. Read the geometry as retracted and the obstruction as standing.
+
+---
+
 # WP51 — The Flatness Theorem
 ## The 2×2 of (Additive/Multiplicative) × (Structure/Flow) Cannot Stay Flat
 
 **Date**: 2026-04-06
 **Sprint**: 10 — Flatness Arc
-**Status**: Core theorem [PROVED for Z/nZ squarefree]; full geometric derivation
+**Status**: ⛔ geometric derivation RETRACTED 2026-05-18 (see the block above). The surviving kernel — the four structures cannot be simultaneously flattened, max commuting subset size 1 — stands.
 **Authors**: Brayden Ross Sanders / 7Site LLC
 
 ---
