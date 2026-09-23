@@ -17,7 +17,7 @@ if not defined ANTHROPIC_API_KEY (
     if exist ".api_key" (
         set /p ANTHROPIC_API_KEY=<.api_key
     ) else (
-        set ANTHROPIC_API_KEY=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
+        echo [CK] No API key found: set ANTHROPIC_API_KEY, or put the key in .api_key (gitignored).
     )
 )
 
