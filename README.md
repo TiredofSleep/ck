@@ -1,3 +1,14 @@
+> ## HISTORICAL — merged into the default branch on 2026-09-13
+>
+> This branch is no longer maintained. Its work — an honest computational tour of Navier–Stokes
+> structure and its number-theory echoes, with a ledger of what was measured against what was a
+> borrowed word — was merged into `tig-synthesis`, where it lives at
+> [`Gen13/targets/ck/trinity/ns_number_theory_tour/`](https://github.com/TiredofSleep/ck/tree/tig-synthesis/Gen13/targets/ck/trinity/ns_number_theory_tour).
+> It does not use the retired TIG tables. The README below is the workstation's old front door; what
+> was retired, and why, is [`RETIRED.md`](https://github.com/TiredofSleep/ck/blob/tig-synthesis/RETIRED.md). The living work is [trinity-infinity-geometry](https://github.com/TiredofSleep/trinity-infinity-geometry) (a new way to teach higher mathematics) and [The Shape of Understanding](https://github.com/TiredofSleep/shape-of-understanding) (the book).
+
+---
+
 > ## ⚙️ This repository is the WORKSTATION
 >
 > **`ck` is the full, unfiltered working archive — the lab bench, not the gallery.**
