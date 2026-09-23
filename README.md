@@ -1,3 +1,14 @@
+> ## ⚠️ RETIRED — historical branch (2026-09-23)
+>
+> This branch is kept as part of the workstation's full history. It is no longer maintained, and its
+> claims are no longer made. The table-based TIG program it builds on — three 10×10 composition tables
+> that AI rendered from verbal descriptions, and the papers, whitepapers and physics, cosmology and
+> number-theory readings computed on them — was retired after an audit found that no table-specific
+> result survives. Why, and what was salvaged: [`RETIRED.md`](https://github.com/TiredofSleep/ck/blob/tig-synthesis/RETIRED.md).
+> The living work is [trinity-infinity-geometry](https://github.com/TiredofSleep/trinity-infinity-geometry) (a new way to teach higher mathematics) and [The Shape of Understanding](https://github.com/TiredofSleep/shape-of-understanding) (the book).
+
+---
+
 # Trinity Infinity Geometry (TIG) — `clay` branch (active development)
 
 > **[Sprint 16 — 2026-04-10]** This is the active development branch. The synchronized public-facing field is on the [`tig-synthesis`](../../tree/tig-synthesis) branch (default on GitHub). Visit `tig-synthesis` for the unified README that organizes the whole project under the 2×2 + Paradox Classifier meta-framework. This `clay` branch retains all 30 top-level docs, all sprint folders, and all in-progress work. The 13 superseded entry-point docs here carry [HISTORICAL — Sprint 16] headers per the never-delete policy.
