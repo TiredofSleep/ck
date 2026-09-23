@@ -17,13 +17,19 @@
 
 ## §2 — Verification
 
-No standalone script needed; numerical claims hand-checkable. Independently verified via numpy:
+**Local path:** `manuscript/verify_J12.py`
 
-- $\{\pi_{\mathrm{DYN}}(7), \pi_{\mathrm{DYN}}(11)\}$ on Z/30Z: sufficient (no joint-conflict pair); orders confirmed.
-- $\{\pi_{\mathrm{SPEC}}, \pi_{15}\}$ on Z/30Z: sufficient.
-- $\{\pi_2, \pi_{15}\}$ on Z/30Z: sufficient.
-- M3 example on Z/42 with $g=11, h=13$: sufficient by direct enumeration.
-- Smallest primes $p$ with $p-1$ multi-prime: 7, 11, 13, 19, 23, 29, 31, 37, ... (verified through 50).
+Self-contained verification (pure stdlib, no dependencies; runtime < 2 s). Seven checks mapped one-to-one to the load-bearing claims:
+
+- **C1.** Theorem 1.5(a): $\{\pi_{\mathrm{DYN}}(7), \pi_{\mathrm{DYN}}(11)\}$ sufficient on $\Z/30\Z$; orbits and coordinate-wise orders confirmed.
+- **C2.** Theorem 1.5(b): $\{\pi_2, \pi_{15}\}$ sufficient on $\Z/30\Z$; pair incompatible.
+- **C3.** Theorem 1.5(c): $\{\pi_{\mathrm{SPEC}}, \pi_{15}\}$ sufficient on $\Z/30\Z$; the modular equation $2a \equiv 15 \pmod{30}$ has no solution (verified).
+- **C4.** Theorem 1.4 mechanism (M3) example on $\Z/42\Z$: $g=11, h=13$ sufficient; $\mathrm{supp}(11)=\{3,7\}$, $\mathrm{supp}(13)=\{7\}$.
+- **C5.** Smallest primes admitting (M2): $7, 11, 13, 19, 23, 29, \ldots$; verified through $p = 50$, with 17 correctly skipped.
+- **C6.** Worked example on $\Z/10\Z$ (Proposition 5.3): the refinement chain and incompatibility relations.
+- **C7.** Theorem 7.4 (MVJN = 1): the $\{\pi_{p_1}, \pi_{n/p_1}\}$ construction verified for all 75 squarefree $n \leq 200$ with $k \geq 2$ primes.
+
+Run: `python verify_J12.py` — prints `ALL 7 CHECKS PASSED` on success.
 
 ## §3 — Dependencies
 
@@ -65,11 +71,12 @@ Minor fixes adopted: m1 (title generalized to squarefree Z/nZ), m2 (duplicate au
 ## §6 — Submission checklist
 
 - [x] Manuscript .tex finalized
-- [x] No verification script needed (hand-checkable; independently verified by numpy)
+- [x] Verification script (`verify_J12.py`) — 7/7 checks pass at machine precision
 - [x] Tier-classified central claim explicit (Theorems 3.1, 4.1, 5.1, 2.3, 7.2 PROVEN)
 - [x] Lens-scope annotation in §1.4
 - [x] Cover letter finalized (post-revision)
 - [x] Dependencies removed (paper standalone)
+- [x] Drápal-Wanless 2021 cited (§1.1 + bibliography + cover letter)
 - [ ] Brayden's referee-rigor pass complete
 - [ ] Submitted
 

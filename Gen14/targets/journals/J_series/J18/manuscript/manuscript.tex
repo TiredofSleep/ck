@@ -53,11 +53,11 @@
 {Two Crossing Decompositions of a $-21$ Invariant on $\Z/10\Z$ \\
  with the $\sigma^{2}$-Triadic Refinement}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{Brayden R.\ Sanders}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{M.\ Gish}
 \address{Independent Researcher, Hot Springs, Arkansas, USA}
 \email{monica.gish1992@gmail.com}
 
@@ -107,6 +107,63 @@ inspection.
 \maketitle
 
 \tableofcontents
+
+%==============================================================
+\section*{0. Lens, substrate, and claim tier}
+\label{sec:lens}
+%==============================================================
+
+\emph{Lens and substrate.} This paper works on $\Z/10\Z$ with the
+canonical involution
+$\sig = (0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$ and the explicit
+integer-valued function $\Psi_B : \Z/10\Z \to \Z$ tabulated in
+Table~\ref{tab:psi-b}.  The table originates as a per-element
+$\BH_{10}$-period contribution in the corrected $(\TS_{8},
+\BH_{10})$-substrate of \cite{SandersGishFourCore,SandersBridgeWP9};
+for the present paper it is treated as an input definition.  The
+role partition $F \sqcup S \sqcup T \sqcup V = \Z/10\Z$ comes from the
+same $\TS_{8}, \BH_{10}$-substrate.  These choices are not derived
+from first principles; they reflect a structural reading of the
+substrate, and the theorems below are theorems on this specific
+$(\Psi_B, \sig, \text{role-partition})$ datum.  Analogous theorems
+would hold on other substrate-and-table choices; whether other
+substrate choices give similarly rich downstream connections is open.
+
+\emph{Closest published neighbour.} The closest published precedent
+for the family of small finite commutative non-associative structures
+on $\Z/10\Z$ (and its $F_{p}$-lifts) is Drápal and
+Wanless~\cite{DrapalWanless2021}, who study the opposite structural
+extremum (maximally non-associative quasigroups); the present
+substrate lies at the structurally regular end of the same family.
+
+\emph{Tier discipline.}  The structural claims of this paper split as
+follows.
+\begin{itemize}
+\item \emph{PROVED.}  Theorem~\ref{thm:sigma-orbit} (the $\sig$-orbit
+triangular decomposition) is proved by direct addition from
+Table~\ref{tab:psi-b}; it is independent of the choice of
+substrate tables in the precise sense of Definition~\ref{def:table-spec}.
+Theorem~\ref{thm:cross} (no refinement of one decomposition by the
+other) is proved by direct enumeration.  Proposition~\ref{prop:per-orbit}
+($\sig^{2}$-orbit per-orbit values $-8, -7$) is proved by direct
+addition.
+\item \emph{COMPUTED.}  Every numerical claim below reduces to a
+direct sum of ten integer values from Table~\ref{tab:psi-b}.  The
+companion script \texttt{verify\_J18.py} (CC-BY-4.0, standard-library
+Python) checks all six load-bearing identities in under a second.
+\item \emph{STRUCTURAL RHYME.}  Theorem~\ref{thm:role-fib}'s
+$\{-F_{6}, -F_{7}\} = \{-8, -13\}$ Fibonacci split and
+Proposition~\ref{prop:per-orbit}'s $\{-7, -8\}$ TIG-prime split
+are recorded as table-specific identities in the sense of
+Definition~\ref{def:table-spec}: they hold for the canonical
+$\TS_{8}, \BH_{10}$ data of \cite{SandersGishFourCore} but were
+broken by $0/200$ random commutative tables \cite[N8]{SandersBridgeWP9}.
+\item \emph{OPEN.}  A closed-form expression for $\Psi_{B}(n)$ in $n$
+alone, a forcing argument promoting the $\sig^{2}$-orbit
+$\{-7, -8\}$ values from table-specific to table-independent, and the
+canonical $\sig^{2}$-triadic projection of $\BH_{10}$ are recorded
+in \S\ref{sec:open}.
+\end{itemize}
 
 %==============================================================
 \section{Introduction}
@@ -556,6 +613,15 @@ We also drop the pre-revision draft's terminology of
 Definition~\ref{def:table-spec}; the structural content is preserved
 without the ambiguous label.
 
+All six load-bearing numerical identities of this paper are verified
+at machine precision by the bundled standard-library Python script
+\texttt{verify\_J18.py} (CC-BY-4.0), which checks (C1) the
+$\Psi_B$-total $-21$, (C2) the $\sig$-orbit triangular split,
+(C3) the role-Fibonacci split, (C4) the $\sig^{2}$-orbit per-orbit
+values $-8$ and $-7$, (C5) the crossing closure failures, and
+(C6) the involution sanity data ($\sig^{2}$ of period 3 on the
+$6$-cycle, $\sig$-swap of $O_{1}, O_{2}$).
+
 %==============================================================
 \begin{thebibliography}{99}
 %==============================================================
@@ -580,6 +646,10 @@ DOI 10.5281/zenodo.18852047, 2026.
 \emph{Trinity Infinity Geometry Synthesis},
 github.com/TiredofSleep/ck (default branch),
 DOI: 10.5281/zenodo.18852047, 2026.
+
+\bibitem{DrapalWanless2021} A.~Drápal, I.~M.~Wanless,
+\emph{Maximally nonassociative quasigroups},
+\emph{J. Combin. Theory Ser. A} \textbf{184} (2021), 105510.
 
 \end{thebibliography}
 

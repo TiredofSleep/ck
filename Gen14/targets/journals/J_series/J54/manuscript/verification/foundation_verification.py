@@ -8,13 +8,16 @@
 #
 # Six checks (mapped to manuscript theorems):
 #   1. Forcing argument enumeration (Theorem 1.2)
-#   2. Three-substrate joint-closure chain (Theorem 4.1)
-#   3. 4-core 3-substrate closure (Theorem 4.2)
+#   2. Three-substrate joint-closure chain (Theorem 7.1)
+#   3. 4-core 3-substrate closure (Theorem 7.2)
 #   4. 4-core preservation (C3) for T, B, S
 #   5. Non-associativity index (C4) for T, B, S
 #   6. Commutativity (C2) for T, B, S
 #
 # Runtime: ~3 seconds. Run: python3 foundation_verification.py
+#
+# License: CC-BY-4.0 (Creative Commons Attribution 4.0 International).
+# Authors: B.R. Sanders, M. Gish (c) 2026.
 # ============================================================
 
 from itertools import combinations
@@ -197,9 +200,9 @@ def check_forcing():
     return match_T and counts_ok
 
 
-# === Check 2: three-substrate joint-closure chain (Theorem 4.1) ===
+# === Check 2: three-substrate joint-closure chain (Theorem 7.1) ===
 def check_chain():
-    hr("Check 2: Three-substrate joint-closure chain (Theorem 4.1)")
+    hr("Check 2: Three-substrate joint-closure chain (Theorem 7.1)")
     jc_T = []
     jc_B = []
     jc_S = []
@@ -271,9 +274,9 @@ def check_chain():
     )
 
 
-# === Check 3: 4-core 3-substrate closure (Theorem 4.2) ===
+# === Check 3: 4-core 3-substrate closure (Theorem 7.2) ===
 def check_4core():
-    hr("Check 3: 4-core 3-substrate closure (Theorem 4.2)")
+    hr("Check 3: 4-core 3-substrate closure (Theorem 7.2)")
     img_T = {T[i][j] for i in CFOUR for j in CFOUR}
     img_B = {B[i][j] for i in CFOUR for j in CFOUR}
     img_S = {S[i][j] for i in CFOUR for j in CFOUR}
@@ -310,7 +313,7 @@ def check_alpha():
     a_S = alpha_A(S)
     print(f"  alpha_A(T) = {a_T:.4f} (expected ~0.872)")
     print(f"  alpha_A(B) = {a_B:.4f} (expected ~0.502)")
-    print(f"  alpha_A(S) = {a_S:.4f} (expected ~0.870)")
+    print(f"  alpha_A(S) = {a_S:.4f} (expected ~0.808)")
     in_band = (
         0.5 <= a_T <= 0.88
         and 0.5 <= a_B <= 0.88
@@ -339,8 +342,8 @@ def main():
     print("#")
     print("# Verifying:")
     print("#   1. Forcing theorem (Theorem 1.2)")
-    print("#   2. Three-substrate joint-closure chain (Theorem 4.1)")
-    print("#   3. 4-core 3-substrate closure (Theorem 4.2)")
+    print("#   2. Three-substrate joint-closure chain (Theorem 7.1)")
+    print("#   3. 4-core 3-substrate closure (Theorem 7.2)")
     print("#   4. 4-core preservation (C3) for T, B, S")
     print("#   5. Non-associativity index (C4) for T, B, S")
     print("#   6. Commutativity (C2) for T, B, S")

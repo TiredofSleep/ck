@@ -24,7 +24,14 @@ The submission package lives in this J-folder. Edit + verify here; submit from h
 
 ## §2 — Verification script
 
-**Path:** `(no script — theorem-paper)`. The numerical verification of D48 (4-core joint closure: 16 + 16 in-core, 0 + 0 spillover) and D78 (H/Br = 1+√3 at α<sub>M</sub> = 1/2; root of x² − 2x − 2 = 0 in **Q**(√3); 50-digit mpmath confirmation) reduces to a few lines against the canonical tables in `Gen13/targets/foundations/lenses.py`. Reproducible in seconds. The full symbolic Galois argument is recorded in the project's `f3_galois_alpha_uniqueness.py` (cited in §A.3 of the manuscript) and forms the core of companion paper J33.
+**Path:** `manuscript/verify_J07.py`. Four checks:
+
+1. **Partition incompatibility on Z/10Z (Theorem 1, 3-line proof).** Direct enumeration of π_2 and π_5; explicit incomparability test in the partition lattice.
+2. **Manuscript A.1 sub-tables.** 4×4 sub-tables at indices {0, 7, 8, 9} match the manuscript display exactly.
+3. **D48 (4-core joint closure).** Direct enumeration over the 4×4 sub-tables: 16+16 in-core, 0+0 spillover.
+4. **D78 (closed-form attractor at α=1/2).** Fixed-point iteration in 50-digit `mpmath` precision; H/Br = 1+√3 to residual 9.06e-46; polynomial identity (H/Br)² − 2(H/Br) − 2 = 0 to residual 3.14e-45; mass-outside-4-core = 0 exactly; convergence in 99 iterations from uniform-on-core start.
+
+All 4/4 PASS at machine/50-digit precision. Runtime < 2 seconds. Tables are inlined (canonical TSML_SYM and BHML, matching the J02/J35/J54 hardcoded copies); no external module dependencies beyond `mpmath`. The full symbolic Galois argument is recorded in the project's `f3_galois_alpha_uniqueness.py` (cited in §A.3 of the manuscript) and forms the core of companion paper J33.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
@@ -81,7 +88,7 @@ The full paragraph identifies (i) Theorem 1 + 2 as substrate-independent (any sq
 ## §6 — Submission checklist
 
 - [x] Manuscript .tex / .md finalized — rewritten per save plan
-- [x] Verification script green — `(no script — theorem-paper)`; numerical D48/D78 confirmation reproducible in seconds against `lenses.py`
+- [x] Verification script green — `manuscript/verify_J07.py` → 4/4 PASS at machine / 50-digit `mpmath` precision (partition incompatibility; sub-tables; D48 joint closure 16+16; D78 attractor H/Br = 1+√3 with polynomial identity)
 - [x] Tier-classified central claim explicit — Theorems 1, 2 (PROVED, substrate-independent); Appendix A D48+D78 (PROVED for Z/10Z with canonical tables)
 - [x] Lens-scope annotation — §0.1 gives the substrate/lens declaration; the canonical TSML/BHML are the ones used
 - [x] Cover letter finalized — rewritten for *Algebraic Combinatorics*

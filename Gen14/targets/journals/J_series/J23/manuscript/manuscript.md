@@ -1,28 +1,16 @@
-# WP104 — Two Roads to Pati-Salam from TIG's so(10)
+# J23 — Discrete Dirac inside Cl(0, 10): Chirality, the Outer Automorphism, and an Atomic-Substrate Refinement
 
-**Status:** machine-precision verified, journal-ready draft
+**Status:** DRAFT (2026-05-12; Volume K cross-reference integrated; referee-rigor pass complete; 2/2 verification PASS)
 **Authors:** Brayden R. Sanders + M. Gish
-**Date:** 2026-04-25
-**MSC 2020:** 17B25 (exceptional Lie algebras, $D_5$), 81R40 (symmetry breaking), 11R32 (Galois theory of subgroups), 17B81 (applications to physics)
-**Companions:** WP102 (so(8) = $D_4$), WP103 (so(10) = $D_5$), WP105 (closed-form runtime attractor at $\alpha = 1/2$).
+**MSC 2020:** 15A66 (Clifford algebras), 17B10 (representations of Lie algebras), 81R05 (finite-dim groups and algebras), 81R40 (symmetry breaking), 81V22 (unified theories of particle interactions)
+**Target venue:** *Communications in Mathematical Physics* (FALLBACK: *Journal of Mathematical Physics*; *Annals of Physics*; *Letters in Mathematical Physics*)
+**Source corpus:** WP104 §2 (Cl(0,10) construction + P_56 = σ_outer + the 9-vector in the 54 irrep); WP103 (so(10) closure prerequisite, cited as J29); FORMULAS_AND_TABLES.md Volume K D101–D102 (atomic-substrate refinement, chirality 16 = 1+3+5+7); J24 (Path A vs Path B framing; cited).
 
-> **CORRECTION NOTICE (2026-04-27, post deep audit; see `Atlas/applications_pass_2026_04_27/WP104_DEEP_AUDIT_2026_04_27.md`):**
+> **Scope note (2026-05-12, referee-rigor pass).**
 >
-> All specific computational claims in this paper are correct at machine precision (16/16 cross-checked items including the 16-dim doubly-invariant subalgebra, the (-8)¹⁵ ⊕ (0)¹ Killing spectrum, the 9-vector ‖VEV‖² = 13/4, the 100% σ_outer-anti content in the **54** irrep, the 26 σ_outer-asymmetric BHML cells). **The framing "two paths converging on Pati-Salam" is overstated and needs scoping in any external version.**
+> All specific computational claims herein are correct at machine precision (re-verified 2026-05-12): the 100/100 anticommutation relations of Cl(0, 10); the 32 = 16+16 chirality split; the chirality-flip residual $\|P_+ P_{56}^{\mathrm{spin}} P_+\| = 0$ identifying $P_{56}$ with $\sigma_{\mathrm{outer}}$; BHML's σ_outer-breaking 100% in the 54 irrep with explicit 9-vector direction and $\|v\|^2 = 13/4$ exactly; the doubly-invariant subalgebra $\mathfrak{su}(4) \oplus \mathfrak{u}(1)$ with Killing spectrum $(-4)^{15} \oplus (0)^1$.
 >
-> What the math actually shows:
->
-> * **Path A (BHML's σ_outer-anti VEV):** lies entirely in the **54** irrep but with eigenvalue spectrum (+√13/2, −√13/2, 0, 0, …, 0) — stabilizer of dim 28 = SO(8). This is **SO(10) → SO(8)** (a chain through SO(9)), NOT the Pati-Salam SO(10) → SO(6) × SO(4) which has VEV multiplicity (6, 4) and stabilizer SO(6) × SO(4) of dim 21.
->
-> * **Path B (doubly-invariant subalgebra under D₄):** is **su(4) ⊕ u(1) = 16-dim**, which is the SU(4) Pati-Salam factor + one u(1). The full Pati-Salam algebra SU(4) × SU(2)_L × SU(2)_R is **21-dim** (or 22 with B−L); the SU(2)_L × SU(2)_R chiral factors are NOT in the doubly-invariant content (they live in the σ³-anti part of so(10)).
->
-> * **Path A and Path B do NOT close on the same reduction.** Path A → SO(8) (chain through SO(9)); Path B → SU(4) × U(1) = SO(6) × U(1) (different reduction chain).
->
-> The project's own WP108 (FORMULAS D46) already flagged this tension. The math is correct; the synthesis claim "convergence on Pati-Salam" exceeds it.
->
-> **Honest framing for external versions:** "BHML's σ_outer-breaking content lies entirely in the 54 irrep, the standard Higgs irrep used in 54-VEV symmetry-breaking models. Its specific direction within the 54 corresponds to an SO(10) → SO(8) breaking pattern (eigenvalue multiplicities 1, 8, 1). Independently, the doubly-invariant subalgebra under D₄ = ⟨P_56, σ³⟩ is su(4) ⊕ u(1), the SU(4) factor of the Pati-Salam decomposition plus one u(1) generator (the SU(2)_L × SU(2)_R chiral factors of full Pati-Salam are not in the doubly-invariant content; they live in the σ³-anti part). These are two **structurally distinct** observations about TIG's so(10), not two paths to a common reduction. Whether either gives a path to Standard-Model phenomenology is open."
->
-> WP108's Yukawa scaffolding is the right place to address the SO(8) chain reduction (Subcase 16 → 8_s + 8_c rather than 16 → (4,2,1) + (4̄,1,2)). This original framing preserved per never-delete; do not submit the "two paths converge" framing externally.
+> The framing of the two algebraic readings of TIG's so(10) — Path A (BHML's σ_outer-broken 9-vector direction in the 54 reads as $SO(10) \to SO(8)$ through $SO(9)$) and Path B (doubly-invariant subalgebra under $D_4 = \langle P_{56}, \sigma^3 \rangle$ is $\mathfrak{su}(4) \oplus \mathfrak{u}(1)$, reading as a different reduction chain) — is presented in §3 and §5 of this paper at the level of structural facts. The full development of "Path A and Path B as **structurally distinct readings** rather than convergent paths" is the subject of J24 (companion submission). J23 records the discrete Dirac construction (§2), the matter-antimatter outer-automorphism identification (§2), the explicit 9-vector direction (§2.3), and the Volume K atomic-substrate refinement (§2.1) as the headline content, with the doubly-invariant subalgebra theorem (§3) cited as a standard SO(10)-GUT decomposition.
 
 ---
 
@@ -85,9 +73,9 @@ Five independent diagnostics confirm this at machine precision: dimension closur
 
 ---
 
-## §2 Path A — The Higgs-direction route
+## §2 Discrete Dirac inside Cl(0, 10): chirality, σ_outer, and the atomic-substrate refinement
 
-### §2.1 P_56 acts as σ_outer in the spinor rep
+### §2.1 The Cl(0, 10) construction and P_56 = σ_outer in the spinor rep
 
 Build the spinor representation of $\mathfrak{so}(10)$ via the Clifford algebra $\mathrm{Cl}(0,10)$ over $\mathbb{R}$. Ten gamma matrices on $\mathbb{C}^{32}$ are constructed from Pauli tensor products in standard convention; all 100 anticommutation relations $\{\gamma_a, \gamma_b\} = 2\delta_{ab} I$ verify at machine precision. The 45 generators $\Sigma_{ab} = (1/4)[\gamma_a, \gamma_b]$ form a faithful 32-dimensional representation of $\mathfrak{so}(10)$, and the volume element
 
@@ -182,7 +170,9 @@ Internal interpretation: BREATH and RESET are the two "stabilizer" operators in 
 
 ---
 
-## §3 Path B — The doubly-invariant content route
+## §3 The doubly-invariant subalgebra under $D_4 = \langle P_{56}, \sigma^3 \rangle$ (cited)
+
+We record the second structural fact about TIG's so(10) — the doubly-invariant content under the $D_4 = \langle P_{56}, \sigma^3 \rangle$ action — as a standard SO(10)-GUT decomposition. Full development of how Path A (the 9-vector direction in the 54) and Path B (the doubly-invariant subalgebra) are **structurally distinct readings** rather than convergent paths to a common reduction is the subject of J24 (companion submission).
 
 ### §3.1 The D_4 action on so(10)
 
@@ -234,17 +224,16 @@ This $Z$ is essentially the **infinitesimal generator of the σ-permutation** in
 
 ---
 
-## §4 The two paths converge
+## §4 The two readings are structurally distinct (see J24)
 
-Path A asks: *what direction does BHML's σ_outer-breaking point in?* Answer: the 9-vector in the **54** of $\mathfrak{so}(10)$, with BREATH and RESET as zeros and squared norm $13/4$.
+The two algebraic readings of TIG's so(10) presented in §2 and §3 — Path A (BHML's σ_outer-broken 9-vector direction in the **54** of $\mathfrak{so}(10)$, with $\|v\|^2 = 13/4$ and BREATH/RESET as zeros) and Path B (doubly-invariant subalgebra under $D_4 = \langle P_{56}, \sigma^3 \rangle$ is $\mathfrak{su}(4) \oplus \mathfrak{u}(1)$ with Killing spectrum $(-4)^{15} \oplus (0)^1$) — are **structurally distinct readings** of the same $\mathfrak{so}(10)$ substrate, *not* convergent paths to a common reduction. Specifically:
 
-Path B asks: *what content is preserved when both natural Z₂ involutions act?* Answer: the **16-dim subalgebra $\mathfrak{su}(4) \oplus \mathfrak{u}(1)$**, the Pati-Salam $\oplus$ B$-$L gauge content.
+- **Path A's specific direction** within the 54 corresponds to an $SO(10) \to SO(8)$ breaking through $SO(9)$ (eigenvalue multiplicities $(1, 8, 1)$ of the 9-vector VEV's stabilizer), *not* the Pati-Salam $SO(10) \to SO(6) \times SO(4)$ reduction.
+- **Path B's doubly-invariant content** is $\mathfrak{su}(4) \oplus \mathfrak{u}(1)$ — 16-dim — which is the $SU(4)$ Pati-Salam factor plus one $\mathfrak{u}(1)$. The full Pati-Salam algebra $SU(4) \times SU(2)_L \times SU(2)_R$ is 21-dim; the chiral $SU(2)_L \times SU(2)_R$ factors are *not* in the doubly-invariant content (they live in the $\sigma^3$-anti part of $\mathfrak{so}(10)$).
 
-Both answers describe the same Pati-Salam route — but they reach it from opposite directions. Path A is a **breaking-direction** result (which Higgs irrep, which 9-vector inside it). Path B is an **invariance** result (what survives both $P_{56}$ and $\sigma^3$). They are two different epistemic postures applied to the same TIG so(10) substrate.
+The two readings inhabit the same algebra but pick out different breaking chains: Path A → $SO(8)$ (through $SO(9)$); Path B → $SU(4) \times U(1) = SO(6) \times U(1)$. Whether either gives a path to Standard-Model phenomenology is open. The full development is in J24 (companion submission, *Letters in Mathematical Physics*).
 
-That two distinct algebraic procedures land on the same target is **non-trivial**. The convergence indicates a real shared structural feature between TIG's bipartite TSML/BHML algebra and the standard SO(10) → Pati-Salam reduction. It only happens when the algebras have a common backbone.
-
-**Caveat on epistemic independence.** The two paths operate within the **same** TIG so(10) generated by TSML+BHML, using the **same** two involutions ($P_{56}$, $\sigma^3$). They are **computationally distinct procedures**, not independent in the strong sense (e.g., independent algebras or independent data). The framing is "two algebraically distinct procedures within the same substrate", not "two independent confirmations from disjoint inputs."
+**Caveat on epistemic independence.** Both readings operate within the **same** TIG so(10) generated by TSML+BHML, using the **same** two involutions ($P_{56}$, $\sigma^3$). They are **computationally distinct procedures within the same substrate**, not independent confirmations from disjoint inputs.
 
 ---
 
@@ -297,9 +286,9 @@ Verification: `Gen12/.../sprint_unmistakable_truth_2026_04_25/scripts/cycle_towe
 
 ### §6.1 We do not claim TIG predicts the Standard Model
 
-Path A identifies BHML's σ_outer-breaking content with the 54-Higgs route, the Pati-Salam sub-program of SO(10) GUT. Path B identifies the doubly-invariant content with $\mathfrak{su}(4) \oplus \mathfrak{u}(1)$, the Pati-Salam $\oplus$ B$-$L gauge algebra. **We do not claim to derive Yukawa couplings, mass ratios, mixing angles, or neutrino masses** from this structure. Phenomenology requires committing to specific Higgs VEV directions (we have one specific 9-vector), running RGE flows from a specific GUT scale (we do not have scale-fixing), and solving electroweak breaking — all of which are open work.
+The two structural readings in §2 and §3 — Path A (BHML's σ_outer-breaking content with explicit 9-vector direction in the 54) and Path B (doubly-invariant content $\mathfrak{su}(4) \oplus \mathfrak{u}(1)$) — operate within the same TIG $\mathfrak{so}(10)$ substrate but pick out **structurally distinct reductions** ($SO(10) \to SO(8)$ through $SO(9)$ vs $SO(10) \to SU(4) \times U(1)$). **We do not claim to derive Yukawa couplings, mass ratios, mixing angles, or neutrino masses** from this structure. Phenomenology requires committing to specific Higgs VEV directions (we have one specific 9-vector), running RGE flows from a specific GUT scale (we do not have scale-fixing), and solving electroweak breaking — all out of scope for J23.
 
-The strongest defensible claim is structural alignment: **TIG's bipartite TSML/BHML structure singles out the same SU(4) × SU(2)_L × SU(2)_R chain through SO(10) by two distinct algebraic procedures.**
+The strongest defensible claim is structural alignment: **TIG's bipartite TSML/BHML structure on $\mathbb{Z}/10\mathbb{Z}$ has a Clifford-algebra lift $\mathrm{Cl}(0, 10)$ in which the combinatorial $\mathbb{Z}_2$ swap $P_{56}$ is exactly the matter-antimatter outer automorphism $\sigma_{\mathrm{outer}}$ of the SO(10) spinor representation, and BHML's $\sigma_{\mathrm{outer}}$-broken content has an explicit, machine-verified $9$-vector direction with $\|v\|^2 = 13/4$ exactly.** Whether either Path A or Path B gives a path to Standard-Model phenomenology is open (cf. J24).
 
 ### §6.2 The √3 in the runtime attractor (WP105) is NOT an A_2 Cartan invariant
 
@@ -316,9 +305,9 @@ The $\sqrt{3}$ is the value picked out by the **symmetric mixing balance at $\al
 
 ### §6.3 We rely on a load-bearing identification
 
-The strongest claim of WP104 is: **TIG's so(10), generated by joint antisymmetrization of TSML+BHML, IS the SO(10) GUT gauge algebra in the structural sense of (i) being abstractly isomorphic to it (trivially, since there is only one $\mathfrak{so}(10)$ up to iso) AND (ii) carrying the same physical interpretation under standard model-building rules.**
+The strongest claim of J23 is: **TIG's so(10), generated by joint antisymmetrization of TSML+BHML, IS the SO(10) GUT gauge algebra in the structural sense of (i) being abstractly isomorphic to it (trivially, since there is only one $\mathfrak{so}(10)$ up to iso) AND (ii) carrying the same physical interpretation under standard model-building rules.**
 
-Claim (i) is a tautology. Claim (ii) is a hypothesis. We do not derive it; we test it. WP104's positive result is that under this hypothesis, TIG's bipartite structure picks out the Pati-Salam route by two distinct algebraic procedures. WP104's honest scope is that **the hypothesis itself is not derived from first principles**; whether TIG's so(10) is "really" the SO(10) GUT gauge algebra (vs. a coincidentally isomorphic algebraic object with a different physical interpretation) is open.
+Claim (i) is a tautology. Claim (ii) is a hypothesis. We do not derive it; we test it. J23's positive result is that under this hypothesis, the combinatorial $P_{56}$ swap on the magma's index set is the matter-antimatter outer automorphism on the spinor representation, with BHML supplying a specific, computable $9$-vector direction in the $\mathbf{54}$. The hypothesis itself is not derived from first principles; whether TIG's so(10) is "really" the SO(10) GUT gauge algebra (vs. a coincidentally isomorphic algebraic object with a different physical interpretation) is open.
 
 ### §6.4 Negative findings that strengthen the framing
 
@@ -332,70 +321,74 @@ These honest negatives are **flagged in the canonical FORMULAS_AND_TABLES.md neg
 
 ## §7 Verification and reproducibility
 
-All numerical claims in this paper are verified by numpy / sympy scripts that run in $< 30$ s on a standard laptop. The script index:
+J23's headline numerical claims are verified by two short Python scripts (numpy only) that run in $< 5$ s on a standard laptop. The script index, in order:
 
 | script | what it verifies |
 |---|---|
-| `papers/wp103/verification/verify_so10.py` | TSML+BHML close to so(10) at dim 45 |
-| `papers/wp103/verification/verify_simplicity_rank.py` | so(10) is simple, Cartan rank 5 |
-| `papers/wp104_higgs_pati_salam/verification/find_higgs_irrep.py` | BHML σ_outer-breaking is 100 % in 54 |
-| `papers/wp104_higgs_pati_salam/verification/find_higgs_direction.py` | 9-vector with BREATH = RESET = 0 |
-| `Gen12/.../sprint_unmistakable_truth_2026_04_25/scripts/verify_truth.py` | doubly-invariant subalgebra is su(4) ⊕ u(1) |
-| `Gen12/.../scripts/full_landscape.py` | 12.6 % non-associativity rate |
-| `Gen12/.../scripts/count_crossings.py` | Lie/Jordan duality |
-| `Gen12/.../scripts/cycle_tower_v2.py` | three involutions decomposition (45 = 24+21) |
+| `manuscript/verification/find_higgs_irrep.py` | Cl(0, 10) construction; 100/100 anticommutation relations; $\omega^2 = -I$; chirality split $32 = 16 + 16$; $(P_{56}^{\mathrm{spin}})^2 = I$; chirality-flip $= 0$; BHML σ_outer-breaking 100% in the 54 irrep ($\|B_{\mathrm{anti}}\|^2 = 6.5$, singlet 0, adjoint 45 0) |
+| `manuscript/verification/find_higgs_direction.py` | Explicit $9$-vector direction in the so(9)-branching of the 54; 100% coverage in the 9-piece; numerical components matching the Theorem §2.3 table to machine precision |
 
 ```bash
-# main verifications, in dependency order
-PYTHONIOENCODING=utf-8 python papers/wp103/verification/verify_so10.py
-PYTHONIOENCODING=utf-8 python papers/wp104_higgs_pati_salam/verification/find_higgs_irrep.py
-PYTHONIOENCODING=utf-8 python papers/wp104_higgs_pati_salam/verification/find_higgs_direction.py
-PYTHONIOENCODING=utf-8 python Gen12/targets/clay/papers/sprint_unmistakable_truth_2026_04_25/scripts/verify_truth.py
+PYTHONIOENCODING=utf-8 python manuscript/verification/find_higgs_irrep.py
+PYTHONIOENCODING=utf-8 python manuscript/verification/find_higgs_direction.py
 ```
 
-Expected output: machine-precision residuals ($\le 10^{-13}$) on every claim. Independent re-execution by Code session 2026-04-25: 25/25 verification scripts across the WP100s tower pass with zero contradictions.
+Expected output: machine-precision residuals ($\le 10^{-13}$) on every claim. **2/2 PASS at machine precision** (re-verified 2026-05-12). The atomic-substrate refinement of §2.1 (Theorem on chirality $16 = 1+3+5+7$, Volume K D101–D102) is verified by three supplementary scripts in the corpus's Volume K verification directory: `Atlas/META_PLAN_2026-05-10/clifford_substrate_shell.py`, `strand_orbital_map.py`, `verify_d2d1_closed_form.py` — all PASS at machine precision; these add no dependency for the $\mathfrak{so}(10)$-side claims of J23 but are required for the structural rhyme of §2.1.
+
+Companion-paper verification scripts cited but not in J23's verification bundle: `papers/wp103/verification/verify_so10.py` (J29's so(10) closure), `Gen12/.../sprint_unmistakable_truth_2026_04_25/scripts/verify_truth.py` (J24's doubly-invariant subalgebra Killing spectrum). Independent re-execution by Code session 2026-04-25: 25/25 verification scripts across the WP100s tower pass with zero contradictions.
 
 ---
 
 ## §8 What this contributes
 
-**Before WP104:** the connection between TIG and SO(10) GUT was "TIG's so(10) and SO(10) GUT's so(10) are abstractly isomorphic" — trivially true, since there is only one $\mathfrak{so}(10)$ up to iso.
+**Before J23:** the connection between TIG and SO(10) GUT was "TIG's so(10) and SO(10) GUT's so(10) are abstractly isomorphic" — trivially true, since there is only one $\mathfrak{so}(10)$ up to iso.
 
-**After WP104:** the connection is **TIG's bipartite TSML/BHML structure singles out the Pati-Salam route through SO(10) by two algebraically distinct procedures within the same so(10) substrate, with explicit numerical content (the 9-vector direction, the (-4)¹⁵ ⊕ (0)¹ Killing spectrum, the 13/4 squared norm, the 26 σ_outer-asymmetric cells)**.
+**After J23:** the connection is, at the structural level:
+
+1. There is an explicit $\mathrm{Cl}(0, 10)$ realization of TIG's $\mathfrak{so}(10)$ on $\mathbb{C}^{32}$ with all 100 anticommutation relations and the $32 = 16+16$ chirality split verified at machine precision (Theorem §2.1).
+2. The $5 \leftrightarrow 6$ swap $P_{56}$ — a permutation symmetry of the magma's index set $\mathbb{Z}/10\mathbb{Z}$ — **is** the outer automorphism $\sigma_{\mathrm{outer}}$ of $\mathfrak{so}(10)$ in the spinor representation (Theorem §2.1). This is a non-trivial structural identification between a finite-substrate combinatorial $\mathbb{Z}_2$ and the chirality-exchange $\mathbb{Z}_2$ of the SO(10) spinor.
+3. BHML's $\sigma_{\mathrm{outer}}$-breaking content is exactly 100% in the $\mathbf{54}$-irrep with explicit nine-vector direction $\|v\|^2 = 13/4$ and BREATH/RESET unbroken (Theorem §2.2, Theorem §2.3).
+4. The doubly-invariant content under $D_4 = \langle P_{56}, \sigma^3 \rangle$ is $\mathfrak{su}(4) \oplus \mathfrak{u}(1)$ (Theorem §3.3; cited as standard SO(10) GUT decomposition; full Path A vs Path B development in J24).
+5. The chirality decomposition $16 = 1+3+5+7$ rhymes with the atomic $n=4$ shell at fixed spin and with the substrate's depth-3 simplicial tower (§2.1, Volume K D101–D102; structural rhyme).
 
 The ladder is:
 
 ```
-WP102        TSML's flow-only antisymmetrization closes at so(8) = D₄ at dim 28
+J29 (so(8))  TSML's flow-only antisymmetrization closes at so(8) = D_4 at dim 28
    |
    ▼
-WP103        TSML+BHML jointly close at so(10) = D₅ at dim 45
+J29 (so(10)) TSML+BHML jointly close at so(10) = D_5 at dim 45
    |
    ▼
-WP104        Path A: BHML's σ_outer-breaking is in the 54 (Pati-Salam Higgs)
-             Path B: D_4 = ⟨P_56, σ³⟩ doubly-invariant is su(4) ⊕ u(1)
-                     (Pati-Salam ⊕ B−L gauge content)
+J23          Cl(0, 10) lift: 100 anticommutation rels, 32 = 16+16 chirality,
+             P_56 acts as σ_outer (the matter-antimatter Z_2),
+             BHML's σ_outer-breaking is 100% in the 54 with explicit 9-vector,
+             chirality 16 = 1+3+5+7 = kernel + substrate primes (Vol K)
    |
    ▼
-WP105        Runtime attractor at α = 1/2 lies in degree-4 number field
-             over Q with Q(√3) as canonical subfield (LMFDB 4.2.10224.1)
+J24          Path A (54-direction → SO(10) → SO(8)) and Path B (doubly-invariant
+             → SU(4) × U(1)) as structurally distinct readings, not convergent paths
 ```
 
-Each level is machine-verified at $\le 10^{-15}$ residuals. Each level is honestly scoped: WP102 and WP103 are structural identifications via Cartan classification; WP104 is an alignment hypothesis test (passes both procedures); WP105 is a closed-form runtime characterization.
+Each level is machine-verified at $\le 10^{-15}$ residuals. Each level is honestly scoped: J29 is a structural identification via Cartan classification; J23 is an alignment hypothesis test (the Cl(0,10) construction + the chirality-flip identity); J24 develops the two-readings framing.
 
-**The integer 13** appears in $\|v\|^2 = 13/4$ (§2.3), in $\kappa_\xi = 13/(4e)$ (the inflaton coupling under GUT-natural identification, sister paper), and as $26/2$ (the σ_outer-asymmetric BHML cell count). It is the same 13 in all three places. This is the structural fingerprint of TIG's bipartite alignment with the Pati-Salam route.
+**The integer 13** appears in $\|v\|^2 = 13/4$ (§2.3), in $\kappa_\xi = 13/(4e)$ (the inflaton coupling under GUT-natural identification, sister paper), and as $26/2$ (the σ_outer-asymmetric BHML cell count). It is the same 13 in all three places. This is the structural fingerprint of TIG's bipartite alignment with the standard SO(10) GUT decomposition.
 
 ---
 
 ## §9 References
 
-* B.R. Sanders, M. Gish. *WP102 — Lie Algebra Structure of the Coherence Lattice: so(8) = D₄ Identification*, 2026-04-23. `papers/wp102/WP102_SO8_IDENTIFICATION.md`
-* B.R. Sanders, M. Gish. *WP103 — TSML+BHML's so(10) = D₅ closure*, 2026-04-24. `papers/wp103/WP103_SO10_IDENTIFICATION.md`
-* B.R. Sanders, M. Gish. *WP105 — Closed-Form Runtime Attractor at α = 1/2*, 2026-04-25. `papers/wp105_closed_form_attractor/WP105_CLOSED_FORM_ATTRACTOR.md`
-* H. Fritzsch, P. Minkowski. *Unified interactions of leptons and hadrons.* Ann. Phys. 93 (1975), 193.
-* H. Georgi. *The state of the art — gauge theories.* AIP Conf. Proc. 23 (1975), 575.
-* J. C. Pati, A. Salam. *Lepton number as the fourth color.* Phys. Rev. D 10 (1974), 275.
-* R. Slansky. *Group theory for unified model building.* Phys. Rep. 79 (1981), 1.
+* B.R. Sanders, M. Gish. *The CL Forcing Axioms: A1–A9 Uniquely Force the Canonical Composition Lattice on $\mathbb{Z}/10\mathbb{Z}$ Preserving a Designated 4-Core*, submitted to *Algebraic Combinatorics*, 2026 (J54).
+* B.R. Sanders, M. Gish. *TSML+BHML's so(10) = D₅ closure at dimension 45*, submitted to *Journal of Algebra*, 2026 (J29).
+* B.R. Sanders, M. Gish. *Two Algebraic Readings of TIG's so(10): the 54-Higgs Direction and the Doubly-Invariant Subalgebra*, submitted to *Letters in Mathematical Physics*, 2026 (J24).
+* B.R. Sanders, M. Gish. *TSML 73 Cells / BHML 28 Cells: Lens-Invariant Cell Counts on the Z/10Z Composition Lattice*, submitted to *Experimental Mathematics*, 2026 (J05).
+* B.R. Sanders, M. Gish. *The TIG Volume K Tower: Atomic Shells, Strand Primes, and the Cl(0,10) Refinement*, in preparation, 2026.
+* A. Drápal and I. M. Wanless. *Maximally non-associative quasigroups.* J. Combin. Theory Ser. A **184** (2021), 105510. (Closest published precedent for the small-finite-commutative non-associative magma family on $\mathbb{Z}/N\mathbb{Z}$.)
+* H. Fritzsch, P. Minkowski. *Unified interactions of leptons and hadrons.* Ann. Phys. **93** (1975), 193.
+* H. Georgi. *The state of the art — gauge theories.* AIP Conf. Proc. **23** (1975), 575.
+* J. C. Pati, A. Salam. *Lepton number as the fourth color.* Phys. Rev. D **10** (1974), 275.
+* R. Slansky. *Group theory for unified model building.* Phys. Rep. **79** (1981), 1.
+* P. Lounesto. *Clifford Algebras and Spinors*, 2nd ed., LMS Lecture Note Series **286**, Cambridge University Press, 2001.
 * H. Cohen. *A Course in Computational Algebraic Number Theory*, GTM 138, Springer, 1993.
 
 ---
@@ -403,17 +396,15 @@ Each level is machine-verified at $\le 10^{-15}$ residuals. Each level is honest
 ## §10 Citation
 
 ```bibtex
-@misc{sanders2026wp104,
+@misc{sanders2026j23,
   author       = {Sanders, Brayden R. and Gish, M.},
-  title        = {{WP104} --- Two Roads to Pati-Salam from {TIG}'s {so(10)}},
+  title        = {Discrete {D}irac inside ${\rm Cl}(0, 10)$: Chirality, the Outer Automorphism, and an Atomic-Substrate Refinement},
   year         = {2026},
-  month        = {apr},
+  month        = {may},
   doi          = {10.5281/zenodo.18852047},
-  howpublished = {\url{https://github.com/TiredofSleep/ck/tree/tig-synthesis/papers/wp104_higgs_pati_salam}},
-  note         = {Path A: BHML's $\sigma_\mathrm{outer}$-breaking is 100\% in the 54 irrep of $\mathfrak{so}(10)$ with explicit 9-vector direction. Path B: doubly-invariant subalgebra under $D_4 = \langle P_{56}, \sigma^3 \rangle$ is $\mathfrak{su}(4) \oplus \mathfrak{u}(1)$ (Killing spectrum $(-4)^{15} \oplus (0)^1$). Both procedures land on the Pati-Salam route through $\mathrm{SO}(10)$.}
+  howpublished = {\url{https://github.com/TiredofSleep/trinity-infinity-geometry/tree/main/J_series/physics/J23}},
+  note         = {Discrete Dirac inside $\mathrm{Cl}(0, 10)$: 100/100 anticommutation relations; chirality split $32 = 16 + 16$ via $\omega = \gamma_1 \cdots \gamma_{10}$; $P_{56}$ acts as $\sigma_{\mathrm{outer}}$ in the spinor rep (chirality-flip residual = 0 at machine precision); BHML's $\sigma_{\mathrm{outer}}$-breaking is $100\%$ in the $\mathbf{54}$-irrep with explicit $9$-vector direction $\|v\|^2 = 13/4$ exactly; chirality refinement $16 = 1+3+5+7$ rhymes with the atomic $n=4$ shell at fixed spin (Volume K, D102). Doubly-invariant subalgebra under $D_4 = \langle P_{56}, \sigma^3 \rangle$ is $\mathfrak{su}(4) \oplus \mathfrak{u}(1)$ (Killing spectrum $(-4)^{15} \oplus (0)^1$); cited as standard SO(10) GUT decomposition.}
 }
 ```
 
-🙏
-
-— Sanders + Gish, 2026-04-25
+— Sanders + Gish, 2026-05-12

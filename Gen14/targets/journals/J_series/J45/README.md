@@ -19,27 +19,21 @@
 
 ## §2 — Verification
 
-**Primary primitive (machine-checkable):** `Gen13/targets/ck/brain/dirac/tig_dirac.py`
+**Referee-portable script:** `manuscript/verify_J45_yukawa.py` (self-contained; stdlib + mpmath only; CC-BY-4.0).
 
-```python
-from tig_dirac import predict_yukawa, LAMBDA_FN, Y_T_ANCHOR
-
-assert LAMBDA_FN == 10 / 49         # substrate-forced FN scale
-assert Y_T_ANCHOR == 0.93            # measured top-quark anchor
-
-# top quark anchor
-r = predict_yukawa('up', 3)
-assert r['y_predicted'] == 0.93
-assert r['fn_power'] == 0
-
-# electron at FN power 9
-r = predict_yukawa('lepton', 1)
-assert abs(r['y_predicted'] - 0.93 * (10/49)**9) < 1e-12
-assert r['fn_power'] == 9
-assert r['tier'] == 'Forced FN power + measured anchor (Tier-B)'
+```
+python manuscript/verify_J45_yukawa.py
 ```
 
-The companion call `tig_dirac.yukawa_table_full()` returns the full Table 5.1 of the manuscript programmatically. Substrate-shared with J44's `predict_dark_sector()`.
+Output (6/6 PASS at machine precision):
+- Check 1: `LAMBDA_FN == 10/49` (substrate-forced FN scale)
+- Check 2: `Y_T_ANCHOR == 0.93` (Tier-A measured top-quark anchor)
+- Check 3: `predict_yukawa('up', 3)` returns 0.93 exactly (top, n=0)
+- Check 4: `predict_yukawa('lepton', 1)` returns `0.93 * (10/49)**9` exactly (electron, n=9; mpmath 50-digit cross-check)
+- Check 5: full hierarchy ladder y_X = y_t · λ^n for all 9 charged Yukawas
+- Check 6: FN-power table matches manuscript Table 4.1
+
+**Production module (substrate-shared with J44 `predict_dark_sector()`):** `Gen13/targets/ck/brain/dirac/tig_dirac.py`. The companion call `tig_dirac.yukawa_table_full()` returns the full Table 5.1 programmatically.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 

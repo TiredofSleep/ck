@@ -1,8 +1,8 @@
 # A Discrete $\sinc^2$ Identity in Finite-Dimensional Quantum Mechanics
 
-**Authors:** B.R. Sanders$^{1}$, B. Mayes$^{2}$
+**Authors:** B.R. Sanders$^{1}$, M. Gish$^{2}$
 $^{1}$7Site LLC, Hot Springs, AR — brayden@7site.co
-$^{2}$Independent Researcher
+$^{2}$Independent Researcher — monica.gish1992@gmail.com
 
 **Target venue:** Journal of Mathematical Physics (with fallback to *Letters in Mathematical Physics* — see §6 per-venue cap notes)
 **Manuscript class:** Mathematical-physics short note
@@ -132,7 +132,7 @@ The synchronization is reproduced from the companion paper [J04, J08] in arithme
 | Claim | Status |
 |---|---|
 | Theorem 3.1 (closed form for $R(k,f)$) | **PROVED** (elementary Fejér-type identity) |
-| Proposition 4.1 (finite uncertainty product) | **PROVED** (direct calculation) |
+| Proposition 4.1 (squared overlap with normalized window) | **PROVED** (direct calculation) |
 | Corollary 4.2 (first-zero theorem) | **PROVED** |
 | Theorem 4.3 (continuum limit) | **PROVED** (asymptotic) |
 | Proposition 5.1 (synchronization with First-G event) | **PROVED** (combination of Theorems 3.1 and the First-G arithmetic from J04) |
@@ -143,7 +143,7 @@ This paper carries no TSML / BHML lens dependence. The mathematical content is f
 
 ### 6.3 Per-venue cap
 
-**This is the third JMP submission target in the J-series** after J13 (BB Bridge) and J14 (YM Mass Gap Bridge). The 2/quarter cap is reached. **Fallback options for J15:**
+**This is the third JMP submission target in the J-series** after J40 (BB Bridge) and J41 (YM Mass Gap Bridge). The 2/quarter cap is reached. **Fallback options for J42:**
 
 - **Option A (preferred fallback):** *Letters in Mathematical Physics* (Springer). Short-format note; the closed form + finite uncertainty + synchronization fits LMP's style.
 - **Option B:** *Journal of Physics A: Mathematical and Theoretical* (IOP). Finite QM and number-theoretic mathematical methods are natural for J Phys A.

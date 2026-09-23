@@ -1,24 +1,42 @@
-"""J36 Part-1 verification script.
-
-Reproduces:
-  - Per-fit relative discrepancies for 7 fermion mixing observables (4 CKM Wolfenstein
-    parameters + 3 PMNS angles).
-  - Naive joint coincidence probability (no LE correction).
-  - Look-elsewhere-corrected joint probability at multiplicity |P| * N_obs.
-  - Sensitivity of the joint estimate to inclusion / exclusion of the theta_12 fit
-    (since D* is treated as an empirical input in the present paper, not derived).
-  - The leading-three-terms 1/alpha sanity check that justifies the unbundling of Part 2.
-
-The 1/alpha leading-three-terms check explicitly verifies that
-  4*|Aut(V)| - 2*sqrt(HARMONY) - pi/HARMONY = 154.260 (NOT 137.036).
-This is the load-bearing verification justifying the deferral of Part 2 from
-the J36 submission per save plan SAVE_PLAN_J36.md.
-
-USAGE:
-    python verify_J36_part1.py
-
-DEPENDENCIES: math (standard library), sympy (optional, for high-precision check).
-"""
+#!/usr/bin/env python3
+# ============================================================
+# verify_J36_part1.py
+#
+# Verification script for J36 -- "Empirical Fits of CKM and PMNS
+# Mixing Angles to Substrate-Algebra Primitives" (Sanders, Gish,
+# 2026), Part 1 only (Part 2 [1/alpha] deferred per save plan
+# SAVE_PLAN_J36.md after independent verification confirmed the
+# leading-three-terms claim was ~12.6% off the target, not the
+# ~10^-5 originally claimed).
+#
+# This script is SELF-CONTAINED for referee portability. Standard
+# library + optional sympy (for the 30-digit high-precision check
+# on the 1/alpha leading-three-terms numerical disagreement).
+#
+# Reproduces:
+#   - Per-fit relative discrepancies for 7 fermion mixing observables
+#     (4 CKM Wolfenstein parameters + 3 PMNS angles).
+#   - Naive joint coincidence probability (no LE correction).
+#   - Look-elsewhere-corrected joint probability at multiplicity
+#     |P| * N_obs = 11 * 7 = 77.
+#   - Sensitivity of the joint estimate to inclusion / exclusion
+#     of the theta_12 fit (since D* is treated as an empirical
+#     input in the present paper, not derived).
+#   - The leading-three-terms 1/alpha sanity check that justifies
+#     the unbundling of Part 2:
+#         4*|Aut(V)| - 2*sqrt(HARMONY) - pi/HARMONY
+#       = 4*40 - 2*sqrt(7) - pi/7 = 154.260 (NOT 137.036).
+#
+# USAGE:
+#   PYTHONIOENCODING=utf-8 python verify_J36_part1.py
+#
+# DEPENDENCIES:
+#   math (standard library); sympy (optional, for 30-digit check).
+#
+# License: CC-BY-4.0 (Creative Commons Attribution 4.0
+# International). Authors: B.R. Sanders, M. Gish (c) 2026.
+# ============================================================
+"""J36 Part-1 verification script (see header above)."""
 import math
 
 

@@ -1,7 +1,32 @@
-"""
-Refine diagnostic 4 (simplicity via invariant bilinear forms) with more samples.
-Also confirm Cartan rank = 5 via a proper construction.
-"""
+#!/usr/bin/env python3
+# ============================================================
+# verify_simplicity_rank.py
+#
+# CANONICAL D4 + D5 verification for: "Joint Lie Closure of a
+# Pair of Z/10Z Magmas: an so(10) Identification" (Sanders,
+# Gish, 2026; J30).
+#
+# Authoritative checks:
+#   D4 — Builds the full 91,125-equation invariance constraint
+#        matrix on the 1,035-parameter symmetric-form space and
+#        certifies rank exactly 1,034. Equivalently, the space
+#        of invariant symmetric bilinear forms on g is exactly
+#        1-dimensional (the negative Killing form), so g is
+#        simple. (Manuscript Lemma 4.5.)
+#   D5 — Confirms Cartan rank = 5 by exhibiting the standard
+#        J_1, ..., J_5 ∈ g and showing that no skew element in
+#        g extends them. (Manuscript Lemma 4.7.) Also computes
+#        ad(H) eigenvalue structure for H = Σ k·J_k and
+#        confirms the 40 nonzero + 5 zero count
+#        (Corollary 5.2).
+#
+# Runtime: ~30–90 seconds. Run: python -X utf8 verify_simplicity_rank.py
+#
+# Copyright (c) 2026 B.R. Sanders and M. Gish.
+# Licensed under the Creative Commons Attribution 4.0 International
+# License (CC-BY-4.0). https://creativecommons.org/licenses/by/4.0/
+# ============================================================
+
 import numpy as np
 from numpy.linalg import matrix_rank, norm
 

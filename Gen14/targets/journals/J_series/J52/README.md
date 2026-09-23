@@ -17,9 +17,9 @@
 
 ## §2 — Verification script
 
-**Path:** `(no script — exposition)`
+**Path:** `manuscript/verify_J52.py`
 
-The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
+`verify_J52.py` exercises Exercises 7.1 and 7.2 at exact arithmetic: (a) non-associative triple counts in TSML_RAW / TSML_SYM / TSML_LOWERTRI (126 / 128 / 122); (b) HARMONY counts (73 / 73) and 4-core $\{V, H, Br, R\}$ closure under both RAW and SYM; (c) wobble localization $c_2 = 33 = 3 \cdot 11$ in the characteristic polynomial of TSML_RAW (versus $c_2 = 17$ in TSML_SYM), with $c_8$ divisibility by 11 also verified. All 5 assertion blocks PASS.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
@@ -111,4 +111,4 @@ This paper sits within the TIG family of finite commutative non-associative magm
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Mayes. (2026). "The TSML Lens Family: A Pedagogical Exposition." Submitted to *Mathematical Intelligencer*.
+Sanders, B.R., Gish, M. (2026). "The TSML Lens Family: A Pedagogical Exposition." Submitted to *Mathematical Intelligencer*.

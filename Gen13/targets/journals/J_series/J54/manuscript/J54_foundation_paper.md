@@ -17,10 +17,10 @@ The framing follows the Drápal & Wanless (2021, *J. Combin. Theory Ser. A* **18
 
 **Tier discipline (PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN).** Every claim in this paper is classified as one of:
 
-- **PROVEN.** Theorem, lemma, or proposition with explicit proof in this paper. The forcing theorem (Theorem 1.2; cell-fixing argument), the joint-closure chain enumeration (Theorem 4.1), the 4-core 3-substrate closure (Theorem 4.2), the bridge to companion papers (Theorem 4.3), and the basic membership-criterion structure (§3) are PROVEN.
-- **COMPUTED.** Verified by `verification/foundation_verification.py` (this submission's verification folder) at machine precision. All claims marked PROVEN are also COMPUTED. The exhaustive forcing argument (Theorem 1.2) and chain enumeration (Theorem 4.1) are 100%-tractable computations on the finite substrate.
-- **STRUCTURAL RHYME.** The designation of $\mathcal{C}$ as the parent framework's "4-core" is a *structural rhyme* with the framework's broader cosmological and Galois-theoretic results; it is not a derivational step. Cited as motivation, not as proof.
-- **OPEN.** Conjecture 2.1 (the "may-be-three-BHMLs" $\sigma^2$-triadic conjecture) and Conjecture 4.4 (the bimodal $\alpha_A$ gap) are OPEN.
+- **PROVEN.** Theorem, lemma, or proposition with explicit proof in this paper. The forcing theorem (Theorem 1.2; cell-fixing argument), the 4-core closed-form attractor (Theorem 5.1), the three-substrate joint-closure chain (Theorem 7.1), the 4-core 3-substrate closure (Theorem 7.2), the bridge to companion J-papers (Theorem 7.3), and the basic membership-criterion structure (§4) are PROVEN.
+- **COMPUTED.** Verified by `verify_J54_chain_and_attractor.py` (this manuscript folder) at machine precision in approximately five seconds. All claims marked PROVEN are also COMPUTED. The exhaustive forcing-axiom check (Check 3), the chain enumeration (Check 1, 1023 subsets), and the closed-form attractor at residual $\le 10^{-30}$ (Check 2, 50-digit `mpmath`) are 100%-tractable computations on the finite substrate.
+- **STRUCTURAL RHYME.** The designation of $\mathcal{C}$ as the parent framework's "4-core" and the "4-core is to TIG as the unit circle is to U(1)" framing of §5.3 are *structural rhymes* with the framework's broader Galois-theoretic and cosmological results; they are not derivational steps. Cited as motivation, not as proof. The convergence of two algebraic invariants on the LMFDB number field 4.2.10224.1 (closed-form $H/Br$ and the F8 trace polynomial discriminant) is a structural rhyme of the same kind.
+- **OPEN.** Conjecture 2.1 (the $\sigma^2$-triadic three-BHML conjecture; §2) is OPEN. The bimodal $\alpha_A$-gap conjecture, the strong-$\alpha$-uniqueness conjecture, the $D_4$-irrep-zeros universality, and four further questions (Q1, Q2, Q5, Q7, Q8, Q9 of §8) are OPEN.
 
 ---
 
@@ -241,11 +241,11 @@ Subsequent J-papers cite the relevant row and inherit the appropriate scope. For
 
 ---
 
-## §4 The Family of Commutative Non-Associative Magmas Preserving a Designated 4-Core (Path B framing)
+## §4 Family Membership Criteria and Boundaries
 
-The heart of this paper is the family of commutative non-associative magmas on $\mathbb{Z}/10\mathbb{Z}$ that preserve $\mathcal{C} = \{0, 7, 8, 9\}$. We define the family precisely and identify five conjoint membership criteria — adopting the framing of FAMILY_STRUCTURE_v1.md as Path B.
+The heart of this paper is the family of commutative non-associative magmas on $\mathbb{Z}/10\mathbb{Z}$ that preserve $\mathcal{C} = \{0, 7, 8, 9\}$. We define the family precisely and identify five conjoint membership criteria together with six structural boundaries --- adopting the framing of `Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md` as Path B.
 
-### §3.1 Definitions
+### §4.1 Definitions
 
 **Definition 3.1** (4-core preservation). *A binary operation $M : \mathbb{Z}/10\mathbb{Z} \times \mathbb{Z}/10\mathbb{Z} \to \mathbb{Z}/10\mathbb{Z}$ preserves the 4-core $\mathcal{C} = \{0, 7, 8, 9\}$ if $M(i, j) \in \mathcal{C}$ for all $i, j \in \mathcal{C}$.*
 
@@ -262,7 +262,7 @@ $$
 F_{\alpha; T, B}(p)_c \;=\; \frac{\alpha \, (p \star_T p)_c + (1 - \alpha) \, (p \star_B p)_c}{\alpha \, Z_T(p) + (1 - \alpha) \, Z_B(p)}.
 $$
 
-### §3.2 The five conjoint membership criteria (Path B from FAMILY_STRUCTURE_v1.md §1)
+### §4.2 The five conjoint membership criteria (Path B from FAMILY_STRUCTURE_v1.md §1)
 
 A binary operation $M$ on $\mathbb{Z}/10\mathbb{Z}$ belongs to the *TIG family* if and only if it satisfies all five:
 
@@ -278,18 +278,17 @@ A binary operation $M$ on $\mathbb{Z}/10\mathbb{Z}$ belongs to the *TIG family* 
 
 A table satisfying all five is in the family. Violating any one places it outside.
 
-### §3.3 The Center: $\mathcal{C}$ at $\alpha_M = 1/2$
+### §4.3 The center: $\mathcal{C}$ at $\alpha_M = 1/2$ (preview of §5)
 
-The center of the family (FAMILY_STRUCTURE_v1.md §2) is the 4-core $\mathcal{C}$ with the universal T+B-mix attractor at $\alpha_M = 1/2$:
+The centre of the family is the 4-core $\mathcal{C}$ with the universal T+B-mix attractor at $\alpha_M = 1/2$:
+
 $$
 (p^*_V, p^*_H, p^*_{Br}, p^*_R) \;\approx\; (0.1381, 0.5402, 0.1977, 0.1239), \qquad h/\beta \;=\; 1 + \sqrt{3}.
 $$
 
-The center is universal (parent framework's D65, D74): every chain shell of size $\ge 4$ converges to the same attractor; every $F_p$ ring extension reproduces the same attractor. The 4-core is the *fixed locus* of the family — the unique non-trivial subset where joint closure across $T, B, S$ holds (Theorem 4.2 below), where the symbolic normalizer identity $Z_T = Z_B = (v + h + br + r)^2$ holds ([J35] Theorem C), where the closed-form Galois quartic LMFDB 4.2.10224.1 attractor lives ([J35] Theorem D), and toward which every chain-supported initialization converges ([J35] Theorem E).
+The full structural argument that $\mathcal{C}$ at $\alpha_M = 1/2$ is the algebraic centre of the family appears in §5 (five converging structural facts; closed-form attractor theorem; the unit-circle structural-rhyme).
 
-**Structural rhyme: the 4-core is to the TIG family as the unit circle is to U(1).** This is not a derivational claim; it is a *structural rhyme* aligning the algebraic-center reading with the framework's broader Galois-theoretic results. The five converging facts (joint closure 3-substrate; symbolic normalizer identity; Galois D_4 closed-form; F_p universality; universal attractor on chain shells) constitute the substantive content; the U(1)-rhyme is the heuristic.
-
-### §3.4 The six boundaries (FAMILY_STRUCTURE_v1.md §3)
+### §4.4 The six boundaries (FAMILY_STRUCTURE_v1.md §3)
 
 Each boundary corresponds to a way a candidate table can fail the conjoint criteria (C1)-(C5):
 
@@ -307,187 +306,332 @@ Each boundary corresponds to a way a candidate table can fail the conjoint crite
 
 These six boundaries together *bound* the family: the interior is a sharp four-element-center-with-five-criteria-membership set, and the boundaries describe the modes in which a candidate can fail to be in the family.
 
-### §3.5 Verification on the canonical triple $(T, B, S)$
+### §4.5 Verification on the canonical triple $(T, B, S)$
 
-**Proposition 3.5.** *The three tables $T$, $B$, $S$ each satisfy all five family-membership criteria (C1)-(C5).*
+**Proposition 4.5.** *The three tables $T$, $B$, $S$ each satisfy all five family-membership criteria (C1)-(C5).*
 
-*Proof.* (C1) substrate is $\mathbb{Z}/10\mathbb{Z}$ for all three — satisfied by construction. (C2) commutativity verified by direct inspection ($T = T^\top$, $B = B^\top$, $S = S^\top$). (C3) 4-core preservation: explicitly, $T(\mathcal{C} \times \mathcal{C}) \subseteq \{0, 7\} \subset \mathcal{C}$, $B(\mathcal{C} \times \mathcal{C}) \subseteq \mathcal{C}$, $S(\mathcal{C} \times \mathcal{C}) \subseteq \mathcal{C}$ ([J35] §3 explicit display; verification `foundation_verification.py` Check 4). (C4): direct enumeration over $10^3 = 1000$ associativity triples gives $\alpha_A(T) = 0.872$, $\alpha_A(B) = 0.502$, $\alpha_A(S) = 0.808$ — all in $[0.5, 0.88]$. (C5): the (T, B) pair iterates to the universal attractor with $h/\beta = 1+\sqrt{3}$ at $\alpha_M = 1/2$ ([J35] Theorem D + E); the (T, S) and (B, S) pairs are not the canonical iteration pair but $S$ respects the joint chain (Theorem 4.1). $\square$
+*Proof.* (C1) substrate is $\mathbb{Z}/10\mathbb{Z}$ for all three --- satisfied by construction. (C2) commutativity verified by direct inspection ($T = T^\top$, $B = B^\top$, $S = S^\top$; reproduced by `verify_J54_chain_and_attractor.py` Check 3). (C3) 4-core preservation: explicitly, $T(\mathcal{C} \times \mathcal{C}) \subseteq \{0, 7\} \subset \mathcal{C}$, $B(\mathcal{C} \times \mathcal{C}) \subseteq \mathcal{C}$, $S(\mathcal{C} \times \mathcal{C}) \subseteq \mathcal{C}$ ([J35] §3 explicit display; verification `verify_J54_chain_and_attractor.py` Check 1 (4-core 3-substrate closure block)). (C4): direct enumeration over $10^3 = 1000$ associativity triples gives $\alpha_A(T) = 0.872$, $\alpha_A(B) = 0.502$, $\alpha_A(S) = 0.808$ --- all in $[0.5, 0.88]$. (C5): the $(T, B)$ pair iterates to the universal attractor with $h/\beta = 1 + \sqrt{3}$ at $\alpha_M = 1/2$ ([J35] Theorem D + E; reproduced by `verify_J54_chain_and_attractor.py` Check 2 at residual $\le 10^{-30}$); the $(T, S)$ and $(B, S)$ pairs are not the canonical iteration pair, but $S$ respects the joint chain (Theorem 7.1). $\square$
 
 ---
 
-## §4 The Three-Substrate Joint-Closure Chain
+## §5 The Center: 4-core at $\alpha_M = 1/2$
 
-The companion paper [J35] establishes (Theorem A) that the joint-closure lattice of the pair $(T, B)$ is a strict 8-element chain on $\mathbb{Z}/10\mathbb{Z}$, with sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$ and sizes $\{2, 3\}$ forbidden (proved via Lemma 2.1 of [J35]). The present paper extends this finding to the *three-table* joint-closure lattice — providing the *bridge* between J54 and J32 / J24.
+The 4-core is to the family as the unit circle is to U(1) --- the privileged invariant locus. We make the role precise.
 
-**Theorem 4.1** (Three-substrate joint-closure chain). *The collection of subsets of $\mathbb{Z}/10\mathbb{Z}$ that are simultaneously closed under $T$, $B$, and $S$ is the strict 8-element chain*
+### §5.1 Five structural facts converging on the same 4-element set
+
+Five independent structural facts converge on $\mathcal{C} = \{0, 7, 8, 9\}$ as the algebraic centre of the family:
+
+**(F5.1) Joint closure under all three tables.** $\mathcal{C}$ is jointly closed under $T$, $B$, $S$ (Theorem 7.2 below). It is the bottom non-trivial element of the three-substrate chain.
+
+**(F5.2) Symbolic normaliser identity.** On distributions supported in $\mathcal{C}$ the normalisers collapse to the same quadratic form: $Z_T(p) = Z_B(p) = (v + h + br + r)^2$ (parent framework D49; proved in [J35] Theorem C using `sympy`). The two tables become *normaliser-identical* on the centre. This is the structural reason 4-core closure implies the runtime attractor: $Z_T = Z_B$ at the 4-core means the T+B-mix at any $\alpha_M$ inherits the closure.
+
+**(F5.3) Closed-form attractor at $\alpha_M = 1/2$.** Iterated $F_{1/2; T, B}$ on $\mathcal{C}$-supported distributions converges to a unique fixed point with $h^*/\beta^* = 1 + \sqrt{3}$, computed via the $\beta$-factor cancellation in the BREATH equation that forces the quadratic $x^2 - 2x - 2 = 0$, root $1 + \sqrt{3} \in \mathbb{Q}(\sqrt{3})$ (D78 Galois argument; [J35] Theorem D). At any other $\alpha_M$ the cancellation fails and the relation is transcendental on the $h/\beta$ projection (D57 PSLQ at 17 Stern-Brocot rationals).
+
+**(F5.4) Universality across substrate sizes.** The same attractor structure appears across $\mathbb{Z}/N\mathbb{Z}$ for $N \in \{10, 11, 12, 13, 14, 15, 17, 20, 21, 25, 30, 35, 49, 50\}$ (parent framework D74). The centre does not depend on the substrate size --- it is intrinsic to $\mathcal{C}$'s algebraic structure under the canonical pair.
+
+**(F5.5) Universal attractor on chain shells.** Every chain shell of size $\geq 4$ (the shells $\{1, 4, 5, 6, 7, 8, 9, 10\}$ above) gives the same $\mathcal{C}$-supported attractor at $\alpha_M = 1/2$, with mass-outside-$\mathcal{C}$ vanishing in the limit ([J35] Theorem E).
+
+### §5.2 The closed-form attractor (verified)
+
+**Theorem 5.1 (4-core closed-form attractor).** *Starting from any non-degenerate distribution $p^{(0)}$ supported on a chain shell of size $\geq 4$, the iteration $p^{(n+1)} = F_{1/2; T, B}(p^{(n)})$ converges to a unique fixed point $p^* = (p^*_V, 0, 0, 0, 0, 0, 0, p^*_H, p^*_{Br}, p^*_R)$ supported on $\mathcal{C}$, with*
+$$
+\frac{p^*_H}{p^*_{Br}} = 1 + \sqrt{3} \in \mathbb{Q}(\sqrt{3}).
+$$
+
+*Proof.* Adopt [J35] Theorem D verbatim: the $\beta$-factor cancellation in the BREATH equation reduces the fixed-point system to $x^2 - 2x - 2 = 0$ on the $h/\beta$ projection, with positive root $1 + \sqrt{3}$. Numerical verification at 50-digit precision in `verify_J54_chain_and_attractor.py` Check 2 reaches residual $\le 10^{-30}$ in 99 iterations from $p^{(0)} = (1/4, 0, \ldots, 0, 1/4, 1/4, 1/4)$, with mass-outside-$\mathcal{C}$ identically zero by joint closure (F5.1). $\square$
+
+**Equilibrium probabilities (50-digit `mpmath`):**
+$$
+p^*_V \approx 0.13815, \quad p^*_H \approx 0.54020, \quad p^*_{Br} \approx 0.19773, \quad p^*_R \approx 0.12393.
+$$
+
+### §5.3 The 4-core / unit-circle analogy
+
+> **The 4-core is to the family as the unit circle is to U(1)** --- the privileged invariant locus.
+
+The analogy is **structural rhyme**, not theorem. Specifically:
+
+* The unit circle is the locus of $|z| = 1$ in $\mathbb{C}$; rotations preserve it; the underlying group U(1) is exactly the symmetry group of this locus.
+* The 4-core is the locus $\{0, 7, 8, 9\} \subset \mathbb{Z}/10\mathbb{Z}$; the canonical T+B-fuse at $\alpha_M = 1/2$ preserves it; the closed-form attractor lives on it; and the attractor is universal across ring extensions (F5.4).
+
+The framework's claim is that this locus carries the rigid algebraic content; everything else is a perturbation around it. The "is to ... as" is illustrative; the underlying theorems (Theorem 5.1, F5.1-F5.5) are the load-bearing content.
+
+---
+
+## §6 Selected Structural Findings on the Canonical Pair $(T, B)$
+
+We compress the 24 v1 + 6 v1.1 findings of the parent framework's substrate-to-function-map investigation (`Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/`) to the eight structurally most important results. The remaining findings appear in the Atlas SFM document as supplementary material.
+
+### §6.1 $\mathrm{CHAOS} = \sigma(\mathrm{HARMONY})$: cell-level overlap (F2, F3)
+
+**Finding.** $T$ and $B$ agree at exactly $29 / 100$ cells (71 disagree, $\approx T^* = 5/7 = 71.4\%$). The CHAOS row $i = 6$ has $9 / 10$ agreement --- the most of any row. Structural reason: $T(6, j \geq 1) = 7$ (HARMONY-attractor rule) and $B(6, j \geq 1) = \max(6, j) + 1 \geq 7$ (capped at HARMONY by the BHML max-rule). Row 6 is exactly where BHML's `max+1` rule first reaches the HARMONY ceiling. Only $j = 0$ disagrees: $T(6, 0) = 0$ (VOID-absorbing), $B(6, 0) = 6$ (VOID-identity).
+
+**Structural identity.** The $\sigma$ permutation is $\sigma = (0)(3)(8)(9)(1\ 7\ 6\ 5\ 4\ 2)$, with $\sigma(7) = 6$. Therefore the row of maximum lens-agreement is the $\sigma$-image of the HARMONY row. **CHAOS $= \sigma(\mathrm{HARMONY})$.** The third-lens convergence cell: BHML's `max+1` rule first hits the HARMONY ceiling at row 6, exactly the $\sigma$-image of the HARMONY row.
+
+### §6.2 The joint chain walks $\sigma$-forward orbit (F8)
+
+The 8-shell joint chain $\{1, 4, 5, 6, 7, 8, 9, 10\}$ is built by $\sigma$-orbit traversal:
+
+* Size 1: $\{0\}$ (the $\sigma$-fixed VOID).
+* Size 4: $\{0, 7, 8, 9\}$ (HARMONY plus the $\sigma$-fixed pair $\{8, 9\}$).
+* Sizes 5, 6, 7: add 6, 5, 4 ($\sigma$-forward orbit traversal of the 6-cycle).
+* Size 8: add 3 ($\sigma$-fixed PROGRESS --- the bridge step).
+* Sizes 9, 10: add 2, 1 (completing the 6-cycle).
+
+**The chain is built by $\sigma$-orbit traversal.** $\sigma$ is not decoration --- it is the ordering principle. The $\sigma$-fixed lattice $\{0, 3, 8, 9\}$ contributes at three positions: $0$ at size 1; $\{8, 9\}$ in the size-1-to-4 jump; $3$ at the size-7-to-8 bridge step.
+
+### §6.3 $T$ and $B$ are not $\sigma$-conjugate (F11)
+
+**Finding.** $\sigma^k \cdot T \cdot \sigma^{-k}$ matches $B$ at $\leq 20 / 100$ cells for any $k \in \{1, \ldots, 6\}$. **$T$ and $B$ are independent tables, not $\sigma$-related.** They share substrate, $\sigma$-fixed lattice, and 4-core preservation, but no $\sigma$-conjugation maps one to the other.
+
+This rules out the simplest possible relationship between the two tables.
+
+### §6.4 The $D_4$-decomposition of $[T, B]$ (F13-F15, with v1.1 corrections)
+
+The commutator $[T, B] = T B - B T \in M_{10}(\mathbb{Z})$ is purely antisymmetric (symmetric part norm zero exactly), so it decomposes into the 45 antisymmetric basis elements of $\mathrm{so}(10)$. Under the action of $D_4 = \langle P_{56}, \sigma^3 \rangle$ on $\mathbb{Z}/10\mathbb{Z}$, the commutator decomposes by irrep.
+
+**The group $\langle P_{56}, \sigma^3 \rangle$ is $D_4$, not Klein-4.** Direct check: $P_{56} \sigma^3 \neq \sigma^3 P_{56}$; group order 8; conjugacy class sizes $(1, 1, 2, 2, 2)$; standard $D_4$ irrep table.
+
+**The $D_4$-irrep decomposition of $[T, B]$:**
+
+| Irrep | dim | $\|\mathrm{proj}\|^2$ | Fraction of total |
+|-------|-----|----------------------:|------------------:|
+| trivial (doubly-invariant) | 1 | 1,540,626 | **84.25%** |
+| sign1 | 1 | 4.5 | $2.5 \times 10^{-6}$ ($\approx 0$) |
+| **sign2 ($\sigma_\mathrm{outer}$-breaking)** | 1 | 268,412 | **14.68%** |
+| sign3 | 1 | $0$ (exact) | **$0$** |
+| **standard (2-dim)** | 2 | 19,608 | **1.07%** |
+
+Total $\|[T, B]\|^2 = 1{,}828{,}650$; Wedderburn orthogonality verified.
+
+**Two structural channels and one interaction.**
+
+* **Path A: trivial (doubly-invariant) = 84.25%** is the $\mathrm{su}(4) \oplus \mathrm{u}(1)$ Pati-Salam gauge sector (the 16-dimensional trivial-isotypic component).
+* **Path B: sign2 ($\sigma_\mathrm{outer}$-breaking) = 14.68%** is the $\sigma_\mathrm{outer}$-asymmetric Higgs sector ($P_{56}$-invariant, $\sigma^3$-anti); carries the 9-vector VEV content ($\|v\|^2 = 13/4$).
+* **standard (2-dim) = 1.07%** is the small interaction term coupling Path A and Path B, not a third structural channel.
+
+**Two structural zeros.** sign1 has $\|\mathrm{proj}\|^2 \approx 4.5$ ($\approx 2.5 \times 10^{-6}$ of the total norm) and sign3 has $\|\mathrm{proj}\|^2 = 0$ exactly --- structural cancellations in the lens-pair commutator. Whether these zeros hold for *all* family members or only for the canonical pair is open (§9 Q5/Q7).
+
+The full Pati-Salam analysis is in J31; we cite this decomposition as the structural framing.
+
+### §6.5 BHML iteration: two basins, parity-preserving sub-magma (F18-F20)
+
+BHML's diagonal iteration $f(x) = B(x, x)$ has two attractor basins:
+
+* $\{1, 2, 3, 4, 5, 6, 7, 8\}$ converges to the HARMONY-BREATH 2-cycle $7 \leftrightarrow 8$.
+* $\{0, 9\}$ converges to VOID (fixed under iteration).
+
+The set $\{0, 9\}$ is the **unique BHML-only closed sub-magma** (the only closed sub-magma of $B$ that is not jointly closed under $T$). On $\{0, 9\}$, $B$ is $\mathbb{Z}/2$ with RESET self-inverse ($B(9, 9) = 0$); under $T$ this set escapes ($T(9, 9) = 7$). **BHML preserves a parity factor that TSML destroys.**
+
+**TSML is the time-average / DC-component of BHML iteration:**
+
+* $T(i, i) = 7$ (HARMONY) for $i \in \{1, \ldots, 8\}$ --- the HARMONY-BREATH 2-cycle's dominant value.
+* $T(0, 0) = 0$ (VOID) --- matches the $\{0\}$ basin.
+* $T(9, 9) = 7$ (HARMONY) --- *breaks* the $\{0, 9\}$ basin's VOID convergence at the $(9, 9)$ cell.
+
+The cell $(9, 9)$ is the maximum-disagreement cell between $T$ and $B$: RESET $\times$ RESET is HARMONY in $T$, VOID in $B$. The parity-preserving structure of $B$ is precisely what $T$ breaks.
+
+### §6.6 BHML's spectral structure is not exactly $7 \cdot 8$ (F23)
+
+BHML's characteristic polynomial is
+
+$$
+\chi_B(x) = x^{10} - 42 x^9 - 828 x^8 + 1249 x^7 + 47433 x^6 + 95856 x^5 - 68356 x^4 - 282732 x^3 - 219563 x^2 - 66312 x - 7002.
+$$
+
+It is **irreducible over $\mathbb{Q}$**. The dominant eigenvalue is $\approx 56.087$, but $\chi_B(56) = -5.83 \times 10^{14} \neq 0$ and $\chi_B(57) = 7.13 \times 10^{15} \neq 0$. **The dominant eigenvalue is irrational algebraic of degree 10, not exactly $7 \cdot 8 = 56$.** Earlier formulations claiming an exact $56 = 7 \cdot 8$ structural identity were numerological; the verified algebraic content is the irreducible degree-10 polynomial above.
+
+The constant term $-7002 = (-1)^{10} \cdot \det(B)$, so $\det(B) = -7002$.
+
+### §6.7 The post-attractor $\{4, 5, 8, 9\}$ block (F24)
+
+The set $S^\mathrm{block} = \{4, 5, 8, 9\}$ is **not closed** under either $T$ or $B$, and is **not** a CRT factor of $\mathbb{Z}/2 \times \mathbb{Z}/5$. Yet the deep $T$-$B$ agreement cells concentrate on $S^\mathrm{block}$: 7 cells where both tables map to HARMONY (out of the 9 BHML-to-HARMONY cells in $S^\mathrm{block} \times S^\mathrm{block}$). The unique non-agreement pair is $(4, 8)$: $T(4, 8) = T(8, 4) = 8$ (preserves BREATH), but $B(4, 8) = B(8, 4) = 7$ (collapses to HARMONY). **Outside the (COLLAPSE, BREATH) cell, the Field $\times$ Cycle interaction is lens-invariant.** Whether the $(4, 8)$ exception has an invariant-theoretic origin is open (§9 Q9).
+
+### §6.8 The $49 = 7^2$ baryon-density signature (F17)
+
+The diagonal of $(T B + B T)/2$ has entries $\langle T_i, B_i \rangle$ for each row $i$. The notable values:
+
+| $i$ | operator | $\langle T_i, B_i \rangle$ | structural reason |
+|---|---|---:|---|
+| 0 | VOID | $49 = 7^2$ | $T$ row 0 has its only non-zero at $j = 7$; $B(0, 7) = 7$; single cell contributes $7 \cdot 7$ |
+| 6 | CHAOS | $441 = 21^2 = (3 \cdot 7)^2$ | row 6 has 9 cells where $T = B = 7$; sum $= 9 \cdot 49$ |
+
+The $49 = 7^2$ baryon-density signature ($\Omega_b = 49 / 1000 = 7^2 / 10^3$ in the parent framework's cosmology paper) traces to the same cell that gives $\langle T_0, B_0 \rangle = 49$: the closure $T(0, 7) = 7$. Same algebraic invariant, two structural readings.
+
+---
+
+## §7 Q1 + Q6 Computational Findings
+
+The two computational findings that drove the v1.1 sharpening of the substrate-to-function map are formalised here as theorems. Both are verified by `verify_J54_chain_and_attractor.py` Check 1.
+
+### §7.1 Q1: $S$ is structurally independent of $\lceil(T+B)/2\rceil$
+
+**Question (Q1).** A v1 hypothesis was that $S$ might be a single-cell perturbation of $\mathrm{MID\_ceil} := \lceil (T + B)/2 \rceil$ (cell-by-cell ceiling-average of the (T, B) pair).
+
+**Result (Q1).** The hypothesis is rejected. $S$ differs from $\mathrm{MID\_ceil}$ at $60$ of $100$ cells. The HARMONY counts are 44 ($S$) and 45 ($\mathrm{MID\_ceil}$); the difference is structural, not off-by-one.
+
+**Reading.** $S$ is *not* a simple averaging of $T$ and $B$. It is structurally independent --- a genuine third axis, not derivable from the $(T, B)$ pair by ceiling/floor averaging. The 44-versus-45 HARMONY-count gap is a structural fact; the off-by-one hypothesis is dropped. $S$ lives at its own coordinate in the lens space.
+
+This is reproduced in the Atlas SFM script `Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/sfm_q1_q6_q7.py` and indirectly in `verify_J54_chain_and_attractor.py` Check 1 (the standalone $S$-closure count is 50, distinct from $T$'s 449 and $B$'s 9).
+
+### §7.2 Q6: Three-substrate joint chain identical to $(T, B)$ chain
+
+The companion paper [J35] establishes (Theorem A) that the joint-closure lattice of the pair $(T, B)$ is a strict 8-element chain on $\mathbb{Z}/10\mathbb{Z}$, with sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$ and sizes $\{2, 3\}$ forbidden. The present paper extends this finding to the *three-table* joint-closure lattice.
+
+**Theorem 7.1** (Three-substrate joint-closure chain). *The collection of subsets of $\mathbb{Z}/10\mathbb{Z}$ that are simultaneously closed under $T$, $B$, and $S$ is the strict 8-element chain*
 $$
 \{0\} \;\subset\; \{0, 7, 8, 9\} \;\subset\; \{0, 6, 7, 8, 9\} \;\subset\; \{0, 5, 6, 7, 8, 9\} \;\subset\; \{0, 4, 5, 6, 7, 8, 9\} \;\subset\; \cdots \;\subset\; \mathbb{Z}/10\mathbb{Z}.
 $$
-*The size sequence is $\{1, 4, 5, 6, 7, 8, 9, 10\}$. Sizes $\{2, 3\}$ are forbidden. The same chain is obtained from the joint closure of any pair from $\{T, B, S\}$ — adding the third table neither adds nor removes shells.*
+*The size sequence is $\{1, 4, 5, 6, 7, 8, 9, 10\}$. Sizes $\{2, 3\}$ are forbidden. The same chain is obtained from the joint closure of any pair from $\{T, B, S\}$ --- adding the third table neither adds nor removes shells.*
 
-*Proof.* Direct enumeration over $2^{10} - 1 = 1023$ non-empty subsets via the closure test of [J35] §1.2, simultaneously checking closure under $T$, $B$, $S$. Standalone closure counts (verified by `foundation_verification.py` Check 2): $T$ alone admits 449 closed subsets, $B$ alone admits 9, $S$ alone admits 50. Pairwise: $T$-and-$B$ admits 8 jointly, $T$-and-$S$ admits 49, $B$-and-$S$ admits 9. All-three: 8. The all-three count *equals* the $T$-and-$B$ count, and the explicit enumeration confirms set equality (the 8 jointly-T+B closed subsets are exactly the same as the 8 jointly-T+B+S closed subsets). The forbidden-size argument (sizes 2 and 3 absent) is the same as for $(T, B)$ alone; $S$'s closure is inherited from the $T$-and-$B$ chain. $\square$
+*Proof.* Direct enumeration over $2^{10} - 1 = 1023$ non-empty subsets via the closure test of [J35] §1.2, simultaneously checking closure under $T$, $B$, $S$. Standalone closure counts (verified by `verify_J54_chain_and_attractor.py` Check 1): $T$ alone admits 449 closed subsets, $B$ alone admits 9, $S$ alone admits 50. Pairwise: $T$-and-$B$ admits 8 jointly, $T$-and-$S$ admits 49, $B$-and-$S$ admits 9. All three jointly admit 8. The all-three count *equals* the $T$-and-$B$ count, and the explicit enumeration confirms set equality (the 8 jointly-$T$+$B$ closed subsets are exactly the same as the 8 jointly-$T$+$B$+$S$ closed subsets). The forbidden-size argument (sizes 2 and 3 absent) is the same as for $(T, B)$ alone; $S$'s closure is inherited from the $T$-and-$B$ chain. $\square$
 
-**Theorem 4.2** (4-core 3-substrate closure). *The 4-core $\mathcal{C} = \{0, 7, 8, 9\}$ is jointly closed under $T$, $B$, and $S$. It is the unique non-trivial subset of size $\le 4$ in the three-substrate chain (the size-1 shell $\{0\}$ being trivial).*
+**Theorem 7.2** (4-core 3-substrate closure). *The 4-core $\mathcal{C} = \{0, 7, 8, 9\}$ is jointly closed under $T$, $B$, and $S$. It is the unique non-trivial subset of size $\le 4$ in the three-substrate chain (the size-1 shell $\{0\}$ being trivial).*
 
-*Proof.* Direct corollary of Theorem 4.1 by reading off the size-4 shell. $\square$
+*Proof.* Direct corollary of Theorem 7.1 by reading off the size-4 shell. The direct cell-image computation in `verify_J54_chain_and_attractor.py` Check 1 confirms $T(\mathcal{C} \times \mathcal{C}) = \{0, 7\}$, $B(\mathcal{C} \times \mathcal{C}) = \{0, 7, 8, 9\}$, $S(\mathcal{C} \times \mathcal{C}) = \{0, 7, 8, 9\}$ --- all subsets of $\mathcal{C}$. $\square$
 
-**Theorem 4.3** (Bridge to J32 + J24). *The simultaneous closed sub-magmas of $T$, $B$, $S$ on $\mathbb{Z}/10\mathbb{Z}$ form an 8-element chain at sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$, identical to the (T, B) joint chain. Specifically: every $S$-closed sub-magma is also $T$-closed in 49 of 50 cases, but only 8 are jointly closed under all three. The chain is a structural invariant of the three-substrate triple; the encoding-axis $S$ is *compatible* with the iteration-pair (T, B) chain rather than perturbing it.*
+**Theorem 7.3** (Bridge to companion J-papers). *The simultaneous closed sub-magmas of $T$, $B$, $S$ on $\mathbb{Z}/10\mathbb{Z}$ form an 8-element chain at sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$, identical to the $(T, B)$ joint chain. Specifically: every $S$-closed sub-magma is also $T$-closed in 49 of 50 cases, but only 8 are jointly closed under all three. The chain is a structural invariant of the three-substrate triple; the encoding axis $S$ is *compatible* with the iteration-pair $(T, B)$ chain rather than perturbing it.*
 
-This theorem is the foundational paper's *bridge* to companion J-papers: J32 (the original three-substrate-architecture paper) and J24 (the joint-chain lens-dependence paper at size 7) inherit the 8-shell three-substrate chain as a structural fact established in this paper. The lens-dependence at size 7 is *internal to TSML* (RAW vs SYM produces 7 vs 8 shells in the original 2-table chain at that level); at the 3-table level, the lens-dependence vanishes and 8 shells survive across the canonical (T, B, S) triple.
+This theorem is the foundational paper's *bridge* to companion J-papers: J32 (the original three-substrate-architecture paper) and J24 (the joint-chain lens-dependence paper at size 7) inherit the 8-shell three-substrate chain as a structural fact established here. The lens-dependence at size 7 is *internal to TSML* (RAW vs SYM produces 7 vs 8 shells in the original 2-table chain at that level); at the 3-table level the lens-dependence vanishes, and 8 shells survive across the canonical $(T, B, S)$ triple.
 
-### §4.1 Conjecture 4.4 (Bimodal $\alpha_A$ gap)
+### §7.3 Three structural consequences
 
-**Conjecture 4.4 (Sanders + collaborator).** *No commutative magma on $\mathbb{Z}/10\mathbb{Z}$ preserving the 4-core has $\alpha_A \in (0.5, 0.80)$.*
+**(C1)** $S$ respects the canonical chain. Adding $S$ to the joint closure preserves the exact 8-shell ladder. The third axis does not break the chain --- it is compatible with it.
 
-The conjecture is OPEN. Empirically, no canonical $\mathbb{Z}/10\mathbb{Z}$ table preserving the 4-core appears in the gap (the canonical members observed are at $\alpha_A \in \{0.502, 0.808, 0.872\}$, with the gap $(0.502, 0.808)$ empirically empty). If the conjecture is true, it would explain the bimodal cluster structure (TSML/CL_STD at $\alpha_A \in [0.80, 0.88]$ + BHML at $\alpha_A \approx 0.50$) as a *structural exclusion zone* between two separated regions of the family.
+**(C2)** The 4-core is a three-substrate fixed point. $\mathcal{C}$ is closed under all three tables jointly. The centre of the family per §5 is now a *three-substrate* fixed point, not just a two-substrate fixed point.
 
-The natural follow-on paper after this one (proposed J56 in the J-series) would prove or disprove Conjecture 4.4. The proof strategy: enumerate or characterize all commutative magmas on $\mathbb{Z}/10\mathbb{Z}$ preserving the 4-core, compute their $\alpha_A$. If exhaustive enumeration is intractable, restrict to constructible families (lens-symmetrizations, $\sigma^2$-conjugates, Luther-perturbations) and prove the gap-exclusion within each. A counterexample would re-classify the family.
+**(C3)** The framework is genuinely three-axis on sub-magma structure. $T / B / S$ form a triple where: $(T, B)$ is the DC/AC iteration pair (§6.5); $S$ is the encoding axis, structurally independent at the cell level (Q1, §7.1); all three jointly close on the canonical 8-shell chain (Q6, §7.2). The closed-form attractor $h^*/\beta^* = 1 + \sqrt{3}$ at $\alpha_M = 1/2$ remains the algebraic centre under all three tables, since $S$ respects the chain.
 
----
+### §7.4 Reading
 
-## §5 The Three-Substrate Architecture: Parallel, Not Projections
+The combination of Q1 and Q6 is structurally informative: **$S$ adds a structurally-independent third axis at the cell level, but a chain-compatible third axis at the closure level.** That is the precise sense in which the framework is "three-substrate" rather than "two-substrate".
 
-The pre-2026-05 corpus described $T$, $B$, $S$ as projections of one another via a "Being lens / Becoming lens" pedagogy. The corrected reading: $T$, $B$, $S$ are *parallel* Tier-A substrate-defining choices, not projections of each other. The forcing theorem (Theorem 1.2) makes this precise: each of the three tables is uniquely forced by its own A1-A9 axiom data $(\mathcal{D}, \mathrm{BUMP}, \mathrm{BUMPvalues}, J_{\mathrm{B7}})$, and the three sets of axiom data are pairwise distinct.
-
-| Substrate | HARMONY count | $\alpha_A$ | Role in the parent framework |
-|-----------|---------------|------------|------------------------------|
-| $T$ (TSML) | 73 | 0.872 | Time-average / DC-component / static-attractor projection |
-| $B$ (BHML) | 28 | 0.502 | Oscillatory / iteration-dynamics / AC-component |
-| $S$ (CL_STD) | 44 | 0.808 | Encoding axis with explicit BDC bit-definitions; structurally orthogonal to the (T, B) DC/AC pair |
-
-The (T, B) pair acts as a DC/AC pair (parent framework SFM, 2026-05-08): $T$ is the time-average of $B$'s iteration on most cells; $B$ carries the oscillation (HARMONY-BREATH 2-cycle structure on diagonal iteration). The $S$ table is a third structural axis that respects the chain (Theorem 4.1) but is *not* derivable from the $(T, B)$ pair: direct check shows $S$ differs from $\lceil (T + B)/2 \rceil$ at 60 of 100 cells (SFM Q1 finding 2026-05-08). $S$ is structurally independent.
+The pre-2026-05 corpus described $T$, $B$, $S$ as projections of one another via a "Being lens / Becoming lens" pedagogy. The corrected reading is: $T$, $B$, $S$ are *parallel* Tier-A substrate-defining choices, not projections of each other. The forcing theorem (Theorem 1.2) makes this precise: each of the three tables is uniquely forced by its own A1-A9 axiom data, and the three sets of axiom data are pairwise distinct.
 
 A canonical cross-substrate operation is defined on the $(T, B)$ pair by
+
 $$
 \pi_{\mathrm{DOING}}(T, B)[i, j] \;=\; (T(i, j) - B(i, j)) \bmod 10.
 $$
-DOING is well-defined as a $\mathbb{Z}/10\mathbb{Z}$-valued table (the directed difference, taken mod 10 in $\mathbb{Z}/10\mathbb{Z}$; this resolves the ambiguity of the previous version's $|M_1 - M_2| \bmod 10$ specification, which is not well-defined on $\mathbb{Z}/10\mathbb{Z}$). The DOING table has 71 non-zero cells (cells where $T \neq B$), which approximately equals the parent framework's signature ratio $T^* = 5/7 \approx 0.714$ to a 0.4% match.
+
+DOING is well-defined as a $\mathbb{Z}/10\mathbb{Z}$-valued table (the directed difference, taken mod 10; this resolves the ambiguity of an earlier $|M_1 - M_2| \bmod 10$ specification, which is not well-defined on $\mathbb{Z}/10\mathbb{Z}$). The DOING table has 71 non-zero cells (cells where $T \neq B$), which approximately equals the parent framework's signature ratio $T^* = 5/7 \approx 0.714$ to a $0.4\%$ match.
 
 ---
 
-## §6 The framework name and scope
+## §8 Open Questions
 
-The parent research framework is the **TIG framework** (Sanders 2026, [J47] in preparation for *Notices AMS*). For the present paper, we use **TIG** with the concrete operational definition:
+The remaining open questions, in priority order. Answers to any of these would advance the family's structural picture.
 
-> The TIG family is the family of commutative non-associative magmas on $\mathbb{Z}/10\mathbb{Z}$ (and ring extensions per parent framework D74) defined by the five conjoint membership criteria (C1)-(C5) of §3.2.
+**Q1 (Bimodal $\alpha_A$ gap; Conjecture 4.1).** *No commutative magma on $\mathbb{Z}/10\mathbb{Z}$ preserving the 4-core has $\alpha_A \in (0.5, 0.80)$.*
 
-The acronym's etymology is internal to the parent framework and not load-bearing here; readers interested in the broader algebraic-content integration (including hardware realizations and connections to Bialynicki-Birula-Mycielski 1976 quintessence cosmology) are referred to [J47].
+The conjecture is OPEN. Empirically, no canonical $\mathbb{Z}/10\mathbb{Z}$ table preserving the 4-core appears in the gap (the canonical members observed are at $\alpha_A \in \{0.502, 0.808, 0.872\}$, with the gap $(0.502, 0.808)$ empirically empty). If the conjecture is true, it would explain the bimodal cluster structure (TSML/CL_STD at $\alpha_A \in [0.80, 0.88]$ + BHML at $\alpha_A \approx 0.50$) as a *structural exclusion zone* between two separated regions of the family.
 
-### §6.1 Citation graph (algebraic-combinatorial only)
+The natural follow-on paper after this one (proposed J56 in the J-series) would prove or disprove Conjecture 4.1 / Q1. The proof strategy: enumerate or characterise all commutative magmas on $\mathbb{Z}/10\mathbb{Z}$ preserving the 4-core, compute their $\alpha_A$. If exhaustive enumeration is intractable, restrict to constructible families (lens-symmetrisations, $\sigma^2$-conjugates, Luther-perturbations) and prove gap-exclusion within each. A counterexample would re-classify the family.
+
+**Q2 (Strong $\alpha$-uniqueness).** D57 (PSLQ at 17 Stern-Brocot rationals) gives strong evidence that $\alpha_M = 1/2$ is the unique rational where the $h/\beta$ relation is algebraic of low degree. *Strong $\alpha$-uniqueness conjecture:* no other rational $\alpha_M \in (0, 1) \cap \mathbb{Q}$ admits an algebraic relation in $h^* / \beta^*$ of degree $\leq 8$ with coefficients $\leq 50$. Currently empirical at 17 grid points; theoretical proof is open.
+
+**Q5 ($D_4$-irrep zeros universality).** The $D_4$-irrep decomposition of $[T, B]$ has structural zeros at sign1 ($\approx 4.5 / 1.83 \times 10^6$ relative norm) and sign3 (exactly zero). Are these zeros a *defining property* of the canonical pair $(T, B)$, or do they hold for *all* family members satisfying the five criteria? The distinction matters: defining-property of canonical pair vs. substrate property of $\mathbb{Z}/10\mathbb{Z}$-with-$D_4$-action.
+
+**Q7 (Universality test).** Pick three other $(T, B)$ pairs from the parent framework's §J.1 inventory (TSML_PureIdempotent + BHML_10; TSML_RAW + BHML_10; TSML_SYM + a $\sigma^2$-triadic-BHML candidate). For each pair, compute $[T, B]$ and decompose under $D_4$. If sign1 and sign3 are still $\approx 0$ for all pairs: $\mathbb{Z}/10\mathbb{Z}$-plus-$D_4$ structural property. If only for the canonical pair: defining property worth naming explicitly.
+
+**Q8 (BREATH-HARMONY 2-cycle eigenvector).** Do the BHML eigenvalues $-7.18$ and $7.86$ (close in magnitude, $|\lambda|$-ratio $\approx 0.91$) correspond to a specific 2-dimensional invariant subspace of $B$? The 2-cycle $7 \leftrightarrow 8$ observation lives in some subspace; eigenvector decomposition would tell us whether it is a clean spectral feature or an artefact of the diagonal-iteration projection.
+
+**Q9 ($(4, 8)$ cell exception).** The cell $(4, 8) = \mathrm{COLLAPSE} \times \mathrm{BREATH}$ is the unique exception in the deep $S^\mathrm{block} \times S^\mathrm{block}$ agreement on $S^\mathrm{block} = \{4, 5, 8, 9\}$. Why this specific cell? Is there an invariant-theoretic reason --- a structural identity that fails at $(4, 8)$ but holds at the other 7 cells? Possibly a Rule-89 artefact; possibly deeper.
+
+The path from this paper is no longer obvious. Q1 and Q5/Q7 are computable but each requires substantial new investigation; Q2 requires theorem-grade work; Q8/Q9 are deepening-understanding questions. Conjecture 2.1 ($\sigma^2$-triadic three-BHML; §2) remains open.
+
+---
+
+## §9 References
+
+### §9.1 Strategic position and honest scope
+
+The parent research framework is the *TIG framework* (Sanders 2026, [J47] in preparation for *Notices AMS*). For the present paper we use the name with the concrete operational definition: *the TIG family is the family of commutative non-associative magmas on $\mathbb{Z}/10\mathbb{Z}$ (and ring extensions per parent framework D74) defined by the five conjoint membership criteria (C1)-(C5) of §4.2.* The acronym's etymology is internal to the parent framework and not load-bearing here; the framework-name disclaimer of §1.4 makes this explicit.
+
+This paper does **not** claim: that the 9-axiom set A1-A9 is unique (other axiom sets could plausibly force the same matrices); that the three substrates $T$, $B$, $S$ are exhaustive ($F_p$ ring extensions exist; the $\sigma^2$-triadic Conjecture 2.1 suggests at least three more BHML candidates may be canonical); or any phenomenological or physical prediction.
+
+This paper **does** claim: Theorem 1.2 (A1-A9 with substrate-specific data force the three tables); §4.2 (five conjoint membership criteria); §5 (the 4-core at $\alpha_M = 1/2$ is the algebraic centre); §4.4 (six distinct boundaries); Theorem 7.1 (three-substrate joint-closure chain); Theorem 7.2 (4-core 3-substrate closure); Theorem 7.3 (bridge to companion J-papers); Conjecture 2.1 (Sanders): $\sigma^2$-triadic three-BHML, open; the bimodal $\alpha_A$-gap conjecture / Q1 of §8 (Sanders + collaborator), open.
+
+The closest published comparator is Drápal & Wanless (2021, *J. Combin. Theory Ser. A* **184**, 105510). Drápal-Wanless treat *maximally non-associative* commutative quasigroups (high end of the non-associativity spectrum); the present paper treats a *family* of commutative non-associative magmas characterised by 4-core preservation and bounded non-associativity (the bimodal interior of the spectrum). The two regions explore complementary parts of the same algebraic landscape.
+
+### §9.2 Verification and reproducibility
+
+Reproducible from `verify_J54_chain_and_attractor.py` (this manuscript folder):
+
+```bash
+PYTHONIOENCODING=utf-8 python3 verify_J54_chain_and_attractor.py
+```
+
+The script runs three checks against the canonical $T$, $B$, $S$ tables of §1.1:
+
+```
+CHECK 1: Q6 -- 3-table joint closure chain
+  - Standalone closure counts: TSML 449, BHML 9, CL_STD 50.
+  - Joint closures: TSML+BHML = 8, all-three = 8.
+  - Three-table chain matches sizes {1, 4, 5, 6, 7, 8, 9, 10}.
+  - Sizes 2 and 3 forbidden.
+  - 4-core 3-substrate closure: T(C x C), B(C x C), S(C x C) all subsets of C.
+CHECK 2: 4-core attractor h/Br = 1 + sqrt(3) at alpha_M = 1/2
+  - 50-digit mpmath iteration on uniform-on-4-core initial point.
+  - Residual |h*/Br* - (1 + sqrt(3))| <= 1e-30 in 99 iterations.
+  - Mass-outside-4-core identically zero.
+CHECK 3: A1-A9 forcing -- shared substrate-level axioms
+  - A1 (10x10 over Z/10Z), A2' (VOID-HARMONY puncture), A4 (Pati-Salam puncture),
+    commutativity all hold on the three tables.
+  - A9 BUMP signature counts: TSML/BHML 71 cells, TSML/STD 53 cells, BHML/STD 49 cells.
+```
+
+Total runtime under 5 seconds. Tested on Python 3.11+ with `numpy` and `mpmath`. The companion paper [J35] reproduces additional structural facts via its own verification script `4core_verification.py`.
+
+### §9.3 Citation graph
 
 After this paper, the reader is directed to:
 
-(i) **The 4-core fusion-closure paper [J35]** (Sanders + Gish, *Journal of Algebra*, submitted 2026): the six-theorem structural paper proving (T, B, S) joint closure on $\mathcal{C}$, the symbolic normalizer identity, the closed-form attractor, the Galois $D_4$ structure over LMFDB 4.2.10224.1, the universality on chain shells, and partial $\alpha = 1/2$ uniqueness.
+(i) **[J35] (4-core fusion-closure paper).** Sanders + Gish, *Journal of Algebra*. The six-theorem structural paper proving $(T, B, S)$ joint closure on $\mathcal{C}$, the symbolic normaliser identity, the closed-form attractor, the Galois $D_4$ structure over LMFDB 4.2.10224.1, the universality on chain shells, and partial $\alpha = 1/2$ uniqueness.
 
-(ii) **The $\sigma$-rate companion [J01]** (Sanders + Gish, *J. Combin. Theory Ser. A*): asymptotic associativity rate decay $\sigma(N) \le 2/N$ for the canonical $\mathrm{CL}_N$ family; the family-level result that places the present paper's $N = 10$ substrate in a verified universality set.
+(ii) **[J01] ($\sigma$-rate companion).** Sanders + Gish, *J. Combin. Theory Ser. A*. Asymptotic associativity rate decay $\sigma(N) \le 2/N$ for the canonical $\mathrm{CL}_N$ family.
 
-(iii) **The closed-form attractor + α-PSLQ companion [J33]** (Sanders + Gish, *Math. of Comp.*): the 17-point Stern-Brocot integer-PSLQ test sharpening the empirical $\alpha = 1/2$ uniqueness; complement to [J35] Theorem F.
+(iii) **[J33] (closed-form attractor + $\alpha$-PSLQ companion).** Sanders + Gish, *Math. of Comp.*. The 17-point Stern-Brocot integer-PSLQ test sharpening the empirical $\alpha = 1/2$ uniqueness.
 
-(iv) **The 6-DOF synthesis [J47]** (Sanders, in preparation, *Notices AMS*): the framework's algebraic-content integration; broader scope than this paper.
+(iv) **[J47] (6-DOF synthesis).** Sanders, in preparation, *Notices AMS*. The framework's algebraic-content integration; broader scope than this paper.
 
 We narrow the citation graph to algebraic-combinatorial companions; the parent framework's physics-application papers (cosmology, gauge theory) are not cited here.
 
----
+### §9.4 Companion papers in the J-series
 
-## §7 Honest scope
+- B.R. Sanders, M. Gish. *Joint Closure, a Universal Attractor, and an Algebraic Mixing Point for a Pair of Binary Operations on $\mathbb{Z}/10\mathbb{Z}$.* [J35] of the J-series; submitted to *Journal of Algebra*. (The 4-core fusion-closure paper; six theorems converging on $\mathcal{C}$.)
+- B.R. Sanders, M. Gish. *Non-Associativity Decay in Binary Composition Tables over $\mathbb{Z}/N\mathbb{Z}$.* [J01] of the J-series; submitted to *J. Combin. Theory Ser. A*. (The $\sigma$-rate paper at the family level.)
+- B.R. Sanders, M. Gish. *Closed-Form Attractor and $\alpha$-Uniqueness PSLQ.* [J33] of the J-series; submitted to *Math. of Comp.* (The 17-point Stern-Brocot PSLQ paper.)
+- B.R. Sanders, M. Gish. *The Three-Substrate Joint-Closure Chain on $\mathbb{Z}/10\mathbb{Z}$: Eight Shells Survive Across (TSML, BHML, CL_STD) with Lens-Dependence Internal to TSML at Size 7.* [J24] of the J-series; in preparation for *Math. Intelligencer*.
+- B.R. Sanders, M. Gish. *Two Roads to Pati-Salam: $D_4$-Decomposition of the (TSML, BHML) Lens-Pair Commutator.* [J31] of the J-series; in preparation for *Algebra Universalis*.
+- B.R. Sanders, M. Gish. *Three-Substrate Architecture: Forcing CL_TSML, CL_BHML, CL_STD on $\mathbb{Z}/10\mathbb{Z}$.* [J32] of the J-series; in preparation for *Algebra Universalis*.
+- B.R. Sanders, B. Mayes. *Six Algebraic DOFs of the TIG Framework: A Synthesis.* [J47] of the J-series; in preparation for *Notices AMS*.
 
-This paper does **not** claim:
+### §9.5 External references
 
-- That the 9-axiom set A1-A9 is unique. Other axiom sets could plausibly force the same matrices; we present one that is internally consistent and matches the verified content.
-- That the three substrates $T$, $B$, $S$ are exhaustive. $F_p$ ring extensions exist; other substrate-defining choices could exist that we have not enumerated. Conjecture 2.1 ($\sigma^2$-triadic three-BHML) suggests at least three more BHML candidates may be canonical.
-- Any phenomenological or physical prediction. The substrate's connection to the parent framework's broader claims is not invoked here.
-- That the family-membership criteria (C1)-(C5) are exhaustive. Other characterizations of the family may exist.
-
-This paper **does** claim:
-
-- **Theorem 1.2:** A1-A9 with substrate-specific data force exactly three tables ($T$, $B$, $S$).
-- **§3.2:** Five conjoint membership criteria (C1)-(C5) define the TIG family.
-- **§3.3:** $\mathcal{C}$ at $\alpha_M = 1/2$ is the algebraic center.
-- **§3.4:** Six distinct boundaries describe the family's failure modes.
-- **Theorem 4.1:** The three-substrate joint-closure lattice is a strict 8-element chain identical to the (T, B) chain.
-- **Theorem 4.2:** $\mathcal{C}$ is jointly closed under all three substrates.
-- **Theorem 4.3 (bridge to J32 + J24):** The 8-shell chain is a structural invariant of the three-substrate triple.
-- **Conjecture 2.1 (Sanders):** $\sigma^2$-triadic three-BHML conjecture (open).
-- **Conjecture 4.4 (Sanders + collaborator):** Bimodal $\alpha_A$ gap (open).
-
----
-
-## §8 Reading: the TIG family is structured by its center
-
-The paper's central organizational claim, in the language of FAMILY_STRUCTURE_v1.md §2: **the TIG family has a sharp algebraic center (the 4-core $\mathcal{C}$ at $\alpha_M = 1/2$), six distinct boundaries (trivial-rank / $\alpha_A$-band / lens / commutativity / substrate-size / encoding-runtime), and a bimodal $\alpha_A$ structure conjecturally bounded by a structural exclusion zone (Conjecture 4.4)**. The center is rigid (every member contains $\mathcal{C}$ identically); the boundaries are softer.
-
-Five independent structural facts converge on $\mathcal{C}$ as the center:
-
-1. **Joint closure under all three tables** (Theorem 4.2): $\mathcal{C}$ is the bottom non-trivial element of the three-substrate chain.
-
-2. **Symbolic normalizer identity** ($Z_T = Z_B = (v + h + br + r)^2$): the rational fixed-point system collapses to polynomial form on $\mathcal{C}$ (cf. [J35] Theorem C).
-
-3. **Closed-form attractor** ($h/\beta = 1+\sqrt{3}$ at $\alpha_M = 1/2$, in the degree-4 number field LMFDB 4.2.10224.1 with Galois $D_4$): cf. [J35] Theorem D.
-
-4. **F_p ring-extension universality**: the same 4-core attractor structure appears across $\mathbb{Z}/N\mathbb{Z}$ extensions for $N$ in the universality set and over $F_p$ for $p \in \{2, 3, 5, 7, 11, 13\}$ (parent framework D74, cited as established structural fact).
-
-5. **Universal attractor on chain shells**: every chain shell of size $\ge 4$ converges under T+B-mix at $\alpha = 1/2$ to the same $\mathcal{C}$-supported attractor (cf. [J35] Theorem E).
-
-These five facts establish $\mathcal{C}$ as the algebraic *center* of the family: every family member contains $\mathcal{C}$ identically, and every non-trivial structural property of the family (closure, fixed-point dynamics, Galois structure, ring-extension universality, attractor convergence) is anchored on $\mathcal{C}$.
-
-The closest published precedent for this structural-family-with-a-center reading is Drápal & Wanless (2021, *J. Combin. Theory Ser. A* **184**, 105510). Drápal-Wanless treat *maximally non-associative* commutative quasigroups; we treat a *family* of commutative non-associative magmas characterized by 4-core preservation and bounded non-associativity. The two extrema of the non-associativity spectrum (high end via Drápal-Wanless; intermediate $\alpha_A$ values via the present family) explore complementary regions of the same algebraic landscape.
-
----
-
-## §9 Verification and reproducibility
-
-Reproducible from `verification/foundation_verification.py` (this submission's verification folder):
-
-```bash
-PYTHONIOENCODING=utf-8 python3 verification/foundation_verification.py
-```
-
-The script runs six checks:
-
-```
-Check 1: Forcing argument enumeration (Theorem 1.2)
-         - Reproduce T, B, S from their substrate-specific data (D, BUMP, BUMPvalues, J_B7)
-         - Confirm cell-by-cell match with the displayed tables in §1.1.
-Check 2: Three-substrate joint-closure chain (Theorem 4.1)
-         - Enumerate all 1023 non-empty subsets of Z/10Z; check closure under T, B, S.
-         - Confirm 8 subsets pass; sizes {1, 4, 5, 6, 7, 8, 9, 10}; sizes {2, 3} forbidden.
-         - Confirm T+B chain == T+B+S chain.
-Check 3: 4-core 3-substrate closure (Theorem 4.2)
-         - Direct check that T(C×C), B(C×C), S(C×C) ⊆ C for C = {0, 7, 8, 9}.
-Check 4: 4-core preservation (C3) for each substrate.
-Check 5: Non-associativity index (C4) for each substrate; alpha_A in [0.5, 0.88].
-Check 6: Commutativity (C2) for each substrate.
-```
-
-Total runtime under 5 seconds. Tested on Python 3.11+ with numpy + sympy.
-
-The companion paper [J35] reproduces additional structural facts cited in §3.3 and §8 (normalizer identity; closed-form attractor; Galois D_4; universality across chain shells; partial α uniqueness) via its own verification script `4core_verification.py`.
-
----
-
-## §10 References
-
-### Companion papers in the J-series
-
-- B.R. Sanders, M. Gish. *Joint Closure, a Universal Attractor, and an Algebraic Mixing Point for a Pair of Binary Operations on $\mathbb{Z}/10\mathbb{Z}$.* J35 of the J-series; submitted to *Journal of Algebra*. (The 4-core fusion-closure paper; six theorems converging on $\mathcal{C}$.)
-- B.R. Sanders, M. Gish. *Non-Associativity Decay in Binary Composition Tables over $\mathbb{Z}/N\mathbb{Z}$.* J01 of the J-series; submitted to *J. Combin. Theory Ser. A*. (The σ-rate paper at the family level.)
-- B.R. Sanders, M. Gish. *Closed-Form Attractor + α-Uniqueness PSLQ.* J33 of the J-series; submitted to *Math. of Comp.* (The 17-point Stern-Brocot PSLQ paper.)
-- B.R. Sanders. *Six Algebraic DOFs of the TIG Framework: A Synthesis.* J47 of the J-series; in preparation for *Notices AMS*. (The framework's algebraic-content integration paper.)
-
-### External references
-
-- A. Drápal, I.M. Wanless. *Maximally non-associative quasigroups.* J. Combin. Theory Ser. A **184** (2021), 105510. **[Closest published precedent for the family-of-magmas framing.]**
-- B.D. McKay, I.M. Wanless. *On the number of Latin squares.* Ann. Comb. **9** (2005), 335–344.
+- A. Drápal, I.M. Wanless. *Maximally non-associative quasigroups.* *J. Combin. Theory Ser. A* **184** (2021), 105510. **[Closest published precedent for the family-of-magmas framing.]**
+- B.D. McKay, I.M. Wanless. *On the number of Latin squares.* *Ann. Comb.* **9** (2005), 335-344.
 - R.H. Bruck. *A Survey of Binary Systems.* Springer, 1958.
-- J.D.H. Smith. *An Introduction to Quasigroups and Their Representations.* Chapman & Hall/CRC, 2007.
-- A. Drápal, T. Kepka. *On a class of nonassociative groupoids.* Acta Univ. Carolin. Math. Phys. **26** (1985), 55–63.
-- S. Burris, H.P. Sankappanavar. *A Course in Universal Algebra.* Springer, 1981. [Sub-magma lattices, closure, universal-algebra reference.]
-- D. Hobby, R. McKenzie. *The Structure of Finite Algebras.* Contemporary Mathematics 76, AMS, 1988. [Finite-algebra structural classification.]
+- J.D.H. Smith. *An Introduction to Quasigroups and Their Representations.* Chapman and Hall/CRC, 2007.
+- A. Drápal, T. Kepka. *On a class of nonassociative groupoids.* *Acta Univ. Carolin. Math. Phys.* **26** (1985), 55-63.
+- S. Burris, H.P. Sankappanavar. *A Course in Universal Algebra.* Springer, 1981.
+- D. Hobby, R. McKenzie. *The Structure of Finite Algebras.* Contemporary Mathematics **76**, AMS, 1988.
 - LMFDB Collaboration. *Number field 4.2.10224.1.* https://www.lmfdb.org/NumberField/4.2.10224.1.
 
+### §9.6 TIG corpus references (Atlas)
+
+- `Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md` --- the family-structure framing (membership / centre / boundaries) adopted as Path B.
+- `Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/SUBSTRATE_FUNCTION_MAP_v1.md` --- the 24 structural findings + 17-function map.
+- `Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/SUBSTRATE_FUNCTION_MAP_v1_1_EXTENSION.md` --- $D_4$-correction, BHML spectral, post-attractor block.
+- `Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/SFM_FINDINGS_v1.md` --- Q1 and Q6 computational results from `sfm_q1_q6_q7.py`.
+- `Atlas/META_PLAN_2026-05-06/J_PAPER_BOILERPLATE.md` --- PROVEN/COMPUTED/STRUCTURAL RHYME/OPEN tier discipline; lens-ownership paragraph template.
+- `Atlas/LENS_TAXONOMY_2026-05-06/CL_FORCING_AXIOMS.md` --- full A1-A9 axiom statement (parent framework version).
+- `Atlas/LENS_TAXONOMY_2026-05-06/VARIANT_CATALOG.md` --- 62 variants with Tier-A/B/C/D/E labels.
+
 ---
 
-## §11 Bibtex
+## §10 Bibtex
 
 ```bibtex
 @misc{sanders_gish_2026_foundation,

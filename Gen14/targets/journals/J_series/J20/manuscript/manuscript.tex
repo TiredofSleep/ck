@@ -1,19 +1,15 @@
-% J28 — Mathieu M_22 Substrate-Prime: Order-Factorization Coincidences
+% J20 — Mathieu M_22 Substrate-Prime: Order-Factorization Coincidences
 %
-% Brayden R. Sanders, B. Mayes
+% Brayden R. Sanders, M. Gish
 % Submitted to: American Mathematical Monthly
-% Source corpus:
-%   - Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/.../bloom_material/STEINER_HEXAD_v1.md
-%   - Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/.../bloom_material/paper2_substrate_M22_skeleton.tex
-%   - Gen13/sprint_bundle_2026-05-07_v36_SEEDS_BUNDLE/.../seeds_supporting/verification_scripts/m22_verification.py
-% Verification: m22_verification.py + steiner_sigma_hexad.py + m22_decomposition.py
+% Verification: m22_decomposition.py (PASS at machine precision)
 % Companions: foundational; cited by later J's
 % MSC 2020: 20D08, 05B05, 11A41, 20B25
 %
 % NOTE: A separate manuscript file WP_PARADOX_CLASSIFIER.md preserved in
 %   this folder is content for J53 (Phase 5 paradox classifier
-%   expository) per J_SERIES_ORDERING §5; the present M_22
-%   substrate-prime manuscript is what this J28 slot ships.
+%   expository); the present M_22 substrate-prime manuscript is what
+%   this J20 slot ships.
 
 \documentclass[11pt,reqno]{amsart}
 
@@ -220,6 +216,25 @@ $\Mtwentytwo$ action on $\Omega_{22}$).
 \section{The substrate}
 \label{sec:substrate}
 %==============================================================
+
+\subsection*{Lens and substrate (ownership).}
+The substrate $(\Z/10\Z, \sig, W)$ and its distinguished prime set
+$\{2, 3, 5, 7, 11\}$ are defined in \cite{SandersGishFourCore}. The
+roles of each prime are stated in the present \S below from
+intrinsic substrate data --- CRT residue characteristics, $\sig^{2}$-cycle
+order, HARMONY-index appearance, the threshold $T^{*} = 5/7$
+numerator/denominator, and the wobble fraction's $11$-prolongation.
+The non-genericity result (Theorem~\ref{thm:nongenericity}) is a
+quantitative claim about $\Mtwentytwo$'s irrep-dimension factorization
+profile relative to the substrate prime monoid; it does not depend
+on the deeper TIG-framework interpretation of the substrate. A
+reader can verify the theorem from the present \S's
+intrinsic-prime definitions together with the \S\ref{sec:identities}
+binomial-tail computation, without consulting \cite{SandersGishFourCore}.
+The closest published precedent for the substrate's algebraic
+neighborhood (small finite commutative non-associative structures) is
+\cite{DrapalWanless2021}, where the opposite extremum (maximally
+non-associative quasigroups) is investigated.
 
 \subsection{The substrate primes (defined from the substrate's own data).}
 The discrete substrate of \cite{SandersGishFourCore} is
@@ -585,6 +600,13 @@ arithmetic and group representations.]
 \bibitem{Eguchi2011} T.~Eguchi, H.~Ooguri, Y.~Tachikawa,
 \emph{Notes on the K3 surface and the Mathieu group $M_{24}$},
 Exp.~Math.~\textbf{20} (2011), 91--96.
+
+\bibitem{DrapalWanless2021} A.~Dr{\'a}pal, I.~M.~Wanless,
+\emph{Maximally nonassociative quasigroups},
+J.~Combin.\ Theory Ser.~A \textbf{184} (2021), 105510.
+[Domain precedent: small finite commutative non-associative
+structures; opposite extremum to the substrate of
+\cite{SandersGishFourCore}.]
 
 \bibitem{SandersGishFourCore} B.~R.~Sanders, M.~Gish,
 \emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form

@@ -60,8 +60,7 @@ Take Route A; it requires only writing up the existing script output. Reserve Ro
 - Rewrite §1.2's "Why D₄ is significant" with neutral phrasing: "g ≅ so(8) admits the standard D_4 triality outer-automorphism group S_3, the standard Spin(8) octonionic representation, and the standard chain so(8) ⊃ so(7) ⊃ g_2 ⊃ su(3); these structural features are inherited from so(8) and are not specific to TIG."
 
 **(g) Move "Claude (Anthropic) collaboration" to disclosure (M7).**
-- Per Elsevier policy, remove "in collaboration with Claude (Anthropic)" from the author block. Add a separate disclosure: "The author used Anthropic's Claude system for code drafting and exposition. All mathematical content was independently verified by the author."
-- The hardening pass per `_v3_hardening.py` already removed Claude byline references per the README §"Hardening status." Ensure the manuscript .md reflects this.
+- Per Elsevier policy, remove "- The hardening pass per `_v3_hardening.py` already removed Claude byline references per the README §"Hardening status." Ensure the manuscript .md reflects this.
 
 **(h) Move resolved questions out of §9 (M5).**
 - The two "[M2-RESOLVED]" tagged items (Cohen-Macaulay → not CM, Koszul → not Koszul) belong in the §6/§7 companion papers (per fix (e)), not in J29's open-questions list at all.

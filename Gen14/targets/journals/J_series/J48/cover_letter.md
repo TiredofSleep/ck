@@ -41,10 +41,10 @@ The full J-series sequence (J01–J55, summer 2026) is a coordinated submission 
 
 ## Reproducibility
 
-This is a synthesis paper with no new computational claims. All cited diagnostics are reproduced from the companion papers' verification scripts — `numpy + sympy` on a standard laptop, under 5 minutes per script. The integer/rational signature (§7) is verified at machine precision throughout. Lead-theorem verification chain:
+The lead theorem (Operad $D_4$ obstruction, Theorem 4.1) has a self-contained verification script in this submission package — `manuscript/verify_J48_operadic_obstruction.py`, pure Python standard library (no numpy/sympy dependency), running in ~3 seconds. Six checks pass at machine precision: TSML_RAW table well-formed with exactly 4 wobble entries; $|\mathcal{N}| = 126$ with the 5-pair bracketing distribution; $|D_4| = 8$ with dihedral order profile; 67 restricted $D_4$-orbits with profile $(44, 7, 4, 10, 2)$; **exactly 16 of the 67 fail $D_4$ bracketing-pair coherence** (the obstruction); and Family H is $P_{56}$-equivariant on $\mathcal{N}$ with the $\sigma^3$ obstruction localizing to the single diagonal triple $(3, 9, 9)$.
 
-- Theorem 4.1 (Operad $D_4$ obstruction): J40/WP109 enumeration script (126 non-associative triples; 67 $D_4$-orbits; 16 incoherent).
-- Theorem 4.2 ($P_{56}$-equivariant arity-3 fuse + $\sigma^3$ obstruction at $(3, 9, 9)$): J40/WP112 enumeration script (98 $P_{56}$-orbits; 8/8 rule families $P_{56}$-equivariant; 0/8 $\sigma^3$-equivariant).
+The remaining cited diagnostics are reproduced from the companion papers' verification scripts — `numpy + sympy` on a standard laptop, under 5 minutes per script:
+
 - Theorem 5.1 ($H/Br = 1+\sqrt{3}$ at $\alpha = 1/2$): J35/WP105 numerical script + the explicit BR-factor cancellation Galois proof in the framework's internal table (D78).
 - §7.2 isotypic decomposition (84.25 / 14.68 / 1.07): SFM v1.1 §10 verification script (`Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/sfm_q1_q6_q7.py`).
 

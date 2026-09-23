@@ -5,14 +5,14 @@ commutator [TSML, BHML] under conjugation on Z/10Z, per the corrected F15
 in `Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/SUBSTRATE_FUNCTION_MAP_v1_1_EXTENSION.md`,
 section 10.
 
-Expected output (corresponding to v1.1 §10.3):
+Expected output (exact-rational shares; total Frobenius norm-squared = 1,845,290):
 
-    triv (doubly-invariant)        ~ 84.25%
-    sign1                          ~ 0.000246%   (numerical zero)
-    sign2 (sigma_outer-breaking)   ~ 14.68%
-    sign3                          = 0.0000%     (structural zero, exact)
-    std (2-dim)                    ~ 1.07%
-    Sum                            = 100.00%
+    triv (doubly-invariant)        3075027/2  ~ 83.3210%
+    sign1                                9/2  ~ 0.0002%    (near-cancellation; not exact zero)
+    sign2 (sigma_outer-breaking)      288164  ~ 15.6162%
+    sign3                                  0  =  0.0000%   (structural zero, exact)
+    std (2-dim)                        19608  ~  1.0626%
+    Sum                          1,845,290    = 100.0000%
 
 Wedderburn orthogonality: sum of isotypic norms-squared equals total.
 
@@ -373,19 +373,21 @@ print()
 # Print final summary in the same units used in v1.1 §10.3.
 # ---------------------------------------------------------------------------
 print("=" * 70)
-print("Summary (compare to v1.1 §10.3 corrected F15)")
+print("Summary (exact-rational shares; cross-checked against Theorem 2.1)")
 print("=" * 70)
 print()
-print("  triv (doubly-invariant):  expected ~84.25%, got "
-      f"{float(projections['triv'][1])/float(total_orig)*100:.4f}%")
-print("  sign1 (P56-anti, sigma^3-fixed): expected ~0, got "
-      f"{float(projections['sign1'][1])/float(total_orig)*100:.4f}%")
-print("  sign2 (sigma_outer-breaking): expected ~14.68%, got "
-      f"{float(projections['sign2'][1])/float(total_orig)*100:.4f}%")
-print("  sign3 (P56-fixed, sigma^3-anti): expected = 0 exactly, got "
-      f"{float(projections['sign3'][1])/float(total_orig)*100:.4f}%")
-print("  std (2-dim interaction): expected ~1.07%, got "
-      f"{float(projections['std'][1])/float(total_orig)*100:.4f}%")
+print("  triv  (doubly-invariant): expected 3075027/2 (~83.32%), got "
+      f"{projections['triv'][1]} ({float(projections['triv'][1])/float(total_orig)*100:.4f}%)")
+print("  sign1 (near-cancellation): expected 9/2 (~0.0002%), got "
+      f"{projections['sign1'][1]} ({float(projections['sign1'][1])/float(total_orig)*100:.4f}%)")
+print("  sign2 (sigma_outer-anti):  expected 288164 (~15.62%), got "
+      f"{projections['sign2'][1]} ({float(projections['sign2'][1])/float(total_orig)*100:.4f}%)")
+print("  sign3 (structural zero):   expected 0 exactly, got "
+      f"{projections['sign3'][1]} ({float(projections['sign3'][1])/float(total_orig)*100:.4f}%)")
+print("  std   (2-dim interaction): expected 19608 (~1.06%), got "
+      f"{projections['std'][1]} ({float(projections['std'][1])/float(total_orig)*100:.4f}%)")
 print()
 print("All percentages computed with exact rational arithmetic; the")
-print("decomposition is unique by Wedderburn.")
+print("decomposition is unique by Wedderburn.  Note: sign3 = 0 is the")
+print("load-bearing 'forbidden symmetry' of the lens-pair commutator under D_4")
+print("(see manuscript Proposition 5.1).")

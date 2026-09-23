@@ -1,11 +1,11 @@
-# J03 — First-G Law: Squarefree Stability of the Smallest-Prime-Factor Coprime Window
+# J03 — The First-G Event and a Discrete Sinc² Identity
 
-**Status:** FORMAT
-**Phase:** Phase 1
-**Target venue:** Integers
+**Status:** SAVE-PLAN IMPLEMENTED (Fork A restoration; manuscript rewritten 2026-05-08)
+**Phase:** Phase 1 (Triadic Launch)
+**Target venue:** Integers — Electronic Journal of Combinatorial Number Theory
 **Author lane:** Sanders + Gish
-**Tier:** B
-**WP source:** WP34
+**Tier:** A (substantive theorems restored; no longer a stub)
+**WP source:** WP34 (First-G Law) + held draft `_held_first_g/first_g_sinc2_FINAL.tex`
 
 ---
 
@@ -37,11 +37,23 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-### SAVE PLAN landed — see Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J03.md
+### SAVE PLAN J03 — IMPLEMENTED 2026-05-08 (Fork A restoration complete)
 
-**Verdict: KEEP-VIABLE.** Fork A (restore harmonic content from `_held_first_g/first_g_sinc2_FINAL.tex`) is a clean save with 4–6 hours of merging. The held draft is 552 lines, has two non-trivial theorems (Theorem 4.2 closed form for R(k,f), Theorem 5.1 synchronization), Theorem 6.1 continuum limit, and machine-precision verification (max deviation 4.44 × 10⁻¹⁶ across 8 primes). Every claim maps onto a PROVED D-table in `FORMULAS_AND_TABLES.md` (D1, D2, D3, D11a/b/c, D14, D15, D24, D25, sinc² Zero Law). Restoration is not invention — the substantive draft was already written and was stripped out into J08 in a 2026-04-19 shrink that the SAVE PLAN reverses.
+**Verdict: KEEP-VIABLE — DONE.** Fork A restoration is implemented. The held draft `_legacy_tiers/tier1_submit_now/_held_first_g/first_g_sinc2_FINAL.tex` (552 lines, two non-trivial theorems, machine-precision verification at max deviation 4.44 × 10⁻¹⁶ across 8 primes) has been copied into `manuscript/manuscript.tex` and augmented per SAVE_PLAN §2 with:
 
-The Triadic Launch slot is preserved; J03 stays in third position with substance restored. After the merge, desk-reject probability drops from ~40% to ~10%, accept-with-minor-revision rises to ~50%. No retitle, no retarget, no demotion. The save plan's §2 lays out the surgical additions (lens-ownership preamble, PROVEN/COMPUTED/RHYME/OPEN tier-discipline paragraph, 5 new bibliography entries from Erdős/Pomerance/Tenenbaum/Iwaniec-Kowalski/Friedlander-Iwaniec) on top of the held draft. Cover letter rewritten to lead with the synchronization theorem rather than "this paper exists to be cited by J08."
+1. **§0 lens-and-substrate preamble** (per `J_PAPER_BOILERPLATE.md` §5.5) — short variant, since J03 is not a magma paper. Acknowledges substrate is plain Z, no operator labels, companion papers reside on Z/N.
+2. **§1 tier-discipline paragraph (PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN)** per `J_PAPER_BOILERPLATE.md` §0/§2. Explicitly classifies what is proved, what is computationally verified, what is structural rhyme (sinc²(1/2) = (2/3)/ζ(2)), and what is open (the corridor-midpoint question).
+3. **5 new bibliography entries** — Erdős 1959, Pomerance 1985, Tenenbaum 2015, Iwaniec-Kowalski 2004, Friedlander-Iwaniec 2010. Bibliography total now 15 entries (4 textbooks + 7 journal/series + 1 Shannon DOI + 3 internal companions).
+4. **Author lane: Sanders + Gish only.** Luther dropped per Brayden directive (held draft already correct).
+5. **Title:** *The First-G Event and a Discrete Sinc² Identity* (held draft title; tighter than the stub's overpromising subtitle).
+6. **Drápal-Wanless framing:** not invoked in J03 directly (J03 is not a magma paper) but referenced in the lens-ownership preamble as the broader-program neighborhood.
+7. **Verification scripts:** `proof_first_g_event.py` (305 squarefree b in [2,500], 22,367 (b,k) pairs, zero counterexamples, runtime <3s) and `verify_first_g.py` (closed-form / synchronization / continuum-limit / endpoint-minimum checks; 5/5 verifications pass; max deviation 4.44 × 10⁻¹⁶).
+
+The Triadic Launch slot is preserved. Estimated revision time per save plan: 4–6 hours. Implementation completed in single pass.
+
+### Earlier referee audit (2026-05-07): paper was too thin — superseded by Fork A restoration above
+
+Brayden's instinct ("not substantial enough") was validated by the earlier line-by-line referee. The stub had Theorem 3.1 Part (i) as a 3-line tautology (definition of spf(b)), all four corollaries as one-line rereads, and substantive content (closed-form R(k,f), sinc² synchronization) stripped out and moved to J08 in a 2026-04-19 shrink. **Fork A reverses that shrink.** Theorem 4.2 (closed form), Theorem 5.1 (synchronization), Theorem 6.1 (continuum limit) are now in J03 directly. J08 keeps the cryptographic/ω-blindness application development separately.
 
 ### REFEREE AUDIT (2026-05-07): paper IS too thin for *Integers* — see J03_FirstG_Substance_Audit.md
 
@@ -59,24 +71,33 @@ Brayden's instinct ("not substantial enough") was validated by the line-by-line 
 
 Recommendation: **A > B > C.** Either way: do not submit current J03 to *Integers* unmodified.
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN (provisional, pending fork choice)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN (post-Fork A, final)
 
-- **PROVEN (current draft):** the smallest k such that any non-trivial divisor d | b yields a sinc²-zero is k = spf(b) — currently reduces to spf-definition contrapositive.
-- **COMPUTED:** `proof_first_g_event.py`: 22,367 (b,k) pairs, all squarefree b ≤ 500, zero exceptions, runtime <3s.
-- **STRUCTURAL RHYME (Fork A would expand):** continuum limit R(k,f) → sinc²(t); exact identity sinc²(1/10) = 25(√5-1)²/(4π²); connection to discrete Fejér / Bochner.
-- **OPEN (Fork A would close):** the Fejér-quotient closed form, synchronization theorem, sinc² continuum limit — all currently sit in J08 Prime Phase Transition.
+- **PROVEN:**
+  - *Theorem 3.1 (First-G localization).* For every b > 1, k\*(b) = spf(b).
+  - *Theorem 4.2 (closed form).* R(k, f) = sin²(πk/f) / (k² sin²(π/f)) for every f ≥ 2, k ≥ 1.
+  - *Theorem 5.1 (synchronization).* For every b > 1, the First-G event and the first integer zero of R(·, spf(b)) coincide at k = spf(b).
+  - *Theorem 6.1 (continuum limit).* R(k, f) → sinc²(k/f) as f → ∞ with k/f fixed.
+  - *Cor 4.4 (endpoint values).* R(1,f) = 1, R(f-1,f) = 1/(f-1)², R(f,f) = 0, strict monotonicity on {1, ..., f-1}.
+- **COMPUTED:**
+  - 22,367 (b,k) pairs over 305 squarefree b ∈ [2, 500], zero counterexamples, runtime <3s (`proof_first_g_event.py`).
+  - 8 primes f ∈ {3, 5, 7, 11, 13, 17, 19, 23}, all k ∈ {1, ..., f+1}, max deviation 4.44 × 10⁻¹⁶ for the closed form (`verify_first_g.py`, 5/5 verifications pass).
+- **STRUCTURAL RHYME:**
+  - *Identity sinc²(1/2) = 4/π² = (2/3)/ζ(2).* One-line consequence of ζ(2) = π²/6. Cited as motivation for the corridor midpoint, not as derivational input.
+  - *Primon-gas reading: 1/ζ(2) = density of squarefree integers.* The squarefree restriction in our verification sample sits squarely in this regime — bridge connection only, no theorem.
+  - *Drápal-Wanless 2021, JCTA.* Cited in the J-series broadly as the closest published precedent for the magma framework; not invoked in J03 directly because J03 is not a magma paper.
+- **OPEN:**
+  - Why does the corridor midpoint of the substrate sit at t = 1/2 such that sinc²(1/2) = (2/3)/ζ(2) becomes structurally relevant? J03 flags it for companion work.
 
-### Original Sprint-35 status notes
+### Status update (2026-05-08, post-SAVE-PLAN)
 
-Top-cited (12x). Verified across 36,662 cases (paper reports the 22,367-pair exhaustive check on squarefree b ≤ 500; the 36,662 is the broader corpus check across 187 semiprimes including non-squarefree). Format for Integers OA submission.
-
-**Status update (2026-05-07):**
-
-- Manuscript: `manuscript/manuscript.tex` (canonical name; mirrors `first_g_event.tex` byte-for-byte). amsart, ~12 pages, source from Sprint 35 (`Gen12/targets/clay/papers/sprint35_first_g_event_2026_04_19/`). MR numbers added 2026-04-19 (Apostol MR0434929, Hardy-Wright MR2445243, Ireland-Rosen MR1070716, Lang MR1878556, Montgomery MR0337821; Shannon DOI added in lieu of MR).
-- Verification: `manuscript/proof_first_g_event.py` — runs in <3 s, prints the stability-window distribution table, exits 0 on PASS. Already verified by Sprint 35 SHIP_DECISION.md.
-- Cover letter: `cover_letter.md` finalized at this folder root, ~600 words, addressee placeholder for *Integers* managing editor at submission time.
-- **Author-lane mismatch (open issue, low priority):** README §0 lists the lane as "Sanders + Gish" but the existing manuscript file (Sprint 35 source-of-truth, journal-ready, MR-checked) has three authors: Sanders + Gish, matching WP34 attribution. Per "never delete + cite" preservation discipline, the existing tex was NOT edited to drop Luther. The cover letter's "From" block lists Sanders (corresponding) + Gish per the lane and notes Luther's appearance on the manuscript title block. Brayden to decide at referee-rigor pass whether to (a) reformat the manuscript to drop Luther (and renegotiate WP34 attribution upstream), or (b) update the J03 README lane to "Sanders + Gish" to match the manuscript. Default: option (b), since the WP34 corpus has Luther's dispersion-conjecture contribution recorded.
-- Open: pre-submission steps from Sprint 35 SHIP_DECISION.md §6 still outstanding — typographic read by Luther or Gish; *Integers* style file pass (if amsart not accepted on first submission); arXiv same-day upload at submission time.
+- **Manuscript:** `manuscript/manuscript.tex` (Fork A restoration). amsart, ~14 pages with the §0 lens preamble, §1 tier-discipline paragraph, expanded bibliography (15 entries). Title: *The First-G Event and a Discrete Sinc² Identity*.
+- **Verification scripts:**
+  - `manuscript/proof_first_g_event.py` — Theorem 3.1 First-G localization. Runtime <3s. 305 squarefree b in [2, 500], 22,367 (b,k) pairs, zero counterexamples.
+  - `manuscript/verify_first_g.py` — Theorems 4.2 / 5.1 / 6.1 + Cor 4.4(ii). 5/5 verifications pass; max closed-form deviation 4.44 × 10⁻¹⁶ across 8 primes.
+- **Cover letter:** `cover_letter.md` rewritten 2026-05-08 to lead with the synchronization theorem (not "this paper exists to be cited by J08"). ~700 words.
+- **Author lane:** Sanders + Gish (Luther dropped per Brayden directive 2026-05-07). Held draft already correct; no Luther reference in the new manuscript.
+- **Pre-submission remaining:** Brayden's referee-rigor pass; arXiv same-day upload at submission time; Integers style-file pass if amsart not accepted on first submission.
 
 
 

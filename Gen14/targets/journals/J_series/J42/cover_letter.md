@@ -4,7 +4,7 @@
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- B. Mayes, Independent Researcher
+- M. Gish, Independent Researcher — monica.gish1992@gmail.com
 
 **Date:** [DATE OF SUBMISSION]
 

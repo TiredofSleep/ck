@@ -22,7 +22,7 @@ The discriminant of the eighth-degree polynomial $g(\lambda) = f(\lambda)/\lambd
 $$
 \mathrm{disc}(g) = 2^{16} \cdot 7^7 \cdot 659 \cdot 95{,}184{,}709 \cdot 222{,}007{,}939 \cdot 2{,}545{,}644{,}917 \cdot 295{,}153{,}052{,}072{,}903,
 $$
-with no factor of $11$. The result therefore records a clean structural separation: the prime $11$ lives at the *coefficient* level (sums and products of eigenvalues — the elementary symmetric functions), while the large exponents $2^{16}$ and $7^7$ live at the *separation* level (eigenvalue gaps — the discriminant). A second theorem (Theorem 4.1) shows that the prime-$11$ divisibility pattern is **lens-dependent**: the upper-triangle authoritative symmetrization $T_{\mathrm{SYM}}$ — a 2-cell perturbation of $T$ — has $c_2 = 17$ and no factor of $11$ at the coefficient level. The single 2-cell perturbation entirely destroys the prime-$11$ pattern.
+with no factor of $11$. The result therefore records a clean structural separation: the prime $11$ lives at the *coefficient* level (sums and products of eigenvalues — the elementary symmetric functions), while the large exponents $2^{16}$ and $7^7$ live at the *separation* level (eigenvalue gaps — the discriminant). A second theorem (Theorem 4.1) shows that the prime-$11$ divisibility pattern is **lens-dependent**: the upper-triangle authoritative symmetrization $T_{\mathrm{SYM}}$ — a 2-cell perturbation of $T$, with rank dropping from $8$ to $7$ — has $c_2 = -23$ and no factor of $11$ in any nonzero coefficient of its characteristic polynomial. The single 2-cell perturbation entirely destroys the prime-$11$ pattern.
 
 The paper is a 5-6 page short note. All claims are verified by a self-contained sympy computation in under 5 seconds.
 

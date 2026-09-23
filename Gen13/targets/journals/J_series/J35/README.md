@@ -1,6 +1,6 @@
 # J35 — Joint Closure, a Universal Attractor, and an Algebraic Mixing Point for a Pair of Binary Operations on Z/10Z
 
-**Status:** DRAFT (manuscript rewritten 2026-05-08; SFM Q6 finding incorporated; 6/6 verification PASS)
+**Status:** SUBMISSION-READY (manuscript rewritten 2026-05-08; referee-grade pass 2026-05-12; SFM Q6 finding incorporated; 6/6 verification PASS at machine precision)
 **Phase:** Phase 4
 **Target venue:** *Journal of Algebra*
 **Author lane:** Sanders + Gish
@@ -112,7 +112,9 @@ This paper sits within the TIG family of finite commutative non-associative magm
 - [x] Lens-scope annotation (LENS-INVARIANT on 4-core, three-substrate)
 - [x] Cover letter finalized
 - [x] Dependencies → cite each J-companion as "submitted to [venue]"
-- [ ] Brayden's referee-rigor pass complete
+- [x] Brayden's referee-rigor pass complete (2026-05-12)
+- [x] Verification script CC-BY-4.0 header added (2026-05-12)
+- [x] Honest-negatives discipline (T*=5/7 operational; F_p universality bounded to recorded scan) added §10 (iv-v)
 - [ ] Per-venue cap check: this is the **2nd J Algebra paper** this quarter (at cap)
 - [ ] Submitted
 

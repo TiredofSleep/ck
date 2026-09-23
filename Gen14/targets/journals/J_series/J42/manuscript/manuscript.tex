@@ -1,13 +1,13 @@
-% J22 — Galois D_4 over LMFDB 4.2.10224.1: Number-Field Identification
-%        of the Four-Core Attractor
+% J42 — A Discrete sinc^2 Identity in Finite-Dimensional Quantum Mechanics
 %
 % Brayden R. Sanders, M. Gish, 7Site LLC
-% Submitted to: Communications in Algebra
-% Source: extracted from J02 (four_core_consolidated.tex §8 — Galois D_4)
-% Verification: sympy galois_group / sympy.factor(f, extension=[sqrt(-71)])
-%               + LMFDB cross-check on 4.2.10224.1
-% Companion cited as already-submitted: J02
-% MSC 2020: 11R32, 11R16, 11R20, 12F10
+% Target venue: Letters in Mathematical Physics (preferred; JMP per-venue cap reached --
+%               see cover letter and README §5/§6)
+% Source: Theorem 3.1 closed form descends from first_g_sinc2_FINAL.tex (J03 / J04
+%         corpus); QM-on-cyclic-group framing is novel for J42.
+% Verification: manuscript/verify_J42_sinc2.py  (max deviation 3.33e-16; deterministic;
+%               runs in <2 s)
+% MSC 2020: 81S05, 42A16, 11A41, 11Y05
 
 \documentclass[11pt,reqno]{amsart}
 
@@ -29,366 +29,466 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
-\newcommand{\Q}{\mathbb{Q}}
 \newcommand{\Z}{\mathbb{Z}}
-\newcommand{\Cfour}{\mathcal{C}_{4}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\spf}{\operatorname{spf}}
+\DeclareMathOperator{\sinc}{sinc}
 
-\title[Galois $D_{4}$ over LMFDB 4.2.10224.1]
-{Galois $D_{4}$ over LMFDB 4.2.10224.1: \\
- Number-Field Identification of the Four-Core Attractor}
+\title[A discrete $\sinc^{2}$ identity in finite-dimensional QM]
+{A Discrete $\sinc^{2}$ Identity in Finite-Dimensional Quantum Mechanics}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{Brayden R.\ Sanders}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
-\address{Independent Researcher, Hot Springs, Arkansas, USA}
+\author{M.\ Gish}
+\address{Independent Researcher, USA}
 \email{monica.gish1992@gmail.com}
 
-\subjclass[2020]{11R32, 11R16, 11R20, 12F10}
-\keywords{Galois group, dihedral extension, quartic number field,
-LMFDB, fuse iteration, attractor identification}
+\subjclass[2020]{81S05, 42A16, 11A41, 11Y05}
+\keywords{Fej\'er kernel, finite-dimensional quantum mechanics, cyclic group,
+discrete Fourier transform, $\sinc^{2}$, first-zero theorem, coprimality partition}
 
 \date{\today}
 
 \begin{document}
 
 \begin{abstract}
-We isolate and present in self-contained form the Galois-theoretic
-content of the four-core attractor identified in \cite{SandersGishFourCore}.
-Specifically, the unique interior fixed point $p^{*}$ of the
-symmetric-mixing fuse iteration $F_{1/2}$ on the four-core simplex
-$\Delta^{3}_{\Cfour}$ has its coordinate ratio $\xi^{*} := r/\beta$
-characterized as the unique positive real root of the irreducible monic
-integer quartic
+For an integer $f \ge 2$ and $k \ge 1$, define the unit-amplitude exponential sum on the
+cyclic position alphabet $\{1,\dots,k\}$ at momentum quantum $1/f$,
 \[
-  f(x) \;=\; x^{4} + 4x^{3} - x^{2} + 2x - 2.
+  S(k,f) \;=\; \tfrac{1}{k}\sum_{j=1}^{k} e^{2\pi i j / f},
+  \qquad R(k,f) \;=\; |S(k,f)|^{2}.
 \]
-The Galois group of $f$ over $\Q$ is the dihedral group $D_{4}$ of order
-$8$. The number field $K = \Q[x]/(f)$ has discriminant
-$d_{K} = -2^{4}\cdot 3^{2}\cdot 71 = -10224$, class number
-$h_{K} = 1$, signature $(2,1)$, regulator $R_{K} \approx 8.617$, and is
-the catalogued field LMFDB~$4.2.10224.1$. The Galois closure
-$L \supset K$ has degree $8$ over $\Q$, signature $(0,4)$, class number
-$14$, discriminant $2^{8}\cdot 3^{4}\cdot 71^{4}$, and is
-LMFDB~$8.0.526936617216.1$. The number field is catalogued and not new;
-what is new is the route: a quartic Galois $D_{4}$ field arising as the
-ring of definition for the fixed-point coordinates of a symmetric-mixing
-iteration on a four-element fusion-closed sub-magma of $\Z/10$.
+We prove the closed form $R(k,f) = \sin^{2}(\pi k/f)/(k^{2}\sin^{2}(\pi/f))$, identify it
+as the Fej\'er kernel restricted to integer arguments, and read it as the squared overlap
+between a momentum eigenstate and a normalized position-space rectangular window in finite
+QM on $\Z/N\Z$. Three QM-relevant consequences follow: (i) the squared overlap of a
+momentum eigenstate with the normalized rectangular position window
+(Proposition~\ref{prop:overlap}), (ii) a first-zero theorem
+(Corollary~\ref{cor:firstzero}): for every $f \ge 2$, the first integer zero of
+$R(\cdot,f)$ is $k = f$ --- no primality is used --- and (iii) the continuum limit
+$R(k,f) \to \sinc^{2}(k/f)$ (Theorem~\ref{thm:continuum}). We close
+(Proposition~\ref{prop:firstg}) with the synchronization with the arithmetic
+\emph{First-G event}: for $f = \spf(b)$ the smallest prime factor of an integer $b > 1$,
+the first integer zero of $R(\cdot,f)$ coincides with the smallest $k$ at which
+$\{1,\dots,k\}$ contains a non-coprime element of $\Z/b\Z$. The corrected special value
+$\sinc^{2}(1/10) = 25(\sqrt{5}-1)^{2}/(4\pi^{2}) \approx 0.9675312093$ is recorded in
+\S\ref{subsec:continuum}; an earlier draft printed the decimal as $0.9355$, a transcription
+error that did not affect the closed form. Verification is exhaustive on
+$f \in \{3,4,5,6,7,8,9,10,11,12,13,17,19,23\}$ at machine precision (max deviation
+$3.33 \times 10^{-16}$); the bundled script \texttt{verify\_J42\_sinc2.py} also confirms
+the first-zero theorem for $f \in \{2,\dots,15\}$ and the synchronization for
+$b \in \{6,10,15,21,22,35,105\}$.
 \end{abstract}
 
 \maketitle
 
+\section*{Lens and substrate}
+\label{sec:lens}
+
+This paper works on $\Z/N\Z$ as the cyclic-group quantum-mechanics substrate, with no
+TSML/BHML lens dependence. The momentum--position duality is the standard one (DFT-related
+orthonormal bases). The theorems are statements about the Fej\'er-kernel restriction to
+integer arguments and its arithmetic synchronization with smallest-prime-factor
+partitions. No 10-operator framework is invoked; the substrate $\Z/10\Z$ enters only as a
+special case ($f = 10$ in \S\ref{subsec:continuum}) and not load-bearingly. The note sits
+adjacent to the TIG family-of-finite-magmas program \cite{SandersGishFourCore} and
+borders, but does not overlap, the corpus on small finite commutative non-associative
+structures pioneered by Dr\'apal and Wanless \cite{DrapalWanless2021}; the present
+identity is associative (Fej\'er on $\Z/N\Z$) and stands on its own.
+
 \tableofcontents
 
 %==============================================================
-\section{Introduction and statement of result}
+\section{Introduction}
+\label{sec:intro}
 %==============================================================
 
-The four-core sub-magma $\Cfour = \{0, 7, 8, 9\} \subset \Z/10$ is
-fusion-closed under the joint action of the two canonical commutative
-binary operations $\TS, \BH$ on $\Z/10$ (the magma data and joint
-closure are established in \cite{SandersGishFourCore}). The
-symmetric-mixing fuse iteration $F_{1/2}$ on the four-core simplex
-$\Delta^{3}_{\Cfour} = \{(v, h, \beta, r) \in \R_{\geq 0}^{4} :
-v + h + \beta + r = 1\}$ has a unique interior fixed point $p^{*}$.
-The Galois content of $p^{*}$ is captured by two algebraic ratios:
-$h/\beta = 1 + \sqrt{3}$ and $\xi^{*} = r/\beta$.
-
-The first ratio places one quadratic extension $\Q(\sqrt{3}) \subset
-\Q(\xi^{*})$ in the Galois closure. The second ratio is the focus of
-the present paper.
-
-\begin{theorem}[Main result, restated from \cite{SandersGishFourCore} §8]
-\label{thm:galois}
-Let $p^{*}$ be the unique interior fixed point of the
-symmetric-mixing fuse iteration $F_{1/2}$ on the four-core simplex
-$\Delta^{3}_{\Cfour}$. Then the coordinate ratio
-$\xi^{*} = p^{*}_{r}/p^{*}_{\beta}$ is the unique positive real root of
-the irreducible monic integer quartic
+Position--momentum duality on the cyclic group $\Z/N\Z$ is the natural arena of finite QM:
+the position basis $\{|j\rangle : j \in \Z/N\Z\}$ and the momentum basis
+$\{|\hat p\rangle : \hat p \in \Z/N\Z\}$ are related by the discrete Fourier transform
 \[
-  f(x) \;=\; x^{4} + 4x^{3} - x^{2} + 2x - 2.
+  \langle j \mid \hat p\rangle \;=\; \tfrac{1}{\sqrt{N}}\, e^{2\pi i j \hat p / N}.
 \]
-The Galois group of $f$ over $\Q$ is the dihedral group $D_{4}$ of
-order $8$. The number field $K = \Q[x]/(f)$ has field discriminant
-$d_{K} = -2^{4}\cdot 3^{2}\cdot 71$, class number $h_{K} = 1$,
-signature $(2, 1)$, regulator $R_{K} \approx 8.617$, and is the
-catalogued field LMFDB~$4.2.10224.1$. The Galois closure $L \supset K$
-has degree $8$ over $\Q$, signature $(0, 4)$, class number $14$,
-discriminant $2^{8}\cdot 3^{4}\cdot 71^{4}$, and is
-LMFDB~$8.0.526936617216.1$. The intermediate field $\Q(\sqrt{3}) \subset
-L$ is a genuine subfield of $L$, with explicit factorization
-\[
-  f(x) \;=\; \bigl(x^{2}+(2-\sqrt{3})x+(\sqrt{3}-1)\bigr)
-             \bigl(x^{2}+(2+\sqrt{3})x-(\sqrt{3}+1)\bigr)
-\]
-in $\Q(\sqrt{3})[x]$.
-\end{theorem}
+A natural physical question is: if we project a momentum eigenstate $|\hat p\rangle$ onto
+a position-space rectangular window of size $k$ (the indicator of $\{1,2,\dots,k\}$), what
+is the squared overlap with the \emph{normalized} window state?
 
-\subsection{Scope of the present paper.}
-The four-core paper \cite{SandersGishFourCore} establishes
-Theorem~\ref{thm:galois} as part of a wider analysis (joint closure of
-$\TS, \BH$ on the four-core; per-coordinate fuse data; closed-form
-attractor at $\alpha = 1/2$; $\alpha$-uniqueness on the
-Stern-Brocot grid). The present paper extracts the Galois-theoretic
-content as a self-contained result: definition of the iteration,
-derivation of the quartic, irreducibility, Galois-group computation,
-and number-field identification with LMFDB. We assume only the joint
-fuse data of \cite{SandersGishFourCore}, which we recall in
-Section~\ref{sec:setup}; the bulk of the present paper (Sections
-\ref{sec:derivation}--\ref{sec:lmfdb}) reproduces the derivation in
-self-contained form.
+The answer is the discrete $\sinc^{2}$ function $R(k,f)$ studied here, where
+$f = N/\hat p$ is the momentum-quantum index. We present a clean, self-contained
+derivation, the elementary closed form (a one-line geometric-sum argument), and the key
+consequences for finite QM. The arithmetic counterpart --- the synchronization with the
+First-G event in coprimality partitions, \S\ref{sec:firstg} --- makes this object also a
+useful reference for number-theoretically flavored finite QM.
+
+\paragraph{Plan.} Section~\ref{sec:setup} sets up the finite-QM Hilbert space and defines
+$R(k,f)$. Section~\ref{sec:closedform} proves the closed form
+(Theorem~\ref{thm:closedform}). Section~\ref{sec:qm} derives the QM-relevant
+consequences: squared overlap with the normalized window (Proposition~\ref{prop:overlap}),
+first-zero theorem (Corollary~\ref{cor:firstzero}), and continuum limit
+(Theorem~\ref{thm:continuum}). Section~\ref{sec:firstg} records the synchronization with
+the First-G event. Section~\ref{sec:tier} collates status, lens scope, and per-venue cap
+notes.
 
 %==============================================================
-\section{Setup: the four-core fuse iteration}
+\section{Finite QM on $\Z/N\Z$}
 \label{sec:setup}
 %==============================================================
 
-We recall the structural input from \cite{SandersGishFourCore}.
-
-\begin{definition}\label{def:fourcore-iteration}
-Let $V = e_{0}, H = e_{7}, B = e_{8}, R = e_{9}$ be the four basis
-vectors corresponding to the indices in $\Cfour = \{0, 7, 8, 9\}$.
-A point in the four-core simplex is $p = (v, h, \beta, r) \in
-\R_{\geq 0}^{4}$ with $v + h + \beta + r = 1$.
-The (symmetric-mixing) fuse iteration $F_{1/2}: \Delta^{3}_{\Cfour}
-\to \Delta^{3}_{\Cfour}$ is given by
+\paragraph{Position and momentum bases.}
+The cyclic group $\Z/N\Z$ supports a Hilbert space $\mathcal{H} = \C^{N}$ with orthonormal
+position basis $\{|j\rangle\}_{j=0}^{N-1}$ and orthonormal momentum basis
+$\{|\hat p\rangle\}_{\hat p=0}^{N-1}$ related by
 \[
-  F_{1/2}(p) \;=\; \tfrac12\bigl(\TS_{\rm fuse}(p) + \BH_{\rm fuse}(p)\bigr),
+  |\hat p\rangle \;=\; \tfrac{1}{\sqrt{N}}\sum_{j=0}^{N-1} e^{2\pi i j \hat p / N}\,
+  |j\rangle.
 \]
-where the two fuse operators are the per-coordinate fuse maps tabulated
-in \cite{SandersGishFourCore} Proposition (per-coordinate fuse data).
-\end{definition}
 
-\begin{remark}
-The crucial structural input we use below is the vanishing
-$\TS_{\rm fuse}(p)_{9} = 0$ on the four-core simplex (the four-core is
-fusion-closed under $\TS$ but $r$-coordinate inputs do not appear in the
-$r$-coordinate output of $\TS_{\rm fuse}$). This vanishing, together
-with the $\beta$-coordinate identity
-$\BH_{\rm fuse}(p)_{9} = 2vr + 2h\beta$, is what produces the quadratic
-relation in $\xi$.
+\paragraph{Position-window state.}
+For $1 \le k \le N$, the rectangular position window of size $k$ is the unnormalized
+state
+\[
+  |W_{k}\rangle \;=\; \sum_{j=1}^{k} |j\rangle, \qquad \langle W_{k} \mid W_{k}\rangle = k.
+\]
+The normalized window is $|w_{k}\rangle = k^{-1/2}\,|W_{k}\rangle$.
+
+\paragraph{Squared overlap.}
+The squared overlap of a momentum eigenstate $|\hat p\rangle$ with the normalized window
+$|w_{k}\rangle$ is
+\[
+  |\langle \hat p \mid w_{k}\rangle|^{2}
+  \;=\; \tfrac{1}{N k}\Bigl|\sum_{j=1}^{k} e^{-2\pi i j \hat p / N}\Bigr|^{2}.
+\]
+For the canonical case $\hat p / N = 1/f$ (equivalently $\hat p = N/f$, requiring $f \mid
+N$), this is
+\begin{equation}\label{eq:overlap-normalized}
+  |\langle \hat p \mid w_{k}\rangle|^{2}
+  \;=\; \tfrac{k}{N}\, R(k,f), \qquad
+  R(k,f) \;=\; \tfrac{1}{k^{2}}\Bigl|\sum_{j=1}^{k} e^{2\pi i j / f}\Bigr|^{2}.
+\end{equation}
+We focus on $R(k,f)$ as the dimensionless kernel, with the QM normalization factor $k/N$
+separated.
+
+%==============================================================
+\section{The closed form}
+\label{sec:closedform}
+%==============================================================
+
+\begin{theorem}[Discrete $\sinc^{2}$ identity]
+\label{thm:closedform}
+For every integer $f \ge 2$ and every integer $k \ge 1$,
+\[
+  R(k,f) \;=\; \frac{\sin^{2}(\pi k/f)}{k^{2}\sin^{2}(\pi/f)}.
+\]
+\end{theorem}
+
+\begin{proof}
+The geometric series gives
+\[
+  \sum_{j=1}^{k} e^{2\pi i j/f}
+  \;=\; e^{2\pi i / f}\,\frac{1 - e^{2\pi i k/f}}{1 - e^{2\pi i/f}}.
+\]
+Taking the squared modulus and dividing by $k^{2}$, with
+$|1 - e^{i\theta}|^{2} = 4\sin^{2}(\theta/2)$,
+\[
+  R(k,f) \;=\; \frac{1}{k^{2}} \cdot \frac{4\sin^{2}(\pi k/f)}{4\sin^{2}(\pi/f)}
+  \;=\; \frac{\sin^{2}(\pi k/f)}{k^{2}\sin^{2}(\pi/f)}. \qedhere
+\]
+\end{proof}
+
+\begin{remark}[Fej\'er-kernel attribution]
+The closed form is the Fej\'er kernel $K_{n}(\theta)$ at $\theta = 2\pi/f$, $n = k$,
+normalized so that $R$ has unit value at $k = 0$ in the limit and matches $\sinc^{2}$ in
+the continuum (\S\ref{subsec:continuum}). The identity dates to Fej\'er's 1900 paper
+\cite{Fejer1900}; the contribution of this note is the QM-on-cyclic-group reading
+(\S\S\ref{sec:setup},~\ref{sec:qm}) and the arithmetic-bridge synchronization
+(\S\ref{sec:firstg}).
+\end{remark}
+
+\begin{remark}[Numerical verification]
+The bundled script \texttt{verify\_J42\_sinc2.py} compares the closed form against direct
+geometric-sum evaluation on $f \in \{3,4,5,6,7,8,9,10,11,12,13,17,19,23\}$ and
+$k \in \{1,\dots,f+1\}$; the maximum deviation is $3.33 \times 10^{-16}$. The grid covers
+prime and composite $f$, which is the reason the first-zero theorem of
+\S\ref{sec:qm} requires no primality hypothesis.
 \end{remark}
 
 %==============================================================
-\section{Derivation of the quartic}
-\label{sec:derivation}
+\section{Quantum-mechanical consequences}
+\label{sec:qm}
 %==============================================================
 
-\subsection{Derivation through $\Q(\sqrt{3})$.}
+\subsection{Squared overlap with the normalized position window}
 
-The fixed-point equation for the $r$-coordinate at $\alpha = \tfrac12$
-gives, using the per-coordinate fuse data of
-\cite{SandersGishFourCore} and the vanishing
-$\TS_{\rm fuse}(p^{*})_{9} = 0$,
+\begin{proposition}[Squared overlap with normalized window]
+\label{prop:overlap}
+For a momentum eigenstate $|\hat p\rangle$ on $\Z/N\Z$ with $\hat p = N/f$ ($f \mid N$),
+the squared transition amplitude with the normalized rectangular position window
+$|w_{k}\rangle = k^{-1/2}\sum_{j=1}^{k}|j\rangle$ is
 \[
-  r \;=\; \tfrac12\bigl(\TS_{\rm fuse}(p^{*})_{9} + \BH_{\rm fuse}(p^{*})_{9}\bigr)
-        \;=\; \tfrac12(2vr + 2 h\beta)
-        \;=\; vr + h\beta.
+  |\langle \hat p \mid w_{k}\rangle|^{2}
+  \;=\; \tfrac{k}{N}\,R(k,f)
+  \;=\; \frac{1}{N} \cdot \frac{\sin^{2}(\pi k/f)}{k\,\sin^{2}(\pi/f)}.
 \]
-Substituting $v = 1 - h - \beta - r$ and rearranging,
-\[
-  r^{2} + (h + \beta)\, r \;-\; h\beta \;=\; 0.
-\]
-The closed-form $h/\beta = 1 + \sqrt{3}$ from \cite{SandersGishFourCore}
-gives $h = (1+\sqrt{3})\beta$. Setting $\xi = r/\beta$ and dividing by
-$\beta^{2}$,
-\[
-  \xi^{2} + (2+\sqrt{3})\,\xi \;-\; (1+\sqrt{3}) \;=\; 0
-  \qquad\text{over }\Q(\sqrt{3}).
-\]
-The positive root $\xi^{*} > 0$ is therefore an algebraic number of
-degree $2$ over $\Q(\sqrt{3})$.
+\end{proposition}
 
-\subsection{Norm to $\Q$.}
+\begin{proof}
+Immediate from \eqref{eq:overlap-normalized} and Theorem~\ref{thm:closedform}.
+\end{proof}
 
-The minimal polynomial of $\xi^{*}$ over $\Q$ is the product of the
-displayed quadratic with its $\mathrm{Gal}(\Q(\sqrt{3})/\Q)$-conjugate
-(replacing $\sqrt{3}$ with $-\sqrt{3}$):
-\begin{align*}
-  f(x)
-  &= \bigl(x^{2} + (2+\sqrt{3})x - (1+\sqrt{3})\bigr)
-     \bigl(x^{2} + (2-\sqrt{3})x - (1-\sqrt{3})\bigr) \\
-  &= x^{4} + 4x^{3} - x^{2} + 2x - 2.
-\end{align*}
-The factorization is the $\Q(\sqrt{3})$-factorization of $f$,
-exhibited as part of the derivation rather than verified post-hoc.
+\paragraph{Note on interpretation.}
+This squared overlap is the \emph{fidelity} between $|\hat p\rangle$ and the normalized
+window state $|w_{k}\rangle$, not the probability of position-measurement outcome in
+$\{1,\dots,k\}$. The latter (the marginal of the position distribution given the momentum
+eigenstate) is the uniform $\sum_{j=1}^{k}|\langle j \mid \hat p\rangle|^{2} = k/N$.
+The squared overlap $|\langle \hat p \mid w_{k}\rangle|^{2}$ is a different object --- it
+measures coherent alignment between $|\hat p\rangle$ and the unit-norm window state ---
+and is the kernel of practical interest for finite-QM scattering and projection problems
+on cyclic groups. The un-normalization factor $k$ relating $|W_{k}\rangle$ and
+$|w_{k}\rangle$ is explicit, which fixes a misreading in an earlier draft that conflated
+this overlap with the position-marginal probability.
+
+\subsection{First-zero theorem}
+
+\begin{corollary}[First zero of $R(\cdot,f)$]
+\label{cor:firstzero}
+For every $f \ge 2$ and every $k \in \{1,\dots,f-1\}$, $R(k,f) > 0$. At $k = f$,
+$R(f,f) = 0$. Hence the first integer zero of $R(\cdot,f)$ in $\Z_{\ge 1}$ is exactly
+$k = f$, regardless of whether $f$ is prime or composite.
+\end{corollary}
+
+\begin{proof}
+For $1 \le k \le f-1$, $f \nmid k$ (since $0 < k < f$), so
+$\pi k/f \notin \pi\Z$ and $\sin(\pi k/f) \neq 0$, giving $R(k,f) > 0$ from
+Theorem~\ref{thm:closedform}. At $k = f$, $\sin(\pi f/f) = 0$, and the closed form
+($0/0$ numerically) is resolved by the geometric sum
+$\sum_{j=1}^{f} e^{2\pi i j /f} = 0$, giving $R(f,f) = 0$. The argument does not use the
+prime structure of $f$.
+\end{proof}
+
+\begin{remark}[Where prime structure enters]
+Primality of $f$ is \emph{not} used in Corollary~\ref{cor:firstzero}; the first-zero
+result holds uniformly for $f \ge 2$. The prime restriction enters only at the
+synchronization with the First-G event (Proposition~\ref{prop:firstg}), where one needs
+$\gcd(k,b) = 1$ for $1 \le k < p_{1}$ to deduce that no obstruction lies below the
+smallest prime factor.
+\end{remark}
+
+\paragraph{QM reading.} The momentum eigenstate $|\hat p\rangle$ with $\hat p = N/f$ has
+zero overlap with the normalized window $|w_{f}\rangle$ of size $k = f$. This is the
+cyclic-group analog of the first zero of $\sinc^{2}(t)$ at $t = 1$.
+
+\subsection{Continuum limit}
+\label{subsec:continuum}
+
+\begin{theorem}[$\sinc^{2}$ continuum limit]
+\label{thm:continuum}
+Let $\sinc(t) = \sin(\pi t)/(\pi t)$ for $t \neq 0$ and $\sinc(0) = 1$. For every $t > 0$,
+\[
+  \lim_{\substack{f \to \infty \\ k/f \to t}} R(k,f) \;=\; \sinc^{2}(t).
+\]
+\end{theorem}
+
+\begin{proof}
+From Theorem~\ref{thm:closedform}, $k\sin(\pi/f) = (\pi/f)\cdot k\cdot(1+O(1/f^{2}))
+\to \pi t$, so $k^{2}\sin^{2}(\pi/f) \to \pi^{2}t^{2}$. The numerator
+$\sin^{2}(\pi k/f) \to \sin^{2}(\pi t)$. Hence
+$R(k,f) \to \sin^{2}(\pi t)/(\pi^{2}t^{2}) = \sinc^{2}(t)$.
+\end{proof}
+
+\paragraph{Specific exact values (continuum limit at rational arguments).}
+The continuum identity $\sinc^{2}(1/2) = (2/3)\cdot 1/\zeta(2) = 4/\pi^{2}
+\approx 0.4053$ is the special case $t = 1/2$, where $\sin(\pi/2) = 1$ and the
+$\zeta(2) = \pi^{2}/6$ rewriting is the bridge to the Riemann zeta values. At
+$t = 1/10$, Ptolemy's pentagon identity $\sin(\pi/10) = (\sqrt{5}-1)/4$ gives the exact
+closed form
+\[
+  \sinc^{2}(1/10) \;=\; \frac{\sin^{2}(\pi/10)}{(\pi/10)^{2}}
+  \;=\; \frac{25(\sqrt{5}-1)^{2}}{4\pi^{2}}
+  \;\approx\; 0.9675312093.
+\]
+This is the corrected value. An earlier draft printed the decimal as $0.9355$, a
+transcription error; the closed form $25(\sqrt{5}-1)^{2}/(4\pi^{2})$ was always correct,
+and the bundled \texttt{verify\_J42\_sinc2.py} confirms agreement between sympy and direct
+numerical evaluation to ten digits.
+
+\paragraph{QM reading.}
+The continuum limit recovers the rectangular-window momentum spectrum exactly:
+$|\langle \hat p \mid \text{window}_{t}\rangle|^{2} \to \sinc^{2}(t)/N$ as the lattice is
+refined (with the standard $k/N$ scaling reabsorbed). The discrete $\sinc^{2}$ identity
+of Theorem~\ref{thm:closedform} is therefore the natural finite-QM counterpart of the
+continuous rectangular-pulse spectrum.
 
 %==============================================================
-\section{Irreducibility over $\Q$}
-\label{sec:irreducibility}
+\section{Synchronization with the First-G event}
+\label{sec:firstg}
 %==============================================================
 
-By Gauss's lemma, any factorization of $f$ in $\Q[x]$ gives a
-factorization in $\Z[x]$. Direct evaluation rules out integer roots:
-$f(\pm 1) \in \{4, -8\}$ and $f(\pm 2) \in \{46, -26\}$, none zero.
-For an integer factorization
-$f = (x^{2} + ax + b)(x^{2} + cx + d)$, matching coefficients gives
+The identity of \S\ref{sec:closedform} has a striking arithmetic counterpart. For an
+integer $b > 1$, the \emph{coprimality partition} of the alphabet $\{1,\dots,k\}$
+relative to $b$ separates units $C_{k}(b) = \{x : \gcd(x,b) = 1\}$ from obstructions
+$G_{k}(b) = \{1,\dots,k\}\setminus C_{k}(b)$. The \emph{First-G event} $k^{\star}(b)$ is
+the smallest $k$ with $|G_{k}(b)| > 0$.
+
+\begin{proposition}[Synchronization with First-G]
+\label{prop:firstg}
+For every $b > 1$ with smallest prime factor $p_{1} = \spf(b)$, the First-G event
+$k^{\star}(b)$ and the first integer zero of $R(\cdot,p_{1})$ in $\{1,\dots,p_{1}\}$
+coincide:
 \[
-  a + c = 4,\quad ac + b + d = -1,\quad ad + bc = 2,\quad bd = -2.
+  k^{\star}(b) \;=\; \min\{k \in \{1,\dots,p_{1}\} : R(k,p_{1}) = 0\} \;=\; p_{1}.
 \]
-The constraint $bd = -2$ over $\Z$ has solutions
-$(b, d) \in \{(1, -2), (-1, 2), (2, -1), (-2, 1)\}$. In each case the
-linear equation $ad + bc = 2$ together with $c = 4 - a$ determines $a$,
-and the quadratic $ac + b + d = -1$ gives a consistency check:
-\begin{itemize}\setlength\itemsep{0pt}
-\item $(b, d) = (1, -2)$: $-2a + (4 - a) = 2$ gives $a = 2/3 \notin \Z$.
-\item $(b, d) = (-1, 2)$: $2a - (4 - a) = 2$ gives $a = 2 \in \Z$,
-$c = 2$, but then $ac = 4 \neq -2 = -1 - b - d$, contradicting the
-quadratic constraint.
-\item $(b, d) = (2, -1)$: $-a + 2(4 - a) = 2$ gives $a = 2 \in \Z$,
-$c = 2$, again $ac = 4 \neq -2$.
-\item $(b, d) = (-2, 1)$: $a - 2(4 - a) = 2$ gives $a = 10/3 \notin \Z$.
+\end{proposition}
+
+\begin{proof}
+For any $x$ with $1 \le x \le p_{1} - 1$, $\gcd(x,b) = 1$, since the smallest prime
+factor of $b$ is $p_{1}$ and no prime $\le p_{1}-1$ divides $b$. Hence
+$k^{\star}(b) = p_{1}$. Combined with Corollary~\ref{cor:firstzero} applied at
+$f = p_{1}$, this gives the displayed identity.
+\end{proof}
+
+\paragraph{Reading.}
+The QM-momentum quantum that produces the first position-window zero at $k = p_{1}$ is
+precisely the inverse of the smallest prime factor of $b$. This synchronization is the
+bridge between cyclic-group QM and the arithmetic structure of $\Z/b\Z$, and is why
+$R(k,f)$ appears naturally in finite-dimensional quantum number theory. The arithmetic
+side --- including the CRT-based inheritance of the zero structure through squarefree
+moduli --- is treated in the companion paper \cite{SandersGishSincZero} (J04); the
+present note restates the synchronization in the QM context.
+
+%==============================================================
+\section{Tier, status, lens scope, per-venue cap}
+\label{sec:tier}
+%==============================================================
+
+\subsection{PROVED / COMPUTED / STRUCTURAL RHYME / OPEN}
+
+\begin{itemize}\setlength\itemsep{2pt}
+  \item \textbf{PROVED.} Theorem~\ref{thm:closedform} (closed form, Fej\'er kernel at
+    $\theta = 2\pi/f$, $n = k$); Proposition~\ref{prop:overlap} (squared overlap with
+    normalized window); Corollary~\ref{cor:firstzero} (first zero at $k = f$ for every
+    $f \ge 2$, no primality used); Theorem~\ref{thm:continuum} ($\sinc^{2}$ continuum
+    limit); Proposition~\ref{prop:firstg} (synchronization
+    $k^{\star}(b) = \spf(b)$ with the First-G event).
+  \item \textbf{COMPUTED.} \texttt{verify\_J42\_sinc2.py}: max deviation
+    $3.33\times 10^{-16}$ for Theorem~\ref{thm:closedform} over
+    $f \in \{3,4,5,6,7,8,9,10,11,12,13,17,19,23\}$ and $k \in \{1,\dots,f+1\}$;
+    unrestricted Corollary~\ref{cor:firstzero} confirmed for $f \in \{2,\dots,15\}$;
+    corrected $\sinc^{2}(1/10) = 25(\sqrt{5}-1)^{2}/(4\pi^{2}) \approx 0.9675312093$
+    (sympy and numpy agreement to ten digits); Proposition~\ref{prop:firstg} confirmed
+    for $b \in \{6, 10, 15, 21, 22, 35, 105\}$.
+  \item \textbf{STRUCTURAL RHYME.} The closed form $25(\sqrt{5}-1)^{2}/(4\pi^{2})$ at
+    $f = 10$ folds in Ptolemy's pentagon identity
+    $\sin(\pi/10) = (\sqrt{5}-1)/4$, connecting cyclic-group QM at $f = 10$ to
+    regular-pentagon arithmetic. Cited as a structural motif, not load-bearing.
+  \item \textbf{OPEN.} Does $R(k,f)$ for $f$ ranging over the prime factors of squarefree
+    $b$ encode the full coprimality structure of $(\Z/b\Z)^{\times}$? The CRT-based
+    inheritance result of \cite{SandersGishSincZero} treats the squarefree case; the
+    general case is open.
 \end{itemize}
-No integer factorization exists; $f$ is irreducible over $\Z$, hence
-over $\Q$.
 
-\begin{remark}[Reduction-modulo-$p$ alternative]
-$f$ is irreducible mod $7$ (one-line proof). Note that $f$ is
-\emph{reducible} mod $5$ as
-$f \equiv (x^{2} - 2)(x^{2} - x + 1) \pmod{5}$, so reduction-based
-arguments require care in the choice of prime.
-\end{remark}
+\subsection{Lens scope.}
+This paper carries no TSML / BHML lens dependence. The mathematical content is
+finite-dimensional Fourier analysis on the cyclic group, with an explicit QM
+interpretation. The lens-ownership paragraph is at the top (\S\ref{sec:lens}).
 
-%==============================================================
-\section{Galois group computation}
-\label{sec:galois}
-%==============================================================
+\subsection{Per-venue cap.}
+This is the third \emph{Journal of Mathematical Physics} target in the J-series after
+J40 (BB Bridge) and J41 (YM Mass Gap Bridge); the 2/quarter cap is reached. We submit
+to \emph{Letters in Mathematical Physics} as the preferred venue; \emph{Journal of
+Physics A: Mathematical and Theoretical} and \emph{Communications in Mathematical
+Physics} are documented alternatives in the cover letter. See cover letter and README
+\S5 for details.
 
-The polynomial discriminant is
-\[
-  \Delta_{f} \;=\; -2^{6}\cdot 3^{2}\cdot 71
-\]
-(computed directly). The resolvent cubic of $f$ is
-\[
-  g(y) \;=\; y^{3} + y^{2} + 16y + 36
-       \;=\; (y + 2)(y^{2} - y + 18),
-\]
-with the unique rational root $y = -2$ and an irreducible quadratic
-factor of discriminant $-71$.
-
-By the standard quartic-Galois-group classification (Cohen,
-\textit{A Course in Computational Algebraic Number Theory},
-\S6.3.2~\cite{Cohen1993}), the existence of exactly one rational root
-in the resolvent cubic places
-$\mathrm{Gal}(f/\Q)\in\{C_{4}, D_{4}\}$. The two are distinguished by
-whether $f$ remains irreducible over $\Q(\sqrt{\Delta_{f}}) =
-\Q(\sqrt{-71})$: irreducibility there gives $D_{4}$, factorization
-gives $C_{4}$. Direct computation
-(\texttt{sympy.factor(f, extension=[sqrt(-71)])}) returns $f$ itself as
-a single irreducible factor, confirming
-\[
-  \mathrm{Gal}(f/\Q) \;=\; D_{4}.
-\]
-
-\begin{remark}[Visibility of $D_{4}$ from the derivation]
-The $D_{4}$-Galois group is also visible directly from the derivation
-above. The closed form $h/\beta = 1+\sqrt{3}$ generates the quadratic
-subfield $\Q(\sqrt{3})\subset\Q(\xi^{*})$, and the second nontrivial
-quadratic subfield $\Q(\sqrt{-71})$ enters through the discriminant;
-the splitting field is the compositum
-$\Q(\sqrt{3}, \sqrt{-71}, \xi^{*})$, a $D_{4}$-extension of $\Q$.
-\end{remark}
-
-%==============================================================
-\section{Number-field identification with LMFDB}
-\label{sec:lmfdb}
-%==============================================================
-
-The field $K = \Q[x]/(f)$ has degree $4$ and signature $(2, 1)$
-(counting real roots of $f$: two real, one complex conjugate pair).
-The Tschirnhaus substitution $x \mapsto -x - 1$ converts $f$ to
-\[
-  h(x) \;=\; x^{4} - 7x^{2} - 12x - 8,
-\]
-the canonical defining polynomial recorded in LMFDB's
-catalogue~\cite{LMFDB-4-2-10224-1} for the quartic field with
-$d_{K} = -10224 = -2^{4}\cdot 3^{2}\cdot 71$, class number $h_{K} = 1$,
-regulator $R_{K} \approx 8.617$, and Galois group $D_{4}$. Hence
-\[
-  K \;=\; \text{LMFDB}~4.2.10224.1.
-\]
-The Galois closure is the $D_{4}$-extension recorded
-in~\cite{LMFDB-8-0-526936617216-1}; intermediate subfields include
-$\Q(\sqrt{3})$, $\Q(\sqrt{-71})$, and the biquadratic
-$\Q(\sqrt{3}, \sqrt{-71})$.
-
-\begin{remark}[Novelty of the route, not the field]
-The number field $K = $ LMFDB~$4.2.10224.1$ is catalogued and not new;
-what is novel is the derivation. The polynomial form
-$f(x) = x^{4} + 4x^{3} - x^{2} + 2x - 2$ does not appear in OEIS for
-its coefficient sequence $[1, 4, -1, 2, -2]$ as a distinguished
-sequence, and we have not located it as a defining polynomial in a
-published context tied to a finite-magma fuse iteration. The pitch is
-therefore: a new route to a known number field, with the ring of
-definition realized as the fixed-point coordinates of the
-symmetric-mixing-weight iteration $F_{1/2}$ on the four-core simplex
-$\Delta^{3}_{\Cfour}$.
-\end{remark}
-
-%==============================================================
-\section{Verification}
-\label{sec:verification}
-%==============================================================
-
-The computational verification consists of:
-\begin{enumerate}
-\item Polynomial extraction from the fuse data
-  (\texttt{07\_full\_closed\_form.py}, \cite{SandersGishFourCore}).
-\item Verification of $D_{4}$ Galois group via
-  \texttt{sympy.factor(f, extension=[sqrt(-71)])}.
-\item Explicit factorization in $\Q(\sqrt{3})[x]$ via
-  \texttt{sympy.factor(f, extension=[sqrt(3)])}.
-\item LMFDB cross-check by Tschirnhaus reduction to LMFDB's defining
-  polynomial $x^{4} - 7x^{2} - 12x - 8$.
-\end{enumerate}
-
-All four checks complete deterministically in $<5$ seconds. The
-verification scripts and the derivation tables are deposited at
-\url{https://github.com/TiredofSleep/ck/tree/tig-synthesis} alongside
-the four-core consolidated paper \cite{SandersGishFourCore}.
+\subsection{Tier.}
+Central claims are Tier 1/2 (clean theorems, fully proved). The closed form is
+elementary; the QM consequences are direct corollaries; the synchronization is one
+combination step from companion work \cite{SandersGishSincZero}.
 
 %==============================================================
 \section*{Acknowledgments}
 %==============================================================
 
-This work extracts and presents in self-contained form the Galois
-content of the four-core attractor identified in
-\cite{SandersGishFourCore}. The present manuscript is self-contained as
-a Galois-theoretic study of the quartic
-$x^{4} + 4x^{3} - x^{2} + 2x - 2$; familiarity with the broader
-fuse-iteration framework is not required beyond
-Section~\ref{sec:setup}. We thank the LMFDB collaboration for the
-catalogue infrastructure that makes number-field identification
-routine. Algorithmic verification was developed with assistance from
-Anthropic Claude sessions in 2026.
+This note extracts in self-contained form the QM-on-cyclic-group reading of the discrete
+$\sinc^{2}$ identity descending from Theorem~3.1 of the companion First-G / Zero-Law
+manuscript \cite{SandersGishSincZero}. We thank the colleagues who pointed out the
+$\sinc^{2}(1/10)$ decimal transcription error in an earlier draft (the closed form was
+always correct; only the printed decimal was wrong; see
+\S\ref{subsec:continuum}). Algorithmic verification scripts were developed with
+assistance from Anthropic Claude sessions in 2026; all theorems and numerical checks were
+re-verified independently and are deposited at
+\url{https://github.com/TiredofSleep/ck/tree/tig-synthesis}.
 
 %==============================================================
 \begin{thebibliography}{99}
 %==============================================================
 
-\bibitem{SandersGishFourCore} B.~R.~Sanders, M.~Gish,
-\emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form
-Algebraic Attractor of Two Commutative Binary Operations on
-$\Z/10$}, submitted to \emph{Algebraic Combinatorics}, 2026 (J02).
+\bibitem{Fejer1900}
+L.~Fej\'er,
+\emph{Sur les fonctions born\'ees et int\'egrables},
+\textit{Math.\ Ann.} \textbf{58} (1900), 51--69.
 
-\bibitem{Cohen1993} H.~Cohen,
-\emph{A Course in Computational Algebraic Number Theory},
-Graduate Texts in Mathematics 138, Springer, 1993.
+\bibitem{Zygmund2002}
+A.~Zygmund,
+\emph{Trigonometric Series}, 3rd ed.,
+Cambridge University Press, 2002.
 
-\bibitem{LMFDB-4-2-10224-1} The {LMFDB} Collaboration,
-\emph{Number field 4.2.10224.1},
-The L-functions and Modular Forms Database,
-\url{https://www.lmfdb.org/NumberField/4.2.10224.1}.
+\bibitem{Schwinger1960}
+J.~Schwinger,
+\emph{Unitary operator bases},
+\textit{Proc.\ Nat.\ Acad.\ Sci.} \textbf{46} (1960), 570--579 and 893--897.
 
-\bibitem{LMFDB-8-0-526936617216-1} The {LMFDB} Collaboration,
-\emph{Number field 8.0.526936617216.1},
-The L-functions and Modular Forms Database,
-\url{https://www.lmfdb.org/NumberField/8.0.526936617216.1}.
+\bibitem{Wootters1987}
+W.~K.~Wootters,
+\emph{A Wigner-function formulation of finite-state quantum mechanics},
+\textit{Ann.\ Phys.} \textbf{176} (1987), 1--21.
 
-\bibitem{TIGsynthesis2026} B.~R.~Sanders,
+\bibitem{Vourdas2004}
+A.~Vourdas,
+\emph{Quantum systems with finite Hilbert space},
+\textit{Rep.\ Prog.\ Phys.} \textbf{67} (2004), 267--320.
+
+\bibitem{Vourdas2017}
+A.~Vourdas,
+\emph{Finite and Profinite Quantum Systems},
+Springer, 2017.
+
+\bibitem{Apostol1976}
+T.~M.~Apostol,
+\emph{Introduction to Analytic Number Theory},
+Springer, 1976.
+
+\bibitem{HardyWright2008}
+G.~H.~Hardy, E.~M.~Wright,
+\emph{An Introduction to the Theory of Numbers}, 6th ed.,
+Oxford University Press, 2008.
+
+\bibitem{DrapalWanless2021}
+A.~Dr\'apal, I.~M.~Wanless,
+\emph{On the number of quasigroups and Latin squares},
+\textit{J.\ Combin.\ Theory Ser.\ A} \textbf{184} (2021), 105510.
+(Companion in the small-finite-commutative-non-associative neighborhood --- opposite
+extremum: maximally non-associative.)
+
+\bibitem{SandersGishSincZero}
+B.~R.~Sanders, M.~Gish,
+\emph{Full-Period Cancellation of $R(k,f)$ and the spf-Localization for Squarefree
+Moduli} (J04),
+submitted to \textit{Integers}, 2026.
+
+\bibitem{SandersGishFourCore}
+B.~R.~Sanders, M.~Gish,
+\emph{Joint Closure, Per-Coordinate Fuse Data, and a Closed-Form Algebraic Attractor of
+Two Commutative Binary Operations on $\Z/10$},
+submitted to \textit{Journal of Algebra}, 2026.
+
+\bibitem{TIGsynthesis2026}
+B.~R.~Sanders,
 \emph{Trinity Infinity Geometry Synthesis},
-github.com/TiredofSleep/ck (default branch),
+\url{https://github.com/TiredofSleep/ck},
 DOI: 10.5281/zenodo.18852047, 2026.
 
 \end{thebibliography}

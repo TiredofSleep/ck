@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: CC-BY-4.0
+# Copyright (c) 2026 B.R. Sanders and M. Gish.
+# Licensed under the Creative Commons Attribution 4.0 International License.
 """
 UNIVERSAL MARKOV PROPERTIES + BINARY CL CONSTRUCTION
 Sprint 15 — Blockers 1A + 1B | 2026-04-10

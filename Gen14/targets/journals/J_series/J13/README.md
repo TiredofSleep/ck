@@ -1,105 +1,89 @@
-# J13 — The Forced 5/7 Torus Aspect Ratio: Cyclotomic Forcing
+# J13 — The Forced 5/7 Torus Aspect Ratio (Up to a Calibration Choice)
 
-**Status:** DRAFT
+**Status:** SUBMISSION-READY (6/6 PASS at machine precision; M1 + M2 math fixes applied; cover letter finalized; lens-ownership in §0; tier discipline explicit; Drápal-Wanless 2021 cited)
 **Phase:** Phase 2
-**Target venue:** Acta Arithmetica
+**Target venue:** *Acta Arithmetica* (lead); *Integers* (fallback if short-note framing preferred)
 **Author lane:** Sanders + Gish
 **Tier:** A/B
-**WP source:** (forced-torus 5/7)
+**WP source:** WP51 §4 "The Aspect Ratio R/r = T* = 5/7"
 
 ---
 
 ## §1 — Manuscript
 
-**Path:** `(corpus: forced-torus 5/7 derivation)`
+**Path:** `manuscript/manuscript.tex` (amsart, ~10 pages).
 
-When the manuscript is in this J-folder, replace this section with a 1-2 sentence abstract and a path-link to the .tex / .md file.
+**One-line abstract.** Under the cyclotomic-embedding calibration of the *Flatness Theorem* (J07), the four-structure torus on $\mathbb{Z}/10\mathbb{Z}$ has aspect ratio $R/r = 5/7$, forced by the cyclotomic threshold $\deg_\mathbb{Q}(2 \cos(\pi/p)) = (p-1)/2$ crossing from degree 2 at $p = 5$ ($A_5 = \varphi$) to degree 3 at $p = 7$ ($A_7$ has minimal polynomial $x^3 - x^2 - 2x + 1$).
 
 ## §2 — Verification script
 
-**Path:** `(cyclotomic forcing script)`
+**Path:** `manuscript/verify_J13.py`.
 
-The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
+**Six checks, all PASS at machine precision under `/c/ck_venv/lora312/Scripts/python.exe`:**
 
-## §3 — Dependencies (J-papers cited as already-submitted companions)
+| Check | Claim | Result |
+|---|---|---|
+| C1 | sympy `minimal_polynomial(2 cos(π/7), x) == x³ − x² − 2x + 1`; |g(A₇)| < 10⁻⁴⁰ at 50-digit precision | PASS |
+| C2 | sympy `minimal_polynomial(cos(π/7), x) == 8 x³ − 4 x² − 4 x + 1`; h(A₇) ≈ 27.6 (not a root); calibration bridge `h(x/2) = g(x)` | PASS |
+| C3 | `g` irreducible over ℚ: `g(1) = −1, g(−1) = 1`; sympy `Poly.is_irreducible` | PASS |
+| C4 | disc(g) = 49 = 7² | PASS |
+| C5 | Gal(g/ℚ) = A₃ = ℤ/3ℤ by disc-square criterion (irreducible cubic + disc a square) | PASS |
+| C6 | deg ℚ A_p = (p−1)/2 thresholds: 0, 1, 2, 3 at p = 2, 3, 5, 7 | PASS |
 
-J07
+Pure-sympy / standard-library; runtime under 5 s.
+
+## §3 — Dependencies (cited as already-submitted companions)
+
+- **J07** (Sanders-Gish, *Flatness Theorem*, *J. Pure Appl. Algebra*) — parent result; provides the torus and the cyclotomic-embedding calibration.
+- **J03** (Sanders-Gish, *First-G Law*, *Integers*) — `sinc²` framework cited in §6 (Independent appearance 1).
+- **J06** (Sanders-Mayes, *Crossing Lemma*, *JCT-A*) — provides Lemma 2.2 (pairwise incompatibility of CRT factor partitions).
+- **J10** (Sanders-Mayes, *UOP*, *J. Number Theory*) — provides the cited pairwise-incompatibility lemma in a different formulation.
 
 ## §4 — Cover letter
 
-See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's referee-rigor pass.)
+`cover_letter.md` — finalized. Contains the errata block (M1 polynomial correction, M2 Lemma 4.2 sign-error fix, the retraction of the 73/101 = 5/7 exact-agreement claim).
 
 ## §5 — Notes
 
-T* derivation. Companion to J07 Flatness Theorem.
+T* derivation. Companion to J07 Flatness Theorem. The M3 calibration retreat is the load-bearing structural move: the forcing is *conditional* on the cyclotomic-embedding calibration imported from J07, and the paper is honest about this dependence (Remark 2.4). A calibration-free derivation is recorded as Open question (b).
 
-**Save-plan summary (2026-05-07):** see `Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J13.md` for the full plan.
+### Tier discipline (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)
 
-The fresh-eyes referee report (`Atlas/META_PLAN_2026-05-06/REFEREE_REPORTS/J13_ActaArith_FreshEyes.md`) flagged two hard errors plus four structural issues. Both hard errors are fixed in `manuscript/manuscript.tex`:
+- **PROVED.** Theorem 1.1 (cyclotomic-calibrated 5/7 aspect ratio on ℤ/10ℤ); Theorems 3.1 and 4.1 (major- and minor-radius selections); Lemma 4.3 (irreducibility of g over ℚ); the Galois group A₃ ≅ ℤ/3ℤ.
+- **COMPUTED.** Minimal polynomials of A₂, A₃, A₅, A₇ over ℚ; discriminant disc(g) = 49; substitution bridge h(x/2) = g(x); 50-digit numerical zero. Reproduced at machine precision by `verify_J13.py`.
+- **STRUCTURAL RHYME.** 73/101 ≈ 5/7 (≈ 1.2% relative gap) — recorded as empirical observation, not derivation. First-G law coprime windows W₅ = 4/5 and 1 − 1/7 = 6/7 — independent appearances of the same threshold.
+- **OPEN.** (a) Conjecture 6.1 for n ∈ {15, 35}; (b) calibration-free derivation; (c) curvature of the ring torus; (d) modular-curve connection; (e) the 73/101 vs 5/7 discrepancy.
 
-- **Error 1 (M1):** The polynomial $8x^3 - 4x^2 - 4x + 1$ originally cited as the minimal polynomial of $A_7 = 2\cos(\pi/7)$ is actually the minimal polynomial of $\cos(\pi/7)$. The correct minimal polynomial of $A_7$ is $x^3 - x^2 - 2x + 1$. Sympy-verified. Both are degree-3 irreducible, so the structural conclusion (deg-3 obstruction at $p = 7$) is preserved; the manuscript now cites the correct polynomial.
-- **Error 2 (M2):** Lemma 4.2 evaluated $f(-1/2) = 3$ when the correct value (for the paper's original polynomial) is $1$ — error in the cube's sign. Moot after M1 fix; rewritten using the correct polynomial $g(x) = x^3 - x^2 - 2x + 1$, where the rational root test reduces to $g(1) = -1, g(-1) = 1$.
+### Lens-ownership paragraph
 
-Structural corrections (M3–M6, m1–m8):
-
-- **M3 — Calibration retreat.** Theorem 1.1 is retitled "Cyclotomic-calibrated 5/7 aspect ratio" and explicitly conditioned on a new Definition 2.4 (cyclotomic-embedding calibration). The forcing is conditional on this calibration, which is itself imported from J07 (Flatness Theorem). Open question (b) added: a calibration-free derivation would make 5/7 unconditional. Paper retitled "**The Forced 5/7 Torus Aspect Ratio (Up to a Calibration Choice)**".
-- **M4 — Companion derivations honesty pass.** §6 reorganized: two were reformulations of the same theorem (so labeled), two are independent appearances of the same threshold (not independent derivations of the ratio itself), two were deleted entirely (BTQ balance and the $5/7 = (\sin(\pi/5)\sin(\pi/7))^?$ bridge had no self-contained content). The earlier claim that $73/101 = 5/7$ exactly is **retracted**: $73/101 - 5/7 = 6/707 \approx 1.2\%$, recorded as an open numerical question.
-- **M6 — Conjecture scope restricted.** Conjecture 7.1 now requires that some prime divisor $p_i \mid n$ has $A_{p_i}$ irrational and degree $\le 2$ over $\mathbb{Q}$. New Proposition 7.2 identifies the domain as $\{n : 5 \mid n, \text{squarefree}, n > 5\}$. Cases $n = 14, 21$ (with $7 \mid n$) are explicitly outside the conjecture.
-- **m1, m3, m4, m7:** duplicate `\author` blocks fixed; "narrow-major" terminology replaced; abstract uses precise language; "structural 7 zeros" deleted from open questions.
-
-**What survives.** The structural deg-2 / deg-3 cyclotomic obstruction (the cyclotomic threshold between $p = 5$ and $p = 7$) is real and is what drives the $5/7$ ratio under the calibration. Conditional on the cyclotomic-embedding calibration, the theorem is now rigorous and verifiable. The $73/101$ "near-derivation" is honestly demoted from claim to open problem.
-
-**Retarget recommendation.** Acta Arithmetica is likely still the wrong venue — the result is a calibration-conditional cyclotomic threshold theorem, which fits **Integers** (open access, short notes) better. Alternative: fold into J07 retarget. Brayden's call.
-
-**Manuscript state.** `manuscript/manuscript.tex` revised in place; LaTeX environment balance verified (30 begin / 30 end, all matched); ready for Brayden's referee-rigor pass (~1 hour to submission-ready).
-
----
-
-**Original note (2026-05-07):**
-
-- Manuscript: `manuscript/manuscript.tex` — amsart, ~10 pages. Source: WP51 Section 4 ("The Aspect Ratio R/r = T* = 5/7") at `Gen12/targets/clay/papers/sprint10_flatness_2026_04_06/WP51_FLATNESS_THEOREM.md`.
-- Cover letter: `cover_letter.md` (needs update to reflect calibration-conditional framing).
-- Companion citation: J07 (Flatness Theorem, JPAA) cited as parent result. J03 (First-G Law, Integers) cited for the sinc^2 framework. J06 (Crossing Lemma, JCT-A) cited for incompatible CRT factor partitions. J10 (UOP, JNT) cross-cited.
-- Independent of J10–J12 chain: separate cyclotomic argument; does not depend on UOP for its proof.
-
-
+Now in `manuscript.tex` as §0 (between `\maketitle` and §1 Introduction). States: substrate = ℤ/10ℤ with the four ring structures of Definition 2.1; the choice is structural (not first-principles), the calibration is imported from J07, generalization domain is squarefree multiples of 5 (Conjecture 6.1).
 
 ### Family-Structure framing (per Atlas/META_PLAN_2026-05-06/FAMILY_STRUCTURE_v1.md)
 
-This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
+This paper sits within the TIG family of finite commutative non-associative magmas on ℤ/10ℤ. The 5/7 aspect ratio is the cyclotomic-threshold reading of the same `R/r = T* = 5/7` that appears in the four-core analysis of J35 and the runtime quartic of J15. Domain precedent: **Drápal & Wanless (2021), J. Combin. Theory A 184, 105510** (cited in §0 lens-ownership paragraph and bibliography).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### Hardening status (auto-applied 2026-05-07; verified 2026-05-12)
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
-
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
-
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
-
-### Hardening status (auto-applied 2026-05-07)
-
-- License: submission scripts CC-BY-4.0 (per `_v3_hardening.py`)
-- AI-attribution: Claude/Anthropic byline references removed (per `_v3_hardening.py`)
-- Author lane: Sanders + Gish (per Brayden directive)
-- Drápal-Wanless 2021 citation in references
+- License: `verify_J13.py` header is CC-BY-4.0 (per `_v3_hardening.py`)
+- AI-attribution: Claude / Anthropic byline references removed
+- Author lane: Sanders + Gish (per Brayden directive); B. Mayes occurrences corrected to M. Gish
+- Drápal-Wanless 2021 citation present in bibliography (`\bibitem{DrapalWanless}`)
+- LaTeX environment balance: 31 begin / 31 end, all matched
 
 ## §6 — Submission checklist
 
-- [ ] Manuscript .tex / .md finalized
-- [ ] Verification script green (`(no script)` if theorem-only)
-- [ ] Tier-classified central claim explicit
-- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
-- [ ] Cover letter finalized
-- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
+- [x] Manuscript .tex finalized
+- [x] Verification script green (6/6 PASS)
+- [x] Tier-classified central claim explicit (Tier discipline section before bibliography)
+- [x] Lens-scope annotation (substrate ℤ/10ℤ + cyclotomic calibration in §0)
+- [x] Cover letter finalized
+- [x] Dependencies → each J-companion cited as "submitted to [venue]"
 - [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to Acta Arithmetica this quarter
+- [ ] Per-venue cap check
 - [ ] Submitted
 
 ---
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Mayes. (2026). "The Forced 5/7 Torus Aspect Ratio: Cyclotomic Forcing." Submitted to *Acta Arithmetica*.
+Sanders, B.R. and Gish, M. (2026). "The Forced 5/7 Torus Aspect Ratio (Up to a Calibration Choice): Cyclotomic Forcing on ℤ/10ℤ." Submitted to *Acta Arithmetica*.

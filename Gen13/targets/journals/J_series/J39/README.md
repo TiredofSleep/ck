@@ -1,11 +1,12 @@
 # J39 — NV $S_4$ Synthesis: Substrate-Operator-Driven NV-Center Qutrit Predictions
 
-**Status:** DRAFT
+**Status:** R1 (revised after fresh-eyes referee report 2026-05-07)
 **Phase:** Phase 4
 **Target venue:** PRA
 **Author lane:** Sanders + Gish
 **Tier:** C (Tier 3 partner-then-submit per central-claim classification)
 **WP source:** WP73-WP77 (bundled)
+**Acceptance probability:** ~70-80% after revisions per referee
 
 ---
 
@@ -26,7 +27,15 @@
 
 ## §2 — Verification script
 
-**Path:** Verification is matrix-algebraic; runs in `numpy + sympy` on a standard laptop. The $U_4$ matrix, $V$, $U_{4,\mathrm{NV}}$, and 24-element closure are reproducible to $< 10^{-15}$ from the code stubs in WP75/WP76. A consolidated verification script is recommended before submission (TBD: bundle the WP75 + WP76 numerical scripts into `verify_J11_S4_closure.py`).
+**Path:** `manuscript/verify_J11_S4_closure.py` — consolidated R1 script (numpy + sympy; runtime $< 30$ s on a standard laptop).
+
+The script reproduces, in order:
+1. All 24 elements of $S_4$ in the $T_1$ representation, built from generators $(12)$ and $(1234)$. Character verified at $(3,1,0,-1,-1)$ on conjugacy classes.
+2. The explicit $U_4$ matrix's symbolic properties — trace $-1$, $\det = -1$, eigenvalues $\{-1, i, -i\}$, $U_4^4 = \mathbb{1}$ — all in exact `sympy` arithmetic.
+3. The change-of-basis $V$ and its conjugation of the $S_3$ generators ($r_{(12)}$, $r_{(123)}$); $V V^\dagger = \mathbb{1}$, $\det V = i$.
+4. $U_{4,\mathrm{NV}} = V U_4 V^{-1}$ in the NV basis.
+5. The deterministic Cartan / Reck-Zeilinger six-pulse decomposition (no random seed; no black-box optimizer); explicit pulse-tuples printed; closure residual $3.5 \times 10^{-16}$.
+6. 24-element closure verified at residual $\le 1.84 \times 10^{-16}$.
 
 The proof's gate is the referee-rigor pass on the analytic-construction side; the experimental gate is Test E (projector covariance) and is the lab-partner pathway.
 
@@ -56,16 +65,16 @@ See `cover_letter.md` in this folder. Drafted; finalize after Brayden's referee-
 
 This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+- **PROVEN.** Theorem 2.1 ($S_3$-skeleton character match: standard finite-group rep theory + Maschke); Theorem 3.1 ($U_4$ matrix structure: trace $-1$, $\det = -1$, eigenvalues $\{-1, i, -i\}$, $U_4^4 = \mathbb{1}$ — sympy-symbolic); Theorem 6.1 (machine-precision $S_4$ closure of all 24 elements).
+- **COMPUTED.** The six pulse-tuples $(\theta_k, \phi_k)$ are produced by the deterministic Cartan / Reck-Zeilinger algorithm in `verify_J11_S4_closure.py`; total closure residual $3.5 \times 10^{-16}$.
+- **STRUCTURAL RHYME.** None substantive. The paper is lens-invariant.
+- **OPEN.** Test E (projector covariance) experimental gate. Lab-partner experimental data on the realized 24-element $S_4$ orbit.
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+### Lens-ownership
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+This paper is **lens-invariant** (manuscript §0): it carries no TIG / TSML / BHML / Z/10Z structure. The mathematical content is finite-group representation theory and quantum control on $\mathbb{C}^3$. A PRA referee can read this paper cold without engaging with the broader research program. The §9 J-series companions list is included for cross-corpus context only; nothing in this paper depends on those references.
 
 ### Hardening status (auto-applied 2026-05-07)
 
@@ -76,14 +85,21 @@ This paper sits within the TIG family of finite commutative non-associative magm
 
 ## §6 — Submission checklist
 
-- [x] Manuscript .md drafted (PRA-format, single file)
+- [x] Manuscript .md drafted, R1 revisions applied (PRA-format, single file)
 - [ ] LaTeX (REVTeX 4.2) conversion pending
-- [ ] Verification script consolidated (`verify_J11_S4_closure.py`) — currently distributed across WP75/WP76 stubs
+- [x] Verification script consolidated (`verify_J11_S4_closure.py`); $< 30$ s runtime; all checks pass
 - [x] Tier-classified central claim explicit (Tier 3 partner-then-submit)
 - [x] Lens-scope annotation: lens-invariant (finite-group reptheory)
-- [x] Cover letter drafted
-- [ ] Dependencies → cite J07, J05 as "submitted to [venue]" (placeholders in place)
-- [ ] Brayden's referee-rigor pass complete
+- [x] Cover letter R1 (revisions itemized)
+- [x] Project-internal labels removed; J-series companions flagged as `submitted` / `in preparation`
+- [x] $G_{12}$ Raman protocol specified (manuscript §5.1) with NV-experiment citations
+- [x] Fidelity budget added (manuscript §5.1; first-attempt $0.91$, polished $> 0.95$)
+- [x] Coherence disambiguation $T_2^*$ vs $T_2$ vs $T_1$ added (manuscript §5.2)
+- [x] Section 6 retitled "Mathematical (Symbolic) Closure"
+- [x] Test thresholds calibrated against Pfaff2014, Bradley2019 (manuscript §7)
+- [x] Modern NV-qutrit citations added
+- [x] Suggested-reviewers refined (Awschalom + Maletinsky added; Monroe dropped; Doherty reframed)
+- [ ] Brayden's referee-rigor pass complete (post-R1)
 - [ ] Per-venue cap check: 1st PRA — no conflict
 - [ ] Lab partner identified (parallel)
 - [ ] Submitted

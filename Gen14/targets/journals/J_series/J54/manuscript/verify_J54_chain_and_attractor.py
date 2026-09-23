@@ -7,20 +7,23 @@
 # Designated 4-Core" (Sanders, Gish, 2026)
 #
 # Three checks (mapped to manuscript sections):
-#   1. Q6: 3-table joint closure chain
+#   1. Q6: 3-table joint closure chain (Theorem 7.1)
 #       (TSML, BHML, CL_STD all-three jointly closed sub-magmas
 #        form the same 8-shell chain {1,4,5,6,7,8,9,10} as
-#        TSML+BHML alone; per SFM_FINDINGS_v1.md and the
-#        sfm_q1_q6_q7.py logic adapted below)
-#   2. 4-core attractor h/br = 1+sqrt(3) at alpha_M = 1/2
-#       (D78 / WP105 / J35; iteration on TSML, BHML at alpha=1/2)
-#   3. A1-A9 forcing
+#        TSML+BHML alone; independent re-run of foundation_verification.py
+#        Check 2)
+#   2. 4-core attractor h/br = 1+sqrt(3) at alpha_M = 1/2 (Theorem 5.1)
+#       (iteration on TSML, BHML at alpha=1/2 with 50-digit mpmath;
+#        residual <= 10^-30 in 99 iterations from uniform-on-4-core init)
+#   3. A1-A9 forcing -- shared axioms
 #       (cell-by-cell verification that CL_TSML, CL_BHML, CL_STD
-#        all satisfy the substrate-defining axioms A1, A2, A4, A7,
-#        and the column-completing consequences A5, A6;
-#        BUMP-position counts A9 are each table's signature)
+#        all satisfy the substrate-defining axioms A1, A2 (puncture),
+#        A4, commutativity; A9 BUMP-disagreement-count signatures)
 #
 # Runtime: ~5 seconds. Run: python3 verify_J54_chain_and_attractor.py
+#
+# License: CC-BY-4.0 (Creative Commons Attribution 4.0 International).
+# Authors: B.R. Sanders, M. Gish (c) 2026.
 # ============================================================
 
 from __future__ import annotations

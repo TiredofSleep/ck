@@ -15,7 +15,7 @@ Let $T \in M_{10}(\mathbb{Z})$ be the 10×10 integer matrix obtained from the ca
 $$c_2 = 33 = 3 \cdot 11 \qquad \text{and} \qquad c_8 = -120{,}736 = -2^5 \cdot 7^3 \cdot 11,$$
 and divides **none** of the discriminant of the eighth-degree polynomial $g(\lambda) = f(\lambda)/\lambda^2$, which factors as
 $$\mathrm{disc}(g) = 2^{16} \cdot 7^7 \cdot 659 \cdot 95{,}184{,}709 \cdot 222{,}007{,}939 \cdot 2{,}545{,}644{,}917 \cdot 295{,}153{,}052{,}072{,}903.$$
-We further show (Theorem 4.1) that the prime-11 divisibility is **lens-dependent**: the upper-triangle authoritative symmetrization $T_{\mathrm{SYM}}$ (a different but related 10×10 integer matrix that differs from $T$ in only two cells) has $c_2 = 17$ and no factor of 11 in any nonzero coefficient. The result is therefore a structural observation about how the symmetrization choice affects the elementary symmetric functions of the eigenvalues. No physical interpretation is claimed.
+We further show (Theorem 4.1) that the prime-11 divisibility is **lens-dependent**: the upper-triangle authoritative symmetrization $T_{\mathrm{SYM}}$ (a related 10×10 integer matrix that differs from $T$ in exactly two off-diagonal cells) has $c_2 = -23$ and no factor of 11 in any nonzero coefficient of its characteristic polynomial. The result is therefore a structural observation about how the symmetrization choice affects the elementary symmetric functions of the eigenvalues. No physical interpretation is claimed.
 
 ---
 
@@ -44,7 +44,7 @@ T = \begin{bmatrix}
 \end{bmatrix} \in M_{10}(\mathbb{Z}).
 $$
 
-The matrix $T$ is non-symmetric (e.g., $T_{3,9} = 3 \neq 7 = T_{9,3}$, and $T_{4,9} = 7 \neq 3 = T_{9,4}$). Its rank is $8$, so its characteristic polynomial $f(\lambda) = \det(\lambda I - T)$ has $\lambda^2$ as a factor and is therefore degree $10$ with two zero eigenvalues. Direct integer computation gives
+The matrix $T$ is non-symmetric in exactly two off-diagonal cell pairs (using $0$-indexed positions matching the magma-element subscripts): $T_{3,9} = 3 \neq 7 = T_{9,3}$, and $T_{4,9} = 7 \neq 3 = T_{9,4}$. Its rank is $8$, so its characteristic polynomial $f(\lambda) = \det(\lambda I - T)$ has $\lambda^2$ as a factor and is therefore degree $10$ with two zero eigenvalues. Direct integer computation gives
 
 $$
 f(\lambda) = \lambda^{10} - 63 \lambda^9 + 33 \lambda^8 + 4204 \lambda^7 - 3998 \lambda^6 - 62510 \lambda^5 + 9716 \lambda^4 + 54880 \lambda^3 - 120736 \lambda^2.
@@ -96,12 +96,14 @@ The matrix $T$ defined in §1 is non-symmetric. A natural commutative variant is
 $$
 T_{\mathrm{SYM}}[3,9] = T_{\mathrm{SYM}}[9,3] = 7, \qquad T_{\mathrm{SYM}}[4,9] = T_{\mathrm{SYM}}[9,4] = 7,
 $$
-and leaving the remaining $98$ cells unchanged. (Equivalently, $T_{\mathrm{SYM}}$ replaces the entries $T_{3,9} = 3$ and $T_{9,4} = 3$ by $7$, eliminating the asymmetry.) The matrix $T_{\mathrm{SYM}}$ is symmetric and its characteristic polynomial $f_{\mathrm{SYM}}(\lambda)$ is a different element of $\mathbb{Z}[\lambda]$.
+and leaving the remaining $98$ cells unchanged. (Equivalently, $T_{\mathrm{SYM}}$ replaces the entries $T_{3,9} = 3$ and $T_{9,4} = 3$ by $7$, eliminating the asymmetry.) The matrix $T_{\mathrm{SYM}}$ is symmetric. Its rank drops from $8$ to $7$ — the off-diagonal change introduces one additional zero eigenvalue — so its characteristic polynomial $f_{\mathrm{SYM}}(\lambda)$ has $\lambda^3$ as a factor and is a different element of $\mathbb{Z}[\lambda]$ than $f$.
 
 **Theorem 4.1 (Lens-dependence of the prime-11 pattern).**
-*The characteristic polynomial of $T_{\mathrm{SYM}}$ has $c_2 = 17$. In particular, $11 \nmid c_2(f_{\mathrm{SYM}})$, and direct factorization shows that $11$ divides none of the nonzero coefficients of $f_{\mathrm{SYM}}$. The prime-$11$ divisibility pattern of the original (non-symmetric) matrix $T$ does not survive symmetrization.*
+*The characteristic polynomial of $T_{\mathrm{SYM}}$ is*
+$$f_{\mathrm{SYM}}(\lambda) = \lambda^{10} - 63\lambda^9 - 23\lambda^8 + 4284\lambda^7 - 1086\lambda^6 - 65982\lambda^5 - 9212\lambda^4 + 32928\lambda^3.$$
+*In particular, $c_2(f_{\mathrm{SYM}}) = -23$ (the prime 23, with no factor of 11), and direct factorization of the seven nonzero coefficients of $f_{\mathrm{SYM}}$ shows that $11$ divides none of them. The prime-$11$ divisibility pattern of the original (non-symmetric) matrix $T$ does not survive symmetrization.*
 
-The proof is direct factorization of the nine nonzero coefficients of $f_{\mathrm{SYM}}$. Theorem 4.1 is itself a clean structural observation about how a 2-cell perturbation of the matrix changes the elementary symmetric functions: only two off-diagonal cell pairs differ between $T$ and $T_{\mathrm{SYM}}$, yet the prime-$11$ divisibility pattern at the coefficient level is entirely destroyed by this perturbation. Since the eigenvalues of an integer matrix are continuous (in the algebraic sense) in the matrix entries, but the elementary symmetric functions of the eigenvalues are integer-valued and discretely sensitive, this is the kind of finite arithmetic effect that rewards explicit study.
+The proof is direct factorization of the seven nonzero coefficients of $f_{\mathrm{SYM}}$: $c_1 = -63 = -3^2 \cdot 7$, $c_2 = -23$, $c_3 = 4284 = 2^2 \cdot 3^2 \cdot 7 \cdot 17$, $c_4 = -1086 = -2 \cdot 3 \cdot 181$, $c_5 = -65982 = -2 \cdot 3 \cdot 7 \cdot 1571$, $c_6 = -9212 = -2^2 \cdot 7^2 \cdot 47$, $c_7 = 32928 = 2^5 \cdot 3 \cdot 7^3$. Theorem 4.1 is itself a clean structural observation about how a 2-cell perturbation changes the elementary symmetric functions: only two off-diagonal cell pairs differ between $T$ and $T_{\mathrm{SYM}}$, yet the prime-$11$ divisibility pattern at the coefficient level is entirely destroyed by this perturbation. Since the eigenvalues of an integer matrix vary continuously (in the algebraic sense) with the matrix entries, but the elementary symmetric functions of the eigenvalues are integer-valued and discretely sensitive, this is the kind of finite arithmetic effect that rewards explicit study.
 
 ---
 
@@ -154,18 +156,23 @@ print(sympy.factorint(abs(g.discriminant())))
 # {2: 16, 7: 7, 659: 1, 95184709: 1, 222007939: 1, 2545644917: 1, 295153052072903: 1}
 
 # Lens variant: SYM symmetrization (replace T_RAW[3,9]=3 and T_RAW[9,4]=3 by 7)
+# Indices below are 0-indexed and match the magma-element subscripts in §1.
 T_SYM = T_RAW.copy()
-T_SYM[2, 8] = 7  # paper-index (3,9), zero-indexed (2,8) — correction
-T_SYM[3, 8] = 7  # (4,9)
-T_SYM[8, 3] = 7
-T_SYM[8, 2] = 7
-# (after upper-triangle authoritative symmetrization: see §4)
+T_SYM[3, 9] = 7  # was 3
+T_SYM[9, 4] = 7  # was 3
+# (T_SYM[9,3] and T_SYM[4,9] are already 7; T_SYM is now symmetric.)
 fsym = T_SYM.charpoly(lam).as_expr()
 sym_coeffs = sympy.Poly(fsym, lam).all_coeffs()
-print(sym_coeffs[2])  # SYM c_2 = 17 (no factor of 11)
+# Coefficients (highest first): [1, -63, -23, 4284, -1086, -65982, -9212, 32928, 0, 0, 0]
+print(sym_coeffs[2])  # SYM c_2 = -23 (no factor of 11)
+for k, c in enumerate(sym_coeffs):
+    if c != 0:
+        print(k, c, sympy.factorint(abs(c)))
+# c_2 = -23, c_3 = 2^2*3^2*7*17, c_4 = -2*3*181, c_5 = -2*3*7*1571,
+# c_6 = -2^2*7^2*47, c_7 = 2^5*3*7^3 — no coefficient divisible by 11.
 ```
 
-(The exact SYM-cell adjustments follow §4; the snippet above adopts the upper-triangle authoritative convention.)
+(The SYM-cell adjustments follow §4; the snippet above adopts the upper-triangle authoritative convention.)
 
 A standalone script at `manuscript/verification/wobble_check.py` performs the full check and emits a 7/7-pass verification table at integer/machine precision in under 5 seconds with `sympy` as the only dependency.
 
@@ -173,7 +180,7 @@ A standalone script at `manuscript/verification/wobble_check.py` performs the fu
 
 ## §7 PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
-- **PROVEN (Theorems 1.1, 1.2, 1.3, 4.1):** for the specific 10×10 integer matrix $T$ in §1, the prime $11$ divides exactly the two coefficients $c_2 = 33$ and $c_8 = -120{,}736$ of the characteristic polynomial; the discriminant of $g = f/\lambda^2$ factors as $2^{16} \cdot 7^7 \cdot 659 \cdot \ldots$ with no factor of $11$; the trace is $63 = 9 \cdot 7$; the upper-triangle authoritative symmetrization $T_{\mathrm{SYM}}$ has $c_2 = 17$ and no factor of $11$ at the coefficient level.
+- **PROVEN (Theorems 1.1, 1.2, 1.3, 4.1):** for the specific 10×10 integer matrix $T$ in §1, the prime $11$ divides exactly the two coefficients $c_2 = 33$ and $c_8 = -120{,}736$ of the characteristic polynomial; the discriminant of $g = f/\lambda^2$ factors as $2^{16} \cdot 7^7 \cdot 659 \cdot \ldots$ with no factor of $11$; the trace is $63 = 9 \cdot 7$; the upper-triangle authoritative symmetrization $T_{\mathrm{SYM}}$ (rank $7$) has $c_2 = -23$, and no nonzero coefficient of its characteristic polynomial is divisible by $11$.
 - **COMPUTED:** all coefficient factorizations, the discriminant factorization, and the SYM-lens comparison are verified by direct sympy computation in <5 seconds (`wobble_check.py`).
 - **STRUCTURAL RHYME:** the exponent $16$ in $\mathrm{disc}(g) = 2^{16} \cdot \ldots$ matches the dimension of a 16-dimensional doubly-invariant subalgebra of $\mathfrak{so}(10)$ studied separately in the source program; the exponent $7$ in $7^7$ matches the recurring entry $7$ in $T$. We cite these as structural co-occurrences, not as derivational steps. The framing follows the Drápal-Wanless (2021, *JCTA*) line of work on small finite commutative non-associative structures with integer/rational invariants.
 - **OPEN:** whether the prime-$11$ pattern in $c_2$ and $c_8$ admits a closed-form algebraic explanation (e.g., a structural product formula relating sums-of-pairs of eigenvalues to the determinant of the rank-8 part of $T$); whether analogous prime-localization patterns occur for related integer matrices in the same combinatorial neighborhood; and whether the specific 2-cell perturbation $T \to T_{\mathrm{SYM}}$ admits an algebraic explanation for its prime-$11$-destroying effect.
@@ -198,7 +205,7 @@ A standalone script at `manuscript/verification/wobble_check.py` performs the fu
   year         = {2026},
   doi          = {10.5281/zenodo.18852047},
   howpublished = {Submitted to \emph{Linear Algebra and Its Applications}.},
-  note         = {The prime $11$ divides exactly two coefficients ($c_2 = 33$, $c_8 = -2^5 \cdot 7^3 \cdot 11$) of the characteristic polynomial of a specific 10x10 integer matrix; no factor of 11 in $\mathrm{disc}(f/\lambda^2) = 2^{16} \cdot 7^7 \cdot 659 \cdot \ldots$; lens-dependent at the coefficient level (the upper-triangle symmetrization has $c_2 = 17$ with no factor of 11).}
+  note         = {The prime $11$ divides exactly two coefficients ($c_2 = 33$, $c_8 = -2^5 \cdot 7^3 \cdot 11$) of the characteristic polynomial of a specific 10x10 integer matrix; no factor of 11 in $\mathrm{disc}(f/\lambda^2) = 2^{16} \cdot 7^7 \cdot 659 \cdot \ldots$; lens-dependent at the coefficient level (the upper-triangle symmetrization has $c_2 = -23$ with no factor of 11).}
 }
 ```
 

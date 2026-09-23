@@ -111,9 +111,9 @@ Reference Python scripts (\texttt{bhml\_fp\_universality.py} and
 all numerical claims by sympy/numpy linear algebra. \emph{Structural
 rhyme.} The skeleton invariants resemble those of the parallel
 $V^{\TSML}_{\F_{p}}$ algebra studied in companion
-work~\cite{SandersGishFpTSML}; the resemblance reflects the shared
-near-absorber structure on $e_{0}$ but the two algebras are not
-isomorphic. \emph{Open.} Whether $\det(\BHML_{8}^{\circ}) =
+work (in preparation, parallel TSML side); the resemblance reflects
+the shared near-absorber structure on $e_{0}$ but the two algebras
+are not isomorphic. \emph{Open.} Whether $\det(\BHML_{8}^{\circ}) =
 \binom{8}{4}$ admits a Lindström--Gessel--Viennot or
 Cauchy--Binet-style structural derivation, or is a small-integer
 coincidence; a structural classification of the idempotent count as
@@ -130,10 +130,9 @@ a function of $p$.
 %==============================================================
 
 \subsection{Setting.}
-The companion paper~\cite{SandersGishFpTSML} (J21 in the broader
-release sequence) treats the $\F_{p}$-reductions of the
-$\TSML$ 4-core algebra. The present paper is the analogous
-treatment for the $\BHML$ 4-core algebra. Both algebras are
+A companion line of work treats the $\F_{p}$-reductions of the
+$\TSML$ 4-core algebra by parallel methods. The present paper is the
+analogous treatment for the $\BHML$ 4-core algebra. Both algebras are
 $4$-dimensional commutative non-associative algebras over $\Z$,
 defined by integer-valued multiplication tables on the basis
 $\{e_{0}, e_{2}, e_{3}, e_{4}\}$.
@@ -238,15 +237,15 @@ $\{e_{0}, e_{2}, e_{3}, e_{4}\}$ and the product table $T^{\BHML}$
 read modulo $p$ (where the basis-element coefficients are
 $0, 1 \in \F_{p}$ throughout, so the reduction is simply the
 identity on the basis-cell value $0$ or $1$).
-\end{definition>
+\end{definition}
 
 \begin{remark}[On the basis labels]
 The labels $e_{0}, e_{2}, e_{3}, e_{4}$ are inherited from the
 substrate operator labels $\{$VOID$_{0}$, HARMONY$_{7}$,
 BREATH$_{8}$, RESET$_{9}\}$ via the basis-relabeling
 $7 \mapsto e_{2}$, $8 \mapsto e_{3}$, $9 \mapsto e_{4}$ standard in
-\cite{SandersGishFpTSML}, \cite{SandersGishFourCore} for the case
-$p = 5$ where $\{7, 8, 9\} \equiv \{2, 3, 4\} \pmod{5}$. For
+\cite{SandersGishFourCore} for the case $p = 5$ where
+$\{7, 8, 9\} \equiv \{2, 3, 4\} \pmod{5}$. For
 $p \neq 5$ these are just labels; the integer table $T^{\BHML}$ has
 all coefficients in $\{0, 1\}$, so the reduction modulo any prime is
 straightforward.
@@ -349,15 +348,17 @@ counting estimates for solutions of polynomial systems over $\F_{p}$.
 \end{proof}
 
 \begin{remark}[Comparison to TSML]
-The TSML side~\cite{SandersGishFpTSML} has the same structural
-skeleton (with adjustments to the eigenspace signature of
-$L_{e_{0}}^{\TSML}$, which differs because $T^{\TSML}$ has more
-non-zero cells than $T^{\BHML}$). The two algebras are not
-isomorphic over $\F_{p}$: the difference is in the $L_{e_{0}}$
+A parallel companion line of work treats the analogous
+$\F_{p}$-reductions of the $\TSML$ 4-core algebra, with the same
+structural-skeleton template (with adjustments to the eigenspace
+signature of $L_{e_{0}}^{\TSML}$, which differs because $T^{\TSML}$
+has more non-zero cells than $T^{\BHML}$). The two algebras are
+not isomorphic over $\F_{p}$: the difference is in the $L_{e_{0}}$
 eigenspace dimensions and the precise positions of the rank-1
-associator image. The shared invariants ($4$ idempotents, $|\Aut| =
-40$, power-associativity) reflect the shared near-absorber structure
-on $e_{0}$.
+associator image. The shared structural invariants
+(power-associativity, $1$-dim associator image, characteristic-independent
+$L_{e_{2}}$ eigenspace signature) reflect the shared near-absorber
+structure on $e_{0}$.
 \end{remark}
 
 %==============================================================
@@ -447,7 +448,7 @@ which are computed on the $4 \times 4$ submatrix on
 $\{0, 7, 8, 9\}$. The $4$-core $V^{\BHML}_{\F_{p}}$ retains its
 structural skeleton at all primes $p \notin \{2, 5\}$ regardless of
 the chain-shell rank failures.
-\end{remark>
+\end{remark}
 
 %==============================================================
 \section{The integer-determinant identity
@@ -515,14 +516,14 @@ $7 \mapsto e_{2}$).
 \label{lem:pa}
 For every $x \in V^{\BHML}_{\Z}$ (and hence over every base field),
 $(x x) x = x (x x)$.
-\end{lemma>
+\end{lemma}
 
 \begin{proof}
 For $x = a e_{0} + b e_{2} + c e_{3} + d e_{4}$, expand both sides
 multilinearly using $T^{\BHML}$. The two sides reduce to identical
 quartic polynomials in $(a, b, c, d)$. Direct computation
 (\texttt{check\_pa.py}) confirms the polynomial identity.
-\end{proof>
+\end{proof}
 
 \begin{lemma}[Associator image dimension]
 \label{lem:assoc-dim}
@@ -530,14 +531,14 @@ The image of the trilinear associator on $V^{\BHML}_{\Z}$ is a
 rank-$1$ $\Z$-submodule, generated (up to integer multiple) by
 $e_{4} - e_{3}$. Reducing modulo any prime, the associator image is
 $1$-dimensional.
-\end{lemma>
+\end{lemma}
 
 \begin{proof}
 Direct computation. The associator $[e_{i}, e_{j}, e_{k}]$ for
 $i, j, k \in \{0, 2, 3, 4\}$ vanishes for all but a small list of
 triples, and on that list the values are integer multiples of
 $e_{4} - e_{3}$. The verification script tabulates all $64$ triples.
-\end{proof>
+\end{proof}
 
 \begin{remark}
 Theorem~\ref{thm:universality} holds in every characteristic: the
@@ -548,7 +549,7 @@ integer-level fact whose witnesses are non-zero in every
 characteristic. The idempotent count is the unique non-invariant
 feature, growing with $p$ as the polynomial system $x^{2} = x$ on
 the $4$-dim algebra admits more solutions over larger fields.
-\end{remark>
+\end{remark}
 
 %==============================================================
 \section{Reproducibility}
@@ -614,12 +615,6 @@ J.~M.~Howie,
 \emph{Fundamentals of Semigroup Theory},
 Oxford University Press, 1995.
 
-\bibitem{SandersGishFpTSML}
-B.~R.~Sanders, M.~Gish,
-\emph{The 5D Force Vector as a CRT Fourier Embedding of $\Z/10\Z$
-into $\R^{5}$},
-submitted to \emph{American Mathematical Monthly}, 2026 (J21).
-
 \bibitem{SandersGishFourCore}
 B.~R.~Sanders, M.~Gish,
 \emph{The 4-Core $\{0, 7, 8, 9\}$: Joint TSML+BHML Closure and the
@@ -628,7 +623,7 @@ in preparation (target Algebraic Combinatorics, 2026).
 
 \bibitem{SandersGishForcing}
 B.~R.~Sanders, M.~Gish,
-\emph{The $\CL_{\TSML}$ Composition Lattice on $\Z/10\Z$:
+\emph{The $\mathrm{CL}_{\TSML}$ Composition Lattice on $\Z/10\Z$:
 Structural Axioms, Independence, and a $73$-HARMONY Forcing
 Theorem},
 submitted to \emph{Algebraic Combinatorics}, 2026 (J25).

@@ -17,9 +17,15 @@
 
 ## §2 — Verification script
 
-**Path:** `(microtubule prediction script)`
+**Path:** `manuscript/verify_J49.py`
 
-The proof script (where applicable) is the green-light gate before submission. If "(no script — theorem-paper)" or similar, the gate is the proof's referee-rigor pass.
+Runs the Appendix A + B verification at machine precision:
+- D48 4-core closure (16 cells per table, TSML + BHML).
+- D78 Galois: $x^2 - 2x - 2 = 0$, root $1 + \sqrt{3}$, discriminant 12, splitting field $\mathbb{Q}(\sqrt{3})$.
+- Definition 2.2 geometric-ceiling sanity ($Q_{\text{structural max}} \approx 0.25$ at 10 GHz / 8 nm / 2 km/s).
+- Numerology guard: confirms $1 + \sqrt{3} \approx 2.732$ and $T^* = 5/7 \approx 0.714$ are distinct algebraic invariants (gap $\approx 2.02$).
+
+Run: `python verify_J49.py`. Status: **PASS** at machine precision, 2026-05-12.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
@@ -102,4 +108,4 @@ This paper sits within the TIG family of finite commutative non-associative magm
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Mayes. (2026). "Microtubule Q_c = T*: A Falsifiable Substrate-Algebra Prediction." Submitted to *J Theor Biol*.
+Sanders, B.R., Gish, M. (2026). "Microtubule Q_c = T*: A Falsifiable Substrate-Algebra Prediction." Submitted to *J Theor Biol*.

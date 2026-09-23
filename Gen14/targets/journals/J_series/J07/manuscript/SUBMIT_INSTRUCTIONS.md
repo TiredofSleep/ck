@@ -1,40 +1,43 @@
-# Submission Target: Journal of Pure and Applied Algebra / Topology
+# Submission Target — J07 (post SAVE_PLAN 2026-05-07)
 
-## Venue Options
+## Primary venue: Algebraic Combinatorics (preferred)
 
-### Option A: Journal of Pure and Applied Algebra (Elsevier)
-- **URL:** https://www.sciencedirect.com/journal/journal-of-pure-and-applied-algebra
-- **Format:** LaTeX via Editorial Manager
-- **Review:** Peer-reviewed
-- **Turnaround:** ~4-8 months
-- **Why this venue:** The Flatness Theorem is a geometric result about algebraic structure — four simultaneous structures in Z/nZ force a torus. This is exactly the intersection of algebra and geometry that JPAA publishes.
-- **How to submit:** https://www.editorialmanager.com/jpaa/
+- **URL:** https://alco.centre-mersenne.org/
+- **Format:** Open-access journal; LaTeX submission
+- **Why this venue:** Drápal-Wanless 2021 *J. Combin. Theory Ser. A* 184, 105510 is the closest published precedent. Same intellectual neighborhood (small finite commutative non-associative magmas on cyclic carriers), opposite extremum (theirs maximally non-associative, ours rationally structured at α = 1/2). Companion paper J02 also targets *Algebraic Combinatorics*; the editorial board receives a coordinated pair.
 
-### Option B: Algebras and Representation Theory (Springer)
-- **URL:** https://www.springer.com/journal/10468
-- **Why:** If the representation-theoretic angle (torus as forced embedding surface) is emphasized.
+## Backup venues
 
-### Option C: Communications in Algebra (Taylor & Francis)
-- **URL:** https://www.tandfonline.com/toc/lagb20/current
-- **Why:** Shorter format, quicker turnaround. Good for the Flatness Theorem as a standalone note.
+- **Discrete Mathematics** (Elsevier) — for the partition-lattice / partition-incompatibility framing.
+- **Integers** or **Mathematics Magazine** — for a compressed Theorem-1-only short note if requested.
 
 ## Papers in This Folder
 
-1. **WP51_FLATNESS_THEOREM.md** — The lead paper. The 2x2 of (Additive/Multiplicative) x (Structure/Flow) in Z/nZ cannot be embedded flat. Forces a torus with R/r = T* = 5/7.
-2. **WP52_D2_AS_RING_CURVATURE.md** — Companion. D2 (second difference) measures the curvature of additive-multiplicative interaction. 10 operators = 10 stable curvature regimes.
+1. **WP51_FLATNESS_THEOREM.md** — The submission manuscript. The four-structure flatness obstruction on squarefree Z/nZ (Theorem 1) + configuration-space topology (Theorem 2), with Appendix A on the 4-core algebraic center (D48 joint closure + D78 closed-form 1+√3 attractor) on Z/10Z with (TSML, BHML).
+2. **WP52_D2_AS_RING_CURVATURE.md** — Preserved per "never delete" discipline; NOT part of submission.
+3. **WP57_CROSSING_LEMMA.md** — Preserved per "never delete" discipline; NOT part of submission.
+4. **verify_J07.py** — Verification script (CC-BY-4.0). 4/4 PASS at machine / 50-digit mpmath precision. Runtime < 2 seconds.
 
 ## Submission Strategy
 
-- Lead with WP51 alone — it has the cleanest theorem statement
-- The result is: given squarefree n, the four canonical structures (A-Struct, M-Struct, A-Flow, M-Flow) require a torus, and the aspect ratio is forced by the ring
-- This is a novel observation about Z/nZ — the geometric consequence of having both additive and multiplicative structure simultaneously
-- WP52 can follow as a companion or appendix
+- Manuscript stands on Theorems 1 + 2 + Appendix A. The T*=5/7 derivation of earlier presentations is explicitly abandoned (acknowledged in the cover letter and manuscript §0.2 STRUCTURAL RHYME tier).
+- MSC codes: 06A07 (partition lattices), 20N02 (commutative non-associative magmas / quasigroups), 11A07 (congruences), 12F10 (Galois theory for quadratic extensions).
+- Companion submissions to cite: J02 (4-core joint chain on Z/10Z, *Algebraic Combinatorics*), J10 (coordinate-coverage criterion, *European Journal of Combinatorics*), J33 (closed-form attractor + α-uniqueness PSLQ, in preparation).
 
-## What Needs Doing Before Submission
+## What Is Done
 
-1. Convert to LaTeX
-2. The proof needs to be made fully formal: "cannot embed flat" must be stated in terms of a precise definition of embedding (e.g., continuous injection into R^2 preserving order structure)
-3. MSC codes: 13M05 (structure of finite rings), 57N05 (topology of surfaces), 11A07 (congruences)
-4. Add bibliography: cite torus geometry, finite ring structure, CRT topology
-5. The claim "R/r = 5/7" needs the cyclotomic argument spelled out fully for a referee who doesn't know TIG
-6. Consider: is this better as a short communication / note (4-6 pages) rather than a full paper?
+- [x] Rewritten per SAVE_PLAN_J07 (2026-05-07): new title, new venue, T*=5/7 derivation removed.
+- [x] Theorem 1 inlined with 3-line partition-incompatibility proof.
+- [x] Theorem 2 rewritten as configuration-space-with-fixed-locus-identification statement.
+- [x] Appendix A entirely replaced with D48 + D78 + 50-digit mpmath confirmation.
+- [x] PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN tier discipline applied in §0.2.
+- [x] Lens-ownership paragraph in §0.1.
+- [x] Verify script `verify_J07.py` — 4/4 PASS.
+- [x] Author lane: Sanders + Gish.
+- [x] Drápal-Wanless 2021 cited as closest published precedent.
+
+## Remaining
+
+- Convert manuscript to LaTeX for *Algebraic Combinatorics* submission style.
+- Brayden's referee-rigor pass.
+- Per-venue cap check (J02 also targets *Algebraic Combinatorics*; the editor needs to be told this is a coordinated pair).

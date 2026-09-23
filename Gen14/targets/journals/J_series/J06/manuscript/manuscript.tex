@@ -117,15 +117,15 @@ these by a negative result: the squarefree hypothesis is essential,
 since for $n = p^{r}$ with $r \ge 2$ and any non-identity $g$, no
 joint-injective pair $\{A_{p^{a}}, \pi_{\dyn}(g)\}$ exists
 (Theorem~\ref{thm:pkernel}; the obstruction is the kernel of
-reduction $1 + p\Z/p^{r}\Z \le (\Z/p^{r}\Z)^{\times}$). The
-biconditional characterization of joint injectivity for $\{A_{d},
-\pi_{\dyn}(g)\}$ on the full ring $\Z/n\Z$ remains open; we give
-small explicit examples in Section~\ref{sec:joint-open} demonstrating
-that the natural conjecture --- joint injectivity iff $g \not\equiv
-1 \pmod{p_{j}}$ for every $p_{j} \mid (n/d)$ --- fails in both
-directions. The proofs are finite-combinatorial: CRT decomposition
-and order arithmetic in finite cyclic groups; for the prime-power
-obstruction we use the standard Hensel-lift decomposition
+reduction $1 + p\Z/p^{r}\Z \le (\Z/p^{r}\Z)^{\times}$). A natural
+necessary-direction conjecture --- joint injectivity implies
+$g \not\equiv 1 \pmod{p_{j}}$ for every $p_{j} \mid (n/d)$ --- is
+\emph{false} (Example~\ref{ex:necessary-fails}): $n = 6$, $d = 3$,
+$g = 5$ gives a jointly injective pair with $g \equiv 1 \pmod 2$.
+A correct characterization of joint injectivity on the full ring
+$\Z/n\Z$ remains open. The proofs are finite-combinatorial: CRT
+decomposition and order arithmetic in finite cyclic groups; for the
+prime-power obstruction we use the standard Hensel-lift decomposition
 $(\Z/p^{r}\Z)^{\times} \cong (\Z/p\Z)^{\times} \times (1 +
 p\Z/p^{r}\Z)$.
 \end{abstract}
@@ -176,28 +176,35 @@ the discrete partition --- equivalently, when the joint label map
 $x \mapsto (A_{d}(x), \orb_{g}(x))$ separates every pair of distinct
 points of $\Z/n\Z$.
 
-\subsection{Main results and a corrected statement}
+\subsection{Main results and failure of the natural necessary direction}
 
-The natural conjecture --- joint injectivity iff $g \not\equiv 1
-\pmod{p_{j}}$ for every $p_{j} \mid (n/d)$ --- captures the
-\emph{necessary} direction (Theorem~\ref{thm:joint-necessary}) but
-fails as a biconditional. The smallest counterexample is $n = 6$,
-$d = 2$, $g = 5$: condition $g \not\equiv 1 \pmod{3}$ holds (indeed
-$5 \equiv 2 \pmod{3}$), yet the orbit $\{1, 5\}$ of $1$ under $M_{5}$
-lies entirely in the $A_{2}$-fiber $\{1, 3, 5\}$, witnessing
-$\{1, 5\} \in U(A_{2}) \cap U(\pi_{\dyn}(5))$. Joint injectivity
-fails. The structural reason: $g_{2} = 5 \bmod 2 = 1$, so $M_{g}$
-acts trivially modulo $2$, hence orbits of $M_{g}$ \emph{stay within}
-$A_{2}$-fibers regardless of the (n/d)-side action.
+A natural conjecture for the joint-injectivity question for $\{A_{d},
+\pi_{\dyn}(g)\}$ would be: joint injectivity iff $g \not\equiv 1
+\pmod{p_{j}}$ for every $p_{j} \mid (n/d)$. The forward direction
+(necessity) of this conjecture is \emph{false}; see
+Example~\ref{ex:necessary-fails}, $n = 6$, $d = 3$, $g = 5$, where
+the joint pair $\{A_{3}, \pi_{\dyn}(5)\}$ is injective on $\Z/6\Z$
+even though $g = 5 \equiv 1 \pmod 2$ and $2$ is the only prime of
+$n/d = 2$. The geometric reason: the $A_{d}$-partition itself
+separates the $(n/d)$-coordinate from the perspective of orbit
+elements (orbits of $M_{g}$ can carry the $d$-coordinate through
+distinct values while the $(n/d)$-coordinate is fixed, and the
+$A_{d}$-label tracks exactly the $d$-coordinate), so $g$ acting
+trivially on the $(n/d)$-side does \emph{not} preclude joint
+injectivity. The other natural counterexample for the converse
+direction is also small: $n = 6$, $d = 2$, $g = 5$, where the
+proposed condition $g \not\equiv 1 \pmod{3}$ holds but the joint
+pair $\{A_{2}, \pi_{\dyn}(5)\}$ fails to be injective (the orbit
+$\{1, 5\}$ of $1$ under $M_{5}$ lies entirely in the $A_{2}$-fiber
+$\{1, 3, 5\}$).
 
-A correct sufficient condition uses the orders of $g$ modulo $d$ and
-modulo $n$: Theorem~\ref{thm:joint-sufficient} shows that joint
-injectivity \emph{follows} from $\ord(g \bmod d) = \ord(g \bmod n)$
-together with non-trivial action on every prime of $n/d$. The two
-conditions are independent --- the order-equality is what enforces
-that orbits do not collapse within fibers, while non-trivial action
-on $(n/d)$ is what enforces that they reach beyond fibers. The full
-biconditional remains open in general.
+These two small examples show that the natural conjecture fails in
+\emph{both} directions on the full ring $\Z/n\Z$; the correct
+characterization of joint injectivity remains open. A clean
+sufficient condition on the unit subgroup is available:
+Theorem~\ref{thm:joint-sufficient} shows that joint injectivity on
+$(\Z/n\Z)^{\times}$ \emph{follows} from $\ord(g \bmod d) = \ord(g
+\bmod n)$ together with non-trivial action on every prime of $n/d$.
 
 The multiplicative-multiplicative classification
 (Theorem~\ref{thm:mm}) is clean when restricted to the unit subgroup:
@@ -212,22 +219,30 @@ $g$, no $\{A_{p^{a}}, \pi_{\dyn}(g)\}$ is jointly injective.
 
 \subsection{Tier discipline}
 
-This paper PROVES the necessary direction of Theorem~\ref{thm:joint-necessary},
-the unit-restricted multiplicative-multiplicative classification
+This paper \textbf{PROVES} the unit-restricted sufficient condition
+via order-equality (Theorem~\ref{thm:joint-sufficient}), the
+unit-restricted multiplicative-multiplicative classification
 (Theorem~\ref{thm:mm}), the reflection-multiplicative classification
-(Theorem~\ref{thm:specdyn}), and the prime-power kernel-of-reduction
-obstruction for non-identity $g$ (Theorem~\ref{thm:pkernel}). We
-COMPUTE the verifications via \texttt{verify\_joint\_injectivity.py}:
-all squarefree $n \le 77$ with $\omega(n) \in \{2, 3\}$ for the
-necessary direction (zero counterexamples to necessity);
-multiplicative-multiplicative on $(\Z/n\Z)^{\times}$ for $n \in \{6,
-10, 14, 15, 21, 22, 26, 33, 35\}$ (zero counterexamples); reflection
-$+$ multiplicative for $n \in \{15, 21, 33, 35\}$ (zero
-counterexamples); prime-power obstruction for $n = p^{r} \in \{4, 8,
-9, 16, 25, 27, 49, 125\}$ excluding the trivial $g = 1$ case (zero
-counterexamples). The Drápal-Wanless 2021 \emph{JCTA} citation
-\cite{DrapalWanless2021} flags the closest published precedent for
-the broader research program; the present paper is not a magma paper.
+on the full ring (Theorem~\ref{thm:specdyn}), and the prime-power
+kernel-of-reduction obstruction for non-identity $g$
+(Theorem~\ref{thm:pkernel}). We \textbf{COMPUTE} the verifications
+via \texttt{verify\_joint\_injectivity.py}: the sufficient condition
+on units for all squarefree $n \le 77$ with $\omega(n) \ge 2$ (zero
+counterexamples); multiplicative-multiplicative on $(\Z/n\Z)^{\times}$
+for $n \in \{6, 10, 14, 15, 21, 22, 26, 30, 33, 34, 35\}$ (zero
+counterexamples); reflection $+$ multiplicative for the listed
+squarefree $n$ up to $77$ (zero counterexamples); prime-power
+obstruction for $n = p^{r} \in \{4, 8, 9, 16, 25, 27, 49, 125\}$
+excluding the trivial $g = 1$ case (zero counterexamples). The
+\textbf{STRUCTURAL RHYME} note: the present partition-lattice results
+play the algebraic-spine role for the broader research program on
+finite commutative non-associative magmas on $\Z/10\Z$ in the
+Dr\'apal-Wanless 2021 \emph{JCTA} tradition \cite{DrapalWanless2021};
+the present paper is not a magma paper. \textbf{OPEN}: a complete
+biconditional characterization of joint injectivity of $\{A_{d},
+\pi_{\dyn}(g)\}$ on the full ring $\Z/n\Z$ (the natural
+prime-action conjecture is shown to fail in both directions by
+Examples~\ref{ex:necessary-fails} and~\ref{ex:converse-fails}).
 
 \subsection{Disambiguation of \emph{Crossing Lemma}}
 
@@ -251,8 +266,11 @@ present paper is fully self-contained.
 \subsection{Organization}
 
 Section~\ref{sec:setup} fixes the partition setup. Section~\ref{sec:joint}
-proves Theorem~\ref{thm:joint-necessary} (necessary direction) and
-Theorem~\ref{thm:joint-sufficient} (sufficient condition).
+records two small examples showing the natural prime-action conjecture
+for joint injectivity of $\{A_{d}, \pi_{\dyn}(g)\}$ on $\Z/n\Z$ fails
+in both directions (Examples~\ref{ex:necessary-fails} and
+\ref{ex:converse-fails}) and proves the unit-restricted sufficient
+condition (Theorem~\ref{thm:joint-sufficient}).
 Section~\ref{sec:mm} proves Theorem~\ref{thm:mm} on
 $(\Z/n\Z)^{\times}$. Section~\ref{sec:specdyn} proves
 Theorem~\ref{thm:specdyn}. Section~\ref{sec:pkernel} proves
@@ -311,104 +329,58 @@ singleton when $-x = x$).
 %% -------- section 3: necessary and sufficient conditions --------
 \section{Joint injectivity of $A_{d}$ and $\pi_{\dyn}(g)$}\label{sec:joint}
 
-\subsection{The necessary direction}
+\subsection{Failure of the natural prime-action conjecture}\label{subsec:open}
 
-\begin{theorem}[Necessary condition for joint injectivity]\label{thm:joint-necessary}
-Let $n$ be squarefree with $\omega(n) \ge 2$, $d \mid n$ squarefree
-with $1 < d < n$, and $g \in (\Z/n\Z)^{\times}$. If $\{A_{d},
-\pi_{\dyn}(g)\}$ is jointly injective on $\Z/n\Z$, then for every
-prime $p_{j} \mid (n/d)$, $g_{j} \not\equiv 1 \pmod{p_{j}}$.
-\end{theorem}
+The natural conjecture --- $\{A_{d}, \pi_{\dyn}(g)\}$ is jointly
+injective on $\Z/n\Z$ iff $g \not\equiv 1 \pmod{p_{j}}$ for every
+$p_{j} \mid (n/d)$ --- fails in \emph{both} directions on the full
+ring, as the two smallest squarefree examples show.
 
-\begin{proof}
-We prove the contrapositive. Suppose there is a prime $p_{j}$ with
-$p_{j} \mid (n/d)$ and $g_{j} \equiv 1 \pmod{p_{j}}$. We construct
-distinct $x, y$ with $\{x, y\} \in U(A_{d}) \cap U(\pi_{\dyn}(g))$.
+\begin{example}[Necessary direction fails: joint injective, condition
+fails]\label{ex:necessary-fails}
+Take $n = 6$, $d = 3$, $g = 5$. Then $n/d = 2$, and $g \bmod 2 = 1$,
+so the condition ``$g_{j} \not\equiv 1 \pmod{p_{j}}$ for every $p_{j}
+\mid (n/d)$'' fails at $p_{j} = 2$. Direct enumeration:
+$\pi_{\dyn}(5)$ partitions $\Z/6\Z$ into orbits
+$\{\{0\}, \{1, 5\}, \{2, 4\}, \{3\}\}$,
+and $A_{3}$ partitions $\Z/6\Z$ into fibers $\{\{0, 3\}, \{1, 4\}, \{2, 5\}\}$.
+The pairwise meets give the discrete partition (every element has a
+unique $(A_{3}, \orb_{g})$-label), so $\{A_{3}, \pi_{\dyn}(5)\}$ is
+jointly injective despite the condition failing. Structurally: the
+orbit $\{1, 5\}$ carries $A_{3}$-labels $\{1, 2\}$ (distinct), so the
+$A_{d}$ partition itself separates orbit elements even though $g$
+acts trivially modulo $2$.
+\end{example}
 
-Since $g$ is a unit in $(\Z/n\Z)^{\times}$, $g \ne 0$ in $\F_{p}$ for
-every $p \mid n$. We split into two sub-cases.
+\begin{example}[Converse direction fails: condition holds, joint
+non-injective]\label{ex:converse-fails}
+Take $n = 6$, $d = 2$, $g = 5$. Then $n/d = 3$, and $g \bmod 3 = 2
+\not\equiv 1$, so the condition holds. Yet the orbit $\{1, 5\}$ of
+$1$ under $M_{5}$ lies entirely within the $A_{2}$-fiber $\{1, 3, 5\}$
+(since $1 \equiv 5 \equiv 1 \pmod 2$), so $\{1, 5\} \in U(A_{2})
+\cap U(\pi_{\dyn}(5))$. Joint injectivity fails. Structurally: $g
+\bmod 2 = 1$, so $M_{g}$ acts trivially on the $A_{2}$-side, hence
+orbits stay within $A_{2}$-fibers.
+\end{example}
 
-\medskip\noindent\textit{Case 1: there exists $p_{m} \mid (n/d)$ with
-$g_{m} \not\equiv 1 \pmod{p_{m}}$, $m \ne j$.}
-Choose $x \in \Z/n\Z$ via CRT with $x_{i} = 0$ for every $p_{i} \mid d$,
-$x_{j} = 1$, $x_{m} = 1$, and $x_{\ell} = 0$ for every other
-$p_{\ell} \mid (n/d)$. Set $y = M_{g} x$. Then:
-\begin{itemize}
-\item $y_{i} = g_{i} \cdot 0 = 0 = x_{i}$ for every $p_{i} \mid d$,
-hence $A_{d}(x) = A_{d}(y) = 0$ and $\{x, y\} \in U(A_{d})$;
-\item $y_{j} = g_{j} \cdot 1 = 1 = x_{j}$ (using $g_{j} \equiv 1
-\pmod{p_{j}}$);
-\item $y_{m} = g_{m} \cdot 1 \ne 1 = x_{m}$ (using $g_{m} \not\equiv
-1 \pmod{p_{m}}$);
-\item $y_{\ell} = g_{\ell} \cdot 0 = 0 = x_{\ell}$ for the other
-$p_{\ell} \mid (n/d)$.
-\end{itemize}
-So $y \ne x$ (witnessed at $p_{m}$), and $y = M_{g} x \in
-\orb_{g}(x)$, hence $\{x, y\} \in U(\pi_{\dyn}(g))$. The pair
-witnesses the failure of joint injectivity.
-
-\medskip\noindent\textit{Case 2: $g_{\ell} \equiv 1 \pmod{p_{\ell}}$
-for every $p_{\ell} \mid (n/d)$ (i.e., $g \equiv 1 \pmod{n/d}$).}
-Then $M_{g}$ acts as identity on the entire $(n/d)$-component, so
-every orbit lies inside a fixed $(n/d)$-coordinate. Pick any two
-elements $x, y \in \Z/n\Z$ with the same $d$-coordinates and distinct
-$(n/d)$-coordinates; such pairs exist since $n/d > 1$. For instance,
-$x = 0$ and $y$ given by CRT with $y_{i} = 0$ for $p_{i} \mid d$ and
-$y_{\ell} \ne 0$ for some $p_{\ell} \mid (n/d)$. Then $A_{d}(x) =
-A_{d}(y) = 0$, so $\{x, y\} \in U(A_{d})$.
-
-To witness $\{x, y\} \in U(\pi_{\dyn}(g))$ as well, replace $y$ by
-the more careful choice: take $x \in \Z/n\Z$ with $x_{i} \ne 0$ for
-some $p_{i} \mid d$ where $g_{i}$ is a non-trivial root of unity;
-when $g$ has non-trivial order on at least one $d$-prime, the orbit
-of such $x$ contains a distinct point sharing the same
-$(n/d)$-coordinates (by definition of being on the same orbit) and
-the same $d$-coordinate (by the cyclic-orbit structure). The technical
-detail is that $\pi_{\dyn}(g)$ resolves the $d$-component but not the
-$(n/d)$-component, while $A_{d}$ resolves only the $d$-component;
-the joint refinement therefore cannot resolve $(n/d)$-distinctions
-within an $A_{d}$-fiber.
-
-The cleanest witness in Case~2 uses the pair $\{x, y\} := \{0,
-\widetilde{y}\}$ where $\widetilde{y}$ has $\widetilde{y}_{i} = 0$
-for $p_{i} \mid d$ and $\widetilde{y}_{\ell} \ne 0$ for at least one
-$p_{\ell} \mid (n/d)$. Then $A_{d}(0) = A_{d}(\widetilde{y}) = 0$
-and orbits of $M_{g}$ acting on $\widetilde{y}$ stay within the
-$(n/d)$-component, so $\widetilde{y}$ is in the orbit of $0$ \emph{only
-if} $\widetilde{y} = 0$, which contradicts our construction. So
-$\{x, y\}$ is in $U(A_{d})$ but not in $U(\pi_{\dyn}(g))$ --- so we
-need a different witness. The actual witness for Case~2 uses the
-fact that joint injectivity \emph{requires} both partitions to
-collectively separate every pair, and when $\pi_{\dyn}(g)$ fails to
-resolve $(n/d)$-distinctions while $A_{d}$ ignores them, the joint
-refinement is not discrete \emph{regardless} of the orbit structure
-(Lemma~\ref{lem:joint-disjoint} applied to the pair $\{0,
-\widetilde{y}\}$ shows it lies in $U(A_{d})$, and the joint
-refinement collapses it onto a single $(A_{d}, \pi_{\dyn})$-label
-because the $A_{d}$-label is $0$ for both and there is no $\pi_{\dyn}(g)$
-label to disambiguate within the fiber). Hence joint injectivity
-fails in Case~2 as well.
-
-In both cases, joint injectivity fails, completing the contrapositive.
-\end{proof}
+A complete characterization of joint injectivity of $\{A_{d},
+\pi_{\dyn}(g)\}$ on the full ring $\Z/n\Z$ in elementary
+arithmetic terms remains open. The unit-restricted sufficient
+condition below is a partial positive result.
 
 \subsection{A sufficient condition via orders}
 
-The converse to Theorem~\ref{thm:joint-necessary} fails in general:
-the smallest counterexample is $n = 6$, $d = 2$, $g = 5$, where the
-necessary condition $g_{3} = 2 \not\equiv 1 \pmod{3}$ holds but the
-joint pair fails to be injective (the orbit $\{1, 5\}$ of $1$ under
-$M_{5}$ lies entirely inside the $A_{2}$-fiber $\{1, 3, 5\}$,
-witnessed by $g_{2} = 1 \pmod{2}$ collapsing the orbit's $d$-image).
-A correct sufficient condition combines the necessary-direction
-condition with a non-collapse statement on orbits:
+A clean sufficient condition for joint injectivity on the unit
+subgroup $(\Z/n\Z)^{\times}$ combines a non-trivial-action statement
+on $(n/d)$ with an order-equality statement that prevents orbit
+collapse within $A_{d}$-fibers:
 
 \begin{theorem}[Sufficient condition]\label{thm:joint-sufficient}
 Let $n$ be squarefree with $\omega(n) \ge 2$, $d \mid n$ squarefree
 with $1 < d < n$, and $g \in (\Z/n\Z)^{\times}$. Suppose:
 \begin{enumerate}[label={\upshape(\roman*)}]
 \item $g_{j} \not\equiv 1 \pmod{p_{j}}$ for every $p_{j} \mid (n/d)$
-\quad (necessary condition, Theorem~\ref{thm:joint-necessary});
+\quad (non-trivial action of $g$ on every prime of $n/d$);
 \item $\ord(g \bmod d) = \ord(g \bmod n)$
 \quad (no order-collapse from $n$ down to $d$).
 \end{enumerate}
@@ -449,12 +421,12 @@ they are necessary, since pairs in $U(A_{d}) \cap U(\pi_{\dyn}(g))$
 involving non-units may exist independently.
 \end{remark}
 
-\begin{remark}[Informal ``crossing'' interpretation]\label{rem:crossing-informal}
-Theorem~\ref{thm:joint-necessary} can be read as: joint injectivity
-\emph{requires} that the orbits of $M_{g}$ ``cross'' the fibers of
-$A_{d}$ in the $(n/d)$-direction. Theorem~\ref{thm:joint-sufficient}
-adds: \emph{and} that the cross does not collapse cyclically within
-fibers (the order-equality hypothesis (ii)). The graph-theoretic
+\begin{remark}[Informal ``crossing'' reading]\label{rem:crossing-informal}
+Theorem~\ref{thm:joint-sufficient} can be read informally as: joint
+injectivity on $(\Z/n\Z)^{\times}$ \emph{follows} from orbits of
+$M_{g}$ ``crossing'' the fibers of $A_{d}$ in the $(n/d)$-direction
+(hypothesis (i)) \emph{and} not collapsing cyclically within fibers
+(the order-equality hypothesis (ii)). The graph-theoretic
 ``Crossing Lemma'' \cite{ACNS1982} concerns a different object (edge
 crossings in graph drawings) and is unrelated to the present
 algebraic statement; we use ``crossing'' here only as an informal
@@ -647,23 +619,22 @@ $A_{p^{a}}$-fiber on appropriate orbits (needed to refine an
 $A_{p^{a}}$-fiber). The kernel-of-reduction decomposition
 \eqref{eq:prpunit-decomp} forces these to be mutually exclusive at
 the level of orbit structure. Squarefree-ness in
-Theorem~\ref{thm:joint-necessary} avoids the obstruction because the
-prime factors are independent: the additive quotient at $d \mid n$
-and the multiplicative orbit of $g$ act independently on the
-$d$-component vs.\ the $(n/d)$-component.
+Theorem~\ref{thm:joint-sufficient} avoids the obstruction because
+the prime factors are independent: the additive quotient at
+$d \mid n$ and the multiplicative orbit of $g$ act independently on
+the $d$-component vs.\ the $(n/d)$-component.
 \end{remark}
 
 %% -------- section 7: scope --------
 \section{Scope and limitations}\label{sec:scope}
 
 \begin{enumerate}[label={\upshape(\arabic*)}]
-\item \textbf{What is proved.} Five theorems on the partition lattice
+\item \textbf{What is proved.} Four theorems on the partition lattice
 of $\Z/n\Z$:
 \begin{itemize}
-\item Theorem~\ref{thm:joint-necessary} (necessary direction for
-joint injectivity, squarefree $n$);
 \item Theorem~\ref{thm:joint-sufficient} (a sufficient condition via
-order-equality, restricted to units);
+order-equality for joint injectivity of $\{A_{d}, \pi_{\dyn}(g)\}$,
+restricted to the unit subgroup);
 \item Theorem~\ref{thm:mm} (multiplicative-multiplicative
 classification on the unit subgroup);
 \item Theorem~\ref{thm:specdyn} (reflection-multiplicative
@@ -671,23 +642,31 @@ classification on the full ring);
 \item Theorem~\ref{thm:pkernel} (negative result for prime powers,
 non-identity $g$).
 \end{itemize}
-The proofs are finite-combinatorial: CRT decomposition plus order
-arithmetic in finite cyclic groups; the prime-power case uses the
-standard Hensel-lift decomposition of $(\Z/p^{r}\Z)^{\times}$.
+Examples~\ref{ex:necessary-fails} and \ref{ex:converse-fails} show
+that the natural prime-action conjecture for $\{A_{d}, \pi_{\dyn}(g)\}$
+fails in both directions on the full ring. The proofs are
+finite-combinatorial: CRT decomposition plus order arithmetic in
+finite cyclic groups; the prime-power case uses the standard
+Hensel-lift decomposition of $(\Z/p^{r}\Z)^{\times}$.
 
 \item \textbf{What is verified.} The script
-\texttt{verify\_joint\_injectivity.py} checks all four theorems by
-direct enumeration on small cases:
+\texttt{verify\_joint\_injectivity.py} checks all four theorems plus
+the falsifying examples by direct enumeration on small cases:
 \begin{itemize}
-\item Necessary direction (Theorem~\ref{thm:joint-necessary}):
-all squarefree $n \le 77$ with $\omega(n) \in \{2, 3\}$, every
-divisor $d$, every unit $g$ --- zero counterexamples (every jointly
-injective pair satisfies condition (i)).
+\item Falsifying examples for the natural conjecture: $(n, d, g) =
+(6, 3, 5)$ confirms a jointly injective pair with $g \equiv 1
+\pmod 2$; $(n, d, g) = (6, 2, 5)$ confirms a non-injective pair with
+$g \not\equiv 1 \pmod 3$.
+\item Sufficient condition (Theorem~\ref{thm:joint-sufficient}) on
+units: for all squarefree $n \le 77$ with $\omega(n) \ge 2$, every
+proper non-trivial $d$, every unit $g$ satisfying hypotheses
+(i)+(ii) --- zero violations.
 \item M+M classification on units (Theorem~\ref{thm:mm}):
 all squarefree $n \le 35$ with $\omega(n) \ge 2$, all $(g, h)$ pairs
 of units --- zero counterexamples.
 \item SPEC + DYN (Theorem~\ref{thm:specdyn}):
-$n \in \{15, 21, 33, 35\}$, all units --- zero counterexamples.
+squarefree $n \in \{15, 21, 33, 35, 39, 51, 55, 57, 65, 69, 77\}$,
+all units --- zero counterexamples.
 \item Prime-power obstruction (Theorem~\ref{thm:pkernel}):
 $n \in \{4, 8, 9, 16, 25, 27, 49, 125\}$, all divisors $d = p^{a}$
 with $1 \le a < r$, all non-identity units --- zero counterexamples.
@@ -695,19 +674,19 @@ with $1 \le a < r$, all non-identity units --- zero counterexamples.
 Runtime $< 30$ s.
 
 \item \textbf{Squarefree hypothesis.} Squarefree-ness of $n$ is
-essential to Theorems~\ref{thm:joint-necessary},
-\ref{thm:joint-sufficient}, \ref{thm:mm}, \ref{thm:specdyn};
+essential to Theorems~\ref{thm:joint-sufficient},
+\ref{thm:mm}, \ref{thm:specdyn};
 Theorem~\ref{thm:pkernel} records why the prime-power case is
 provably negative.
 
-\item \textbf{Open: full biconditional for joint injectivity.} The
-necessary condition (Theorem~\ref{thm:joint-necessary}) and the
-sufficient condition (Theorem~\ref{thm:joint-sufficient}) do not
-match in general. The smallest open case is $n = 6$, $d = 2$, $g = 5$
-(necessary holds, sufficient fails because $\ord(5 \bmod 2) = 1
-\ne 2 = \ord(5 \bmod 6)$). The full biconditional --- a single
-algebraic equivalence for joint injectivity on the full ring
-$\Z/n\Z$ --- is open.
+\item \textbf{Open: full biconditional for joint injectivity.} A
+clean biconditional characterization of joint injectivity of
+$\{A_{d}, \pi_{\dyn}(g)\}$ on the full ring $\Z/n\Z$ in elementary
+arithmetic terms is open. Examples~\ref{ex:necessary-fails} and
+\ref{ex:converse-fails} show that the natural prime-action
+conjecture is not the answer; an effective characterization
+presumably must involve both order data and per-prime triviality
+data together.
 
 \item \textbf{What is \emph{not} claimed.} No statement about the
 graph-theoretic ``Crossing Lemma'' of
@@ -719,10 +698,10 @@ groups beyond Remark~\ref{rem:abelian-extension}.
 
 \begin{remark}[Non-cyclic abelian extension]\label{rem:abelian-extension}
 For finite abelian groups $G = \prod_{i} \Z/n_{i}\Z$ with
-$\gcd(n_{i}, n_{j}) = 1$, the squarefree case extends via CRT to a
-parallel necessary condition; the open question is whether the
-sufficient condition extends similarly via a generalization of
-Theorem~\ref{thm:joint-sufficient}'s order-equality.
+$\gcd(n_{i}, n_{j}) = 1$, the squarefree case extends via CRT to
+parallel statements; whether the sufficient condition of
+Theorem~\ref{thm:joint-sufficient} extends similarly via a
+generalization of the order-equality hypothesis is open.
 \end{remark}
 
 %% -------- references --------

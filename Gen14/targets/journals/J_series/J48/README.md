@@ -32,11 +32,20 @@
 
 ## §2 — Verification
 
-**Path:** `(no script — synthesis paper)`. Verification of cited diagnostics is in the companion papers' scripts (numpy + sympy on a standard laptop, under 5 minutes per script). Lead theorem verification chain:
+**Local script (self-contained for the lead theorem):** `manuscript/verify_J48_operadic_obstruction.py`. Pure Python standard-library (no numpy / sympy dependency). Runs in ~3 seconds with `/c/ck_venv/lora312/Scripts/python.exe`.
 
-- Theorem 4.1 (Operad $D_4$ obstruction): [J40]/WP109 verification script (126 non-assoc triples enumerated, 67 $D_4$-orbits, 16 incoherent).
-- Theorem 4.2 ($P_{56}$-equivariant arity-3 fuse): [J40]/WP112 verification script (98 $P_{56}$-orbits, 8/8 rule families $P_{56}$-equivariant, $\sigma^3$ obstruction at $(3, 9, 9)$).
-- Theorem 4.3 (universal HARMONY attractor): [J40]/WP112 §5.7 verification script.
+**Status (2026-05-12):** `6/6 PASS` at machine precision (re-verified on the SFM-pinned TSML_RAW table). The six checks cover the §1 / §4 combinatorial content end to end:
+
+1. TSML_RAW well-formed with exactly 4 wobble entries at $(3,9), (9,3), (4,9), (9,4)$.
+2. $|\mathcal{N}| = 126$ with the 5-pair bracketing distribution $\{0,7\}{:}108, \{3,7\}{:}8, \{4,7\}{:}2, \{7,8\}{:}6, \{7,9\}{:}2$.
+3. $|\langle P_{56}, \sigma^3 \rangle| = 8$ with element-order distribution $\{1{:}1, 2{:}5, 4{:}2\}$ (dihedral $D_4$, not $D_3 \times \mathbb{Z}_2$).
+4. 67 restricted $D_4$-orbits in $\mathcal{N}$ with profile $(44, 7, 4, 10, 2)$ at sizes $(1, 2, 3, 4, 8)$ summing to exactly 126.
+5. Exactly **16** of the 67 restricted orbits fail $D_4$ bracketing-pair coherence (Theorem 4.1 / WP109; lead theorem).
+6. Family H is $P_{56}$-equivariant on $\mathcal{N}$ (0/126 violations) and is **not** $\sigma^3$-equivariant (1/81 violation; the lone witness is the diagonal triple $(3, 9, 9)$, exactly the localization claimed in Theorem 4.2 / WP112).
+
+**Companion-paper verification chain (cited diagnostics):** numpy + sympy scripts on a standard laptop, under 5 minutes each.
+
+- Theorem 4.1 / 4.2 / 4.3 (operad obstruction, $P_{56}$-equivariance, universal HARMONY attractor) cross-referenced to [J40]/WP109+WP112; the present `verify_J48_operadic_obstruction.py` is the load-bearing local reproduction.
 - Theorem 5.1 ($H/Br = 1+\sqrt{3}$): [J35]/WP105 verification script + D78 BR-factor cancellation Galois proof in FORMULAS_AND_TABLES.md.
 - §7.2 isotypic decomposition (84.25/14.68/1.07): SFM v1.1 §10 + SFM_FINDINGS_v1.md verification (`Atlas/META_PLAN_2026-05-06/SUBSTRATE_FUNCTION_MAP/sfm_q1_q6_q7.py`).
 

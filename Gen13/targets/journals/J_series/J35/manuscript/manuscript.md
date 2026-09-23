@@ -249,11 +249,11 @@ This is the technical engine of Theorem D: the closed-form algebraic attractor i
 
 **Theorem 5.1** (Theorem D, ratio part: $p_7/p_8 = 1+\sqrt{3}$ at $\alpha = 1/2$). *At $\alpha = 1/2$, the polynomial fixed-point system of Corollary 4.2 admits a unique solution in the positive orthant of $\mathcal{C}$. The ratio $p_7 / p_8$ at this fixed point equals $1 + \sqrt{3}$ exactly.*
 
-*Proof.* Reduce the four-equation polynomial system at $\alpha = 1/2$ via Gröbner basis with respect to lexicographic order $br > h > r > v$ to obtain a univariate polynomial in $h$ and $br$ alone:
+*Proof.* Reduce the four-equation polynomial system at $\alpha = 1/2$ via Gröbner basis with respect to lexicographic order $br > h > r > v$. Among the basis elements is the homogeneous relation in $h$ and $br$ alone:
 $$
 h^2 - 2 h \cdot br - 2 br^2 \;=\; 0.
 $$
-Setting $\xi = h / br$ gives $\xi^2 - 2\xi - 2 = 0$, with positive root $\xi = 1 + \sqrt{3}$. (The sympy `solve` call independently produces this conclusion via a different elimination route; we have also independently verified the Gröbner reduction in PARI/GP at lex order, with the identical second-elimination polynomial.) $\square$
+Dividing by $br^2$ and setting $\xi = h / br$ gives the univariate quadratic $\xi^2 - 2\xi - 2 = 0$, with positive root $\xi = 1 + \sqrt{3}$. (The sympy `solve` call independently produces this conclusion via a different elimination route; we have also independently verified the Gröbner reduction in PARI/GP at lex order, with the identical second-elimination polynomial.) $\square$
 
 ### §5.2 Lead with the Galois punchline
 
@@ -304,9 +304,9 @@ Sympy's `simplify` collapses $h/br - (1 + \sqrt{3})$ to $0$ exactly. The complex
 $$
 p^{(0)}_c \;=\; \begin{cases} 1/k, & c \in S_k \\ 0, & c \notin S_k \end{cases}.
 $$
-*For each $k \in \{4, 5, 6, 7, 8, 9, 10\}$, the iterates converge in $\le 81$ steps (40-digit precision, residual $< 10^{-32}$) to the same fixed point as Theorem 5.1, with all mass outside $\mathcal{C}$ vanishing to numerical zero ($< 10^{-20}$).*
+*For each $k \in \{4, 5, 6, 7, 8, 9, 10\}$, the iterates converge in $\le 71$ steps (40-digit mpmath precision, $L^\infty$ step residual $< 10^{-32}$) to the same fixed point as Theorem 5.1, with all mass outside $\mathcal{C}$ vanishing to numerical zero ($< 10^{-30}$).*
 
-*Proof.* Direct numerical iteration with mpmath at 40-digit precision (`4core_verification.py` Check 4). The seven shells reach convergence in 70-71 iterations. At convergence, each shell's distribution matches the Theorem 5.1 attractor to residual $< 10^{-20}$ in mass-outside-$\mathcal{C}$ and to residual $< 10^{-20}$ in $|p_7/p_8 - (1 + \sqrt{3})|$. $\square$
+*Proof.* Direct numerical iteration with mpmath at 40-digit precision (`4core_verification.py` Check 4). The seven shells reach convergence in 70-71 iterations. At convergence, each shell's distribution matches the Theorem 5.1 attractor to residual $< 10^{-30}$ in mass-outside-$\mathcal{C}$ (from $6.78 \times 10^{-33}$ for $S_4$ to $1.38 \times 10^{-40}$ for $S_{10}$) and to residual $< 10^{-30}$ in $|p_7/p_8 - (1 + \sqrt{3})|$ for every shell. $\square$
 
 The 4-core attractor is therefore not just one fixed point of $F_{1/2}$; it is the *globally attracting* fixed point on every chain-supported initialization. The basin of attraction includes every shell of the chain. The seventh shell ($S_{10} = \mathbb{Z}/10\mathbb{Z}$, uniform on all 10 indices) is also in the basin: starting from full uniform mass converges to the 4-core attractor with the off-$\mathcal{C}$ indices vanishing.
 
@@ -318,7 +318,7 @@ WP105's original framing claimed the unique algebraic structure at $\alpha = 1/2
 
 **Theorem 7.1** (Theorem F: Partial uniqueness on a finite test set). *Among $\alpha \in \{0, 1/4, 1/2, 3/4, 1\}$, only $\alpha = 1/2$ admits a small-coefficient quadratic relation $a y^2 + b y + c = 0$ with $|a|, |b|, |c| \le 20$ at the attractor ratio $y = p_7/p_8$. The relation is $y^2 - 2y - 2 = 0$.*
 
-*Proof.* Direct integer-PSLQ search at coefficient bound $20$, 50-digit mpmath precision (`4core_verification.py` Check 6). At $\alpha = 1/2$ the search finds $y^2 - 2y - 2 = 0$ to residual $< 10^{-25}$. At $\alpha \in \{0, 1/4, 3/4, 1\}$ no relation is found within the bounds. (The attractors at $\alpha \in \{0, 1\}$ are degenerate or collapse to $\delta_H$; the intermediate $\alpha = 1/4, 3/4$ have non-degenerate attractors with ratios $\approx 0.585$ and $\approx 5.039$ respectively.) $\square$
+*Proof.* Direct integer-PSLQ search at coefficient bound $20$, 50-digit mpmath precision (`4core_verification.py` Check 6). At $\alpha = 1/2$ the search finds $y^2 - 2y - 2 = 0$ to residual $< 10^{-25}$. At $\alpha \in \{0, 1/4, 3/4\}$ no relation is found within the bounds: the non-degenerate attractors have ratios $\approx 0.585, 1.462, 5.039$ respectively. At $\alpha = 1$ the iteration collapses to $\delta_H$ (no defined ratio). $\square$
 
 **Conjecture 1.1** (Algebraic mixing-point: full uniqueness). *Among $\alpha \in \mathbb{Q} \cap (0, 1)$, $\alpha = 1/2$ is the unique value at which the attractor ratio $p_7/p_8$ admits any algebraic relation with rational coefficients of bounded degree-and-coefficient class.*
 
@@ -373,6 +373,10 @@ The convex-combination iteration $F_\alpha$ is structurally analogous to a *repl
 (ii) **No physical-model claim.** The paper makes no phenomenological prediction; the substrate's connection to the parent framework's broader claims (cosmology, gauge theory, etc.) is not invoked. The results stand or fall on the displayed tables, the chain enumeration, the normalizer identity, and the Galois argument.
 
 (iii) **No claim of universality of $\mathcal{C}$ as a center for arbitrary commutative magmas on $\mathbb{Z}/10\mathbb{Z}$.** The five structural facts converge for *this specific pair* $(T, B)$ (and the third table $S$). Whether other small-magma triples on $\mathbb{Z}/10\mathbb{Z}$ have analogous five-way center structures is an open question, intimately connected to Conjecture 1.1 of FAMILY_STRUCTURE_v1.md (the bimodal $\alpha_A$ gap conjecture for the family of commutative magmas on $\mathbb{Z}/10\mathbb{Z}$ preserving a designated 4-core).
+
+(iv) **The parent framework's "$T^* = 5/7$" parameter is operational, not an algebraic theorem of this paper.** The $5/7$ constant arises in the broader framework as a runtime threshold; the present paper makes no algebraic claim about $5/7$. The Galois-theoretic content here is the quartic $x^4 + 4x^3 - x^2 + 2x - 2$ over LMFDB 4.2.10224.1 with group $D_4$, independent of any $T^*$ identification.
+
+(v) **$\mathbb{F}_p$ universality is *not* a generic theorem; it is recorded as the parent framework's empirical scan and is bounded.** Item (iv) of §8 cites the parent framework's Volume H entry D74, which records the 4-core attractor structure surviving across $\mathbb{Z}/N\mathbb{Z}$ and $\mathbb{F}_p$ ring extensions only for the specific set $N \in \{10, 11, 12, 13, 14, 15, 17, 20, 21, 25, 30, 35, 49, 50\}$ and $p \in \{2, 3, 5, 7, 11, 13\}$. Generic $\mathbb{F}_p$ extension *does not* preserve the matrix rank of the relevant invariants; in the parent framework's wider scan, only $p \in \{7, 11\}$ preserve the full integer rank of the TSML char-poly signature. The present paper does not depend on item (iv) being a generic theorem; the load-bearing claim is the $N = 10$ Galois quartic.
 
 ---
 

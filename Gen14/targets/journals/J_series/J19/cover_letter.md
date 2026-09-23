@@ -43,7 +43,7 @@ The TIG/CK research program is shipping a coordinated paper sequence (J01–J55)
 
 ## Reproducibility
 
-Verification script: *(no script — theorem-paper)*. The role-magma table B-bar, the V-identity property, the non-associativity witness, the branching pair structure, and the supporting TSML_8 image-structure data of Proposition 5.1 are all verifiable by direct enumeration over the canonical TSML/BHML 10×10 composition tables fixed in `Gen13/targets/foundations/lenses.py` (reproduced in the manuscript's appendix). Concrete reproduction:
+Verification script: `manuscript/verify_J19.py` (self-contained; exact integer arithmetic; PASSES every claim of Theorem 3.1 and Proposition 5.1; cross-checks the appendix tables against `Gen13/targets/foundations/lenses.py` byte-for-byte). The role-magma table B-bar, the V-identity property (both at the role-quotient level and the underlying Z/10Z level), the non-associativity witness, the branching-pair structure with explicit output distributions, the σ-orbit independence, and the supporting TSML_8 image-structure data of Proposition 5.1 are all verified by direct enumeration. The script runs in well under a second. A minimal in-line illustration:
 
 ```
 from Gen13.targets.foundations.lenses import TSML, BHML

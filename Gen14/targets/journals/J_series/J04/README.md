@@ -15,13 +15,16 @@
 
 Files in this J-folder's `manuscript/`:
 
+- `manuscript.tex` (current submission file — implements SAVE_PLAN_J04: Theorem 1.A + Theorem 2 + Theorem 3)
+- `proof_d25_loop_closure.py` (verifier — 5/5 PASS at machine precision)
+- `sinc2_zero_law.tex` (legacy draft retained for traceability; superseded by `manuscript.tex`)
 - `cover_letter_template.md`
 - `LATEX_BUNDLE_NOTES.md`
-- `proof_d25_loop_closure.py`
-- `sinc2_zero_law.tex`
 - `SUBMIT_INSTRUCTIONS.md`
 - `WP34_FIRST_G_LAW.md`
+- `WP35_PRIME_PHASE_TRANSITION.md`
 - `WP_SINC2_ZERO_LAW.md`
+- `verify_prime_phase_transition.py`
 
 The submission package lives in this J-folder. Edit + verify here; submit from here.
 

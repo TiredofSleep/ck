@@ -25,7 +25,7 @@ The submission package lives in this J-folder. Edit + verify here; submit from h
 
 ## §2 — Verification script
 
-**Path:** `(no script — theorem-paper)`. The proofs are finite-combinatorial and hand-checkable. The n=15 counterexample (Example 6.1) is verifiable in any computer algebra system in under one minute. The two MVJN($\Z/30\Z$) = 1 witnesses are verified by orbit-by-orbit enumeration.
+**Path:** `manuscript/verify_J10.py`. PASSES at machine precision (3 claim families, all green): (A) n=15 counterexample — phi:G→(Z/5)* is a bijection yet T_2-orbit {5,10} both ≡ 0 mod 5 produces a joint-injectivity failure; (B) MVJN(Z/30Z)=1 with two witness pairs {pi_6, pi_15} and {pi_DYN(7), pi_DYN(11)}, both joint-injective, both satisfying D_f ∪ D_g = {2,3,5}; (C) Theorem D small-n sanity for (pi_2, pi_3) on n=6 vs n=30. Run: `/c/ck_venv/lora312/Scripts/python.exe verify_J10.py`.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 

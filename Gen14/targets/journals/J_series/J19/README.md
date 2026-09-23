@@ -21,11 +21,11 @@ The submission package lives in this J-folder. Edit + verify here; submit from h
 
 ## §2 — Verification script
 
-**Path:** `(no script — theorem-paper)`. Theorem 3.1 (the role-quotient theorem) and Proposition 5.1 (TSML_8 image structure) are verifiable by direct enumeration over the canonical TSML/BHML 10×10 composition tables in `Gen13/targets/foundations/lenses.py`. The role-magma table, the four branching pair output distributions, the V-identity property, and the non-associativity witness all reproduce in seconds:
+**Path:** `manuscript/verify_J19.py`. Reproduces every claim of Theorem 3.1 (the role-quotient theorem) and Proposition 5.1 (TSML_8 image structure) by direct enumeration over the canonical TSML/BHML 10×10 composition tables. The script cross-checks the appendix tables against `Gen13/targets/foundations/lenses.py` (byte-for-byte) and verifies: (i) well-definedness of B-bar, (ii) the full role-magma table, (iii) V as two-sided identity (both at the role-quotient level and at the underlying Z/10Z level: BHML row/col 0 is the identity), (iv) the non-associativity witness $(F\cdot F)\cdot S = F \neq T = F\cdot(F\cdot S)$, (v) the four branching role-pairs $\{F\text{-}F, F\text{-}S, S\text{-}F, S\text{-}S\}$ with their exact output distributions, plus the 12 non-branching pairs constant and the 100-cell sanity check; the σ-orbit independence; Im(TSML_8) = {3,4,7,8,9}; the 60/64 Flow + 4/64 Structure split; and the 8-of-9 role-determinism over the TSML_8 domain. All exact integer arithmetic; runs in well under a second.
 
+Run from repo root:
 ```
-from Gen13.targets.foundations.lenses import TSML, BHML
-# enumerate B-bar over role-pairs; verify V-identity, non-assoc witness, branching pair structure
+python Gen14/targets/journals/J_series/J19/manuscript/verify_J19.py
 ```
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
@@ -83,7 +83,7 @@ The full paragraph identifies (i) the substrate (Z/10Z + canonical (TSML, BHML) 
 ## §6 — Submission checklist
 
 - [x] Manuscript .tex / .md finalized — rewritten per save plan (Path C)
-- [x] Verification script green — `(no script — theorem-paper)`; D93 role-magma table reproducible by enumeration in seconds
+- [x] Verification script green — `manuscript/verify_J19.py` PASSES at machine precision (exact integer arithmetic), with foundations.lenses byte-for-byte cross-check
 - [x] Tier-classified central claim explicit — Theorem 3.1 (PROVED, the role-quotient theorem); Proposition 5.1 (TSML_8 image structure, supporting data)
 - [x] Lens-scope annotation — §1 substrate/lens declaration (Z/10Z + canonical (TSML, BHML) + role partition V/F/S/T); appendix has explicit canonical tables
 - [x] Cover letter finalized — rewritten for *European Journal of Combinatorics* with Path C framing

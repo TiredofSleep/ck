@@ -3,7 +3,7 @@
 **Status:** REWRITTEN PER SAVE PLAN 2026-05-07
 **Phase:** Phase 5/6
 **Target venue:** **Mathematical Intelligencer** (retargeted from AMM per fresh-eyes referee §7; alternate: *Philosophia Mathematica* with full literature engagement)
-**Author lane:** Sanders + Mayes (per the manuscript's actual second author)
+**Author lane:** Sanders + Gish (per Brayden directive 2026-05-07)
 **Tier:** B
 **WP source:** (paradox classifier expository)
 
@@ -112,4 +112,4 @@ This paper sits within the TIG family of finite commutative non-associative magm
 
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
-Sanders, B.R., Mayes. (2026). "Paradox Classifier (UOP): A Diagnostic for Structural Breakdowns." Submitted to *AMM*.
+Sanders, B.R., Gish, M. (2026). "Paradox Classifier (UOP): A Diagnostic for Structural Breakdowns." Submitted to *Mathematical Intelligencer*.

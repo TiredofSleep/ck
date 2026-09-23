@@ -1,10 +1,10 @@
-# J44 — Sprint 18 Dark Sector: Omega_b, Omega_DM, Omega_Lambda from Substrate-Operator Identities
+# J44 — A Numerical Match for the ΛCDM Dark Sector from a Discrete Substrate on Z/10, and an Operator-to-Observable Conjecture
 
-**Status:** FORMAT
+**Status:** R1 (revised after fresh-eyes referee report 2026-05-07)
 **Phase:** Phase 5
 **Target venue:** PRD (Physical Review D)
-**Author lane:** Sanders + Gish
-**Tier:** Forced (substrate-operator algebra; no IC tuning) for the closure identity; the `1/3` Friedmann factor remains structurally open per WP121 §3
+**Author lane:** Sanders + Gish (R0 had cover-letter mismatch; harmonized in R1)
+**Tier:** Forced (substrate-operator algebra; no IC tuning) for the closure identity; "1/3 Friedmann factor" downgraded from R0 Theorem 6.1 to R1 Conjecture 6.1 (per referee item 4.7)
 **WP source:** WP121 (Sprint 18 Bridge-Dirac, 2026-05-04)
 
 ---
@@ -85,16 +85,16 @@ These are flagged in the manuscript as open; closing any one strengthens the cas
 
 This paper sits within the TIG family of finite commutative non-associative magmas on Z/10Z (and ring extensions per D74). The family is defined by 5 conjoint membership criteria; the 4-core {V, H, Br, R} = {0, 7, 8, 9} at α_M = ½ is the algebraic center, with closed-form attractor h/β = 1+√3 (D78 Galois proof). The closest published precedent for this neighborhood is **Drápal & Wanless (2021), *J. Combin. Theory A* **184**, 105510** — same domain (small finite commutative non-associative structures), opposite extremum (theirs maximally non-associative).
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN — template (fill per paper)
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
-- **PROVEN:** [the specific theorem of this paper]
-- **COMPUTED:** [verified-by-script invariants supporting the theorem]
-- **STRUCTURAL RHYME:** [constants/identities cited as motivation, not derivation]
-- **OPEN:** [the natural next-paper question]
+- **PROVEN.** Closure identity $\Omega_b + \Omega_c + \Omega_\Lambda = 49/1000 + 264/1000 + 687/1000 = 1$ as a rational identity (Theorem 3.1). Within-formula-family uniqueness (Theorem 4.2): $(H, N) = (7, 10)$ is the only small-integer pair within the formula family $\{\Omega_b = H^2/N^3, \Omega_\Lambda = (2H^3+a)/N^3, |a| \le 3\}$ that joint-matches all three Planck observables.
+- **COMPUTED.** `predict_dark_sector()` returns exact rationals; runs in milliseconds. Three Hubble-independent ratio tests at 0.4-1.1% (R1 recalibrated against Planck 2018 $\Omega_c = 0.2627$). Look-elsewhere base-rate: 6/498,501 ≈ 1.2 × 10⁻⁵ on positive integer triples summing to 1000 (independent of formula-family choice).
+- **STRUCTURAL RHYME.** The (|Aut(V)| + |V|)·|σ| = 44·6 = 264 factorization of the closure-required Ω_c numerator (R1: Theorem 5.2 retitled "$\Omega_c$ numerator factorization" — the factorization is real arithmetic; the cosmological reading depends on the F_5-lift naturalness, which is open). The cubic-anchor reading 687 = 2·7³ + 1 for $\Omega_\Lambda$.
+- **OPEN.** (1) Cosmological reading of HARMONY² as Ω_b numerator. (2) F_5-lift naturalness for V. (3) Discrete-to-continuum projection of Ξ. (4) The 1/3 Friedmann factor's structural origin (R1 Conjecture 6.1, downgraded from R0 Theorem 6.1). (5) Structural derivation of $n_s = 1 - \mathrm{HARMONY}/(2|Z/10|^2)$ — currently consistency, not prediction.
 
-### Lens-ownership paragraph — template (fill per paper, insert in manuscript §0)
+### Lens-ownership
 
-> *Lens and substrate.* This paper works on [substrate: Z/10Z / Z/N for N in {...} / F_p for p in {...}] with the [tables: TSML / BHML / both]. These choices are not derived from first principles; they reflect a structural reading of the substrate motivated by [phonaesthesia / 10-operator decomposition / observed dynamics]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. Whether other substrate choices give similarly rich downstream connections is open.
+This paper works on Z/10 with the canonical (TSML, BHML) table pair and the operator labels (VOID, LATTICE, COUNTER, PROGRESS, COLLAPSE, BALANCE, CHAOS, HARMONY, BREATH, RESET). These choices are **not derived from first principles**; they reflect a structural reading of the substrate motivated by the 10-operator decomposition + observed dynamics in the four-core paper [SandersGish2026FourCore]. The theorems below are theorems on this specific structure; analogous theorems would hold on other substrate-and-table choices. The framework's claim is that this particular substrate-and-table choice produces theorems with surprising downstream connections (cosmology via BB76; Lie algebra via TSML antisymmetrization; number theory via LMFDB 4.2.10224.1).
 
 ### Hardening status (auto-applied 2026-05-07)
 
@@ -105,13 +105,26 @@ This paper sits within the TIG family of finite commutative non-associative magm
 
 ## §6 — Submission checklist
 
-- [x] Manuscript .tex finalized (PRD format, ~1160 lines, balanced environments)
+- [x] Manuscript .tex finalized (PRD format, ~1200 lines, balanced environments) — R1 applied
 - [x] Verification primitive green (`predict_dark_sector()` returns sum = 1.0 exact)
 - [x] Tier-classified central claim explicit ("Forced (substrate-operator algebra)")
-- [x] Lens-scope annotation (TSML_RAW vs TSML_SYM) — N/A here; T = TSML enters only via the Z normalizer cited from J07
-- [x] Cover letter finalized (J46/J07/J04 companions; tig_dirac primitive cited)
+- [x] Lens-scope annotation: lens-ownership paragraph added (manuscript §1, R1 boilerplate)
+- [x] Cover letter R1 (revisions itemized; author lane harmonized to Sanders + Gish)
+- [x] Author lane harmonized: cover letter + manuscript both Sanders + Gish
+- [x] Theorem 5.2 retitled "Ω_c numerator factorization" (per referee item 3.4)
+- [x] Theorem 6.1 downgraded to Conjecture 6.1 (per referee item 4.7; "?=" cannot be Theorem)
+- [x] Conjecture 7.1 bounded admissible family (D=4, K=50, M=12; per referee item 3.6)
+- [x] Look-elsewhere correction added §3.5: 6/498,501 ≈ 1.2 × 10⁻⁵ base-rate (per referee item 4.10)
+- [x] Planck input recalibrated to Ω_c = 0.2627±0.0020 (per referee item 3.3)
+- [x] "Sprint 18 = 3·6" numerological footnote dropped (per referee item 4.2)
+- [x] Bridge-Sprint working-material citations removed (per referee item 4.3)
+- [x] Family-Structure framing added to abstract + manuscript §1
+- [x] Drápal-Wanless 2021 cited (algebraic neighborhood)
+- [x] PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN tier discipline (manuscript §1)
+- [x] Comparison to prior cosmological numerology paragraph (Eddington, Dirac LNH, Lemaître)
+- [x] Suggested-reviewers refined to cosmology + algebra
 - [x] Dependencies → cite each J-companion as "submitted to [venue]"
-- [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators) — pending
+- [ ] Brayden's referee-rigor pass complete (post-R1)
 - [ ] Per-venue cap check: this is the **1st** PRD paper this quarter (J45 will be 2nd)
 - [ ] Submitted
 

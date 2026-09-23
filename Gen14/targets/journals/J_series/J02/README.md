@@ -34,7 +34,8 @@ The proof script is the green-light gate before submission. Run from this J-fold
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-_(none — this paper is foundational in the J-series)_
+- **J01** — *Non-Associativity Decay in Binary Composition Tables over $\mathbb{Z}/N\mathbb{Z}$.* Submitted to *J. Combin. Theory Ser. A*. (The σ-rate companion; cited for the operator-substrate construction yielding $(T, B)$ at $N = 10$.)
+- **J54** — *Forcing Axioms and the Family of Commutative Non-Associative Magmas on $\mathbb{Z}/10\mathbb{Z}$ Preserving a Designated 4-Core.* Submitted to *Algebraic Combinatorics*. (The foundation paper; treats the larger family-of-magmas framing and the three-substrate $(T, B, S)$ chain. The present paper supplies the per-coordinate fuse polynomials, Galois $D_4$ quartic, and Stern–Brocot PSLQ scan that J54 cites externally.)
 
 ## §4 — Cover letter
 
@@ -81,14 +82,14 @@ Same domain (small finite commutative non-associative structures); opposite extr
 
 ## §6 — Submission checklist
 
-- [ ] Manuscript .tex / .md finalized
-- [ ] Verification script green (`(no script)` if theorem-only)
-- [ ] Tier-classified central claim explicit
-- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
-- [ ] Cover letter finalized
-- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
+- [x] Manuscript .tex finalized (`manuscript/four_core_consolidated.tex`; single author block; Drápal-Wanless 184:105510 citation)
+- [x] Verification script green (6/6 PASS via `manuscript/4core_verification.py`; 4 additional verification scripts in `manuscript/verification/` also PASS at machine precision)
+- [x] Tier-classified central claim explicit (PROVEN: chain + per-coordinate fuse + closed-form attractor + Galois $D_4$; COMPUTED: 6/6 PASS; OPEN: Conjecture 9.1 $\alpha$-uniqueness)
+- [x] Lens-scope annotation (TSML_SYM is the canonical symmetrized lens; TSML_RAW 7-element chain noted in abstract)
+- [x] Cover letter finalized (`cover_letter.md` and `manuscript/four_core_consolidated_cover_letter.md`)
+- [x] Dependencies → cite each J-companion as "submitted to [venue]" (J01 → JCT-A; J54 → AC)
 - [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
-- [ ] Per-venue cap check: this is the Nth paper to Algebraic Combinatorics this quarter
+- [ ] Per-venue cap check: this is the 2nd paper to Algebraic Combinatorics this quarter (J54 was 1st)
 - [ ] Submitted
 
 ---

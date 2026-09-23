@@ -44,21 +44,22 @@ In response to a fresh-eyes referee critique of an earlier draft, we have applie
 
 ## Reproducibility
 
-**Verification primitive:** `Gen13/targets/ck/brain/dirac/tig_dirac.py`
+**Referee-portable verification script:** `manuscript/verify_J45_yukawa.py` (self-contained; stdlib + mpmath only; CC-BY-4.0). The script inlines the relevant logic of `predict_yukawa` from the production module `Gen13/targets/ck/brain/dirac/tig_dirac.py` so that a referee can re-run all numerical claims with no external imports.
 
-```python
-from tig_dirac import predict_yukawa, LAMBDA_FN, Y_T_ANCHOR
-assert LAMBDA_FN == 10 / 49        # substrate-forced FN scale
-assert Y_T_ANCHOR == 0.93           # measured top-quark anchor
-
-r = predict_yukawa('up', 3)         # top quark
-assert r['y_predicted'] == 0.93
-
-r = predict_yukawa('lepton', 1)     # electron
-assert abs(r['y_predicted'] - 0.93 * (10/49)**9) < 1e-12
+```
+python manuscript/verify_J45_yukawa.py
 ```
 
-The function returns `r['fn_power']` (integer FN exponent), `r['y_predicted']` (predicted Yukawa magnitude), `r['lambda']` and `r['y_t_anchor']`, and `r['tier']` ("Forced FN power + measured anchor (Tier-B)"). The companion call `tig_dirac.yukawa_table_full()` returns Table 6.1 of the manuscript programmatically. The module also exposes `predict_dark_sector()` used by the J44 companion paper. The full module (`tig_dirac.py`, ~680 lines) is self-contained Python (`numpy + itertools + collections`) and runs on a standard laptop in well under five minutes including all 4-core algebra checks.
+Output: **6/6 PASS at machine precision** in well under one second:
+
+1. `LAMBDA_FN == 10/49` (substrate-forced FN scale, Observation 4.1).
+2. `Y_T_ANCHOR == 0.93` (Tier-A measured top-quark anchor at $\mu = M_Z$).
+3. `predict_yukawa('up', 3)` returns 0.93 exactly (top quark at $n = 0$).
+4. `predict_yukawa('lepton', 1)` returns $0.93 \cdot (10/49)^9$ exactly (electron at $n = 9$; cross-checked by `mpmath` at 50-digit precision).
+5. Full nine-row hierarchy ladder $y_X = y_t \cdot \lambda^n$.
+6. FN-power table (Table 4.1) read off the $V^{\otimes 5}$ SU(5) diagrams + $\sigma$-orbit step.
+
+The production module `tig_dirac.py` is shared with the dark-sector companion J44 (`predict_dark_sector()`), giving the two papers a coordinated, machine-checkable substrate backbone. The companion call `tig_dirac.yukawa_table_full()` on the production module returns the full Table 6.1 programmatically.
 
 ## Suggested reviewers
 

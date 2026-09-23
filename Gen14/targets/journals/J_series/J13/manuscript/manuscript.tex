@@ -19,6 +19,7 @@
 
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathbb{F}}
 \newcommand{\Zn}{\Z/n\Z}
 \newcommand{\Zns}{(\Z/n\Z)^{\times}}
 \newcommand{\Zts}{\Z/10\Z}
@@ -50,6 +51,12 @@ The ring $\Zts$ carries four simultaneous algebraic structures --- additive divi
 
 \maketitle
 
+\section*{Lens and substrate}
+
+This paper works on the substrate $\Zts = \Z/10\Z$ with the four ring structures of Definition~\ref{def:four-structures}. The choice of $\Zts$ (as opposed to $\Z/N$ for other squarefree $N$, or a finite field $\F_p$) reflects a structural reading of the substrate motivated by the four-flow decomposition of the companion \emph{Flatness Theorem} (Sanders--Gish), not by a first-principles derivation. The theorems below are theorems on this specific substrate; the generalization conjecture in \S\ref{sec:gen} states what we expect on the analogous substrates $\Z/n$ for squarefree $n$ with $5 \mid n$ and $n > 5$. We are also explicit that Theorem~\ref{thm:forced57} is conditional on the cyclotomic-embedding calibration of Definition~\ref{def:cyclo-cal}; this calibration is itself imported from the \emph{Flatness Theorem} rather than derived here (Remark~\ref{rem:calibration}). The substrate-and-calibration scope of the result is exactly the structural reading of the cyclotomic threshold described in the abstract; whether other substrates or other calibrations produce a similarly rigid threshold is open. Domain precedent for small finite commutative non-associative structures is Dr\'apal and Wanless \cite{DrapalWanless} (opposite extremum: maximally non-associative).
+
+The verification script \texttt{verify\_J13.py} (accompanying this submission) reproduces, at machine precision, the minimal-polynomial identification, the rational-root irreducibility test, the discriminant $\disc(g) = 49 = 7^{2}$, the Galois group $A_{3} \cong \Z/3\Z$ (by the disc-square criterion for cubics), and the cyclotomic degree threshold $\deg_{\Q}(A_{p}) = (p-1)/2$ at the first four odd-prime values $p = 2, 3, 5, 7$. The script is sympy-based, runs in under five seconds, and PASSes 6/6.
+
 \section{Introduction}
 
 \subsection{Setup}
@@ -77,7 +84,7 @@ The Sanders--Gish \emph{Flatness Theorem} (companion, submitted to \emph{J.\ Pur
 \subsection{Main result}
 
 \begin{theorem}[Cyclotomic-calibrated $5/7$ aspect ratio] \label{thm:forced57}
-Fix the cyclotomic-embedding calibration of Definition~\ref{def:cyclo-cal} below: the major circle $S^{1}_{R}$ inherits the closed-cycle circumference of the additive flow on the prime-$p$ component of the CRT decomposition with $p$ the smallest prime divisor of $n$ at which $\deg_{\Q}(A_{p}) \le 2$, and the minor circle $S^{1}_{r}$ inherits the analogous circumference at the smallest prime $p$ (not necessarily dividing $n$) at which $\deg_{\Q}(A_{p}) \ge 3$. Under this calibration, for $n = 10$,
+Fix the cyclotomic-embedding calibration of Definition~\ref{def:cyclo-cal} below: the major circle $S^{1}_{R}$ inherits the closed-cycle circumference of the additive flow on the prime-$p$ component of the CRT decomposition with $p$ the smallest prime divisor of $n$ at which $A_{p}$ is irrational and $\deg_{\Q}(A_{p}) \le 2$ (excluding the degenerate cases $A_{p} \in \{0, 1\}$, i.e.\ $p = 2$ and $p = 3$). The minor circle $S^{1}_{r}$ inherits the analogous circumference at the smallest prime $p$ (not necessarily dividing $n$) at which $\deg_{\Q}(A_{p}) \ge 3$. Under this calibration, for $n = 10$,
 \[
 \Tstar := R/r = 5/7.
 \]
@@ -284,6 +291,17 @@ The conjecture is currently verified only for $n = 10$ (the present paper). The 
 \item \emph{The $73/101$ near-agreement.} Determine whether the discrepancy $73/101 - 5/7 = 6/707$ between the TSML+BHML harmony-cell ratio and the cyclotomic threshold $5/7$ reflects an asymptotic correction (a $1/n$-type term in extended tables) or a genuine independence of the two numbers.
 \end{enumerate}
 
+\section*{Tier discipline}
+
+We classify the central claims of this paper according to the standard PROVED / COMPUTED / STRUCTURAL RHYME / OPEN tier discipline used throughout the authors' research program:
+
+\begin{itemize}
+\item \textbf{PROVED.} Theorem~\ref{thm:forced57} (cyclotomic-calibrated $5/7$ aspect ratio on $\Z/10\Z$); Theorems~\ref{thm:R-forced} and \ref{thm:r-forced} (the major- and minor-radius selections); Lemma~\ref{lem:A7-irreducible} (irreducibility of $g(x) = x^{3} - x^{2} - 2x + 1$). The Galois group $A_{3} \cong \Z/3\Z$ and the discriminant $\disc(g) = 49$ are classical and verified.
+\item \textbf{COMPUTED.} The minimal polynomials of $A_{2}, A_{3}, A_{5}, A_{7}$ over $\Q$; the discriminant $\disc(g) = 49$; the substitution bridge $h(x/2) = g(x)$ relating the $\cos(\pi/7)$ and $2\cos(\pi/7)$ polynomials; the 50-digit numerical zero $g(A_{7}) < 10^{-40}$. All reproduced at machine precision by the included script \texttt{verify\_J13.py} (6/6 PASS, runtime $< 5$ s).
+\item \textbf{STRUCTURAL RHYME.} The numerical near-agreement $73 / 101 \approx 5/7$ (\S\ref{ssec:tsml}): an empirical $\approx 1.2\%$ proximity recorded as a structural observation, not a derivation. The First-G Law coprime windows $W_{5} = 4/5$ and $1 - 1/7 = 6/7$ (\S\ref{ssec:firstG}): independent appearances of the same cyclotomic threshold, providing structural support but not an independent derivation of $5/7$.
+\item \textbf{OPEN.} (a) Conjecture~\ref{conj:gen} for $n \in \{15, 35\}$; (b) a calibration-free derivation (Remark~\ref{rem:calibration}); (c) curvature of the ring torus; (d) the modular-curve connection; (e) whether $73/101 - 5/7 = 6/707$ is an asymptotic correction or genuine independence.
+\end{itemize}
+
 \section*{Acknowledgments}
 
 We thank M.~Gish for the additive flow / cyclotomic framing carried over from the Flatness Theorem, and C.~A.~Luther for discussions on the multiplicative flow's cubic obstruction at $p = 7$.
@@ -304,6 +322,11 @@ Amer.\ Math.\ Monthly 100 (1993), no.\ 5, 471--474.
 I.~Niven,
 \emph{Irrational Numbers},
 Carus Mathematical Monographs 11, Mathematical Association of America, 1956.
+
+\bibitem{DrapalWanless}
+A.~Dr\'apal and I.~M.~Wanless,
+\emph{Maximally nonassociative quasigroups},
+J.\ Combin.\ Theory Ser.\ A \textbf{184} (2021), 105510.
 
 \bibitem{Washington}
 L.~C.~Washington,

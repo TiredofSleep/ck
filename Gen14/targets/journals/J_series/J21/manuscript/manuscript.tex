@@ -1,8 +1,8 @@
 %%% ============================================================
-%%% Q17-A: 5D Force Vector as CRT Fourier Embedding
-%%%        of Z/10Z into R^5
+%%% J21: 5D Force Vector as CRT Fourier Embedding
+%%%      of Z/10Z into R^5
 %%%
-%%% Brayden Ross Sanders, F. Calderon
+%%% Brayden Ross Sanders, M. Gish
 %%% 7Site LLC, Hot Springs AR, 2026
 %%% DOI: 10.5281/zenodo.18852047
 %%%
@@ -478,6 +478,56 @@ Cauchy-Schwarz upper bound with an attained value and is
 corrected here.
 \end{remark}
 
+\paragraph{Lens and substrate.}
+The $\Z/10\Z$ structure with
+$\sigma = (0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$ is canonical to a
+broader research program in substrate algebra and is defined in
+the companion paper \cite{SandersGishFourCore}. The $5$D
+embedding $v$ of Definition~\ref{def:embedding} is folklore in
+finite Fourier analysis (Diaconis~\cite{Diaconis1988},
+Terras~\cite{Terras1999}), and the equivariance-based rigidity
+statement Theorem~\ref{thm:rigidity} is a textbook consequence
+of the representation theory of $\F_5$ over $\R$
+(Steinberg~\cite{Steinberg2012}). The spectral functional
+$G$ is introduced in this paper as a calculation tool, and its
+values are verified independently in
+\texttt{spectral\_functional.py}. The structural interpretation
+--- that $n = 7$ (HARMONY) maximizes $G$ under the $\sigma$-action
+--- connects to the broader program but is not load-bearing for
+the mathematical claims of the present paper. A reader can verify
+Theorem~\ref{thm:rigidity} and Lemma~\ref{lem:spectral} without
+consulting \cite{SandersGishFourCore}. The closest published
+precedent in the same neighborhood --- small finite commutative
+non-associative structures on $\Z/n\Z$ at the opposite-extremum
+point --- is Drápal and Wanless~\cite{DrapalWanless2021}.
+
+\paragraph{Status of claims.}
+We classify the paper's claims by rigor:
+\begin{itemize}\setlength\itemsep{2pt}
+\item \textbf{Proved:} (i) the CRT-Fourier embedding
+$v: \Z/10\Z \to \R^5$ is injective (Theorem~\ref{thm:injective});
+(ii) equivariance-based rigidity --- any $\F_5$-equivariant
+$w_5: \F_5 \to \R^4$ satisfying the centered-and-equidistant
+condition equals the standard Fourier basis up to $O(4)$
+(Theorem~\ref{thm:rigidity}); (iii) the spectral functional
+values listed in Table~\ref{tab:Gvalues}, with $G$ attaining a
+unique global maximum $G(7) \approx 19.47 < 25$ and vanishing
+exactly on the $\sigma$-fixed indices $\{0, 3, 8, 9\}$
+(Lemma~\ref{lem:spectral}).
+\item \textbf{Computed:} the numerical entries of
+Table~\ref{tab:embedding} and Table~\ref{tab:Gvalues} are
+\texttt{numpy}-verified in
+\texttt{spectral\_functional.py}; wall-clock under $1$~s.
+\item \textbf{Structural rhyme:} the substrate-name HARMONY for
+$n = 7$ and the connection between the maximum at $7$ and the
+$4$-core $\{0, 7, 8, 9\}$ of \cite{SandersGishFourCore} are
+structural rhymes, not theorems of this paper.
+\item \textbf{Open:} closed-form expressions for $G(n)$ in
+$\Q(\zeta_5) \cap \R$; whether the maximum at $n = 7$ has a
+structural derivation in the broader program; generalization to
+$\Z/2p\Z$ for primes $p \ge 5$.
+\end{itemize}
+
 \section{Two short applications}
 \label{sec:applications}
 
@@ -602,6 +652,22 @@ B.R. Sanders and M. Gish, \emph{The First-G Event in the
 Coprimality Partition: Stability Windows, CRT Idempotent Count,
 and Prime-Indexed Phase Transitions}, submitted to
 \emph{Integers}, 2026 (J04 in the release sequence).
+
+\bibitem{DrapalWanless2021}
+A. Drápal and I.~M. Wanless, \emph{Maximally non-associative
+quasigroups}, \emph{Journal of Combinatorial Theory, Series A}
+\textbf{184} (2021), 105510. [Closest published precedent in the
+same neighborhood --- small finite commutative non-associative
+structures on $\Z/n\Z$ at the opposite-extremum point.]
+
+\bibitem{SandersGishFourCore}
+B.R. Sanders and M. Gish, \emph{Joint Closure, Per-Coordinate
+Fuse Data, and a Closed-Form Algebraic Attractor of Two
+Commutative Binary Operations on $\Z/10\Z$}, submitted to
+\emph{Algebraic Combinatorics}, 2026 (J02 in the release
+sequence). [The companion paper defining the substrate
+$(\Z/10\Z, \sigma, W)$ and the $4$-core $\{0, 7, 8, 9\}$
+referenced in \S\ref{sec:functional} and \S\ref{sec:companions}.]
 
 \end{thebibliography}
 

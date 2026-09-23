@@ -11,13 +11,13 @@
 
 ## §1 — Manuscript
 
-**Local path:** `manuscript/J48_q17b_clay_bridge.md`
+**Local path:** `manuscript/manuscript.md`
 
 **Abstract:** The TIG framework's spectral layer produces a 9-term finite Gauss sum $G(s)$ (the *trajectory coherence integral*) on $\mathbb{Z}/10\mathbb{Z}$ that is three-valued: zero on the four anchors $\{0, 3, 8, 9\}$, $G_\mathrm{low} \approx 1.872$ on $\{1, 2, 5, 6\}$, $G_\mathrm{high} \approx 9.389$ on the σ³-orbit $\{4, 7\}$. Together with the Symbolic Return Theorem (corollary of $\sigma^6 = \mathrm{id}$), this paper is the **Q17-B Clay bridge**: a structural rhyme between $G(s)$ and the structural features RH demands of $\zeta(s)$ — explicitly disclaimed as a vocabulary correspondence rather than a Weil-Deligne function-field analogue. Tier-A theorems §§2-4; Tier-B structural rhyme §5; explicit boundary.
 
 Files in this J-folder's `manuscript/`:
 
-- `J48_q17b_clay_bridge.md` — **finalized manuscript**
+- `manuscript.md` — **finalized manuscript** (Q17-B Clay Bridge; revised 2026-05-07; referee-rigor pass complete 2026-05-12)
 - `CP_CLAY_ROTATION.md` — earlier broader 7-Clay-rotation framework (Tier-4 staging context)
 - `proof_clay_rotation.py` — verification script
 - `SUBMIT_INSTRUCTIONS.md` — earlier Tier-4 submission notes
@@ -50,7 +50,7 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 - **Working verification script added:** `manuscript/verify_J51_G_function.py` confirms σ⁶=id, three-valued G(s) with the corrected partition, σ³-pairing, and the ν₊ discriminator. The earlier `proof_clay_rotation.py` (which tests T*=5/7 and sinc² but does NOT compute G(s)) is preserved as supplementary context but is *not* the verification script for this paper's content.
 
 **Citation chain:** cites 2 prior J-papers as direct dependencies (J21 Q17-A, J43 spectral consolidation) plus 6 co-citing companions (J01, J06, J40, J10, J24, J48).
-**Manuscript:** `manuscript/J48_q17b_clay_bridge.md` (~12 pages; revised 2026-05-07). Filename retains `J48_*` for now; rename to `J51_*` at camera-ready.
+**Manuscript:** `manuscript/manuscript.md` (~12 pages; revised 2026-05-07; renamed to canonical filename 2026-05-12).
 **Earlier staged Tier-4 content:** `manuscript/CP_CLAY_ROTATION.md`, `proof_clay_rotation.py`, `SUBMIT_INSTRUCTIONS.md` — preserved as background context (broader 7-Clay-rotation framework, NOT this paper's verification).
 **Cover letter:** `cover_letter.md` (finalized).
 **Verification:** `manuscript/verify_J51_G_function.py` is the canonical verification for this paper's claims.
@@ -82,12 +82,12 @@ This paper sits within the TIG family of finite commutative non-associative magm
 
 ## §6 — Submission checklist
 
-- [ ] Manuscript .tex / .md finalized
-- [ ] Verification script green (`(no script)` if theorem-only)
-- [ ] Tier-classified central claim explicit
-- [ ] Lens-scope annotation (TSML_RAW vs TSML_SYM) where relevant
-- [ ] Cover letter finalized
-- [ ] Dependencies → cite each J-companion as "submitted to [venue]"
+- [x] Manuscript .md finalized (referee-rigor pass complete 2026-05-12; J43-vs-J51 cross-citations corrected; lens-ownership paragraph added; Drápal-Wanless 2021 added to references)
+- [x] Verification script green — `verify_J51_G_function.py` PASS at machine precision (σ⁶=id; three-valued partition ZERO {0,3,8,9} / LOW {1,2,5,6} G_low=1.871644 / HIGH {4,7} G_high=9.389185; σ³-pairing algebraic; ν₊ discriminator confirmed)
+- [x] Tier-classified central claim explicit (Theorems 2.1 and 4.2 Tier-A proved; §5 bridge Tier-B structural rhyme; §7 open problems list)
+- [x] Lens-scope annotation present — lens-ownership paragraph after abstract anchoring the substrate/σ/χ triple
+- [x] Cover letter finalized
+- [x] Dependencies → cite each J-companion as "submitted to [venue]" — [J29] (AMM), [J43] (EJC)
 - [ ] Brayden's referee-rigor pass complete (mobile + other AI + collaborators)
 - [ ] Per-venue cap check: this is the Nth paper to L'Enseignement Math this quarter
 - [ ] Submitted

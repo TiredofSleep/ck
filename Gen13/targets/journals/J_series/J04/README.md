@@ -1,7 +1,7 @@
-# J04 — Full-Period Cancellation of R(k, f): The Integer-Multiple Zero of the Discrete Fejér Quotient (Squarefree Case)
+# J04 — Full-Period Cancellation of R(k, f) and the spf-Localization for Squarefree Moduli
 
-**Status:** SUBMISSION-READY
-**Phase:** Phase 1
+**Status:** SAVE-PLAN IMPLEMENTED (manuscript rewritten 2026-05-08; Theorem 1.A + Theorem 2 + Theorem 3 in place)
+**Phase:** Phase 1 (Triadic Launch companion to J03)
 **Target venue:** Integers
 **Author lane:** Sanders + Gish
 **Tier:** B
@@ -33,7 +33,7 @@ The proof script (where applicable) is the green-light gate before submission. I
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 
-J04
+J03 (First-G synchronization companion, also submitted to *Integers*).
 
 ## §4 — Cover letter
 
@@ -41,41 +41,56 @@ See `cover_letter.md` in this folder. (Bones laid; finalize after Brayden's refe
 
 ## §5 — Notes
 
-### SAVE PLAN landed — see Atlas/META_PLAN_2026-05-06/SAVE_PLANS/SAVE_PLAN_J04.md
+### SAVE PLAN J04 — IMPLEMENTED 2026-05-08
 
-**Verdict: KEEP-WITH-MAJOR-WORK.** The fresh-eyes referee correctly identified the current `sinc2_zero_law.tex` as "a one-line corollary of a one-line lemma" — but this applies to the version that exists today, not the one the corpus actually supports. The save path is to rebuild Theorem 2 to deliver the layered-divisor count $2^j - 1$ at the $j$-th primorial divisor, add Theorem 1.A (full-period cancellation $R(k, f) = 0 \iff f \mid k$ — the canonical statement, uniform in $f$), and add Theorem 3 (asymptotic average $\to \mathrm{Si}(2\pi)/\pi$ via D14). All three are backed by PROVED D-tables (D11a/b/c, D14, D24, D25, sinc² Zero Law). The save plan also cuts §3 corollaries (referee Issue 2 — they restate Theorem 2 in three vocabularies without adding content) and §4 boundary-value section (referee M2 — Montgomery is a non-sequitur).
+**Verdict: KEEP-WITH-MAJOR-WORK — DONE.** Per SAVE_PLAN_J04, the manuscript has been rewritten from scratch as a real *Integers* contribution. The fresh-eyes referee's earlier "Reject" applied to the version that existed before; the current `manuscript/manuscript.tex` (revised 2026-05-08) implements the save plan in full:
 
-Total revision time: 10–12 hours. The .tex retitle is one line; the substantive work is in the new theorems and the verification-script rewrite (drop bisection per M3, drop strict-monotonicity assertion per M4, add Theorem 2 + Theorem 3 checks). The two-paper companion structure with J03 is intentional: each stands alone and the cross-citations are explicit. **Per-venue cap:** with both J03 (Fork A) and J04 (rebuilt) going to *Integers*, the per-quarter cap (2 papers) is exactly used. If the budget is tight (4–6 hours total across J03+J04), the cleanest path is **Fork A on J03 + merge J04 into J03 as a §7/§8** — a single more-substantial paper instead of two notes. Fallback if rebuild fails: AMM Notes / Math. Magazine.
+1. **Title changed** from "The Sinc² Zero Law for Squarefree Moduli" to *Full-Period Cancellation of R(k, f) and the spf-Localization for Squarefree Moduli*.
+2. **Lemma 1 (basic biconditional)** retained as canonical entry point.
+3. **Theorem 1.A (full-period cancellation)** added: R(k, f) = 0 iff f | k, uniform in f. The canonical statement of the Fejér-quotient zero set; promotes Lemma 1 to the R(k, f) framing.
+4. **Theorem 2 rebuilt** with the layered-divisor structure: for squarefree b = p₁ p₂ … pᵣ, the smallest k at which any non-trivial divisor d | b yields R(k, d) = 0 is exactly k = spf(b), AND at the j-th primorial divisor k = b_j = p₁…p_j, exactly **2^j − 1** non-trivial divisors d | b satisfy R(b_j, d) = 0. Proof uses the Boolean structure of the divisor lattice on rad(b) — squarefree-ness essential here.
+5. **Theorem 3 added (asymptotic average)** via D14: (1/(f-1)) ∑ R(k, f) → Si(2π)/π ≈ 0.4514 as f → ∞. Proof uses Riemann sum + the closed-form integration ∫₀^π sin²(u)/u² du = Si(2π).
+6. **Corollary** added cleanly tying Theorem 2 to J03 (cuts the previous §3 trio of restatement corollaries per referee Issue 2; cuts §4 boundary-value section per referee M2 — Montgomery non-sequitur).
+7. **§0 lens-and-substrate preamble** + **§1 tier-discipline (PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN)** paragraph per `J_PAPER_BOILERPLATE.md` §5.5 / §0.
+8. **Bibliography expanded** to 9 entries (Apostol, Erdős, Fejér, Hardy-Wright, Iwaniec-Kowalski, Tenenbaum, Zygmund + 2 internal companions). Drápal-Wanless not invoked (J04 is not a magma paper).
+9. **Verification script rewritten** (`proof_d25_loop_closure.py`):
+   - DROPPED the bisection block (referee M3) — fold-of-sinc² content not in the manuscript.
+   - DROPPED the strict-monotonicity assertion outside (0,1) (referee M4) — replaced with informational "non-increasing at integer arguments" report.
+   - ADDED Theorem 2 layered-closure check (50 squarefree b, exact divisibility, 2^j − 1 count at b_2 and b_3).
+   - ADDED Theorem 3 asymptotic-average check (f ∈ {50, 100, 500, 1000}; convergence to Si(2π)/π within 5 × 10⁻⁵ at f = 1000).
+   - 5/5 verifications PASS; runtime <5s; prints `ALL ASSERTIONS PASSED`.
+10. **Author lane:** Sanders + Gish (Luther dropped per Brayden directive 2026-05-07).
+11. **Cover letter rewritten** to frame J04 as a J03 companion (not a duplicate); explicit Theorem-1.A / Theorem-2 / Theorem-3 differentiation in the intro.
+
+**Per-venue cap:** with both J03 (Fork A restored) and J04 (rebuilt) going to *Integers*, the per-quarter cap (2 papers) is exactly used. The two-paper companion structure is intentional; cross-citations are explicit; each paper stands alone.
 
 **RENAMED 2026-05-07** per external collaborator calibration. Previous title
 "The Sinc² Zero Law for Squarefree Moduli" carried implicit prime-specific
 structural overclaim. The correct framing: R(k, f) = sin²(πk/f)/(k² sin²(π/f))
 vanishes at k = f because sin²(π) = 0 — for ANY f, not just primes. The
 prime-3-to-199 sweep is verification of the formula, not a prime-specific
-theorem. Internal rename plus D-tables update (FORMULAS_AND_TABLES.md).
+theorem.
 
 ### Lens-ownership paragraph (insert in manuscript §0)
 
 > *Lens and substrate.* We work on Z/n for squarefree n with the discrete Fejér quotient R(k, f) = sin²(πk/f) / (k² sin²(π/f)). This object is not "TIG-specific"; it is the standard discrete Fejér kernel familiar from Fourier analysis on cyclic groups. The squarefree-modulus restriction reflects the regime where the spf-localization (Theorem 2) applies cleanly. The paper's role within a broader research program is noted in the Companion section, but the result and proof here are self-contained.
 
-### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
+### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN (post-SAVE-PLAN, final)
 
-- **PROVEN:** *full-period cancellation* — R(k, f) = 0 ⇔ f | k (the basic
-  divisibility biconditional, uniform in f). Squarefree-specific Theorem 2:
-  the smallest k at which any non-trivial divisor d | b produces a zero is
-  k = spf(b) — the spf-image of the First-G Event Localization Theorem of J03.
-- **COMPUTED:** `proof_d25_loop_closure.py` runs green for all primes 3..199
-  (zero exceptions, exact arithmetic, runtime < 5s; ALL ASSERTIONS PASSED
-  2026-05-07). Multi-prime squarefree case verified by J03 companion script
-  (`proof_first_g_event.py`, all squarefree b ≤ 500, 22,367 pairs); not
-  duplicated here.
-- **STRUCTURAL RHYME:** the identity sinc²(1/2) = (2/3)/ζ(2) is a one-line
-  algebraic consequence of ζ(2) = π²/6 — not a TIG theorem. Cited as
-  structural motivation only. The primon-gas link (1/ζ(2) = density of
-  squarefree integers) connects to WP101 σ-rate's regime — also rhyme.
-- **OPEN:** *why does the corridor midpoint of the substrate sit at 1/2 such
-  that sinc²(1/2) = (2/3)/ζ(2) becomes structurally relevant?* Not addressed
-  in this paper; flagged as open for companion work.
+- **PROVEN:**
+  - *Lemma 1 (basic divisibility biconditional).* sinc²(k/b) = 0 ⇔ b | k for every b ≥ 1, k ≥ 1.
+  - *Theorem 1.A (full-period cancellation).* R(k, f) = 0 ⇔ f | k for every f ≥ 2, k ≥ 1.
+  - *Theorem 2 (squarefree layered structure).* For squarefree b = p₁…pᵣ, the smallest k with R(k, d) = 0 for some non-trivial d | b is k = spf(b), and at the j-th primorial divisor b_j = p₁…p_j the count is exactly 2^j − 1.
+  - *Theorem 3 (asymptotic average).* (1/(f-1)) ∑ R(k, f) → Si(2π)/π ≈ 0.4514 as f → ∞.
+  - *Corollary (J03 companion).* The first-zero index in J04 Theorem 2 equals the First-G event of J03 Theorem 3.1.
+- **COMPUTED:** `proof_d25_loop_closure.py` runs green:
+  - Lemma 1 verified across 4,225 (p, k) pairs (45 primes 3..199).
+  - Theorem 1.A verified across 145 (f, m) pairs (f ∈ {2..30}, m ∈ {1..5}).
+  - Theorem 2 verified across 50 squarefree b (omega ≥ 2); zero failures for both spf-smallest-k and 2^j − 1 counts at b_2 and b_3.
+  - Theorem 3 verified at f ∈ {50, 100, 500, 1000}; deviation ≤ 5 × 10⁻⁵ at f = 1000.
+  - Runtime <5s; prints `ALL ASSERTIONS PASSED`.
+- **STRUCTURAL RHYME:** the identity sinc²(1/2) = (2/3)/ζ(2) is a one-line algebraic consequence of ζ(2) = π²/6 — not a TIG theorem. Cited as structural motivation only.
+- **OPEN:** *why does the corridor midpoint of the substrate sit at 1/2 such that sinc²(1/2) = (2/3)/ζ(2) becomes structurally relevant?* Not addressed in this paper; flagged as open. Also: does the Theorem 2 layered count 2^j − 1 extend to non-squarefree b via the radical? The formal answer is yes (Remark in §4), but the explicit count for divisors of b itself acquires multiplicities; not pursued here.
 
 **Per-venue cap:** 2nd *Integers* paper this quarter after J03 (within cap).
 

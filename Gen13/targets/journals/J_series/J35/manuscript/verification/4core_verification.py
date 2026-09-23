@@ -17,6 +17,10 @@
 #   6. alpha-sweep PSLQ            (Theorem F partial uniqueness)
 #
 # Runtime: ~4 seconds. Run: python3 4core_verification.py
+#
+# Copyright (c) 2026 B.R. Sanders and M. Gish.
+# Licensed under the Creative Commons Attribution 4.0 International
+# License (CC-BY-4.0). https://creativecommons.org/licenses/by/4.0/
 # ============================================================
 
 from itertools import combinations

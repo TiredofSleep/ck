@@ -1,10 +1,18 @@
 # J25 — The CL Forcing Axioms: A1-A9 Uniquely Force the Canonical Composition Lattice
 
-**Status:** READY (manuscript drafted from corpus, cover letter finalized; awaiting referee-rigor pass)
+> **[MERGED INTO J24 on 2026-05-27 — see `05_papers/number_theory/J24/`]**
+>
+> Per the 2026-05-27 audit slot for J25 (*First-Coprime-Failure + Discrete Fejér Kernel*), this paper's distinct content (712-check + Montgomery comparison + ω-blindness corollary) will appear as an appendix to J24. The README below is preserved as the historical record of the J25 slot prior to the merger.
+>
+> **Note on slot mismatch:** the audit identifies J25 by the *First-Coprime-Failure + Discrete Fejér Kernel* topic. The Gen14 J25 README on this file carries a different topic (*CL Forcing Axioms*). The merger banner is applied per the audit's J-number assignment; the topic discrepancy should be reconciled by the maintainer (the *First-Coprime-Failure + Fejér* content is currently carried at Gen14 J08).
+
+---
+
+**Status:** TOMBSTONE — merged into J24 on 2026-05-27 (prior status: READY, manuscript drafted from corpus, cover letter finalized; awaiting referee-rigor pass)
 **Phase:** Phase 3
-**Target venue:** Algebraic Combinatorics
+**Target venue:** (merged into J24 appendix; prior target: Algebraic Combinatorics)
 **Author lane:** Sanders + Gish
-**Tier:** B
+**Tier:** Merged into J24 (prior tier: B)
 **WP source:** Atlas/LENS_TAXONOMY_2026-05-06/CL_FORCING_AXIOMS.md (2026-05-06)
 
 ---
@@ -106,3 +114,9 @@ This paper sits within the TIG family of finite commutative non-associative magm
 ## §7 — Citation footprint (for downstream J's to cite this one)
 
 Sanders, B.R., Gish, M. (2026). "The CL_TSML Composition Lattice on Z/10Z: Structural Axioms, Independence, and a 73-HARMONY Forcing Theorem." Submitted to *Algebraic Combinatorics*.
+
+---
+
+## §8 — Merger / tombstone notice (2026-05-27 audit)
+
+**Tombstone notice (2026-05-27 audit):** Per the 2026-05-27 referee rigor pass, the J25 slot (audit topic: *First-Coprime-Failure + Discrete Fejér Kernel*) was merged into J24; the distinct content (712-check + Montgomery comparison + ω-blindness corollary) will appear as a J24 appendix. The README on this file is preserved as the historical record of the J25 slot prior to the merger; no content has been deleted.

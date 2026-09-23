@@ -1,6 +1,6 @@
 # Four Types of Measurement Failure: A Diagnostic Classifier for Paradoxes
 
-**Authors:** B.R. Sanders$^{1}$, B. Mayes$^{2}$
+**Authors:** B.R. Sanders$^{1}$, M. Gish$^{2}$
 $^{1}$7Site LLC, Hot Springs, AR — brayden@7site.co
 $^{2}$Independent Researcher
 
@@ -260,11 +260,11 @@ The paper does **not**:
 
 ## §8 References
 
-[J17] B.R. Sanders, B. Mayes. "Universal Orthogonality Principle (UOP): Theorem 0." Submitted to *J. Number Theory*.
-[J18] B.R. Sanders, B. Mayes. "Corrected Theorem C: UOP Sharpening." *JNT* companion.
-[J19] B.R. Sanders, B. Mayes. "Coordinate Coverage on $\mathbb{Z}/10\mathbb{Z}$." *European J Combin*.
-[J47] B.R. Sanders, B. Mayes. "Six Algebraic DOFs of the TIG Framework." *Notices AMS*.
-[J52] B.R. Sanders, B. Mayes. "What is the TSML Lens Family? A Walking Tour." *Math Intelligencer*.
+[J17] B.R. Sanders, M. Gish. "Universal Orthogonality Principle (UOP): Theorem 0." Submitted to *J. Number Theory*.
+[J18] B.R. Sanders, M. Gish. "Corrected Theorem C: UOP Sharpening." *JNT* companion.
+[J19] B.R. Sanders, M. Gish. "Coordinate Coverage on $\mathbb{Z}/10\mathbb{Z}$." *European J Combin*.
+[J47] B.R. Sanders, M. Gish. "Six Algebraic DOFs of the TIG Framework." *Notices AMS*.
+[J52] B.R. Sanders, M. Gish. "What is the TSML Lens Family? A Walking Tour." *Math Intelligencer*.
 
 ### External — paradox taxonomies (M5)
 
@@ -340,7 +340,7 @@ def classify(p: ParadoxInput) -> dict:
 
 ```bibtex
 @misc{sanders2026j53,
-  author       = {Sanders, Brayden Ross and Mayes, B.},
+  author       = {Sanders, Brayden Ross and Gish, M.},
   title        = {Four Types of Measurement Failure: A Diagnostic Classifier for Paradoxes},
   year         = {2026},
   month        = {sep},

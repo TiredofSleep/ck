@@ -1,10 +1,11 @@
 # J08 — First-Coprime-Failure and the Discrete Fejér Kernel: A Coordinate Translation across Squarefree Bases
 
-**Status:** REVISED (2026-05-08; major referee fixes + SFM context applied)
+**Status:** DRAFT (math errors found in §1.2 / §2.5 / §4; rewrite needed — demoted 2026-05-27 referee rigor pass)
 **Phase:** Phase 1
 **Target venue:** Experimental Mathematics
 **Author lane:** Sanders + Gish
-**Tier:** B (recovered as clean 8-10 page Exp Math note per fresh-eyes referee)
+**Tier:** Tier 2 (demoted 2026-05-27 from Tier 1 — see `05_papers/_staging/referee_reports/08_J08_power_assoc_FIX.md`)
+**Prior tier:** B (recovered as clean 8-10 page Exp Math note per fresh-eyes referee, 2026-05-08)
 
 ---
 
@@ -112,3 +113,11 @@ The arithmetic side of the present paper is structurally orthogonal to the algeb
 ## §7 — Citation footprint
 
 Sanders, B.R., Gish. (2026). "First-Coprime-Failure and the Discrete Fejér Kernel: A Coordinate Translation across Squarefree Bases." Submitted to *Experimental Mathematics*.
+
+---
+
+## §8 — Demotion notice (2026-05-27 audit)
+
+**Demotion notice (2026-05-27 audit):** Per `05_papers/_staging/referee_reports/08_J08_power_assoc_FIX.md`, J08 (as carried in the audit slot for *F_p Structure of the 4-Core Comm Non-Assoc Algebra*) was demoted Tier 1 → Tier 2 because the power-associativity claim was VERIFIED false; $L_{e_3}$ is not a 4-cycle; and $\varepsilon_2 / \varepsilon_3 / \varepsilon_4$ are not idempotent over $\mathbb{F}_5$. Math errors in §1.2 / §2.5 / §4 require rewrite before resubmission.
+
+> **Note on slot mismatch:** the audit identifies J08 by the title *"F_p Structure of the 4-Core Comm Non-Assoc Algebra"*. This Gen14 J08 README carries a different topic (*First-Coprime-Failure and the Discrete Fejér Kernel*). The demotion metadata above is applied per the audit's J-number assignment; the topic discrepancy should be reconciled by the maintainer (e.g., the audit's "J08" may correspond to a different J-number in the Gen14 layout — possibly the F_p-extension paper at J34, or a paper still in the staging tree).

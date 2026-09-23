@@ -34,7 +34,7 @@ The TIG/CK research program is shipping a coordinated paper sequence (J01–J55)
 
 ## Reproducibility
 
-Verification script: *(no script — theorem-paper)*. The proofs are finite-combinatorial and hand-checkable. The n=15 counterexample (Example 6.1) — *G* = ⟨2⟩ = {1, 2, 4, 8} in (Z/15Z)\*, *T*<sub>2</sub>-orbit of 5 equals {5, 10}, both ≡ 0 mod 5 — is reproducible in any computer algebra system in seconds. The two MVJN(Z/30Z) = 1 witnesses ({π<sub>SPEC</sub>, π<sub>15</sub>} and {π<sub>DYN</sub>(7), π<sub>DYN</sub>(11)}) are verifiable by orbit-by-orbit enumeration in seconds; no specialized library is required.
+Verification script: `manuscript/verify_J10.py`, PASSING at machine precision. The proofs are finite-combinatorial and hand-checkable; the script confirms the three computational families directly: (i) the n=15 counterexample (Example 6.1) — *G* = ⟨2⟩ = {1, 2, 4, 8} in (Z/15Z)\*, *T*<sub>2</sub>-orbit of 5 equals {5, 10}, both ≡ 0 mod 5; (ii) the two MVJN(Z/30Z) = 1 witnesses ({π<sub>6</sub>, π<sub>15</sub>} and {π<sub>DYN</sub>(7), π<sub>DYN</sub>(11)}) verified by orbit-by-orbit enumeration plus coordinate-coverage check; (iii) small-n sanity for Theorem D. Pure Python standard library; no third-party dependencies.
 
 ## Suggested reviewers
 

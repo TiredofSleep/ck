@@ -19,9 +19,17 @@ The defensive-exposition rewrite (2026-05-07) adds: the multiplication table inl
 
 ## §2 — Verification script
 
-**Path:** `verify_discrete_dirac_4core.py` (14 algebraic checks over $\mathbb{F}_5$, output 14/14 PASS at integer/machine precision in <2 seconds); parametric variant for $p \in \{2, 3, 7, 11, 13\}$. Reference library: `tig_dirac.py` (functions `mul`, `all_automorphisms`, `T_F5`).
+**Local path (colocated with manuscript):** `manuscript/verify_J14.py` (12 algebraic checks: 3 rebuttal-point R1/R2/R3 plus 9 structural-skeleton confirmations; 12/12 PASS at machine precision in <2 seconds; imports `mul`, `L_op`, `all_automorphisms` from the upstream `tig_dirac.py` at `Gen13/targets/ck/brain/dirac/`).
+
+The script directly targets the three referee challenges from the *Algebra Universalis* fresh-eyes report:
+- **R1 (non-associativity):** enumerates the 64 basis triples and counts 8 with non-zero associator (refutes the referee's "algebra is associative" claim).
+- **R2 (signatures NOT swapped):** computes 1-eigenspace and 0-eigenspace dimensions of $L_{e_2}$ and $L_{e_0}$ over $\mathbb{F}_5$ by full vector enumeration, confirming $(1,3)$ Minkowski on $L_{e_2}$ and $(2,2)$ chirality on $L_{e_0}$ — exactly as manuscript Theorem 3.1 states.
+- **R3 (|Aut(V_5)| = 40):** runs `all_automorphisms()` and confirms 40 maps over $\mathbb{F}_5$ specifically (the manuscript does NOT claim universal "40" across primes; the $|\mathrm{Aut}(V_p)|$ tabulation in §4.1 explicitly distinguishes F_5 from other primes).
 
 A 5-line `numpy/sympy` verification snippet is embedded directly in the manuscript at §2.3 — any referee with Python open reproduces the associator-failure count (8 of 64) and the |Aut(V_5)| = 40 result without consulting the upstream library.
+
+**Upstream reference scripts** (not colocated; for context only):
+`Gen13/targets/ck/brain/dirac/verify_discrete_dirac_4core.py` (14 checks) and `Gen13/targets/ck/brain/dirac/test_tig_dirac.py` (15+ unit tests). The colocated `verify_J14.py` is self-contained on the three rebuttal points; the upstream scripts provide the full skeleton across the broader claim landscape shared with J16.
 
 ## §3 — Dependencies (J-papers cited as already-submitted companions)
 

@@ -40,7 +40,7 @@ The TIG/CK research program is shipping a coordinated sequence (J01–J55) over 
 
 ## Reproducibility
 
-Verification script: *(no script — theorem-paper)*. The two structural facts of Appendix A are verifiable in seconds against the canonical TSML/BHML composition tables fixed in `Gen13/targets/foundations/lenses.py`:
+Verification script: `manuscript/verify_J07.py` (CC-BY-4.0). 4/4 PASS at machine / 50-digit `mpmath` precision. Runtime < 2 seconds. Tables inlined (canonical TSML_SYM and BHML, matching the J02/J35/J54 hardcoded copies); no external dependencies beyond `mpmath`. The two structural facts of Appendix A are verifiable in seconds against the canonical TSML/BHML composition tables (also fixed in `Gen13/targets/foundations/lenses.py`):
 
 - D48 (joint closure): 16 + 16 in-core compositions, 0 + 0 spillover. Verified by direct enumeration over the 4×4 sub-tables at indices {0, 7, 8, 9}.
 - D78 (Galois proof of 1+√3 at α<sub>M</sub> = 1/2): symbolic BR-factor cancellation in `f3_galois_alpha_uniqueness.py`. Numerical confirmation at 50-digit `mpmath`: H/Br = 2.73205080756888… (matching 1+√3 to all 50 computed digits); polynomial identity (H/Br)² − 2(H/Br) − 2 = 0 to 50 digits; convergence in 76–81 iterations across 7 boundary initial conditions.

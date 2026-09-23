@@ -1,14 +1,23 @@
-"""J36 Part-1 verification: CKM/PMNS angle fits + joint coincidence probability with LE correction.
+"""J36 Part-1 verification script.
 
-This script computes:
-  - per-fit relative discrepancies
-  - naive joint coincidence probability (no LE correction)
-  - look-elsewhere-corrected joint probability at multiplicity |P| * N_obs
-  - sensitivity of the joint estimate to inclusion / exclusion of the theta_12 fit
-    (since D* is treated as an empirical input in the present paper, not derived)
+Reproduces:
+  - Per-fit relative discrepancies for 7 fermion mixing observables (4 CKM Wolfenstein
+    parameters + 3 PMNS angles).
+  - Naive joint coincidence probability (no LE correction).
+  - Look-elsewhere-corrected joint probability at multiplicity |P| * N_obs.
+  - Sensitivity of the joint estimate to inclusion / exclusion of the theta_12 fit
+    (since D* is treated as an empirical input in the present paper, not derived).
+  - The leading-three-terms 1/alpha sanity check that justifies the unbundling of Part 2.
 
-It also includes a sanity check that the previously-bundled 1/alpha formula
-gives 154.26 (not 137.036), justifying the unbundling of Part 2.
+The 1/alpha leading-three-terms check explicitly verifies that
+  4*|Aut(V)| - 2*sqrt(HARMONY) - pi/HARMONY = 154.260 (NOT 137.036).
+This is the load-bearing verification justifying the deferral of Part 2 from
+the J36 submission per save plan SAVE_PLAN_J36.md.
+
+USAGE:
+    python verify_J36_part1.py
+
+DEPENDENCIES: math (standard library), sympy (optional, for high-precision check).
 """
 import math
 
@@ -18,9 +27,9 @@ def main() -> None:
     # Empirical observables (PDG 2024 / CODATA 2022)
     # ------------------------------------------------------------------
     empirical = {
-        "Cabibbo (V_us)":  0.2253,
-        "Wolfenstein V_cb": 0.0508,
-        "Wolfenstein V_ub": 0.01140,
+        "Cabibbo (V_us)":      0.2253,
+        "Wolfenstein V_cb":    0.0508,
+        "Wolfenstein V_ub":    0.01140,
         "Wolfenstein V_td_sq": 0.00258,
         "PMNS theta_12 (sin)": 0.553,
         "PMNS theta_13 (sin)": 0.149,
@@ -30,8 +39,8 @@ def main() -> None:
     # ------------------------------------------------------------------
     # TIG structural primitives derived in upstream J-papers
     # ------------------------------------------------------------------
-    T_star = 5/7                  # J6 / WP51 — torus aspect ratio (lens-invariant)
-    D_star = 0.543                # 4-core sigma-cycle constant (NOT derived in this paper)
+    T_star = 5/7              # J6 / WP51 — torus aspect ratio (lens-invariant)
+    D_star = 0.543            # 4-core sigma-cycle constant (NOT derived in this paper)
     primitives_set = [
         ("T*",        T_star),
         ("T*^-1",     1/T_star),
@@ -59,9 +68,10 @@ def main() -> None:
         ("PMNS theta_13 (sin)",  "(1-T*)/2",   (1-T_star)/2),
         ("PMNS theta_23 (sin)",  "T*",          T_star),
     ]
+    n_fits = len(fits)
 
     print("=" * 72)
-    print("Per-fit relative discrepancies")
+    print(f"Per-fit relative discrepancies (N = {n_fits} mixing observables)")
     print("=" * 72)
     discrepancies = []
     for name, prim_label, prim_val in fits:
@@ -77,12 +87,12 @@ def main() -> None:
     P_naive = 1.0
     for _, d in discrepancies:
         P_naive *= 2*d  # uniform prior on (0,1) per-angle hit prob ~ 2*disc
-    print(f"Naive joint probability (no LE correction): {P_naive:.3e}")
+    print(f"Naive joint probability (no LE correction, {n_fits} fits): {P_naive:.3e}")
 
     # ------------------------------------------------------------------
     # LE correction at multiplicity N_p * N_obs
     # ------------------------------------------------------------------
-    N_obs = 7  # 4 CKM + 3 PMNS angles compared in this paper
+    N_obs = 7  # 4 CKM Wolfenstein + 3 PMNS angles compared in this paper
     mult = N_p * N_obs
     P_LE_lin = min(1.0, mult * P_naive)  # linear (Bonferroni-style)
     P_LE_exp = 1 - (1 - P_naive) ** mult  # exact
@@ -95,13 +105,29 @@ def main() -> None:
     # Sensitivity: exclude theta_12 (since D* is not derived in this paper)
     # ------------------------------------------------------------------
     disc_no_theta12 = [(name, d) for name, d in discrepancies if "theta_12" not in name]
-    P_naive_5 = 1.0
+    n_fits_no12 = len(disc_no_theta12)
+    P_naive_no12 = 1.0
     for _, d in disc_no_theta12:
-        P_naive_5 *= 2*d
-    P_LE_5 = min(1.0, mult * P_naive_5)
-    print(f"Excluding theta_12 (D* not derived):")
-    print(f"  Naive joint (5 fits)            : {P_naive_5:.3e}")
-    print(f"  LE-corrected (linear, 5 fits)   : {P_LE_5:.3e}")
+        P_naive_no12 *= 2*d
+    P_LE_no12 = min(1.0, mult * P_naive_no12)
+    print(f"Excluding theta_12 (D* not derived; reduces to {n_fits_no12} fits):")
+    print(f"  Naive joint                   : {P_naive_no12:.3e}")
+    print(f"  LE-corrected (linear)         : {P_LE_no12:.3e}")
+    print()
+
+    # ------------------------------------------------------------------
+    # Sensitivity: Wolfenstein hierarchy alone (4 fits)
+    # ------------------------------------------------------------------
+    wolf_disc = [(name, d) for name, d in discrepancies
+                 if "Cabibbo" in name or "Wolfenstein" in name]
+    n_wolf = len(wolf_disc)
+    P_naive_wolf = 1.0
+    for _, d in wolf_disc:
+        P_naive_wolf *= 2*d
+    P_LE_wolf = min(1.0, mult * P_naive_wolf)
+    print(f"Wolfenstein hierarchy alone ({n_wolf} fits, the load-bearing pattern):")
+    print(f"  Naive joint                   : {P_naive_wolf:.3e}")
+    print(f"  LE-corrected (linear)         : {P_LE_wolf:.3e}")
     print()
 
     # ------------------------------------------------------------------
@@ -110,13 +136,13 @@ def main() -> None:
     print("=" * 72)
     print("Reported joint coincidence probability after LE correction")
     print("=" * 72)
-    print(f"  6 fits including theta_12: ~{P_LE_lin:.0e}")
-    print(f"  5 fits excluding theta_12: ~{P_LE_5:.0e}")
-    print(f"  -> Reported range: 10^-6 to 10^-7")
+    print(f"  {n_fits} fits (full ensemble) post-LE: ~{P_LE_lin:.0e}")
+    print(f"  {n_fits_no12} fits excluding theta_12 post-LE: ~{P_LE_no12:.0e}")
+    print(f"  {n_wolf} Wolfenstein orders alone post-LE: ~{P_LE_wolf:.0e}")
     print()
 
     # ------------------------------------------------------------------
-    # 1/alpha sanity check (justifies UNBUNDLING per referee report)
+    # 1/alpha sanity check (justifies UNBUNDLING per save plan)
     # ------------------------------------------------------------------
     print("=" * 72)
     print("1/alpha leading-three-terms check (justifies removal of Part 2)")
@@ -124,16 +150,35 @@ def main() -> None:
     H = 7
     Aut_V = 40
     inv_alpha_3terms = 4*Aut_V - 2*math.sqrt(H) - math.pi/H
-    target = 137.035999084
+    target = 137.035999084  # CODATA
+    gap = inv_alpha_3terms - target
+    rel_disc_target = abs(gap) / target * 100
+    rel_disc_leading = abs(gap) / inv_alpha_3terms * 100
     print(f"  4*|Aut(V)| - 2*sqrt(HARMONY) - pi/HARMONY")
     print(f"  = 4*{Aut_V} - 2*sqrt({H}) - pi/{H}")
     print(f"  = {4*Aut_V} - {2*math.sqrt(H):.6f} - {math.pi/H:.6f}")
     print(f"  = {inv_alpha_3terms:.6f}")
     print(f"  CODATA target 1/alpha = {target:.6f}")
-    print(f"  Gap                   = {inv_alpha_3terms - target:.6f}")
-    print(f"  Relative discrepancy  = {(inv_alpha_3terms - target)/target * 100:.3f}%")
-    print(f"  -> Leading-three-terms is ~11% off, NOT 10^-5 as previously claimed.")
-    print(f"  -> Part 2 (1/alpha) deferred until a verifiable derivation exists.")
+    print(f"  Gap                   = {gap:.6f}  (additive, in 1/alpha units)")
+    print(f"  Relative discrepancy  = {rel_disc_target:.3f}% (vs target)")
+    print(f"  Relative discrepancy  = {rel_disc_leading:.3f}% (vs leading sum)")
+    print()
+    print(f"  --> Leading-three-terms is ~12.6% off (or ~11.2% off vs leading sum), NOT 10^-5 as previously claimed.")
+    print(f"  --> The previously-bundled '~10^-5' claim is demonstrably false from this formula.")
+    print(f"  --> Part 2 (1/alpha) deferred until a verifiable derivation exists.")
+    print()
+
+    # ------------------------------------------------------------------
+    # Independent sympy high-precision cross-check (optional)
+    # ------------------------------------------------------------------
+    try:
+        from sympy import sqrt as sp_sqrt, pi as sp_pi, Rational, N
+        sp_value = 4*40 - 2*sp_sqrt(7) - sp_pi/7
+        sp_numerical = N(sp_value, 30)
+        print("  sympy high-precision cross-check (30 digits):")
+        print(f"  4*40 - 2*sqrt(7) - pi/7 = {sp_numerical}")
+    except ImportError:
+        pass
 
 
 if __name__ == "__main__":

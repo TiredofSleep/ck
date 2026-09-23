@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: CC-BY-4.0
+# Copyright (c) 2026 B.R. Sanders and M. Gish.
+# Licensed under the Creative Commons Attribution 4.0 International License.
 """
 Verification script for "Non-Associativity Decay in Binary Composition
-Tables over Z/NZ" (B.R. Sanders, M. Gish, H.J. Johnson, 2026).
+Tables over Z/NZ" (B.R. Sanders, M. Gish, 2026).
 
 Verifies, by exact enumeration:
   Theorem (sigma-rate): for squarefree N >= 3, sigma(N) < 2/N

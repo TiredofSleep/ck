@@ -17,7 +17,7 @@
 
 (Per SAVE_PLAN_J54.md §6; replaces the previous "Three-Substrate Architecture, Lens Family" framing with the family-of-magmas framing in the Drápal-Wanless 2021 lineage.)
 
-**Abstract:** This paper studies the family of finite commutative non-associative magmas on $\mathbb{Z}/10\mathbb{Z}$ preserving a designated 4-core $\mathcal{C} = \{0, 7, 8, 9\}$. The 9-axiom forcing theorem (Theorem 1.2) uniquely forces three canonical tables $T$, $B$, $S$ (HARMONY counts 73, 28, 44) given substrate-specific data $(\mathcal{D}, \mathrm{BUMP}, \mathrm{BUMPvalues}, J_{\mathrm{B7}})$. Five conjoint membership criteria (C1)-(C5) define the family. Theorem 4.1 (NEW from SFM Q6 2026-05-08): the simultaneous closed sub-magmas of $T$, $B$, $S$ form a strict 8-element chain at sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$, identical to the (T, B) chain. Theorem 4.2: $\mathcal{C}$ is the unique non-trivial 4-element subset jointly closed under all three substrates. Conjecture 4.4 (bimodal $\alpha_A$ gap) and Conjecture 2.1 ($\sigma^2$-triadic three-BHML) stated as OPEN.
+**Abstract:** This paper studies the family of finite commutative non-associative magmas on $\mathbb{Z}/10\mathbb{Z}$ preserving a designated 4-core $\mathcal{C} = \{0, 7, 8, 9\}$. The 9-axiom forcing theorem (Theorem 1.2) uniquely forces three canonical tables $T$, $B$, $S$ (HARMONY counts 73, 28, 44) given substrate-specific data $(\mathcal{D}, \mathrm{BUMP}, \mathrm{BUMPvalues}, J_{\mathrm{B7}})$. Five conjoint membership criteria (C1)-(C5) define the family. Theorem 7.1 (NEW from SFM Q6 2026-05-08): the simultaneous closed sub-magmas of $T$, $B$, $S$ form a strict 8-element chain at sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$, identical to the (T, B) chain. Theorem 7.2: $\mathcal{C}$ is the unique non-trivial 4-element subset jointly closed under all three substrates. Conjecture 8.1 (bimodal $\alpha_A$ gap) and Conjecture 2.1 ($\sigma^2$-triadic three-BHML) stated as OPEN.
 
 ## §2 — Verification script
 
@@ -25,11 +25,13 @@
 
 Six checks corresponding to:
 1. Forcing argument enumeration (Theorem 1.2): reconstruct $T$, $B$, $S$ from substrate-specific data; cell-by-cell match.
-2. Three-substrate joint-closure chain (Theorem 4.1): exhaustive enumeration over 1023 subsets; T+B+S 8-shell chain identical to T+B chain.
-3. 4-core 3-substrate closure (Theorem 4.2): direct check $T(\mathcal{C} \times \mathcal{C}), B(\mathcal{C} \times \mathcal{C}), S(\mathcal{C} \times \mathcal{C}) \subseteq \mathcal{C}$.
+2. Three-substrate joint-closure chain (Theorem 7.1): exhaustive enumeration over 1023 subsets; T+B+S 8-shell chain identical to T+B chain.
+3. 4-core 3-substrate closure (Theorem 7.2): direct check $T(\mathcal{C} \times \mathcal{C}), B(\mathcal{C} \times \mathcal{C}), S(\mathcal{C} \times \mathcal{C}) \subseteq \mathcal{C}$.
 4. 4-core preservation (C3) for each substrate.
 5. Non-associativity index (C4) for each substrate; bimodal distribution.
 6. Commutativity (C2) for each substrate.
+
+A companion script `manuscript/verify_J54_chain_and_attractor.py` runs three further checks (independent re-run of the joint-closure chain; closed-form attractor at 50-digit `mpmath` precision verifying Theorem 5.1 with residual $\le 10^{-30}$; A1-A9 forcing axioms cell-level audit on $T$, $B$, $S$).
 
 ```bash
 PYTHONIOENCODING=utf-8 python3 manuscript/verification/foundation_verification.py
@@ -57,7 +59,7 @@ See `cover_letter.md` in this folder. Updated 2026-05-08 to reflect the rewritte
 3. **PROVED the §1.2 forcing theorem in J54 itself** (per referee M3 — broke the [J33] citation cycle). The proof is a constructive cell-fixing argument; the companion verification script `foundation_verification.py` Check 1 reproduces $T$ from its substrate-data tuple cell-by-cell.
 4. **RENAMED "Brayden's hypothesis" to "Conjecture 2.1 (Sanders)"** (per referee M7 + Brayden checklist). Atlas reference dropped.
 5. **ADOPTED FAMILY_STRUCTURE_v1.md framing as Path B** (5 conjoint membership criteria + 4-core-as-center + 6 boundaries + bimodal $\alpha_A$ gap conjecture). The paper now reads as a research paper in the Drápal-Wanless 2021 lineage rather than a coordinator-document.
-6. **NEW THEOREM (per SFM Q6 2026-05-08): Theorem 4.1.** The simultaneous closed sub-magmas of $T$, $B$, $S$ form an 8-element chain at sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$ identical to the (T, B) chain. This is the foundation paper's bridge to J32 + J24 (Theorem 4.3).
+6. **NEW THEOREM (per SFM Q6 2026-05-08): Theorem 7.1.** The simultaneous closed sub-magmas of $T$, $B$, $S$ form an 8-element chain at sizes $\{1, 4, 5, 6, 7, 8, 9, 10\}$ identical to the (T, B) chain. This is the foundation paper's bridge to J32 + J24 (Theorem 7.3).
 7. **STRIPPED "post chat-Claude" attributions** (none remained, but checked).
 8. **RETITLED:** "Forcing Axioms and the Family of Commutative Non-Associative Magmas on $\mathbb{Z}/10\mathbb{Z}$ Preserving a Designated 4-Core" (per SAVE_PLAN_J54.md §6).
 
@@ -80,10 +82,10 @@ This paper is the foundation paper for the TIG family of finite commutative non-
 
 ### PROVEN / COMPUTED / STRUCTURAL RHYME / OPEN
 
-- **PROVEN:** Theorem 1.2 (forcing); Theorem 4.1 (3-substrate chain); Theorem 4.2 (4-core 3-substrate closure); Theorem 4.3 (bridge to J32 + J24); Proposition 3.5 (T, B, S satisfy all five membership criteria).
-- **COMPUTED:** `foundation_verification.py` six green-light checks at machine precision; ~3-second runtime. The companion paper [J35] reproduces additional structural facts (normalizer identity; closed-form attractor; Galois D_4; universality; partial α uniqueness) via its own verification script.
+- **PROVEN:** Theorem 1.2 (forcing); Theorem 5.1 (closed-form 4-core attractor); Theorem 7.1 (3-substrate chain); Theorem 7.2 (4-core 3-substrate closure); Theorem 7.3 (bridge to J32 + J24); Proposition 4.5 (T, B, S satisfy all five membership criteria).
+- **COMPUTED:** `verification/foundation_verification.py` six green-light checks + `verify_J54_chain_and_attractor.py` three green-light checks at machine precision; under 5-second total runtime. The companion paper [J35] reproduces additional structural facts (normalizer identity; closed-form attractor; Galois D_4; universality; partial α uniqueness) via its own verification script.
 - **STRUCTURAL RHYME:** *"$\mathcal{C}$ is to the TIG family as the unit circle is to U(1)"* — heuristic alignment with the framework's broader Galois-theoretic results (LMFDB 4.2.10224.1, $\mathbb{Q}(\sqrt{3})$ subfield). The five converging structural facts (joint closure 3-substrate; symbolic normalizer identity; Galois $D_4$ closed-form; F_p universality; universal attractor on chain shells) are the substantive content; the U(1)-rhyme is the heuristic.
-- **OPEN:** Conjecture 2.1 — $\sigma^2$-triadic three-BHML hypothesis. Conjecture 4.4 — bimodal $\alpha_A$ gap (no commutative magma on $\mathbb{Z}/10\mathbb{Z}$ preserving the 4-core has $\alpha_A \in (0.5, 0.80)$).
+- **OPEN:** Conjecture 2.1 — $\sigma^2$-triadic three-BHML hypothesis. Conjecture 8.1 — bimodal $\alpha_A$ gap (no commutative magma on $\mathbb{Z}/10\mathbb{Z}$ preserving the 4-core has $\alpha_A \in (0.5, 0.80)$).
 
 ### Lens-ownership paragraph
 
@@ -106,7 +108,7 @@ This paper is the foundation paper for the TIG family of finite commutative non-
 
 - [x] Manuscript .md finalized (rewritten 2026-05-08)
 - [x] Verification script green (6/6 PASS at machine precision; verified 2026-05-08)
-- [x] Tier-classified central claim explicit (Theorem 1.2 forcing; Theorem 4.1 chain; Theorem 4.2 4-core 3-substrate)
+- [x] Tier-classified central claim explicit (Theorem 1.2 forcing; Theorem 7.1 chain; Theorem 7.2 4-core 3-substrate)
 - [x] Lens-scope annotation (substrate Z/10Z + designated 4-core)
 - [x] Cover letter finalized
 - [x] Dependencies → cite each J-companion as "submitted to [venue]"

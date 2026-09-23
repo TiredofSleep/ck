@@ -1,9 +1,45 @@
 # SAVE_PLAN_J29 — so(8) = D₄ from TSML_SYM Antisymmetrized Closure
 
-**Date:** 2026-05-07
+**Date:** 2026-05-07 (initial); 2026-05-12 referee-eyes HOLD logged below
 **Verdict being addressed:** Journal of Algebra fresh-eyes — MAJOR REVISIONS. F = {1,2,3,4,6,8} flow-index choice ad hoc; load-bearing "other natural choices yield the same closure" UNSUBSTANTIATED. §§5–7 (Jordan/Stanley-Reisner/binomial-ideal) are tangentially related and dilute the main result. Numerical-only verification (no exact arithmetic). TIG framing excessive for J Algebra readers.
 **Save mode:** Brayden directive 2026-05-07 — find a reason to keep and fix every paper.
-**Outcome:** SAVABLE. The core identification g ≅ so(8) is *correct* per the referee, the diagnostic methodology is sound, and the hooks needed to substantiate the F-choice already exist in `stage4_correct_closure.py` (the script enumerates several alternate generator sets). The save path is mostly editorial: tighten to the so(8) identification alone, promote the alternate-set survey from script-output to in-text Lemma, and split off §§5–7 as separate papers.
+**Outcome:** SAVABLE in principle (so(8) identification at dim 28 is correct); but the 2026-05-07 rewrite **OVER-DELIVERED IN THE MANUSCRIPT WITHOUT UPDATING THE SCRIPTS**. See §7 HOLD log below.
+
+---
+
+## §7 — REFEREE HOLD 2026-05-12
+
+Independent re-verification by referee-pass tool (numpy float-only re-run of the existing scripts, plus a separate brute-force enumeration of F-minus-single-index dimensions and a minimum-subset search over $\Omega \setminus \{0,7\}$):
+
+**The current manuscript and the current scripts do NOT match.**
+
+(1) **Lemma 2.5 dimension drops are wrong as stated.** Manuscript §2.5 claims:
+> *removing 1 → dim 21; removing 2 → dim 21; removing 3 → dim 15; removing 4 → dim 28; removing 6 → dim 21; removing 8 → dim 28.*
+
+Actual brute-force closure (numpy float, tol $10^{-8}$, same script as `stage4_correct_closure.py`):
+- F minus 1: dim 28 (manuscript says 21)
+- F minus 2: dim 21 (matches)
+- F minus 3: dim 28 (manuscript says 15)
+- F minus 4: dim 28 (matches)
+- F minus 6: dim 28 (manuscript says 21)
+- F minus 8: dim 28 (matches)
+
+Only 3 of 6 claimed drops match. The "F is the minimal generating set" claim is also false: a brute search over all subsets of $\Omega \setminus \{0,7\}$ shows the smallest subset whose antisymmetrizations close to so(8) has **size 3** (e.g., $\{1, 2, 4\}$), not size 6. The "removing any single index from F drops the closure dimension below 28" wording in the abstract is therefore false. **The canonicity argument for F as the 6-element generating set has to be replaced or rewritten honestly.**
+
+(2) **Exact-arithmetic claim is not implemented.** Manuscript §3 opening declares "All computations use exact arithmetic via SymPy" and §1.1 claims "Killing-form eigenvalues integer multiples of 12 (exact)." Actual `stage5_so8.py`: pure numpy float; last 5 eigenvalues = $[-1.642, -1.509, -0.869, -0.533, -0.004]$. The −0.004 small eigenvalue **flagged in the SAVE_PLAN §2(c) as needing resolution** is still in the script output. The SymPy rewrite scoped in SAVE_PLAN was never done.
+
+(3) **"Full 21,952-equation enumeration" claim is false.** Manuscript §3.4 (Lemma 3.4) claims "Full enumeration in `stage7_disambiguate.py` (no sampling): all 21,952 = 28³ triples." The script (`stage7_disambiguate.py` lines 137–138) caps at `tested > 3000` and reports constraint matrix shape `(3010, 406)`. The nullity-1 conclusion is correct, but the enumeration is sampled, not exhaustive.
+
+(4) **Cartan rank D5 claim is false in the current scripts.** Manuscript §3.5 (Lemma 3.6) claims rk(g) = 4 verified by greedy-Cartan in `stage5_so8.py` plus an explicit 4-element abelian subspace $\{J_1, J_2, J_3, J_4\}$. Actual `stage5_so8.py` greedy-Cartan output: rank 1 (text: "Cartan subalgebra rank (greedy): 1; rank of so(8) = 4 (mismatch)"). No exact construction of $J_1, \ldots, J_4$ in the script. The §3.5 lemma is currently unverified.
+
+### Required before re-submitting:
+
+- Rewrite `stage4_correct_closure.py` to enumerate **all** singleton removals from F and report the actual dim drops. Update Lemma 2.5 wording to match. Note: F is *not* minimal — the smallest so(8)-generating subset has size 3 — so the canonicity argument needs reframing (e.g., "F is the canonical orbit-structured choice from $\Omega \setminus \{0, 5, 7, 9\}$" or "smallest σ-stable subset" or similar). Honest framing only.
+- Rewrite all five diagnostics in SymPy or exact-rational integer arithmetic (as SAVE_PLAN §2(c) specified). Replace `stage5_so8.py` and `stage7_disambiguate.py` with `verify_J29_so8.py` (single file, all five Lemmas verified at exact-rational or integer precision).
+- Drop the "tested > 3000" cap from the simplicity test; reach the full 21,952 row count or use a smaller exhaustive enumeration via symmetry reduction.
+- Construct an explicit 4-dim abelian subspace of g (in the closure-algorithm basis) and show the four elements pairwise commute exactly. If they can't be constructed honestly, drop D5 and rely on D1+D2+D3+D4 + Cartan classification (dim 28 + compact + simple ⇒ so(8) uniquely; rank is then a corollary).
+
+**Status: HOLD until verify script rewrite. Manuscript needs §2.5, §3, §3.4, §3.5 honesty pass.**
 
 ---
 

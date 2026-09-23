@@ -4,7 +4,7 @@
 
 **From:**
 - B.R. Sanders (corresponding), 7Site LLC, Hot Springs, AR — brayden@7site.co
-- B. Mayes, Independent Researcher
+- M. Gish, Independent Researcher
 
 **Date:** 2026-09-10 (rewritten 2026-05-07 per Save Plan J53)
 

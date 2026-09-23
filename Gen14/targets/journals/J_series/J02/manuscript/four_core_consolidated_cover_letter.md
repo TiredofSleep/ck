@@ -48,9 +48,10 @@ All scripts are archived in the shared Zenodo deposit at DOI 10.5281/zenodo.1885
 
 This paper is the structural companion to:
 
-- "Non-Associativity Decay in Binary Composition Tables over $\mathbb{Z}/N\mathbb{Z}$" (B. R. Sanders, M. Gish; submitted to JCT-A) — establishes the operator-substrate composition family $(\text{CL}_N, B_N)$ and the rate theorem $\sigma(N) < 2/N$ as $N \to \infty$ over squarefree $N$.
+- "Non-Associativity Decay in Binary Composition Tables over $\mathbb{Z}/N\mathbb{Z}$" (B. R. Sanders, M. Gish; submitted to *J. Combin. Theory Ser. A*) — establishes the operator-substrate composition family $(\text{CL}_N, B_N)$ and the rate theorem $\sigma(N) < 2/N$ as $N \to \infty$ over squarefree $N$.
+- "Forcing Axioms and the Family of Commutative Non-Associative Magmas on $\mathbb{Z}/10\mathbb{Z}$ Preserving a Designated 4-Core" (B. R. Sanders, M. Gish; submitted to *Algebraic Combinatorics*) — establishes the 9-axiom forcing theorem and the three-substrate $(T, B, S)$ chain. The present paper studies the two-operation pair $(T, B)$ in depth (per-coordinate fuse polynomials, Galois $D_4$ quartic, Stern–Brocot PSLQ scan); the companion treats the larger family-of-magmas framing and the three-substrate joint closure, citing the present paper's closed-form attractor and Galois results as proved here.
 
-The present paper does not depend on the σ-rate companion's results; cross-references are provided for readers interested in the broader operator-substrate program. Both papers share the Zenodo deposit DOI 10.5281/zenodo.18852047.
+The present paper does not depend on either companion's results; cross-references are provided for readers interested in the broader algebraic-combinatorial program. All three papers share the Zenodo deposit DOI 10.5281/zenodo.18852047.
 
 ## Suggested reviewers
 

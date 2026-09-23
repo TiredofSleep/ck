@@ -2,6 +2,12 @@
 cl_forcing.py
 =============
 
+License: CC-BY-4.0 (submission-bundled script for Algebraic Combinatorics
+journal compatibility; umbrella project is 7SiTe Public Sovereignty v2.1
+at the repository level).
+
+Authors: B.R. Sanders, M. Gish (2026).
+
 Verifies the J25 manuscript's main claims:
 
   1. CL_TSML is a 10x10 matrix with the partition:

@@ -8,7 +8,7 @@
 
 **Date:** [DATE OF SUBMISSION]
 
-**Manuscript title:** *Decomposition of the Lens-Pair Commutator [TSML, BHML] under $D_4$ on $\mathbb{Z}/10\mathbb{Z}$: Path A (~83%) Doubly-Invariant Gauge Sector + Path B (~16%) sigma_outer-Broken Higgs Sector + ~1% Interaction*
+**Manuscript title:** *Wedderburn $D_4$-Isotypic Decomposition of the Lens-Pair Commutator $[\mathrm{TSML}, \mathrm{BHML}]$ on $\mathbb{Z}/10\mathbb{Z}$: an Exact-Rational Identification of a Doubly-Invariant $\mathfrak{su}(4) \oplus \mathfrak{u}(1)$ Subalgebra of $\mathfrak{so}(10)$ and a 9-Vector inside the $\mathbf{54}$ with $\|v\|^2 = 13/4$*
 
 ---
 
@@ -36,6 +36,7 @@ The trivial isotypic (Path A) is the 16-dimensional doubly-invariant subalgebra 
 
 - **J29** (Sanders + Gish 2026, *J. Algebra*) — *so(8) = $D_4$ from the TSML_SYM Antisymmetrized Closure*. The single-magma precursor.
 - **J30** (Sanders + Gish 2026, *Israel J. Math*) — *so(10) = $D_5$ from Joint TSML_SYM + BHML Closure*. The starting algebra for the present paper.
+- **J35** (Sanders + Gish 2026, *J. Algebra*) — *Joint Closure, a Universal Attractor, and an Algebraic Mixing Point for a Pair of Binary Operations on $\mathbb{Z}/10\mathbb{Z}$*. J35 is the broad fusion-closure paper (the 8-shell joint-closure chain, the 4-core, the closed-form attractor $h/\beta = 1+\sqrt{3}$ with Galois $D_4$). *The present paper J31 is the focused Wedderburn-decomposition companion*: J35 addresses what the two magmas close on; J31 addresses how their commutator (the non-closure residual) decomposes under the $D_4$ symmetry of the substrate. The two are non-overlapping in content; J31 cites J35 only for the chain-stability argument behind Conjecture 7.2.
 
 ## Note on prior version
 

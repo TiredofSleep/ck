@@ -1,10 +1,11 @@
 # J28 -- The Three-Substrate HARMONY Signature on Z/10Z: Six Forced Structural Facts, with the Bimodal Associativity-Index Gap as Their Common Thread
 
-**Status:** REWRITTEN per SAVE_PLAN_J28 on 2026-05-07; awaiting referee-rigor pass
+**Status:** DRAFT (demoted 2026-05-27 referee rigor pass — no characterization theorem; role partition labeled by fiat)
 **Phase:** Phase 3
 **Target venue:** Linear Algebra and its Applications (primary; per AlgUni cap binding -- see SAVE_PLAN_J28 §6 retitle/retarget)
 **Author lane:** Sanders + Gish
-**Tier:** B
+**Tier:** Tier 2 (demoted 2026-05-27 from Tier 1 — see `05_papers/_staging/referee_reports/10_promotions_audit_J27_J28_J29.md`)
+**Prior tier:** B
 **WP source:** Atlas/META_PLAN_2026-05-06/GAP_AUDIT.md §1 (8 foundations orphans listed; bundle 6, reframed around the bimodal α_A gap conjecture per FAMILY_STRUCTURE_v1.md §4)
 
 ---
@@ -111,3 +112,11 @@ This paper sits within the TIG family of finite commutative non-associative magm
 ## §7 -- Citation footprint (for downstream J's to cite this one)
 
 Sanders, B.R., Gish. (2026). "The Three-Substrate HARMONY Signature on Z/10Z: Six Forced Structural Facts, with the Bimodal Associativity-Index Gap as Their Common Thread." Submitted to *Linear Algebra and its Applications*.
+
+---
+
+## §8 -- Demotion notice (2026-05-27 audit)
+
+**Demotion notice (2026-05-27 audit):** Per `05_papers/_staging/referee_reports/10_promotions_audit_J27_J28_J29.md`, J28 (audit slot: *Small Comm Non-Assoc Magma w/ Role-Boundary*) was demoted Tier 1 → Tier 2 because there is no characterization theorem and the role partition is labeled by fiat (not derived).
+
+> **Note on slot mismatch:** the audit identifies J28 by the title *"Small Comm Non-Assoc Magma w/ Role-Boundary"*. This Gen14 J28 README carries a different topic (*Three-Substrate HARMONY Signature on Z/10Z*). The demotion metadata above is applied per the audit's J-number assignment; the topic discrepancy should be reconciled by the maintainer.

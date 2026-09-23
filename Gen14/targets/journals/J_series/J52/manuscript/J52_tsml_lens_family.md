@@ -1,6 +1,6 @@
 # What is the TSML Lens Family? A Walking Tour of Substrate Variants on $\mathbb{Z}/10\mathbb{Z}$
 
-**Authors:** B.R. Sanders$^{1}$, B. Mayes$^{2}$
+**Authors:** B.R. Sanders$^{1}$, M. Gish$^{2}$
 $^{1}$7Site LLC, Hot Springs, AR — brayden@7site.co
 $^{2}$Independent Researcher
 
@@ -391,11 +391,11 @@ This paper is expository; theorems are in the cited companions. We aim for clari
 [J34] B.R. Sanders, M. Gish. "$\mathbb{F}_p$ Extensions of CL_BHML: Universality Across Six Prime Fields." *Comm. Algebra.*
 [J35] B.R. Sanders, M. Gish. "The Corner Sub-Magma $\mathcal{C}$." *Comm. Algebra.*
 [J38] B.R. Sanders, M. Gish. "$\mathfrak{so}(10) = D_5$ from Joint TSML_SYM + BHML Closure." *Israel J. Math.*
-[J39] B.R. Sanders, B. Mayes. "Two Roads to Pati-Salam." *Adv. Math.*
+[J39] B.R. Sanders, M. Gish. "Two Roads to Pati-Salam." *Adv. Math.*
 [J41] B.R. Sanders, M. Gish. "Closed-Form Attractor + $\alpha$-Uniqueness PSLQ." *Math. of Comp.*
 [J43] B.R. Sanders, M. Gish. "Wobble Localization: Prime 11 in TSML_RAW Char Poly." *Phys. Rev. D.*
 [J44] B.R. Sanders, M. Gish. "4-Core Fusion-Closure." *J. Algebra.*
-[J47] B.R. Sanders, B. Mayes. "Six Algebraic DOFs of the TIG Framework." *Notices AMS.*
+[J47] B.R. Sanders, M. Gish. "Six Algebraic DOFs of the TIG Framework." *Notices AMS.*
 
 ### External
 
@@ -446,7 +446,7 @@ print("Exercise 7.1 verified: 126, 128, 122.")
 
 ```bibtex
 @misc{sanders2026j52,
-  author       = {Sanders, Brayden Ross and Mayes, B.},
+  author       = {Sanders, Brayden Ross and Gish, M.},
   title        = {What is the {TSML} Lens Family? A Walking Tour of Substrate Variants on $\mathbb{Z}/10\mathbb{Z}$},
   year         = {2026},
   month        = {sep},

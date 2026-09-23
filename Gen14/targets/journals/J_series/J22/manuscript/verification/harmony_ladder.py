@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-J22 / HARMONY ladder — wrapper script that runs all five
+J22 / HARMONY ladder -- wrapper script that runs all five
 verification snippets and prints a 5x3 (rung / expected / actual)
 verification table.
 
@@ -11,6 +11,9 @@ The five rungs:
   - 71 (cell-disagreement count between TSML T and BHML B)
   - 70 (Yang-Mills 8x8 determinant)
   - disc(LMFDB 4.2.10224.1) = -40896 = -2^6 * 3^2 * 71  (71 prime in disc)
+
+The TSML and BHML matrices below are the canonical tables exported by
+Gen13/targets/foundations/lenses.py at integer precision.
 
 Usage:
     PYTHONIOENCODING=utf-8 python harmony_ladder.py
@@ -26,7 +29,7 @@ import numpy as np
 import sympy
 
 
-# Canonical TSML composition table.
+# Canonical TSML composition table (Gen13/targets/foundations/lenses.py).
 T = np.array([
     [0, 0, 0, 0, 0, 0, 0, 7, 0, 0],
     [0, 7, 3, 7, 7, 7, 7, 7, 7, 7],
@@ -37,21 +40,21 @@ T = np.array([
     [0, 7, 7, 7, 7, 7, 7, 7, 7, 7],
     [7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
     [0, 7, 7, 7, 8, 7, 7, 7, 7, 7],
-    [0, 7, 9, 7, 3, 7, 7, 7, 7, 7],
+    [0, 7, 9, 3, 7, 7, 7, 7, 7, 7],
 ])
 
-# Canonical BHML companion table.
+# Canonical BHML companion table (Gen13/targets/foundations/lenses.py).
 B = np.array([
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    [1, 7, 3, 7, 5, 6, 7, 8, 9, 0],
-    [2, 3, 7, 5, 6, 7, 8, 9, 0, 1],
-    [3, 7, 5, 7, 7, 8, 9, 0, 1, 7],
-    [4, 5, 6, 7, 7, 9, 0, 1, 2, 7],
-    [5, 6, 7, 8, 9, 7, 1, 2, 3, 4],
-    [6, 7, 8, 9, 0, 1, 7, 3, 4, 5],
-    [7, 8, 9, 0, 1, 2, 3, 7, 5, 6],
-    [8, 9, 0, 1, 2, 3, 4, 5, 7, 7],
-    [9, 0, 1, 7, 7, 4, 5, 6, 7, 7],
+    [1, 2, 3, 4, 5, 6, 7, 2, 6, 6],
+    [2, 3, 3, 4, 5, 6, 7, 3, 6, 6],
+    [3, 4, 4, 4, 5, 6, 7, 4, 6, 6],
+    [4, 5, 5, 5, 5, 6, 7, 5, 7, 7],
+    [5, 6, 6, 6, 6, 6, 7, 6, 7, 7],
+    [6, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+    [8, 6, 6, 6, 7, 7, 7, 9, 7, 8],
+    [9, 6, 6, 6, 7, 7, 7, 0, 8, 0],
 ])
 
 
@@ -96,7 +99,7 @@ def main():
         ("rung-C: det(B_YM) = C(8,4) = 70", 70, rung_70_ym_det()),
     ]
 
-    print("J22 / HARMONY ladder — verification table (5 x 3)")
+    print("J22 / HARMONY ladder -- verification table (5 x 3)")
     print("=" * 60)
     n_pass = 0
     for label, expected, actual in rungs:

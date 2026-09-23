@@ -5,27 +5,31 @@ Multiplicative-Orbit Partitions on Z/nZ" (Sanders, Gish, 2026).
 
 Verifies, by direct enumeration on small cases:
 
-  Theorem 1 (necessary condition for joint injectivity):
-    For squarefree n with omega(n) >= 2, every divisor d of n with
-    1 < d < n, every g in (Z/nZ)*: if joint(A_d, orb_g) is injective
-    on Z/nZ, then g_j != 1 mod p_j for every p_j | (n/d).
+  Examples 1, 2 (failure of the natural prime-action conjecture for
+                 joint(A_d, orb_g) on Z/nZ):
+    - (n, d, g) = (6, 3, 5): jointly injective, yet g = 5 satisfies
+      g mod 2 = 1 (the condition "g_j != 1 mod p_j for every
+      p_j | (n/d)" fails since n/d = 2).
+    - (n, d, g) = (6, 2, 5): not jointly injective, yet g = 5
+      satisfies g mod 3 = 2 != 1 (the condition holds; converse
+      direction fails).
 
-  Theorem 2 (sufficient condition via order-equality, on units):
+  Theorem 3.3 (Sufficient condition via order-equality, on units):
     If (i) g_j != 1 mod p_j for every p_j | (n/d) AND
        (ii) ord(g mod d) = ord(g mod n),
     then joint(A_d, orb_g) is injective on (Z/nZ)*.
 
-  Theorem 3 (M+M classification on units):
+  Theorem 4.1 (M+M classification on units):
     For squarefree n with omega(n) >= 2 and g, h in (Z/nZ)*:
     joint(orb_g, orb_h) is injective on (Z/nZ)*
     iff <g> intersect <h> = {1}.
 
-  Theorem 4 (SPEC + DYN):
+  Theorem 5.1 (SPEC + DYN):
     For squarefree n with omega(n) >= 2 and g in (Z/nZ)*:
     joint(pi_SPEC, orb_g) is injective on Z/nZ
     iff -1 is not in <g mod p> for every odd prime p | n.
 
-  Theorem 5 (no joint-injective pair for prime powers, non-identity g):
+  Theorem 6.1 (no joint-injective pair for prime powers, non-identity g):
     For n = p^r with r >= 2, every g != 1 in (Z/p^r Z)*, every
     1 <= a < r: joint(A_{p^a}, orb_g) is NOT injective on Z/p^r Z.
 
@@ -205,36 +209,49 @@ def joint_discrete_on(part1, part2, support):
 
 
 # ---------------------------------------------------------------------
-# Theorem 1: necessary condition
+# Examples 1, 2: confirm the natural prime-action conjecture fails in
+# both directions on the full ring Z/nZ.
 # ---------------------------------------------------------------------
-def verify_theorem_1_necessary():
+def verify_examples_falsifying_natural_conjecture():
     print("=" * 60)
-    print("Theorem 1: necessary direction for joint(A_d, orb_g)")
-    print("  Forall jointly-injective pairs: g_j != 1 mod p_j")
+    print("Examples 1, 2: natural prime-action conjecture fails in")
+    print("               both directions on Z/nZ")
     print("=" * 60)
-    sf_ns = [n for n in range(6, 80) if is_squarefree(n)
-             and len(prime_factors_sorted(n)) >= 2]
     fails = 0
-    n_checks = 0
-    for n in sf_ns:
-        for d in divisors(n):
-            if d == 1 or d == n:
-                continue
-            ad = additive_partition(d, n)
-            n_over_d = n // d
-            pf_n_over_d = prime_factors_sorted(n_over_d)
-            for g in units_mod(n):
-                n_checks += 1
-                cond_c = all(g % p != 1 for p in pf_n_over_d)
-                joint = joint_discrete_on(ad, orbit_partition(g, n), range(n))
-                # Check necessary direction: joint => cond_c
-                if joint and not cond_c:
-                    fails += 1
-                    if fails < 3:
-                        print(f"  FAIL n={n}, d={d}, g={g}: joint=True but cond_c=False")
-    print(f"  squarefree n tested: {len(sf_ns)}")
-    print(f"  total (n, d, g) cases: {n_checks}")
-    print(f"  necessity violations:  {fails}")
+
+    # Example 1: (n, d, g) = (6, 3, 5).
+    # n/d = 2; g mod 2 = 1 (condition fails); joint should be injective.
+    n, d, g = 6, 3, 5
+    ad = additive_partition(d, n)
+    op = orbit_partition(g, n)
+    pf_n_over_d = prime_factors_sorted(n // d)
+    cond_c = all(g % p != 1 for p in pf_n_over_d)
+    joint = joint_discrete_on(ad, op, range(n))
+    expected_cond = False  # g mod 2 == 1
+    expected_joint = True
+    print(f"  Ex.1  (n,d,g)=({n},{d},{g}):  cond_c={cond_c} (want {expected_cond}),"
+          f"  joint={joint} (want {expected_joint})")
+    if cond_c != expected_cond or joint != expected_joint:
+        fails += 1
+        print(f"    FAIL: did not match expected falsifying behavior")
+
+    # Example 2: (n, d, g) = (6, 2, 5).
+    # n/d = 3; g mod 3 = 2 != 1 (condition holds); joint should NOT be
+    # injective (orbit {1,5} lies inside A_2-fiber {1,3,5}).
+    n, d, g = 6, 2, 5
+    ad = additive_partition(d, n)
+    op = orbit_partition(g, n)
+    pf_n_over_d = prime_factors_sorted(n // d)
+    cond_c = all(g % p != 1 for p in pf_n_over_d)
+    joint = joint_discrete_on(ad, op, range(n))
+    expected_cond = True   # g mod 3 != 1
+    expected_joint = False
+    print(f"  Ex.2  (n,d,g)=({n},{d},{g}):  cond_c={cond_c} (want {expected_cond}),"
+          f"  joint={joint} (want {expected_joint})")
+    if cond_c != expected_cond or joint != expected_joint:
+        fails += 1
+        print(f"    FAIL: did not match expected falsifying behavior")
+
     print(f"  result: {'PASS' if fails == 0 else 'FAIL'}")
     print()
     return fails == 0
@@ -392,7 +409,7 @@ if __name__ == "__main__":
     print()
 
     results = [
-        verify_theorem_1_necessary(),
+        verify_examples_falsifying_natural_conjecture(),
         verify_theorem_2_sufficient(),
         verify_theorem_3_mm_units(),
         verify_theorem_4_specdyn(),

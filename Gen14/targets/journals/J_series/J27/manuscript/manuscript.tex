@@ -67,11 +67,11 @@
  in the TSML Composition Lattice, \\
  and Its Contrast with the Joint $4$-Core $\{0, 7, 8, 9\}$}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{Brayden R.\ Sanders}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{M.\ Gish}
 \address{Independent Researcher, Hot Springs, Arkansas, USA}
 \email{monica.gish1992@gmail.com}
 
@@ -128,6 +128,71 @@ within the present paper.
 \maketitle
 
 \tableofcontents
+
+%==============================================================
+\section*{Lens and substrate}
+%==============================================================
+
+\emph{Lens and substrate.} This paper works on the finite ring
+$\Z/10\Z$ with two specific $10 \times 10$ multiplication tables on
+that ring, $\mathrm{CL}_\TSML$ and $\mathrm{CL}_\BHML$, as defined in
+the companion forcing paper \cite{SandersForcing}.  These two tables
+are not derived from first principles; they reflect a structural
+reading of $\Z/10\Z$ motivated by the $10$-operator decomposition of
+the residues and by observed dynamical attractor behavior of the
+convex-mixing iteration $F_\alpha = \alpha \widehat{T} + (1{-}\alpha)
+\widehat{B}$.  The theorems below are theorems on this specific
+substrate and on these specific tables.  Analogous theorems would
+require analogous tables on $\Z/N\Z$ for other $N$, or on $\F_p$ for
+other primes; whether other substrate-and-table choices give similarly
+rich downstream connections is open.
+
+\subsection*{Tier discipline.}
+Per the corpus convention, we classify the central claims of this
+paper into four epistemic tiers:
+
+\begin{itemize}
+\item \textbf{PROVED:} (a) $C = \{1, 3, 7, 9\}$ is $\mathrm{CL}_\TSML$-closed
+(Theorem~\ref{thm:closure}); (b) $C$ is \emph{not}
+$\mathrm{CL}_\BHML$-closed --- the $16$-cell image of
+$\mathrm{CL}_\BHML \restriction C \times C$ is $\{0, 2, 4, 6, 8\}$,
+disjoint from $C$ (Proposition~\ref{prop:bhml-fail}); (c) the joint
+$4$-core $\{0, 7, 8, 9\}$ is the unique $4$-element subset of $\Z/10\Z$
+closed under both $\mathrm{CL}_\TSML$ and $\mathrm{CL}_\BHML$, while
+$C$ is one of $78$ $\mathrm{CL}_\TSML$-closed $4$-subsets
+(Theorem~\ref{thm:two-cores-revised}); (d) the generator-selection
+result $g = 3$ from the elementary inequality $5 < g^3 \pmod{10}$
+(Theorem~\ref{thm:generator}).
+\item \textbf{COMPUTED:} the explicit $16$-cell sub-tables of
+$\mathrm{CL}_\TSML$ and $\mathrm{CL}_\BHML$ on $C \times C$, the cell
+distributions ($14$ cells of $7$ and $2$ cells of $3$ on the TSML side;
+$3$ of $0$, $3$ of $2$, $5$ of $4$, $4$ of $6$, $1$ of $8$ on the BHML
+side); the enumeration of $78$ TSML-closed $4$-subsets and the unique
+BHML-closed $4$-subset $\{0, 7, 8, 9\}$ (verified in
+\texttt{verification/4core\_verification.py}, runtime under three
+seconds).
+\item \textbf{STRUCTURAL RHYME:} the higher HARMONY-saturation rate
+$14/16 = 87.5\%$ on $C \times C$ relative to the global TSML rate
+$73/100 = 73\%$ \cite[D10]{SandersForcing} is cited as motivation for
+locating $C$ in the TSML lattice, not as a derivation of any further
+theorem.
+\item \textbf{HONEST NEGATIVE (retraction):} an earlier draft of this
+paper asserted that $C$ was \emph{lens-invariant} --- jointly closed
+under $\mathrm{CL}_\TSML$, $\mathrm{CL}_\BHML$, and the third lens
+$\mathrm{CL}_\mathrm{STD}$.  Proposition~\ref{prop:bhml-fail}
+disproves the BHML half of this claim; the joint-invariance assertion
+is retracted in the present revision.  This retraction is the
+substantive content of \S\ref{sec:vs4core}: it sharpens the joint
+$4$-core uniqueness result of \cite{SandersGishFourCore} by showing
+explicitly what extension was illegitimate, and contrasts the
+ring-theoretic multiplicative-unit subgroup $C$ with the joint
+$4$-core $\{0, 7, 8, 9\}$.
+\item \textbf{OPEN:} closure or non-closure of $C$ under the third
+canonical lens $\mathrm{CL}_\mathrm{STD}$ \cite{SandersGishThreeSubstrate};
+the natural follow-up question of whether the multiplicative-unit
+subgroup $(\Z/n\Z)^*$ is closed under any canonical TSML-analogue for
+$n \neq 10$.
+\end{itemize}
 
 %==============================================================
 \section{Introduction}
@@ -345,8 +410,8 @@ The image set is
 \{ \mathrm{CL}_\BHML[i, j] : i, j \in C \} = \{0, 2, 4, 6, 8\},
 \)
 which is disjoint from $C = \{1, 3, 7, 9\}$.  Specifically, the
-$16$-cell image distributes as: $4$ cells of $0$, $3$ cells of $2$,
-$5$ cells of $4$, $3$ cells of $6$, $1$ cell of $8$.
+$16$-cell image distributes as: $3$ cells of $0$, $3$ cells of $2$,
+$5$ cells of $4$, $4$ cells of $6$, $1$ cell of $8$ (total $16$).
 
 Hence $C$ is not BHML-closed: every product of two units (under the
 BHML composition) lies in the non-unit set $\{0, 2, 4, 6, 8\}$.
@@ -513,6 +578,23 @@ is in a different sense (e.g., closure under multiplication mod $10$
 or under a different substrate); the present paper does not pursue
 that direction.
 
+\subsection{Position in the wider small-magma literature.}
+The closest published neighbor in the literature on small finite
+commutative non-associative magma structures is the work of Drápal
+and Wanless \cite{DrapalWanless2021}, which constructs maximally
+nonassociative quasigroups (those with associativity index $\sigma = 1$)
+via quadratic orthomorphisms.  The substrate $\Z/10\Z$ with the
+tables $\mathrm{CL}_\TSML$ and $\mathrm{CL}_\BHML$ sits at the
+\emph{opposite} structural extremum: both tables exhibit substantial
+associativity (the $73$ HARMONY-cells of $\mathrm{CL}_\TSML$ form a
+large associative ``absorbing region'') and the substantive
+combinatorial content lies in the closure structure of small subsets
+(the present paper) and in the joint-closure chain of
+\cite{SandersGishFourCore}, not in non-associativity itself.  The two
+research directions share the domain (finite commutative
+non-associative algebraic structures of small order) but address
+opposite extrema.
+
 \subsection{Connection to product-gap analysis.}
 In \cite{SandersGishProductGap} the corner $C$ is one input to the
 analysis of product gaps in the TSML substrate: the
@@ -579,6 +661,12 @@ to the accompanying paper \cite{SandersTIG} J07).
 
 %==============================================================
 \begin{thebibliography}{99}
+
+\bibitem{DrapalWanless2021}
+A.~Drápal, I.~M.~Wanless,
+\emph{Maximally nonassociative quasigroups via quadratic orthomorphisms},
+\emph{Journal of Combinatorial Theory, Series A} \textbf{184} (2021)
+105510.
 
 \bibitem{IrelandRosen}
 K.~Ireland, M.~Rosen,

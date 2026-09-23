@@ -39,11 +39,11 @@
  Finite-Field 4-Algebra and Real Clifford Algebras $\Cl(2n)$, \\
  with a Refined-Cell Grading}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{Brayden R.\ Sanders}
 \address{7Site LLC, Hot Springs, Arkansas, USA}
 \email{brayden@7site.co}
 
-\author{Brayden R.\ Sanders \and M.\ Gish}
+\author{M.\ Gish}
 \address{Independent Researcher, Hot Springs, Arkansas, USA}
 \email{monica.gish1992@gmail.com}
 
@@ -94,6 +94,69 @@ implementation \texttt{tig\_dirac.tensor\_partition()} and the new
 \maketitle
 
 \tableofcontents
+
+%==============================================================
+\section*{\S 0. Lens, substrate, and claim tier}
+%==============================================================
+
+\noindent\textbf{Lens and substrate.}
+This paper works with a single 4-dimensional commutative non-associative
+algebra $V$ over $\F_5$ defined by an explicit multiplication table on
+the basis $\{e_0, e_2, e_3, e_4\}$; the table is tabulated in the
+companion paper \cite{SandersGishDiscreteDirac} and recalled in
+\S\ref{sec:V} below.  The two decompositions of $V$ used in this paper
+(``coarse'' two-summand and ``refined'' four-summand) are basis-dependent
+splittings of an $\F_5$-vector space.  The coarse decomposition is one of
+three possible $2{+}2$ partitions of the four basis lines; the choice
+made here is the one inherited from \cite{SandersGishDiscreteDirac}.
+The refined decomposition is the canonical $\F_5$-line decomposition
+determined by the named basis.  The closest published precedent for
+this kind of small finite commutative non-associative magma substrate
+is Dr\'apal--Wanless \cite{DrapalWanless2021}; they sit at the
+\emph{maximally non-associative} extremum of the same family, while the
+present $V$ sits at the structurally regular end (it has idempotents and
+a Grassmann annihilator).
+The output of this paper is two basis-level statements
+(Theorems~\ref{thm:total-dim}, \ref{thm:refined}); the lens-dependent
+choice of coarse pairing is recorded in Remark~\ref{rem:choice}.
+
+\medskip
+\noindent\textbf{Claim tier.}
+\begin{itemize}
+\item[\textbf{PROVED.}]
+Theorem~\ref{thm:total-dim} (total-dimension match
+$\dim_{\F_5} V^{\otimes n} = 4^n = 2^{2n} = \dim_\R \Cl(2n)$ for all
+$n \geq 0$) and Theorem~\ref{thm:refined} (refined-cell Hamming-weight
+distribution $\binom{2n}{k}$ matches the grade dimensions of $\Cl(2n)$).
+Proofs are elementary: the first is a dimension count, the second a
+binary-string popcount identity.
+\item[\textbf{COMPUTED.}]
+Propositions~\ref{prop:n5refined} and~\ref{prop:n5coarse} (the explicit
+weight distributions at $n = 5$) and the verification ladder for
+$n = 0, 1, 2, 3, 4, 5$ in the bundled script \texttt{verify\_J20.py}
+(six checks, $6/6$ PASS at machine precision, runtime $< 1$\,s,
+standard-library Python only). The closed-form $\binom{2n}{k}$ is
+cross-checked against direct enumeration over the $4^n$ structural-bit
+strings at $n = 0, \ldots, 5$.
+\item[\textbf{STRUCTURAL RHYME.}]
+The match between the coarse-cell weights $\binom{5}{k} =
+1, 5, 10, 10, 5, 1$ at $n=5$ and the dimensions of the $\mathrm{SU}(5)$
+one-generation $\mathbf{1} \oplus \bar{\mathbf{5}} \oplus \mathbf{10}$
+plus its conjugate.  This is recorded as a binomial-coefficient
+coincidence (Remark~\ref{rem:su5}), not as a representation-theoretic
+theorem; the present paper does not construct an $\mathrm{SU}(5)$
+action on $V^{\otimes 5}$.
+\item[\textbf{OPEN.}]
+Whether the refined-cell label-bijection
+$\{(a_i, b_i)\}_{i=1}^n \leftrightarrow$ basis multivectors of $\Cl(2n)$
+extends to a structure-preserving map of algebras over a common base
+ring (Question O1); whether $V^{\otimes n}$ admits a canonical
+$\mathrm{Spin}(2n)$ action under which the refined-cell weights become
+weight-space dimensions (O2); whether the $\Cl(n+8) \cong \Cl(n)
+\otimes \Cl(8)$ periodicity has non-trivial content beyond
+$4^{n+8} = 4^n \cdot 4^8$ on the $V^{\otimes n}$ side (O3). All open
+items are confined to \S\ref{sec:open}.
+\end{itemize}
 
 %==============================================================
 \section{Introduction}
@@ -346,27 +409,31 @@ work \cite{SandersGishDiscreteDirac}.
 \section{Verification}
 %==============================================================
 
-The accompanying scripts verify Theorems \ref{thm:total-dim} and
-\ref{thm:refined} and Propositions \ref{prop:n5refined},
-\ref{prop:n5coarse}:
+The accompanying self-contained script \texttt{verify\_J20.py}
+(standard-library Python only; CC-BY-4.0) carries six checks mapped
+one-to-one to the load-bearing claims of this paper:
 \begin{itemize}
-\item \texttt{test\_tig\_dirac.py} test T15: dimensional ladder for
-$n = 0, 1, 2, 3, 4, 5$.
-\item Test T13: $V^{\otimes n}$ has $2^n$ coarse cells for
-$n = 1, \ldots, 5$.
-\item Test T14: coarse-cell binomial $1 + 5 + 10 + 10 + 5 + 1 = 32$
-at $n = 5$ (Proposition \ref{prop:n5coarse}).
-\item Helper \texttt{tig\_dirac.refined\_cell\_distribution(n)}:
-returns the refined-cell weight distribution
-$\{k : \binom{2n}{k}\}$ for arbitrary $n$, used to verify
-Theorem \ref{thm:refined} for $n = 0, \ldots, 5$.
-\item \texttt{tig\_dirac.tensor\_partition()}: enumerates the
-$2^n$ coarse cells.
+\item[C1.] Total-dimension match $\dim_{\F_5} V^{\otimes n} =
+4^n = 2^{2n} = \dim_\R \Cl(2n)$ for $n = 0, 1, 2, 3, 4, 5$
+(Theorem~\ref{thm:total-dim}).
+\item[C2.] Coarse-cell count: $V^{\otimes n}$ has exactly $2^n$ coarse
+cells for $n = 1, \ldots, 5$.
+\item[C3.] Coarse-cell binomial at $n = 5$:
+$1 + 5 + 10 + 10 + 5 + 1 = 32$ (Proposition~\ref{prop:n5coarse}).
+\item[C4.] Refined-cell total $= 4^n$ for $n = 0, \ldots, 5$.
+\item[C5.] Refined-cell distribution equals Cl$(2n)$ grade dimensions
+$\binom{2n}{k}$, cross-checked closed-form vs.\ direct enumeration
+over all $4^n$ structural-bit strings, for $n = 0, \ldots, 5$
+(Theorem~\ref{thm:refined}).
+\item[C6.] Explicit $n = 5$ refined distribution
+$1, 10, 45, 120, 210, 252, 210, 120, 45, 10, 1$ summing to
+$1024 = 4^5$ (Proposition~\ref{prop:n5refined}).
 \end{itemize}
-
-All checks pass deterministically in $<1$ second on standard
-hardware. The reference Python library \texttt{tig\_dirac.py} is
-deposited at the public repository:
+All six checks PASS deterministically in $<1$ second on standard
+hardware. The accompanying reference library
+\texttt{tig\_dirac.py}\,---\,used in the broader framework but
+\emph{not} needed for verification of this paper\,---\,is deposited at
+the public repository
 \url{https://github.com/TiredofSleep/ck/tree/tig-synthesis/Gen13/targets/ck/brain/dirac/tig_dirac.py}.
 
 %==============================================================
@@ -424,6 +491,10 @@ refined-cell formulation directly addresses that mismatch.
 \bibitem{HesteneSobczyk1984} D.~Hestenes, G.~Sobczyk,
 \emph{Clifford Algebra to Geometric Calculus},
 D.~Reidel Publishing Co., 1984.
+
+\bibitem{DrapalWanless2021} A.~Dr\'apal, I.~M.~Wanless,
+\emph{Maximally nonassociative quasigroups},
+J.~Combin.~Theory Ser.~A \textbf{184} (2021), 105510.
 
 \bibitem{GeorgiGlashow1974} H.~Georgi, S.~L.~Glashow,
 \emph{Unity of all elementary-particle forces},

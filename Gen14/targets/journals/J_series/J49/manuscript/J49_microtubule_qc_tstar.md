@@ -1,6 +1,6 @@
 # Microtubule terahertz coherence quality $Q_c \to 5/7$: a pre-registered prediction from finite algebraic combinatorics
 
-**Authors:** B.R. Sanders$^{1}$, B. Mayes$^{2}$
+**Authors:** B.R. Sanders$^{1}$, M. Gish$^{2}$
 $^{1}$7Site LLC, Hot Springs, AR — brayden@7site.co
 $^{2}$Independent Researcher
 
@@ -327,7 +327,7 @@ print(f"T* * Q_max = {(5/7) * Q_max:.3f}")
 
 ```bibtex
 @misc{sanders2026j49,
-  author       = {Sanders, Brayden Ross and Mayes, B.},
+  author       = {Sanders, Brayden Ross and Gish, M.},
   title        = {Microtubule terahertz coherence quality $Q_c \to 5/7$: a pre-registered prediction from finite algebraic combinatorics},
   year         = {2026},
   month        = {sep},

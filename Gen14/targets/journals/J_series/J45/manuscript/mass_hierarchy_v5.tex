@@ -11,13 +11,10 @@
 %%%         author list harmonized to Sanders + Gish, retitle.)
 %%%
 %%% Verification primitive (machine-checkable; see README §6):
-%%%   from tig_dirac import predict_yukawa, LAMBDA_FN, Y_T_ANCHOR
-%%%   assert LAMBDA_FN == 10 / 49
-%%%   assert Y_T_ANCHOR == 0.93
-%%%   r = predict_yukawa('up', 3); assert r['y_predicted'] == 0.93
-%%%   r = predict_yukawa('lepton', 1)
-%%%   assert abs(r['y_predicted'] - 0.93*(10/49)**9) < 1e-12
-%%% Module path:
+%%%   python verify_J45_yukawa.py     # 6/6 PASS at machine precision
+%%% The script is self-contained (stdlib + mpmath cross-check) and
+%%% inlines the relevant logic of tig_dirac.predict_yukawa() for
+%%% referee portability.  Production module:
 %%%   Gen13/targets/ck/brain/dirac/tig_dirac.py
 %%% ============================================================
 
@@ -585,25 +582,26 @@ substrate scale) is the next-Sprint companion paper.
 \section{Verification}\label{sec:verify}
 %==============================================================
 
-\paragraph{Single-line primitive.}
-The numerical content of Table~\ref{tab:fit} reduces to the
-single assertion
+\paragraph{Self-contained referee script.}
+The numerical content of Table~\ref{tab:fit} reduces to six
+machine-precision assertions: $\lambda = 10/49$, $y_t = 0.93$,
+the top-quark anchor at $n=0$, the electron at $n=9$ giving
+$0.93\cdot(10/49)^{9}$, the full nine-row hierarchy ladder, and
+the FN-power table (\S\ref{sec:powers}, Table~\ref{tab:powers}).
+The script
 \begin{verbatim}
-    from tig_dirac import predict_yukawa, LAMBDA_FN, Y_T_ANCHOR
-    assert LAMBDA_FN == 10 / 49
-    assert Y_T_ANCHOR == 0.93
-    r = predict_yukawa('up', 3)
-    assert r['y_predicted'] == 0.93                 # y_t anchor
-    r = predict_yukawa('lepton', 1)
-    assert abs(r['y_predicted']
-               - 0.93 * (10 / 49) ** 9) < 1e-12       # y_e at FN power 9
+    python manuscript/verify_J45_yukawa.py
 \end{verbatim}
-which executes in milliseconds on the canonical
-\texttt{tig\_dirac} module at
-\texttt{Gen13/targets/ck/brain/dirac/tig\_dirac.py}. The
-companion call
-\texttt{tig\_dirac.yukawa\_table\_full()} returns
-Table~\ref{tab:fit} programmatically.
+runs all six checks in well under one second using stdlib only,
+with an \texttt{mpmath} 50-digit cross-check for Check~4. The
+script is self-contained for referee portability (it inlines
+the relevant logic of \texttt{predict\_yukawa} from the
+production module
+\texttt{Gen13/targets/ck/brain/dirac/tig\_dirac.py}, which is
+shared with the dark-sector companion J44's
+\texttt{predict\_dark\_sector()}). The companion call
+\texttt{tig\_dirac.yukawa\_table\_full()} on the production
+module returns Table~\ref{tab:fit} programmatically.
 
 \paragraph{Tier classification.}
 The tier label of the present paper is

@@ -1,10 +1,11 @@
 # J29 -- so(8) = D_4 from the Antisymmetrized Closure of a Canonical Z/10Z Magma
 
-**Status:** REWRITTEN per SAVE_PLAN_J29 on 2026-05-07; awaiting referee-rigor pass
-**Phase:** Phase 3
-**Target venue:** Journal of Algebra (primary)
+**Status:** DRAFT (demoted 2026-05-27 referee rigor pass — pedagogical Math-Magazine material; not research-journal calibre as currently written). Prior HOLD (2026-05-12) also stands: SymPy exact-arithmetic rewrite and the full 21,952-enumeration were claimed in the manuscript but never landed in the scripts, and Lemma 2.5's specific dimension drops are incorrect (3 of 6 mismatch; F is not the minimal so(8)-generating set — the minimum is size 3).
+**Phase:** Phase 3 (HOLD pending script rewrite + venue retarget)
+**Target venue:** *Mathematics Magazine* (retargeted 2026-05-27 — see §8 Demotion notice). Prior target: *Journal of Algebra*.
 **Author lane:** Sanders + Gish
-**Tier:** B
+**Tier:** Tier 2 (demoted 2026-05-27 from Tier 1 — see `05_papers/_staging/referee_reports/10_promotions_audit_J27_J28_J29.md`)
+**Prior tier:** B
 **WP source:** WP102
 **Lens scope:** TSML_SYM (annotated; uses upper-triangle authoritative symmetrization with 12.8% non-associative rate)
 
@@ -115,3 +116,11 @@ This paper sits within the TIG family of finite commutative non-associative magm
 ## §7 -- Citation footprint (for downstream J's to cite this one)
 
 Sanders, B.R., Gish. (2026). "so(8) = D_4 from the Antisymmetrized Closure of a Canonical Z/10Z Magma." Submitted to *Journal of Algebra*.
+
+---
+
+## §8 -- Demotion notice (2026-05-27 audit)
+
+**Demotion notice (2026-05-27 audit):** Per `05_papers/_staging/referee_reports/10_promotions_audit_J27_J28_J29.md`, J29 (audit slot: *Lo Shu D_4 Orbit Mod 3*) was demoted Tier 1 → Tier 2 and retargeted to *Mathematics Magazine* on the grounds that the content is pedagogical Math-Magazine material rather than primary research-journal output.
+
+> **Note on slot mismatch:** the audit identifies J29 by the title *"Lo Shu D_4 Orbit Mod 3"*. This Gen14 J29 README carries a different topic (*so(8) = D_4 from the Antisymmetrized Closure of a Canonical Z/10Z Magma*). The demotion metadata and venue retarget above are applied per the audit's J-number assignment; the topic discrepancy should be reconciled by the maintainer (note in particular that Gen14 J58 mentions a "Lo Shu D_4 orbit mod 3" paper, which may be the actual home of the audited content).

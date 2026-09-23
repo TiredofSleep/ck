@@ -12,6 +12,14 @@ $^{2}$Independent Researcher
 
 ---
 
+## Lens and substrate (lens-ownership)
+
+This paper works on $\mathbb{Z}/10\mathbb{Z}$ with the canonical $\sigma$-permutation $\sigma = (0)(3)(8)(9)(1\,7\,6\,5\,4\,2)$ and the $\beta$-exception character $\chi : \mathbb{Z}/10\mathbb{Z} \to \{-1, 0, +1\}$ defined in §4.1. Both choices reflect the structural reading of the substrate developed in the broader Q-series corpus; they are not derived from first principles. The theorems below are theorems on this specific (substrate, $\sigma$, $\chi$) triple; analogous results on another base ring would require choosing a corresponding triple. Whether other choices give similarly rich downstream connections is open.
+
+The closest published precedent for the neighborhood of small finite commutative non-associative structures is **Drápal \& Wanless (2021)**, who study the opposite extremum (maximally non-associative quasigroups) in the same domain; we cite them as such precedent.
+
+---
+
 ## Abstract
 
 We consolidate three spectral / combinatorial results in the **TIG framework**'s Q-series architecture on $\mathbb{Z}/10\mathbb{Z}$ into a single coherent paper. The results — labelled $G_6$, $G_7$, $G_8$ in the Q-series numbering and developed across separate working papers in the corpus — together describe the period structure, the gate-rate distribution, and the spectral coherence integral of the canonical $\sigma$-permutation $\sigma = (0)(3)(8)(9)(1\;7\;6\;5\;4\;2)$ on $\mathbb{Z}/10\mathbb{Z}$.
@@ -237,6 +245,13 @@ This paper does **not**:
 
 Each result is proved at the tier it claims; no upgrades.
 
+### Tier discipline (PROVED / COMPUTED / STRUCTURAL RHYME / OPEN)
+
+* **PROVED.** Theorem G6 ($\sigma^6 = \mathrm{id}$ on $\mathbb{Z}/10\mathbb{Z}$, via $(\alpha,\beta)$ polynomial form + $4 \equiv 0 \pmod 2$, $-5 \equiv 0 \pmod 5$); Theorem G7 (period bimodal $P(\tau{=}1)=2/5$, $P(\tau{=}6)=3/5$; mean $4$, variance $6$; forced from G6 + cycle enumeration); Theorem G8 (three-valued $G(s)$ with ZERO on $\{0,3,8,9\}$, LOW on $\{1,2,5,6\}$, HIGH on $\{4,7\}$); the $\sigma^3$-pairing on the 6-cycle ($|G(s)|^2 = |G(\sigma^3(s))|^2$ with anti-paired complex amplitudes).
+* **COMPUTED.** $G(s)$ values to machine precision in `manuscript/verify_G6_G7_G8.py`: $G_\mathrm{low} \approx 1.872$, $G_\mathrm{high} \approx 9.389$, ratio $\approx 5.0165$; $\nu_+$ discriminator (extremal $\nu_+ \in \{0, 2\}$ on $\{4, 7\}$ vs $\nu_+ = 1$ on $\{1, 2, 5, 6\}$); algebraic $\sigma^3$-pairing check ($G_\mathrm{cplx}(\sigma^3(s)) + G_\mathrm{cplx}(s) = 0$ to $10^{-15}$).
+* **STRUCTURAL RHYME.** The three-valued image of $G(s)$ — zeros at predictable locations plus spectral concentration on a structurally distinguished pair — rhymes with the pattern RH demands of $\zeta(s)$. The function-field analogue (Weil/Deligne) is the natural mathematical bridge; the present paper does not engage that machinery and only registers the rhyme. The companion essay [J48] (Q17-B Clay bridge) develops the rhyme in more depth and explicitly disclaims any portion of RH itself.
+* **OPEN.** Closed forms of $G_\mathrm{low}, G_\mathrm{high}$ in $\mathbb{Q}(\zeta_9)$ (cyclotomic units); whether the same three-valued structure with $\sigma^3$-coherent doubleton appears for $\sigma$-permutations on $\mathbb{Z}/N$ for other squarefree $N$; the route from $\bar\tau = 4$ to $T^* = 5/7$ via [J49] (not the elementary $(\bar\tau - 1)/\bar\tau$ identity, which gives $3/4$ not $5/7$).
+
 ---
 
 ## §7 References
@@ -267,6 +282,7 @@ Each result is proved at the tier it claims; no upgrades.
 
 ### External background
 
+* A. Drápal, I.M. Wanless. "Maximally nonassociative quasigroups." *J. Combin. Theory Ser. A* **184** (2021), 105510. [Closest published precedent: same domain — small finite commutative non-associative structures — opposite extremum (maximally non-associative).]
 * H. Davenport. *Multiplicative Number Theory.* GTM 74, 3rd ed., Springer, 2000.
 * G. Polya, R.C. Read. *Combinatorial Enumeration of Groups, Graphs, and Chemical Compounds.* Springer, 1987.
 * T. Tao, V.H. Vu. *Additive Combinatorics.* Cambridge, 2006.

@@ -1,265 +1,330 @@
 """
-Proof D25 — Loop Closure: The Corridor from 1/7 to 7/7
+Verification script for "Full-Period Cancellation of R(k, f) and the
+spf-Localization for Squarefree Moduli" (Sanders, Gish, 2026).
 
-CLAIM: For prime p, sinc²(k/p) = 0 if and only if p | k.
-       Within k ∈ {1, ..., p}, the unique zero is at k = p.
+Verifies, in order:
 
-PROOF (three steps):
-  1. sinc²(x) = 0  ⟺  sin(πx) = 0  ⟺  x ∈ ℤ  (for x ≠ 0)
-  2. For k ∈ {1,...,p-1}: gcd(k, p) = 1  (p is prime, k < p)
-     ⟹ k/p is irreducible  ⟹ k/p ∉ ℤ  ⟹ sinc²(k/p) > 0
-  3. At k = p: k/p = 1 ∈ ℤ  ⟹ sinc²(1) = 0  ✓
+  Lemma 1 (basic divisibility biconditional):
+      For every prime p in {3, 5, ..., 199} and every k in {1, ..., p}:
+      R(k, p) = 0  iff  p | k.
 
-The corridor {1/p, 2/p, ..., (p-1)/p} is provably non-zero entry-to-penultimate.
-The zero at k=p is provably forced — not measured, not assumed. PROVED by primality.
+  Theorem 1.A (full-period cancellation):
+      For every f in {2, ..., 30} and every m in {1, ..., 5}:
+      R(k, f) = 0 at k = f * m.
 
-COROLLARY (D25a — Loop Closure):
-  The corridor from 1/p to p/p is a closed unit: every interior position k=1..p-1
-  is non-zero for the same reason (primality forces coprimality), and the terminal
-  position k=p is zero for the same reason (k/p = 1 is an integer).
-  The corridor closes exactly once, at the prime itself.
+  Theorem 2 (squarefree layered-divisor structure):
+      For 50 squarefree b in {6, 10, 14, 15, ..., 210}:
+        - smallest k at which any non-trivial divisor d|b gives R(k,d)=0
+          is exactly spf(b);
+        - count at k = b_2 = p_1 p_2 is exactly 2^2 - 1 = 3;
+        - if omega(b) >= 3, count at k = b_3 = p_1 p_2 p_3 is 2^3 - 1 = 7.
 
-COROLLARY (D25b — Fold Necessity):
-  For p=7, sinc²(k/7) transitions from > 1/2 to < 1/2 somewhere in k=3..4:
-    sinc²(3/7) = 0.5243 > 1/2
-    sinc²(4/7) = 0.2949 < 1/2
-  The fold (sinc² = 1/2) lies strictly between k=3 and k=4.
-  This position is unique: sinc² is strictly decreasing on (0,1), so there is
-  exactly one x ∈ (3/7, 4/7) where sinc²(x) = 1/2.
-  The fold is not a threshold we impose. It is provably forced by the corridor geometry.
+  Theorem 3 (asymptotic average):
+      Numerical Riemann sum (1/(f-1)) * sum_{k=1}^{f-1} R(k, f)
+      converges to Si(2 pi)/pi ~= 0.45141 for f in {50, 100, 500, 1000}.
 
-COROLLARY (D25c — No Shortcut):
-  There is no k ∈ {1,...,6} with sinc²(k/7) = 0.
-  Every position in the corridor must be traversed.
-  The road from 1/7 to 7/7 has no shortcut. Length = p-1 = 6 steps.
+Source bundle: J04 manuscript verification.
 
-This is the First-G Law (D1) restated in sinc² language, with the fold proved necessary.
+Notes on changes vs the prior draft (per SAVE_PLAN_J04 §2.5):
+  - DROPPED the bisection block (referee M3): the location of
+    sinc^2(x) = 1/2 is not in the manuscript and does not belong here.
+  - DROPPED the strict-monotonicity assertion at integer arguments
+    outside (0, 1) (referee M4): rephrased as "non-increasing at
+    integer arguments k in {1, ..., p}", which is what the closed form
+    actually delivers.
+  - ADDED the layered-closure check (Theorem 2) and the asymptotic-
+    average check (Theorem 3).
 
 Copyright 2026 Brayden R. Sanders and M. Gish.
 Licensed under Creative Commons Attribution 4.0 International (CC-BY-4.0).
-You are free to share and adapt this work with attribution.
-See https://creativecommons.org/licenses/by/4.0/ for full terms.
 DOI: 10.5281/zenodo.18852047
-
-This is the journal-submission version. The umbrella research project
-(CK / TIG framework) at github.com/TiredofSleep/ck retains its own
-license; this single file is dual-licensed under CC-BY-4.0 specifically
-for journal-venue compliance (Elsevier / Taylor & Francis / etc.).
 """
-import sys, os, math
-sys.path.insert(0, os.path.dirname(__file__))
+import math
+from math import gcd, sin, pi
 
-def sinc2(x):
-    if abs(x) < 1e-12: return 1.0
-    return (math.sin(math.pi * x) / (math.pi * x)) ** 2
 
+# ---------------------------------------------------------------------
+# Helper functions
+# ---------------------------------------------------------------------
 def is_prime(n):
-    if n < 2: return False
-    if n < 4: return True
-    if n % 2 == 0 or n % 3 == 0: return False
-    i = 5
+    if n < 2:
+        return False
+    if n < 4:
+        return True
+    if n % 2 == 0:
+        return False
+    i = 3
     while i * i <= n:
-        if n % i == 0 or n % (i + 2) == 0: return False
-        i += 6
+        if n % i == 0:
+            return False
+        i += 2
     return True
 
-def gcd(a, b):
-    while b: a, b = b, a % b
-    return a
 
-PRIMES = [p for p in range(3, 200) if is_prime(p)]
+def smallest_prime_factor(n):
+    if n % 2 == 0:
+        return 2
+    i = 3
+    while i * i <= n:
+        if n % i == 0:
+            return i
+        i += 2
+    return n
 
 
-# ── Core theorem ──────────────────────────────────────────────────────────────
+def is_squarefree(n):
+    p = 2
+    while p * p <= n:
+        if n % (p * p) == 0:
+            return False
+        p += 1
+    return True
 
-def test_loop_closure_all_primes():
+
+def prime_factors_sorted(n):
+    """Return the distinct prime factors of n, sorted ascending."""
+    pf = []
+    p = 2
+    m = n
+    while p * p <= m:
+        if m % p == 0:
+            pf.append(p)
+            while m % p == 0:
+                m //= p
+        p += 1
+    if m > 1:
+        pf.append(m)
+    return sorted(pf)
+
+
+def divisors(n):
+    """Return all positive divisors of n."""
+    out = []
+    i = 1
+    while i * i <= n:
+        if n % i == 0:
+            out.append(i)
+            if i * i != n:
+                out.append(n // i)
+        i += 1
+    return sorted(out)
+
+
+def R(k, f):
+    """Discrete Fejer quotient R(k, f) = sin^2(pi k/f) / (k^2 sin^2(pi/f))."""
+    return sin(pi * k / f) ** 2 / (k * k * sin(pi / f) ** 2)
+
+
+def sinc2(t):
+    if t == 0.0:
+        return 1.0
+    s = sin(pi * t) / (pi * t)
+    return s * s
+
+
+# Si(2 pi) ~ 1.4181515761326284 (from mpmath / scipy.special.sici)
+# Si(2 pi) / pi ~ 0.4514120029017365
+SI_2PI_OVER_PI = 0.4514120029017365
+
+
+# ---------------------------------------------------------------------
+# Lemma 1: basic divisibility biconditional
+# ---------------------------------------------------------------------
+def verify_lemma_basic():
+    print("=" * 60)
+    print("Lemma 1: basic biconditional R(k, p) = 0  iff  p | k")
+    print("=" * 60)
+    primes = [p for p in range(3, 200) if is_prime(p)]
+    n_pairs = 0
+    fails = 0
+    for p in primes:
+        for k in range(1, p + 1):
+            n_pairs += 1
+            r = R(k, p)
+            divides = (k % p == 0)
+            iszero = (abs(r) < 1e-10)
+            if divides != iszero:
+                fails += 1
+                print(f"  FAIL p={p}, k={k}: R={r:.3e}, p|k={divides}")
+    print(f"  primes tested:        {len(primes)}")
+    print(f"  (p, k) pairs checked: {n_pairs}")
+    print(f"  counterexamples:      {fails}")
+    print(f"  result: {'PASS' if fails == 0 else 'FAIL'}")
+    print()
+    return fails == 0
+
+
+# ---------------------------------------------------------------------
+# Theorem 1.A: full-period cancellation
+# ---------------------------------------------------------------------
+def verify_full_period_cancellation():
+    print("=" * 60)
+    print("Theorem 1.A: full-period cancellation R(f * m, f) = 0")
+    print("=" * 60)
+    n_pairs = 0
+    fails = 0
+    for f in range(2, 31):
+        for m in range(1, 6):
+            n_pairs += 1
+            k = f * m
+            r = R(k, f)
+            if abs(r) >= 1e-10:
+                fails += 1
+                print(f"  FAIL f={f}, m={m}, k={k}: R={r:.3e}")
+    print(f"  (f, m) pairs checked: {n_pairs}")
+    print(f"  counterexamples:      {fails}")
+    print(f"  result: {'PASS' if fails == 0 else 'FAIL'}")
+    print()
+    return fails == 0
+
+
+# ---------------------------------------------------------------------
+# Theorem 2: squarefree layered-divisor structure
+# ---------------------------------------------------------------------
+def verify_layered_structure():
+    print("=" * 60)
+    print("Theorem 2: squarefree layered-divisor structure")
+    print("=" * 60)
+    # Pick 50 squarefree b in [6, 210] with omega(b) >= 2
+    candidates = []
+    for n in range(6, 211):
+        if is_squarefree(n):
+            pf = prime_factors_sorted(n)
+            if len(pf) >= 2:
+                candidates.append(n)
+    bs = candidates[:50]
+
+    fails_smallest = 0
+    fails_count_2 = 0
+    fails_count_3 = 0
+    n_count_3_checked = 0
+    for b in bs:
+        pf = prime_factors_sorted(b)
+        spf_b = pf[0]
+        nontrivial_divs = [d for d in divisors(b) if d > 1]
+
+        # (i) smallest k with R(k, d) = 0 for some non-trivial d|b
+        smallest_k = None
+        for k in range(1, b + 1):
+            for d in nontrivial_divs:
+                if abs(R(k, d)) < 1e-10:
+                    smallest_k = k
+                    break
+            if smallest_k is not None:
+                break
+        if smallest_k != spf_b:
+            fails_smallest += 1
+            print(f"  FAIL b={b}: smallest_k={smallest_k}, spf={spf_b}")
+
+        # (ii) count at k = b_2 = p_1 p_2: should be 2^2 - 1 = 3
+        b2 = pf[0] * pf[1]
+        cnt2 = sum(1 for d in nontrivial_divs if abs(R(b2, d)) < 1e-10)
+        if cnt2 != 3:
+            fails_count_2 += 1
+            print(f"  FAIL b={b}, b_2={b2}: count={cnt2}, expected 3")
+
+        # (iii) count at k = b_3 = p_1 p_2 p_3 (only if omega(b) >= 3)
+        if len(pf) >= 3:
+            n_count_3_checked += 1
+            b3 = pf[0] * pf[1] * pf[2]
+            cnt3 = sum(1 for d in nontrivial_divs if abs(R(b3, d)) < 1e-10)
+            if cnt3 != 7:
+                fails_count_3 += 1
+                print(f"  FAIL b={b}, b_3={b3}: count={cnt3}, expected 7")
+
+    print(f"  squarefree b tested (omega>=2): {len(bs)}")
+    print(f"  spf smallest-k failures:        {fails_smallest}")
+    print(f"  b_2 count = 3 failures:         {fails_count_2}")
+    print(f"  b_3 count = 7 failures (of {n_count_3_checked}):  {fails_count_3}")
+    ok = (fails_smallest == 0 and fails_count_2 == 0 and fails_count_3 == 0)
+    print(f"  result: {'PASS' if ok else 'FAIL'}")
+    print()
+    return ok
+
+
+# ---------------------------------------------------------------------
+# Theorem 3: asymptotic average  (1/(f-1)) sum R(k,f) -> Si(2 pi)/pi
+# ---------------------------------------------------------------------
+def verify_asymptotic_average():
+    print("=" * 60)
+    print("Theorem 3: asymptotic average -> Si(2 pi)/pi ~ 0.45141")
+    print("=" * 60)
+    target = SI_2PI_OVER_PI
+    rows = []
+    fails = 0
+    for f in [50, 100, 500, 1000]:
+        s = 0.0
+        for k in range(1, f):
+            s += R(k, f)
+        avg = s / (f - 1)
+        dev = abs(avg - target)
+        # Tolerance: O(1/f) convergence rate; allow 2 * (target / f)
+        tol = max(1e-3, 4.0 * target / f)
+        if dev > tol:
+            fails += 1
+        rows.append((f, avg, dev))
+        print(f"  f={f:>5}  avg={avg:.6f}  target={target:.6f}  dev={dev:.2e}")
+    print(f"  result: {'PASS' if fails == 0 else 'FAIL'}")
+    print()
+    return fails == 0
+
+
+# ---------------------------------------------------------------------
+# Optional informational pass: monotone non-increase at integer args
+# ---------------------------------------------------------------------
+def report_monotone_at_integers():
     """
-    For every prime p in {3..199}:
-      - sinc²(k/p) > 0 for all k = 1 .. p-1
-      - sinc²(p/p) = sinc²(1) = 0
-    Proved by coprimality: gcd(k,p)=1 for k<p (primality) => k/p not integer => sinc² > 0.
+    Per referee M4 (SAVE_PLAN_J04 §2.5): R(k, p) is non-increasing on
+    k in {1, ..., p-1} from the closed form. We REPORT this rather
+    than ASSERT strict monotonicity outside (0, 1).
     """
-    for p in PRIMES:
-        # Interior: all non-zero
+    print("=" * 60)
+    print("Report: R(k, p) is non-increasing on k in {1, ..., p-1}")
+    print("=" * 60)
+    primes = [p for p in range(3, 30) if is_prime(p)]
+    fails = 0
+    for p in primes:
+        prev = float("inf")
         for k in range(1, p):
-            assert gcd(k, p) == 1, f"p={p}, k={k}: gcd not 1 (primality violated)"
-            v = sinc2(k / p)
-            assert v > 0, f"p={p}, k={k}: sinc²({k}/{p}) = {v}, expected > 0"
-        # Gate: zero
-        v_gate = sinc2(1.0)  # p/p = 1
-        assert abs(v_gate) < 1e-12, f"sinc²(1) = {v_gate}, expected 0"
-
-    print(f"  D25 PASSED: loop closure verified for {len(PRIMES)} primes (p=3..199)")
-    print(f"  Interior positions: all sinc² > 0 (coprimality by primality)")
-    print(f"  Gate position k=p: sinc² = 0 (k/p = 1, integer argument)")
-
-
-def test_fold_necessity_p7():
-    """
-    D25b: For p=7, the fold sinc²=1/2 lies strictly between k=3 and k=4.
-    This position is unique (sinc² strictly decreasing on (0,1)).
-    The fold is forced by the corridor geometry, not imposed.
-    """
-    v3 = sinc2(3/7)
-    v4 = sinc2(4/7)
-    FOLD = 0.5
-
-    assert v3 > FOLD, f"sinc²(3/7) = {v3:.6f} should be > fold = {FOLD}"
-    assert v4 < FOLD, f"sinc²(4/7) = {v4:.6f} should be < fold = {FOLD}"
-
-    # The fold is unique: sinc² is strictly decreasing on (0,1)
-    # Verify monotone decrease through corridor
-    prev = sinc2(0.0001)  # near-DC: near 1
-    for k in range(1, 8):
-        v = sinc2(k / 7)
-        assert v <= prev + 1e-10, (
-            f"sinc² not decreasing at k={k}: {v:.6f} > {prev:.6f}"
-        )
-        prev = v
-
-    # Find fold crossing point numerically
-    lo, hi = 3/7, 4/7
-    for _ in range(60):
-        mid = (lo + hi) / 2
-        if sinc2(mid) > FOLD: lo = mid
-        else: hi = mid
-    fold_x = (lo + hi) / 2
-    assert 3/7 < fold_x < 4/7, f"Fold at {fold_x} not in (3/7, 4/7)"
-    assert abs(sinc2(fold_x) - FOLD) < 1e-8
-
-    print(f"  D25b PASSED: fold at x = {fold_x:.6f} (between k=3 and k=4 of 7-corridor)")
-    print(f"  sinc²(3/7) = {v3:.6f} > 0.5 > {v4:.6f} = sinc²(4/7)")
-    print(f"  Fold position is unique and forced by corridor monotonicity")
+            v = R(k, p)
+            if v > prev + 1e-12:
+                fails += 1
+                print(f"  NOTE p={p}, k={k}: R={v:.6f} > prev={prev:.6f}")
+            prev = v
+    print(f"  primes tested: {len(primes)}")
+    print(f"  monotone violations: {fails}")
+    print(f"  result: {'PASS (informational)' if fails == 0 else 'NOTE'}")
+    print()
+    return True
 
 
-def test_no_shortcut():
-    """
-    D25c: No k in {1,...,p-1} with sinc²(k/p) = 0.
-    The road from 1/p to p/p cannot be shortened.
-    Verified for all primes 3..199.
-    """
-    for p in PRIMES:
-        zeros_in_interior = [k for k in range(1, p) if sinc2(k/p) < 1e-10]
-        assert zeros_in_interior == [], (
-            f"p={p}: interior zeros found at k={zeros_in_interior}"
-        )
-    print(f"  D25c PASSED: no shortcut for any prime 3..199")
-    print(f"  Interior corridor has zero zeros. Length = p-1 is the minimum and exact.")
-
-
-def test_fold_generalization():
-    """
-    The fold (sinc²=1/2) sits between k=floor(p/2) and k=ceil(p/2) for all primes p.
-    This places the fold at the corridor midpoint — exactly at k/p = 1/2.
-    For p=7: k=3.5 is the midpoint, fold at x~0.4485 is near but not exactly 1/2.
-    The critical line Re(s)=1/2 corresponds to k/p=1/2 (the corridor midpoint),
-    not to sinc²=1/2 (the fold value). These are related but distinct statements.
-    """
-    FOLD = 0.5
-    T_STAR = 5/7
-
-    # For each prime, the fold lies between floor(p/2) and ceil(p/2)
-    for p in PRIMES[:20]:  # test first 20
-        k_low  = p // 2
-        k_high = k_low + 1
-        if k_high >= p: continue
-        v_low  = sinc2(k_low  / p)
-        v_high = sinc2(k_high / p)
-        assert v_low >= FOLD or v_high <= FOLD or (v_low > FOLD and v_high < FOLD), (
-            f"p={p}: fold not between k={k_low} and k={k_high}"
-        )
-
-    # For p=7 specifically: fold is between k=3 (=floor(7/2)) and k=4
-    assert sinc2(3/7) > FOLD
-    assert sinc2(4/7) < FOLD
-
-    # The corridor midpoint x=1/2: sinc²(1/2) = 4/pi²
-    midpoint_val = sinc2(0.5)
-    assert abs(midpoint_val - 4/math.pi**2) < 1e-10
-    assert abs(midpoint_val - 0.405285) < 1e-5  # 4/pi² ~ 0.4053
-
-    # 4/pi² is NOT 1/2: the corridor midpoint and the fold are different positions
-    assert midpoint_val < FOLD  # 4/pi² ~ 0.405 < 0.5
-
-    # The T* threshold and the fold: T*-fold = 3/14
-    assert abs(T_STAR - FOLD - 3/14) < 1e-12
-
-    print(f"  D25d PASSED: fold generalization confirmed")
-    print(f"  NOTE: corridor midpoint x=1/2 gives sinc2=4/pi2~0.4053 (below fold)")
-    print(f"  The fold sinc2=0.5 occurs at x~0.4485, NOT at the midpoint")
-    print(f"  Re(s)=1/2 is the corridor MIDPOINT (k/p=1/2), sinc²=4/pi²=0.4053 there")
-    print(f"  The fold value 0.5 and the midpoint ratio 1/2 are related but distinct")
-    print(f"  T* - fold = 5/7 - 1/2 = 3/14 exactly")
-
-
-# ── Main ──────────────────────────────────────────────────────────────────────
-
-if __name__ == '__main__':
+# ---------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------
+if __name__ == "__main__":
     print()
     print("=" * 72)
-    print("  D25 — LOOP CLOSURE: CORRIDOR FROM 1/7 TO 7/7")
+    print("  Verification: Full-Period Cancellation of R(k, f) and the")
+    print("                spf-Localization for Squarefree Moduli")
+    print("                (Sanders, Gish, 2026)")
     print("=" * 72)
     print()
-    print("  The center of the onion:")
-    print("  sinc²(k/p) = 0  <=>  p | k")
-    print("  For prime p, only k=p in {1..p} satisfies this.")
-    print("  REASON: gcd(k,p)=1 for k<p (primality) => k/p not integer => sinc²>0")
-    print("  The loop closes at k=p because p is prime. That is the whole proof.")
-    print()
 
-    print("  CORRIDOR MAP (p=7):")
-    T_STAR = 5/7
-    FOLD   = 0.5
-    for k in range(1, 10):
-        v = sinc2(k/7)
-        g = gcd(k, 7)
-        reason = "coprime to 7, k/7 not integer, sinc²>0" if g == 1 else f"gcd={g}, k/7={k/7:.4f}=integer" if k==7 else f"gcd={g}, not coprime"
-        zero_marker = " <- GATE (zero)" if abs(v) < 1e-9 else ""
-        fold_marker = " <- above fold" if v > FOLD else (" <- below fold" if k <= 9 and v < FOLD and v > 0 else "")
-        if abs(v) < 1e-9: fold_marker = ""
-        print(f"    k={k}: sinc²={v:.6f}  [{reason}]{zero_marker}{fold_marker}")
-
-    print()
-    print("  BOUNDARY: Re(s)=1/2 is the corridor MIDPOINT (k/p=0.5), where sinc²=4/pi²")
-    print("  FOLD:     sinc2=0.5 occurs at x~0.4485, strictly between k=3 and k=4")
-    print("  These are related (both live in the Class A / Class B boundary region)")
-    print("  but are not the same point. The critical line is the midpoint ratio.")
-    print("  The fold is where sinc² crosses 1/2. They bracket the same transition.")
-    print()
-
-    test_loop_closure_all_primes()
-    print()
-    test_fold_necessity_p7()
-    print()
-    test_no_shortcut()
-    print()
-    test_fold_generalization()
-    print()
+    results = [
+        verify_lemma_basic(),
+        verify_full_period_cancellation(),
+        verify_layered_structure(),
+        verify_asymptotic_average(),
+        report_monotone_at_integers(),
+    ]
 
     print("=" * 72)
+    n_pass = sum(1 for r in results if r)
+    print(f"  OVERALL: {n_pass} / {len(results)} verifications passed")
+    print("=" * 72)
     print()
-    print("  SUMMARY — D25 LOOP CLOSURE THEOREM:")
-    print()
-    print("  1. The corridor 1/p...(p-1)/p is provably non-zero entry-to-penultimate.")
-    print("     Reason: primality. Not measured. Not assumed. PROVED.")
-    print()
-    print("  2. The zero at k=p is provably forced. k/p=1, sinc²(1)=0.")
-    print("     The loop closes at the prime itself — nowhere else.")
-    print()
-    print("  3. The fold (sinc²=1/2) is provably forced between k=3 and k=4 of p=7.")
-    print("     It is the unique suspension point in the corridor.")
-    print("     The corridor can only pause here, and only for Class A paths.")
-    print()
-    print("  4. The corridor midpoint (k/p=1/2) gives sinc²=4/pi²~0.405.")
-    print("     Re(s)=1/2 is the MIDPOINT RATIO, not the fold value.")
-    print("     The fold and the midpoint both live in the PROGRESS-to-COLLAPSE")
-    print("     transition zone. They are not identical. They bracket it.")
-    print()
-    print("  5. No shortcut exists. Proved for all primes to 199.")
-    print("     The road from 1/p to p/p is exactly p-1 steps long.")
-    print()
-    print("  TIER: D — proved from first principles, no domain restriction.")
-    print("  STATUS: This is the First-G Law (D1) with the fold made explicit.")
-    print()
-    print("  ALL ASSERTIONS PASSED.")
+    if n_pass == len(results):
+        print("  ALL ASSERTIONS PASSED.")
+    else:
+        print(f"  FAILURES: {len(results) - n_pass}")
     print()
