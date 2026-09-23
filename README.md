@@ -1,3 +1,14 @@
+> ## ⚠️ RETIRED — historical branch (2026-09-23)
+>
+> This branch is kept as part of the workstation's full history. It is no longer maintained, and its
+> claims are no longer made. The table-based TIG program it builds on — three 10×10 composition tables
+> that AI rendered from verbal descriptions, and the papers, whitepapers and physics, cosmology and
+> number-theory readings computed on them — was retired after an audit found that no table-specific
+> result survives. Why, and what was salvaged: [`RETIRED.md`](https://github.com/TiredofSleep/ck/blob/tig-synthesis/RETIRED.md).
+> The living work is [trinity-infinity-geometry](https://github.com/TiredofSleep/trinity-infinity-geometry) (a new way to teach higher mathematics) and [The Shape of Understanding](https://github.com/TiredofSleep/shape-of-understanding) (the book).
+
+---
+
 # Trinity Infinity Geometry · Coherence Keeper
 
 Brayden Ross Sanders · 7Site LLC · Hot Springs, Arkansas
