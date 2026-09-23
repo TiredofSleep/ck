@@ -1,3 +1,14 @@
+> ## ⚠️ RETIRED — historical branch; its table-free core was salvaged (2026-09-23)
+>
+> This branch is kept as part of the workstation's full history and is no longer maintained. Its
+> meta-lens atlas organized results of the table-based TIG program (so(8), so(10), the "UOP–GUT arc"),
+> and it is retired with them. Its table-free core — the author's four paradox types (with Ben Mayes),
+> Theorem 0 (the Unified Orthogonality Principle) and the worked paradoxes — was brought into the
+> flagship as [`coin/PARADOX_TYPES.md`](https://github.com/TiredofSleep/trinity-infinity-geometry/blob/main/coin/PARADOX_TYPES.md).
+> Why the rest was retired: [`RETIRED.md`](https://github.com/TiredofSleep/ck/blob/tig-synthesis/RETIRED.md). The living work is [trinity-infinity-geometry](https://github.com/TiredofSleep/trinity-infinity-geometry) (a new way to teach higher mathematics) and [The Shape of Understanding](https://github.com/TiredofSleep/shape-of-understanding) (the book).
+
+---
+
 # Trinity Infinity Geometry · Coherence Keeper
 
 Brayden Ross Sanders · 7Site LLC · Hot Springs, Arkansas
