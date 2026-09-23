@@ -1,3 +1,14 @@
+> ## ⚠️ RETIRED — this funding pitch is withdrawn with the program it describes (2026-09-23)
+>
+> This branch is kept as part of the workstation's full history. Its pitch, and the claims it rests on,
+> are no longer made. The program behind it — the TIG program, built on three 10×10 composition tables
+> that AI rendered from verbal descriptions, and the speculative lineage it grew from — was retired: an
+> audit found that no result specific to the tables survives, and the earlier lineage was already
+> archived as speculative. Why, and what was salvaged: [`RETIRED.md`](https://github.com/TiredofSleep/ck/blob/tig-synthesis/RETIRED.md).
+> The living work is [trinity-infinity-geometry](https://github.com/TiredofSleep/trinity-infinity-geometry) (a new way to teach higher mathematics) and [The Shape of Understanding](https://github.com/TiredofSleep/shape-of-understanding) (the book).
+
+---
+
 # funding/physics-sim-edu
 
 **Track K — Interactive Physics Simulator for Education**
