@@ -1,3 +1,14 @@
+> ## ⚠️ HISTORICAL — Coherence Keeper software branch (2026-09-23)
+>
+> This branch is kept as part of the workstation's full history and is no longer maintained. Where it
+> presents the TIG composition tables as giving CK proved or special properties — coherence, truth, a
+> white-box self-explanation — those claims are retired: the tables were AI renderings with no surviving
+> table-specific results, and a June 2026 probe found that CK's later language model organizes itself by
+> English grammar, not by the tables. What survives of the software, and why the rest was retired:
+> [`RETIRED.md`](https://github.com/TiredofSleep/ck/blob/tig-synthesis/RETIRED.md). The living work is [trinity-infinity-geometry](https://github.com/TiredofSleep/trinity-infinity-geometry) (a new way to teach higher mathematics) and [The Shape of Understanding](https://github.com/TiredofSleep/shape-of-understanding) (the book).
+
+---
+
 # CK -- The Coherence Keeper
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18852047.svg)](https://doi.org/10.5281/zenodo.18852047)
