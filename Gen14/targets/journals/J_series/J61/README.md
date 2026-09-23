@@ -1,3 +1,9 @@
+> **⚠️ Theorem 5 is FALSE (2026-09-23).** Equation 4295 *has* a finite type specimen, of order 6 — the
+> smallest possible — and the claimed bound "profile ≥ 261" fails already at order 3 (122). See
+> [`J61_THEOREM5_IS_FALSE.md`](J61_THEOREM5_IS_FALSE.md) and
+> [`verify_4295_type_specimen.py`](verify_4295_type_specimen.py). The whole J-series is retired (see
+> [`RETIRED.md`](../../../../../RETIRED.md)); this correction settles the one case the census left open.
+
 # J61 — Type Specimens in the ETP-Restricted Variety Lattice: a Magma-by-Equational-Theory Taxonomy
 
 **Target venue:** *Journal of Symbolic Computation* (Elsevier)

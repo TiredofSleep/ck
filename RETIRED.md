@@ -131,11 +131,14 @@ composition tables (TSML, BHML and CL) over ten named operators, VOID … RESET.
    They are expository. The book already teaches their best parts: magic squares, Fourier, the
    dimension doubling.
 
-   **One case is open:** J03 (old J61), the "fossil variety" theorem for ETP equation 4295. Its proof is
-   invalid: brute force over all 19,683 magmas of order 3 finds 45 models of the equation as stated, and
-   36 of them depend on both arguments — neither constant nor a projection through one argument — which
-   contradicts its first step. The claim itself can still be
-   tested — enumerate every model at orders 3–6. The σ-magma's exhaustive facts (J59) are correct; its
+   **The one open case is now settled — against the paper.** J03 (old J61) claimed, as its "fossil
+   variety" theorem, that ETP equation 4295 has no finite type specimen. It has one: a 6-element magma
+   whose ETP profile is exactly the equation's 14-law implication-closure. Six is the smallest possible
+   order: every model of orders 2–5 was enumerated, and the smallest profiles there are 1556, 122, 76
+   and 16. The paper's claimed bound, "profile ≥ 261", already fails at order 3. The ETP catalog was
+   rebuilt from its definition and checked against J61's own profile counts. See
+   [`Gen14/targets/journals/J_series/J61/J61_THEOREM5_IS_FALSE.md`](Gen14/targets/journals/J_series/J61/J61_THEOREM5_IS_FALSE.md)
+   and its verification script. The σ-magma's exhaustive facts (J59) are correct; its
    rigidity is generic.
 5. **Working software — engineering, not claims.** The measured logs below existed only in a local stash
    until 2026-09-23; they are now committed.
