@@ -1,0 +1,317 @@
+{"step": 250, "val_loss": 5.5007, "val_ppl": 244.9, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.034, 0.039, 0.037], "min": 0.8}
+{"step": 500, "val_loss": 5.0877, "val_ppl": 162.0, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.03, 0.046, 0.078], "min": 1.7}
+{"step": 750, "val_loss": 4.8295, "val_ppl": 125.1, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.026, 0.053, 0.101], "min": 2.5}
+{"step": 1000, "val_loss": 4.6677, "val_ppl": 106.5, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.023, 0.059, 0.11], "min": 3.3}
+{"step": 1250, "val_loss": 4.5792, "val_ppl": 97.4, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.021, 0.063, 0.117], "min": 4.1}
+{"step": 1500, "val_loss": 4.5003, "val_ppl": 90.0, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.02, 0.066, 0.122], "min": 5.0}
+{"step": 1750, "val_loss": 4.4535, "val_ppl": 85.9, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.019, 0.069, 0.122], "min": 5.8}
+{"step": 2000, "val_loss": 4.4039, "val_ppl": 81.8, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.018, 0.071, 0.123], "min": 6.6}
+{"step": 2250, "val_loss": 4.3548, "val_ppl": 77.9, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.017, 0.073, 0.124], "min": 7.5}
+{"step": 2500, "val_loss": 4.3187, "val_ppl": 75.1, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.017, 0.075, 0.124], "min": 8.3}
+{"step": 2750, "val_loss": 4.3058, "val_ppl": 74.1, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.017, 0.077, 0.124], "min": 9.1}
+{"step": 2750, "val_loss": 4.2948, "val_ppl": 73.3, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.017, 0.077, 0.123], "min": 0.7}
+{"step": 3000, "val_loss": 4.2869, "val_ppl": 72.7, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.016, 0.078, 0.124], "min": 1.4}
+{"step": 3250, "val_loss": 4.2435, "val_ppl": 69.7, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.016, 0.08, 0.122], "min": 2.0}
+{"step": 3500, "val_loss": 4.2359, "val_ppl": 69.1, "n_layers": 3, "n_params_M": 18.1, "alphas": [0.016, 0.082, 0.123], "min": 2.7}
+{"step": 3750, "val_loss": 4.2422, "val_ppl": 69.6, "n_layers": 4, "n_params_M": 21.3, "alphas": [0.015, 0.083, 0.122], "min": 3.4, "event": "GREW->4L (gain 1.2%<3%)"}
+{"step": 4000, "val_loss": 4.1952, "val_ppl": 66.4, "n_layers": 4, "n_params_M": 21.3, "alphas": [0.016, 0.084, 0.122, 0.006], "min": 4.2}
+{"step": 4250, "val_loss": 4.1842, "val_ppl": 65.6, "n_layers": 4, "n_params_M": 21.3, "alphas": [0.016, 0.086, 0.121, 0.003], "min": 5.1}
+{"step": 4250, "val_loss": 4.2153, "val_ppl": 67.7, "n_layers": 4, "n_params_M": 21.3, "alphas": [0.016, 0.086, 0.122, 0.005], "min": 1.1}
+{"step": 4500, "val_loss": 4.1622, "val_ppl": 64.2, "n_layers": 4, "n_params_M": 21.3, "alphas": [0.016, 0.088, 0.122, 0.003], "min": 2.1}
+{"step": 4750, "val_loss": 4.1522, "val_ppl": 63.6, "n_layers": 4, "n_params_M": 21.3, "alphas": [0.016, 0.089, 0.121, 0.0], "min": 3.2}
+{"step": 5000, "val_loss": 4.1105, "val_ppl": 61.0, "n_layers": 4, "n_params_M": 21.3, "alphas": [0.015, 0.09, 0.122, 0.001], "min": 4.2}
+{"step": 5250, "val_loss": 4.0951, "val_ppl": 60.0, "n_layers": 5, "n_params_M": 24.4, "alphas": [0.015, 0.092, 0.121, 0.005], "min": 5.2, "event": "GREW->5L (gain 2.9%<3%)"}
+{"step": 5500, "val_loss": 4.0958, "val_ppl": 60.1, "n_layers": 5, "n_params_M": 24.4, "alphas": [0.015, 0.093, 0.122, 0.0, 0.011], "min": 6.4}
+{"step": 5750, "val_loss": 4.0931, "val_ppl": 59.9, "n_layers": 5, "n_params_M": 24.4, "alphas": [0.015, 0.094, 0.122, 0.003, 0.007], "min": 7.6}
+{"step": 6000, "val_loss": 4.0908, "val_ppl": 59.8, "n_layers": 4, "n_params_M": 21.3, "alphas": [0.016, 0.095, 0.122, 0.002, 0.0], "min": 8.8, "event": "PRUNED#3(a=0.002)->4L"}
+{"step": 6250, "val_loss": 4.0427, "val_ppl": 57.0, "n_layers": 4, "n_params_M": 21.3, "alphas": [0.015, 0.096, 0.122, 0.003], "min": 9.8}
+{"step": 6500, "val_loss": 4.0392, "val_ppl": 56.8, "n_layers": 5, "n_params_M": 24.4, "alphas": [0.016, 0.097, 0.123, 0.003], "min": 10.6, "event": "GREW->5L (gain 1.4%<3%)"}
+{"step": 6750, "val_loss": 4.0521, "val_ppl": 57.5, "n_layers": 5, "n_params_M": 24.4, "alphas": [0.016, 0.097, 0.124, 0.001, 0.009], "min": 11.6}
+{"step": 7000, "val_loss": 4.0314, "val_ppl": 56.3, "n_layers": 5, "n_params_M": 24.4, "alphas": [0.016, 0.098, 0.124, 0.004, 0.006], "min": 12.5}
+{"step": 7250, "val_loss": 4.0153, "val_ppl": 55.4, "n_layers": 5, "n_params_M": 24.4, "alphas": [0.016, 0.099, 0.125, 0.001, 0.0], "min": 13.5}
+{"step": 7500, "val_loss": 3.998, "val_ppl": 54.5, "n_layers": 5, "n_params_M": 24.4, "alphas": [0.016, 0.1, 0.125, 0.003, 0.003], "min": 14.4}
+{"step": 7750, "val_loss": 4.0009, "val_ppl": 54.6, "n_layers": 6, "n_params_M": 27.6, "alphas": [0.016, 0.1, 0.126, 0.0, 0.006], "min": 15.3, "event": "GREW->6L (gain 1.3%<3%)"}
+{"step": 8000, "val_loss": 3.9746, "val_ppl": 53.2, "n_layers": 6, "n_params_M": 27.6, "alphas": [0.016, 0.101, 0.127, 0.002, 0.002, 0.011], "min": 16.4}
+{"step": 8250, "val_loss": 3.9998, "val_ppl": 54.6, "n_layers": 6, "n_params_M": 27.6, "alphas": [0.016, 0.101, 0.128, 0.002, 0.002, 0.008], "min": 17.5}
+{"step": 8500, "val_loss": 3.9588, "val_ppl": 52.4, "n_layers": 6, "n_params_M": 27.6, "alphas": [0.016, 0.102, 0.129, 0.002, 0.001, 0.0], "min": 18.5}
+{"step": 8750, "val_loss": 3.9348, "val_ppl": 51.2, "n_layers": 6, "n_params_M": 27.6, "alphas": [0.016, 0.103, 0.131, 0.0, 0.002, 0.001], "min": 19.6}
+{"step": 9000, "val_loss": 3.9689, "val_ppl": 52.9, "n_layers": 7, "n_params_M": 30.7, "alphas": [0.016, 0.104, 0.131, 0.001, 0.003, 0.002], "min": 20.7, "event": "GREW->7L (gain 0.1%<3%)"}
+{"step": 9250, "val_loss": 3.9635, "val_ppl": 52.6, "n_layers": 7, "n_params_M": 30.7, "alphas": [0.016, 0.104, 0.132, 0.001, 0.0, 0.002, 0.007], "min": 21.9}
+{"step": 9500, "val_loss": 3.9245, "val_ppl": 50.6, "n_layers": 7, "n_params_M": 30.7, "alphas": [0.016, 0.105, 0.133, 0.001, 0.001, 0.003, 0.006], "min": 23.1}
+{"step": 9750, "val_loss": 3.9429, "val_ppl": 51.6, "n_layers": 7, "n_params_M": 30.7, "alphas": [0.016, 0.105, 0.135, 0.0, 0.002, 0.002, 0.003], "min": 24.3}
+{"step": 10000, "val_loss": 3.9238, "val_ppl": 50.6, "n_layers": 7, "n_params_M": 30.7, "alphas": [0.016, 0.106, 0.136, 0.002, 0.0, 0.001, 0.005], "min": 25.5}
+{"step": 10250, "val_loss": 3.9144, "val_ppl": 50.1, "n_layers": 8, "n_params_M": 33.9, "alphas": [0.016, 0.107, 0.138, 0.001, 0.001, 0.001, 0.004], "min": 26.7, "event": "GREW->8L (gain 1.2%<3%)"}
+{"step": 10500, "val_loss": 3.9313, "val_ppl": 51.0, "n_layers": 8, "n_params_M": 33.9, "alphas": [0.016, 0.107, 0.138, 0.0, 0.001, 0.001, 0.0, 0.008], "min": 28.0}
+{"step": 10750, "val_loss": 3.9097, "val_ppl": 49.9, "n_layers": 8, "n_params_M": 33.9, "alphas": [0.016, 0.108, 0.14, 0.001, 0.001, 0.001, 0.002, 0.011], "min": 29.4}
+{"step": 11000, "val_loss": 3.9154, "val_ppl": 50.2, "n_layers": 8, "n_params_M": 33.9, "alphas": [0.017, 0.109, 0.14, 0.001, 0.001, 0.001, 0.0, 0.008], "min": 30.7}
+{"step": 11250, "val_loss": 3.8974, "val_ppl": 49.3, "n_layers": 8, "n_params_M": 33.9, "alphas": [0.017, 0.11, 0.141, 0.001, 0.0, 0.0, 0.003, 0.006], "min": 32.0}
+{"step": 11500, "val_loss": 3.8858, "val_ppl": 48.7, "n_layers": 9, "n_params_M": 37.0, "alphas": [0.017, 0.111, 0.142, 0.0, 0.0, 0.0, 0.001, 0.003], "min": 33.3, "event": "GREW->9L (gain 1.2%<3%)"}
+{"step": 11750, "val_loss": 3.8579, "val_ppl": 47.4, "n_layers": 9, "n_params_M": 37.0, "alphas": [0.017, 0.112, 0.143, 0.001, 0.0, 0.0, 0.001, 0.004, 0.008], "min": 34.8}
+{"step": 12000, "val_loss": 3.8822, "val_ppl": 48.5, "n_layers": 8, "n_params_M": 33.9, "alphas": [0.017, 0.113, 0.144, 0.001, 0.002, 0.001, 0.001, 0.002, 0.005], "min": 36.3, "event": "PRUNED#3(a=0.001)->8L"}
+{"step": 12250, "val_loss": 3.8507, "val_ppl": 47.0, "n_layers": 8, "n_params_M": 33.9, "alphas": [0.017, 0.114, 0.145, 0.001, 0.001, 0.002, 0.004, 0.002], "min": 37.6}
+{"step": 12500, "val_loss": 3.8519, "val_ppl": 47.1, "n_layers": 8, "n_params_M": 33.9, "alphas": [0.017, 0.115, 0.146, 0.0, 0.0, 0.001, 0.002, 0.001], "min": 38.9}
+{"step": 12750, "val_loss": 3.8443, "val_ppl": 46.7, "n_layers": 9, "n_params_M": 37.0, "alphas": [0.018, 0.116, 0.148, 0.001, 0.0, 0.002, 0.001, 0.007], "min": 40.3, "event": "GREW->9L (gain 0.4%<3%)"}
+{"step": 13000, "val_loss": 3.8554, "val_ppl": 47.2, "n_layers": 9, "n_params_M": 37.0, "alphas": [0.018, 0.118, 0.149, 0.0, 0.0, 0.001, 0.001, 0.005, 0.011], "min": 41.7}
+{"step": 13250, "val_loss": 3.8392, "val_ppl": 46.5, "n_layers": 9, "n_params_M": 37.0, "alphas": [0.018, 0.118, 0.15, 0.001, 0.001, 0.001, 0.001, 0.003, 0.009], "min": 43.2}
+{"step": 13500, "val_loss": 3.8385, "val_ppl": 46.5, "n_layers": 9, "n_params_M": 37.0, "alphas": [0.018, 0.119, 0.151, 0.001, 0.001, 0.0, 0.001, 0.003, 0.009], "min": 44.6}
+{"step": 13750, "val_loss": 3.8386, "val_ppl": 46.5, "n_layers": 9, "n_params_M": 37.0, "alphas": [0.018, 0.12, 0.152, 0.001, 0.0, 0.001, 0.0, 0.001, 0.006], "min": 46.1}
+{"step": 14000, "val_loss": 3.8185, "val_ppl": 45.5, "n_layers": 10, "n_params_M": 40.2, "alphas": [0.018, 0.12, 0.152, 0.0, 0.001, 0.001, 0.001, 0.002, 0.004], "min": 47.6, "event": "GREW->10L (gain 1.0%<3%)"}
+{"step": 14250, "val_loss": 3.8345, "val_ppl": 46.3, "n_layers": 10, "n_params_M": 40.2, "alphas": [0.018, 0.121, 0.153, 0.001, 0.001, 0.001, 0.002, 0.002, 0.002, 0.01], "min": 49.2}
+{"step": 14500, "val_loss": 3.8064, "val_ppl": 45.0, "n_layers": 10, "n_params_M": 40.2, "alphas": [0.018, 0.122, 0.154, 0.001, 0.001, 0.0, 0.0, 0.003, 0.0, 0.002], "min": 50.7}
+{"step": 14750, "val_loss": 3.8156, "val_ppl": 45.4, "n_layers": 10, "n_params_M": 40.2, "alphas": [0.019, 0.123, 0.156, 0.0, 0.001, 0.0, 0.0, 0.001, 0.003, 0.001], "min": 52.3}
+{"step": 15000, "val_loss": 3.8048, "val_ppl": 44.9, "n_layers": 9, "n_params_M": 37.0, "alphas": [0.019, 0.124, 0.157, 0.0, 0.0, 0.001, 0.001, 0.0, 0.001, 0.002], "min": 53.9, "event": "PRUNED#3(a=0.000)->9L"}
+{"step": 15250, "val_loss": 3.7991, "val_ppl": 44.7, "n_layers": 10, "n_params_M": 40.2, "alphas": [0.019, 0.124, 0.158, 0.0, 0.0, 0.0, 0.0, 0.001, 0.005], "min": 55.4, "event": "GREW->10L (gain 0.9%<3%)"}
+{"step": 15500, "val_loss": 3.7885, "val_ppl": 44.2, "n_layers": 10, "n_params_M": 40.2, "alphas": [0.019, 0.125, 0.157, 0.001, 0.0, 0.0, 0.0, 0.002, 0.003, 0.007], "min": 57.0}
+{"step": 15750, "val_loss": 3.7952, "val_ppl": 44.5, "n_layers": 10, "n_params_M": 40.2, "alphas": [0.019, 0.126, 0.16, 0.0, 0.001, 0.0, 0.0, 0.0, 0.003, 0.001], "min": 58.6}
+{"step": 16000, "val_loss": 3.7934, "val_ppl": 44.4, "n_layers": 10, "n_params_M": 40.2, "alphas": [0.019, 0.126, 0.16, 0.001, 0.0, 0.0, 0.0, 0.001, 0.001, 0.011], "min": 60.1}
+{"step": 16250, "val_loss": 3.783, "val_ppl": 43.9, "n_layers": 10, "n_params_M": 40.2, "alphas": [0.019, 0.127, 0.161, 0.001, 0.0, 0.001, 0.001, 0.001, 0.003, 0.004], "min": 61.7}
+{"step": 16500, "val_loss": 3.7668, "val_ppl": 43.2, "n_layers": 11, "n_params_M": 43.3, "alphas": [0.02, 0.128, 0.163, 0.001, 0.0, 0.001, 0.0, 0.001, 0.002, 0.005], "min": 63.3, "event": "GREW->11L (gain 0.6%<3%)"}
+{"step": 16750, "val_loss": 3.7751, "val_ppl": 43.6, "n_layers": 11, "n_params_M": 43.3, "alphas": [0.02, 0.129, 0.164, 0.0, 0.001, 0.0, 0.001, 0.0, 0.001, 0.003, 0.009], "min": 65.0}
+{"step": 17000, "val_loss": 3.7801, "val_ppl": 43.8, "n_layers": 11, "n_params_M": 43.3, "alphas": [0.02, 0.13, 0.165, 0.001, 0.001, 0.001, 0.0, 0.001, 0.001, 0.001, 0.008], "min": 66.8}
+{"step": 17250, "val_loss": 3.7552, "val_ppl": 42.7, "n_layers": 11, "n_params_M": 43.3, "alphas": [0.02, 0.131, 0.165, 0.0, 0.0, 0.001, 0.001, 0.0, 0.001, 0.002, 0.002], "min": 68.5}
+{"step": 17500, "val_loss": 3.7809, "val_ppl": 43.9, "n_layers": 11, "n_params_M": 43.3, "alphas": [0.021, 0.131, 0.166, 0.001, 0.0, 0.0, 0.0, 0.001, 0.001, 0.002, 0.004], "min": 70.2}
+{"step": 17750, "val_loss": 3.7684, "val_ppl": 43.3, "n_layers": 12, "n_params_M": 46.5, "alphas": [0.021, 0.132, 0.168, 0.0, 0.001, 0.0, 0.0, 0.0, 0.0, 0.001, 0.005], "min": 71.9, "event": "GREW->12L (gain 0.2%<3%)"}
+{"step": 18000, "val_loss": 3.7603, "val_ppl": 43.0, "n_layers": 11, "n_params_M": 43.3, "alphas": [0.021, 0.134, 0.168, 0.0, 0.0, 0.0, 0.0, 0.0, 0.001, 0.002, 0.001, 0.012], "min": 73.8, "event": "PRUNED#3(a=0.000)->11L"}
+{"step": 18250, "val_loss": 3.771, "val_ppl": 43.4, "n_layers": 11, "n_params_M": 43.3, "alphas": [0.022, 0.134, 0.17, 0.0, 0.001, 0.0, 0.001, 0.0, 0.0, 0.001, 0.003], "min": 75.5}
+{"step": 18500, "val_loss": 3.7587, "val_ppl": 42.9, "n_layers": 11, "n_params_M": 43.3, "alphas": [0.021, 0.135, 0.171, 0.001, 0.001, 0.001, 0.0, 0.001, 0.0, 0.002, 0.007], "min": 77.2}
+{"step": 18750, "val_loss": 3.7541, "val_ppl": 42.7, "n_layers": 11, "n_params_M": 43.3, "alphas": [0.022, 0.136, 0.172, 0.0, 0.0, 0.001, 0.001, 0.001, 0.001, 0.0, 0.003], "min": 79.0}
+{"step": 19000, "val_loss": 3.7617, "val_ppl": 43.0, "n_layers": 12, "n_params_M": 46.5, "alphas": [0.022, 0.137, 0.172, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.003], "min": 80.7, "event": "GREW->12L (gain -0.0%<3%)"}
+{"step": 19250, "val_loss": 3.7618, "val_ppl": 43.0, "n_layers": 12, "n_params_M": 46.5, "alphas": [0.022, 0.138, 0.174, 0.0, 0.001, 0.0, 0.0, 0.001, 0.0, 0.002, 0.004, 0.002], "min": 82.5}
+{"step": 19500, "val_loss": 3.761, "val_ppl": 43.0, "n_layers": 12, "n_params_M": 46.5, "alphas": [0.023, 0.139, 0.174, 0.0, 0.001, 0.0, 0.001, 0.001, 0.001, 0.002, 0.002, 0.01], "min": 84.4}
+{"step": 19750, "val_loss": 3.7335, "val_ppl": 41.8, "n_layers": 12, "n_params_M": 46.5, "alphas": [0.023, 0.14, 0.177, 0.0, 0.0, 0.001, 0.001, 0.0, 0.001, 0.001, 0.002, 0.009], "min": 86.2}
+{"step": 20000, "val_loss": 3.7655, "val_ppl": 43.2, "n_layers": 12, "n_params_M": 46.5, "alphas": [0.023, 0.141, 0.178, 0.0, 0.0, 0.0, 0.001, 0.001, 0.0, 0.0, 0.001, 0.007], "min": 88.1}
+{"step": 20250, "val_loss": 3.7558, "val_ppl": 42.8, "n_layers": 13, "n_params_M": 49.6, "alphas": [0.023, 0.142, 0.179, 0.001, 0.0, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0, 0.002], "min": 90.0, "event": "GREW->13L (gain 0.2%<3%)"}
+{"step": 20250, "val_loss": 3.7486, "val_ppl": 42.5, "n_layers": 12, "n_folded": 0, "n_params_M": 46.5, "alphas": [0.023, 0.142, 0.179, 0.0, 0.001, 0.0, 0.0, 0.0, 0.001, 0.001, 0.001, 0.005], "min": 1.8}
+{"step": 20500, "val_loss": 3.73, "val_ppl": 41.7, "n_layers": 12, "n_folded": 0, "n_params_M": 46.5, "alphas": [0.024, 0.143, 0.181, 0.0, 0.0, 0.001, 0.0, 0.001, 0.0, 0.0, 0.002, 0.003], "min": 3.7}
+{"step": 20750, "val_loss": 3.7457, "val_ppl": 42.3, "n_layers": 12, "n_folded": 0, "n_params_M": 46.5, "alphas": [0.024, 0.143, 0.182, 0.0, 0.0, 0.0, 0.0, 0.0, 0.001, 0.0, 0.0, 0.001], "min": 5.5}
+{"step": 21000, "val_loss": 3.7343, "val_ppl": 41.9, "n_layers": 12, "n_folded": 0, "n_params_M": 46.5, "alphas": [0.024, 0.144, 0.183, 0.001, 0.001, 0.0, 0.0, 0.0, 0.0, 0.001, 0.002, 0.002], "min": 7.3}
+{"step": 21250, "val_loss": 3.7308, "val_ppl": 41.7, "n_layers": 13, "n_folded": 0, "n_params_M": 49.6, "alphas": [0.024, 0.145, 0.185, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.001, 0.003], "min": 9.0, "event": "GREW new->13L active,0 stored (gain 0.5%<3%)"}
+{"step": 21500, "val_loss": 3.7229, "val_ppl": 41.4, "n_layers": 13, "n_folded": 0, "n_params_M": 49.6, "alphas": [0.025, 0.146, 0.185, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.001, 0.0, 0.001, 0.012], "min": 10.9}
+{"step": 21750, "val_loss": 3.7242, "val_ppl": 41.4, "n_layers": 13, "n_folded": 0, "n_params_M": 49.6, "alphas": [0.025, 0.147, 0.187, 0.0, 0.001, 0.001, 0.0, 0.001, 0.0, 0.002, 0.001, 0.0, 0.001], "min": 12.8}
+{"step": 22000, "val_loss": 3.721, "val_ppl": 41.3, "n_layers": 12, "n_folded": 1, "n_params_M": 49.6, "alphas": [0.025, 0.147, 0.188, 0.0, 0.001, 0.001, 0.0, 0.001, 0.0, 0.001, 0.0, 0.001, 0.007], "min": 14.7, "event": "FOLDED#3(a=0.000)->12L active,1 stored"}
+{"step": 22250, "val_loss": 3.7191, "val_ppl": 41.2, "n_layers": 11, "n_folded": 2, "n_params_M": 49.6, "alphas": [0.025, 0.148, 0.19, 0.001, 0.0, 0.0, 0.0, 0.001, 0.0, 0.001, 0.0, 0.006], "min": 16.5, "event": "FOLDED#5(a=0.000)->11L active,2 stored"}
+{"step": 22500, "val_loss": 3.7397, "val_ppl": 42.1, "n_layers": 10, "n_folded": 3, "n_params_M": 49.6, "alphas": [0.026, 0.149, 0.191, 0.001, 0.001, 0.0, 0.0, 0.001, 0.0, 0.0, 0.003], "min": 18.2, "event": "FOLDED#6(a=0.000)->10L active,3 stored"}
+{"step": 22750, "val_loss": 3.6865, "val_ppl": 39.9, "n_layers": 9, "n_folded": 4, "n_params_M": 49.6, "alphas": [0.026, 0.15, 0.191, 0.001, 0.003, 0.0, 0.001, 0.0, 0.001, 0.004], "min": 19.7, "event": "FOLDED#7(a=0.000)->9L active,4 stored"}
+{"step": 23000, "val_loss": 3.6864, "val_ppl": 39.9, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.026, 0.15, 0.193, 0.001, 0.003, 0.0, 0.0, 0.002, 0.003], "min": 21.1, "event": "FOLDED#5(a=0.000)->8L active,5 stored"}
+{"step": 23250, "val_loss": 3.7281, "val_ppl": 41.6, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.026, 0.151, 0.195, 0.001, 0.003, 0.001, 0.0, 0.002], "min": 22.4, "event": "FOLDED#6(a=0.000)->7L active,6 stored"}
+{"step": 23500, "val_loss": 3.6995, "val_ppl": 40.4, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.027, 0.152, 0.196, 0.002, 0.005, 0.0, 0.003], "min": 23.5, "event": "FOLDED#5(a=0.000)->6L active,7 stored"}
+{"step": 23750, "val_loss": 3.7178, "val_ppl": 41.2, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.027, 0.152, 0.197, 0.003, 0.006, 0.002], "min": 24.5, "event": "FOLDED#5(a=0.002)->5L active,8 stored"}
+{"step": 24000, "val_loss": 3.7134, "val_ppl": 41.0, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.027, 0.153, 0.198, 0.002, 0.007], "min": 25.4, "event": "FOLDED#3(a=0.002)->4L active,9 stored"}
+{"step": 24250, "val_loss": 3.6786, "val_ppl": 39.6, "n_layers": 3, "n_folded": 10, "n_params_M": 49.6, "alphas": [0.028, 0.153, 0.199, 0.009], "min": 26.2, "event": "FOLDED#3(a=0.009)->3L active,10 stored"}
+{"step": 24500, "val_loss": 3.7108, "val_ppl": 40.9, "n_layers": 2, "n_folded": 11, "n_params_M": 49.6, "alphas": [0.028, 0.154, 0.2], "min": 26.8, "event": "FOLDED#0(a=0.028)->2L active,11 stored"}
+{"step": 24750, "val_loss": 4.9852, "val_ppl": 146.2, "n_layers": 3, "n_folded": 10, "n_params_M": 49.6, "alphas": [0.029, 0.126], "min": 27.3, "event": "UNFOLDED stored->3L active,10 stored (gain -34.1%<3%)"}
+{"step": 25000, "val_loss": 4.3592, "val_ppl": 78.2, "n_layers": 2, "n_folded": 11, "n_params_M": 49.6, "alphas": [0.021, 0.115, 0.003], "min": 28.0, "event": "FOLDED#0(a=0.021)->2L active,11 stored"}
+{"step": 25250, "val_loss": 4.8661, "val_ppl": 129.8, "n_layers": 2, "n_folded": 11, "n_params_M": 49.6, "alphas": [0.067, 0.005], "min": 28.5}
+{"step": 25500, "val_loss": 4.4858, "val_ppl": 88.7, "n_layers": 2, "n_folded": 11, "n_params_M": 49.6, "alphas": [0.083, 0.006], "min": 29.0}
+{"step": 25750, "val_loss": 4.3917, "val_ppl": 80.8, "n_layers": 2, "n_folded": 11, "n_params_M": 49.6, "alphas": [0.091, 0.008], "min": 29.5}
+{"step": 26000, "val_loss": 4.2892, "val_ppl": 72.9, "n_layers": 3, "n_folded": 10, "n_params_M": 49.6, "alphas": [0.097, 0.01], "min": 30.0, "event": "UNFOLDED stored->3L active,10 stored (gain 1.6%<3%)"}
+{"step": 26250, "val_loss": 4.2417, "val_ppl": 69.5, "n_layers": 3, "n_folded": 10, "n_params_M": 49.6, "alphas": [0.102, 0.012, 0.002], "min": 30.7}
+{"step": 26500, "val_loss": 4.1993, "val_ppl": 66.6, "n_layers": 3, "n_folded": 10, "n_params_M": 49.6, "alphas": [0.106, 0.013, 0.006], "min": 31.3}
+{"step": 26750, "val_loss": 4.1436, "val_ppl": 63.0, "n_layers": 2, "n_folded": 11, "n_params_M": 49.6, "alphas": [0.108, 0.015, 0.012], "min": 31.9, "event": "FOLDED#1(a=0.015)->2L active,11 stored"}
+{"step": 27000, "val_loss": 4.1667, "val_ppl": 64.5, "n_layers": 2, "n_folded": 11, "n_params_M": 49.6, "alphas": [0.112, 0.024], "min": 32.5}
+{"step": 27250, "val_loss": 4.1528, "val_ppl": 63.6, "n_layers": 3, "n_folded": 10, "n_params_M": 49.6, "alphas": [0.111, 0.031], "min": 33.0, "event": "UNFOLDED stored->3L active,10 stored (gain 2.1%<3%)"}
+{"step": 27500, "val_loss": 4.1189, "val_ppl": 61.5, "n_layers": 3, "n_folded": 10, "n_params_M": 49.6, "alphas": [0.111, 0.033, 0.01], "min": 33.6}
+{"step": 27750, "val_loss": 4.0972, "val_ppl": 60.2, "n_layers": 3, "n_folded": 10, "n_params_M": 49.6, "alphas": [0.112, 0.039, 0.011], "min": 34.2}
+{"step": 28000, "val_loss": 4.0884, "val_ppl": 59.6, "n_layers": 3, "n_folded": 10, "n_params_M": 49.6, "alphas": [0.112, 0.043, 0.014], "min": 34.9}
+{"step": 28250, "val_loss": 4.0609, "val_ppl": 58.0, "n_layers": 3, "n_folded": 10, "n_params_M": 49.6, "alphas": [0.111, 0.048, 0.016], "min": 35.5}
+{"step": 28500, "val_loss": 4.0228, "val_ppl": 55.9, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.112, 0.053, 0.019], "min": 36.2, "event": "UNFOLDED stored->4L active,9 stored (gain 2.3%<3%)"}
+{"step": 28750, "val_loss": 4.0239, "val_ppl": 55.9, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.112, 0.055, 0.021, 0.003], "min": 36.9}
+{"step": 29000, "val_loss": 4.0203, "val_ppl": 55.7, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.112, 0.061, 0.024, 0.005], "min": 37.7}
+{"step": 29250, "val_loss": 3.9884, "val_ppl": 54.0, "n_layers": 3, "n_folded": 10, "n_params_M": 49.6, "alphas": [0.111, 0.065, 0.025, 0.006], "min": 38.5, "event": "FOLDED#2(a=0.025)->3L active,10 stored"}
+{"step": 29500, "val_loss": 4.0058, "val_ppl": 54.9, "n_layers": 3, "n_folded": 10, "n_params_M": 49.6, "alphas": [0.113, 0.076, 0.009], "min": 39.1}
+{"step": 29750, "val_loss": 4.009, "val_ppl": 55.1, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.113, 0.079, 0.011], "min": 39.7, "event": "UNFOLDED stored->4L active,9 stored (gain 0.4%<3%)"}
+{"step": 30000, "val_loss": 3.9885, "val_ppl": 54.0, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.112, 0.078, 0.011, 0.021], "min": 40.5}
+{"step": 30250, "val_loss": 3.9653, "val_ppl": 52.7, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.113, 0.081, 0.013, 0.024], "min": 41.3}
+{"step": 30500, "val_loss": 3.9544, "val_ppl": 52.2, "n_layers": 3, "n_folded": 10, "n_params_M": 49.6, "alphas": [0.112, 0.085, 0.014, 0.027], "min": 42.0, "event": "FOLDED#2(a=0.014)->3L active,10 stored"}
+{"step": 30750, "val_loss": 3.9281, "val_ppl": 50.8, "n_layers": 3, "n_folded": 10, "n_params_M": 49.6, "alphas": [0.112, 0.088, 0.031], "min": 42.7}
+{"step": 31000, "val_loss": 3.923, "val_ppl": 50.6, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.113, 0.092, 0.033], "min": 43.3, "event": "UNFOLDED stored->4L active,9 stored (gain 1.6%<3%)"}
+{"step": 31250, "val_loss": 3.9284, "val_ppl": 50.8, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.112, 0.095, 0.035, 0.015], "min": 44.1}
+{"step": 31500, "val_loss": 3.9031, "val_ppl": 49.6, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.113, 0.098, 0.037, 0.017], "min": 44.8}
+{"step": 31750, "val_loss": 3.9029, "val_ppl": 49.5, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.112, 0.102, 0.039, 0.02], "min": 45.6}
+{"step": 32000, "val_loss": 3.892, "val_ppl": 49.0, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.112, 0.105, 0.042, 0.022], "min": 46.3}
+{"step": 32250, "val_loss": 3.881, "val_ppl": 48.5, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.112, 0.108, 0.044, 0.025], "min": 47.1, "event": "UNFOLDED stored->5L active,8 stored (gain 1.2%<3%)"}
+{"step": 32500, "val_loss": 3.8674, "val_ppl": 47.8, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.111, 0.111, 0.046, 0.027, 0.001], "min": 48.0}
+{"step": 32750, "val_loss": 3.8809, "val_ppl": 48.5, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.112, 0.114, 0.049, 0.027, 0.001], "min": 48.9}
+{"step": 33000, "val_loss": 3.858, "val_ppl": 47.4, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.111, 0.117, 0.051, 0.03, 0.001], "min": 49.7, "event": "FOLDED#3(a=0.030)->4L active,9 stored"}
+{"step": 33250, "val_loss": 3.8598, "val_ppl": 47.5, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.112, 0.12, 0.055, 0.001], "min": 50.5}
+{"step": 33500, "val_loss": 3.8679, "val_ppl": 47.8, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.112, 0.124, 0.059, 0.003], "min": 51.3, "event": "UNFOLDED stored->5L active,8 stored (gain -0.0%<3%)"}
+{"step": 33750, "val_loss": 3.8453, "val_ppl": 46.8, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.112, 0.125, 0.059, 0.002, 0.027], "min": 52.2}
+{"step": 34000, "val_loss": 3.8212, "val_ppl": 45.7, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.112, 0.128, 0.06, 0.003, 0.03], "min": 53.0}
+{"step": 34250, "val_loss": 3.8387, "val_ppl": 46.5, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.111, 0.131, 0.063, 0.003, 0.032], "min": 53.9, "event": "FOLDED#3(a=0.003)->4L active,9 stored"}
+{"step": 34500, "val_loss": 3.8357, "val_ppl": 46.3, "n_layers": 4, "n_folded": 9, "n_params_M": 49.6, "alphas": [0.112, 0.133, 0.064, 0.034], "min": 54.7}
+{"step": 34750, "val_loss": 3.8306, "val_ppl": 46.1, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.111, 0.135, 0.066, 0.036], "min": 55.5, "event": "UNFOLDED stored->5L active,8 stored (gain 0.4%<3%)"}
+{"step": 35000, "val_loss": 3.8115, "val_ppl": 45.2, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.112, 0.138, 0.069, 0.038, 0.005], "min": 56.3}
+{"step": 35250, "val_loss": 3.8073, "val_ppl": 45.0, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.111, 0.14, 0.071, 0.039, 0.005], "min": 57.2}
+{"step": 35500, "val_loss": 3.8057, "val_ppl": 45.0, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.112, 0.141, 0.072, 0.041, 0.005], "min": 58.1}
+{"step": 35750, "val_loss": 3.8031, "val_ppl": 44.8, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.112, 0.144, 0.075, 0.043, 0.006], "min": 59.0}
+{"step": 36000, "val_loss": 3.8102, "val_ppl": 45.2, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.112, 0.146, 0.077, 0.044, 0.007], "min": 59.9, "event": "UNFOLDED stored->6L active,7 stored (gain 0.0%<3%)"}
+{"step": 36250, "val_loss": 3.7916, "val_ppl": 44.3, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.113, 0.149, 0.079, 0.045, 0.008, 0.001], "min": 60.9}
+{"step": 36500, "val_loss": 3.8003, "val_ppl": 44.7, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.112, 0.15, 0.081, 0.046, 0.009, 0.001], "min": 61.9}
+{"step": 36750, "val_loss": 3.7673, "val_ppl": 43.3, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.113, 0.151, 0.082, 0.048, 0.01, 0.001], "min": 62.9, "event": "FOLDED#4(a=0.010)->5L active,8 stored"}
+{"step": 37000, "val_loss": 3.7714, "val_ppl": 43.4, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.113, 0.153, 0.085, 0.051, 0.001], "min": 63.8}
+{"step": 37250, "val_loss": 3.7874, "val_ppl": 44.1, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.113, 0.155, 0.086, 0.052, 0.0], "min": 64.7, "event": "UNFOLDED stored->6L active,7 stored (gain 0.1%<3%)"}
+{"step": 37500, "val_loss": 3.7609, "val_ppl": 43.0, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.113, 0.157, 0.088, 0.052, 0.001, 0.01], "min": 65.7}
+{"step": 37750, "val_loss": 3.7527, "val_ppl": 42.6, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.113, 0.158, 0.09, 0.054, 0.0, 0.01], "min": 66.7}
+{"step": 38000, "val_loss": 3.7802, "val_ppl": 43.8, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.114, 0.16, 0.093, 0.055, 0.0, 0.013], "min": 67.7, "event": "FOLDED#4(a=0.000)->5L active,8 stored"}
+{"step": 38250, "val_loss": 3.7522, "val_ppl": 42.6, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.113, 0.162, 0.095, 0.056, 0.013], "min": 68.6}
+{"step": 38500, "val_loss": 3.7295, "val_ppl": 41.7, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.114, 0.161, 0.096, 0.057, 0.015], "min": 69.5, "event": "UNFOLDED stored->6L active,7 stored (gain 0.8%<3%)"}
+{"step": 38750, "val_loss": 3.7416, "val_ppl": 42.2, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.114, 0.164, 0.097, 0.058, 0.017, 0.001], "min": 70.5}
+{"step": 39000, "val_loss": 3.7278, "val_ppl": 41.6, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.114, 0.166, 0.1, 0.059, 0.018, 0.0], "min": 71.5}
+{"step": 39250, "val_loss": 3.7455, "val_ppl": 42.3, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.114, 0.166, 0.102, 0.061, 0.019, 0.001], "min": 72.6, "event": "FOLDED#4(a=0.019)->5L active,8 stored"}
+{"step": 39500, "val_loss": 3.74, "val_ppl": 42.1, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.114, 0.169, 0.104, 0.064, 0.0], "min": 73.4}
+{"step": 39750, "val_loss": 3.7173, "val_ppl": 41.2, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.114, 0.169, 0.106, 0.066, 0.0], "min": 74.3, "event": "UNFOLDED stored->6L active,7 stored (gain 0.7%<3%)"}
+{"step": 40000, "val_loss": 3.7107, "val_ppl": 40.9, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.115, 0.171, 0.108, 0.065, 0.001, 0.019], "min": 75.3}
+{"step": 40250, "val_loss": 3.718, "val_ppl": 41.2, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.115, 0.173, 0.109, 0.066, 0.0, 0.02], "min": 76.4}
+{"step": 40500, "val_loss": 3.711, "val_ppl": 40.9, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.115, 0.173, 0.11, 0.067, 0.0, 0.022], "min": 77.4, "event": "FOLDED#4(a=0.000)->5L active,8 stored"}
+{"step": 40750, "val_loss": 3.7297, "val_ppl": 41.7, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.116, 0.175, 0.112, 0.068, 0.024], "min": 78.3}
+{"step": 41000, "val_loss": 3.7233, "val_ppl": 41.4, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.116, 0.175, 0.114, 0.069, 0.026], "min": 79.1, "event": "UNFOLDED stored->6L active,7 stored (gain -0.3%<3%)"}
+{"step": 41250, "val_loss": 3.7092, "val_ppl": 40.8, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.115, 0.177, 0.115, 0.071, 0.026, 0.0], "min": 80.2}
+{"step": 41500, "val_loss": 3.7167, "val_ppl": 41.1, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.116, 0.178, 0.117, 0.072, 0.028, 0.0], "min": 81.2}
+{"step": 41750, "val_loss": 3.6921, "val_ppl": 40.1, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.116, 0.179, 0.119, 0.072, 0.029, 0.001], "min": 82.2, "event": "FOLDED#4(a=0.029)->5L active,8 stored"}
+{"step": 42000, "val_loss": 3.7177, "val_ppl": 41.2, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.116, 0.179, 0.121, 0.076, 0.0], "min": 83.1}
+{"step": 42250, "val_loss": 3.6974, "val_ppl": 40.3, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.117, 0.18, 0.124, 0.078, 0.0], "min": 84.0, "event": "UNFOLDED stored->6L active,7 stored (gain 0.3%<3%)"}
+{"step": 42500, "val_loss": 3.7022, "val_ppl": 40.5, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.117, 0.182, 0.124, 0.075, 0.001, 0.028], "min": 85.0}
+{"step": 42750, "val_loss": 3.6805, "val_ppl": 39.7, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.117, 0.182, 0.126, 0.078, 0.001, 0.031], "min": 86.0}
+{"step": 43000, "val_loss": 3.7042, "val_ppl": 40.6, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.117, 0.184, 0.128, 0.077, 0.001, 0.031], "min": 87.0, "event": "FOLDED#4(a=0.001)->5L active,8 stored"}
+{"step": 43250, "val_loss": 3.7067, "val_ppl": 40.7, "n_layers": 5, "n_folded": 8, "n_params_M": 49.6, "alphas": [0.117, 0.185, 0.128, 0.079, 0.033], "min": 87.9}
+{"step": 43500, "val_loss": 3.6811, "val_ppl": 39.7, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.117, 0.186, 0.129, 0.08, 0.035], "min": 88.8, "event": "UNFOLDED stored->6L active,7 stored (gain 0.6%<3%)"}
+{"step": 43750, "val_loss": 3.6836, "val_ppl": 39.8, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.118, 0.186, 0.131, 0.082, 0.036, 0.001], "min": 89.8}
+{"step": 44000, "val_loss": 3.68, "val_ppl": 39.6, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.118, 0.186, 0.133, 0.081, 0.038, 0.0], "min": 90.8}
+{"step": 44250, "val_loss": 3.6617, "val_ppl": 38.9, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.118, 0.188, 0.136, 0.083, 0.038, 0.0], "min": 91.8}
+{"step": 44500, "val_loss": 3.672, "val_ppl": 39.3, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.118, 0.187, 0.136, 0.083, 0.039, 0.001], "min": 92.8}
+{"step": 44750, "val_loss": 3.6816, "val_ppl": 39.7, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.118, 0.188, 0.138, 0.085, 0.041, 0.0], "min": 93.8, "event": "UNFOLDED stored->7L active,6 stored (gain 0.1%<3%)"}
+{"step": 45000, "val_loss": 3.6623, "val_ppl": 39.0, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.119, 0.19, 0.139, 0.086, 0.043, 0.0, 0.0], "min": 95.0}
+{"step": 45250, "val_loss": 3.665, "val_ppl": 39.1, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.119, 0.189, 0.14, 0.087, 0.044, 0.001, 0.0], "min": 96.1}
+{"step": 45500, "val_loss": 3.6743, "val_ppl": 39.4, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.119, 0.19, 0.143, 0.089, 0.045, 0.0, 0.0], "min": 97.2, "event": "FOLDED#5(a=0.000)->6L active,7 stored"}
+{"step": 45750, "val_loss": 3.6553, "val_ppl": 38.7, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.119, 0.191, 0.144, 0.089, 0.047, 0.0], "min": 98.2}
+{"step": 46000, "val_loss": 3.6562, "val_ppl": 38.7, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.12, 0.191, 0.145, 0.09, 0.048, 0.001], "min": 99.3, "event": "UNFOLDED stored->7L active,6 stored (gain 0.2%<3%)"}
+{"step": 46250, "val_loss": 3.6423, "val_ppl": 38.2, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.119, 0.192, 0.146, 0.091, 0.05, 0.0, 0.0], "min": 100.4}
+{"step": 46500, "val_loss": 3.6252, "val_ppl": 37.5, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.12, 0.193, 0.149, 0.092, 0.051, 0.001, 0.0], "min": 101.5}
+{"step": 46750, "val_loss": 3.6621, "val_ppl": 38.9, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.12, 0.192, 0.149, 0.094, 0.052, 0.0, 0.0], "min": 102.7, "event": "FOLDED#5(a=0.000)->6L active,7 stored"}
+{"step": 47000, "val_loss": 3.6312, "val_ppl": 37.8, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.12, 0.194, 0.15, 0.095, 0.053, 0.0], "min": 103.7}
+{"step": 47250, "val_loss": 3.647, "val_ppl": 38.4, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.12, 0.194, 0.152, 0.096, 0.055, 0.001], "min": 104.7, "event": "UNFOLDED stored->7L active,6 stored (gain -0.1%<3%)"}
+{"step": 47500, "val_loss": 3.6393, "val_ppl": 38.1, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.121, 0.196, 0.152, 0.095, 0.055, 0.0, 0.001], "min": 105.8}
+{"step": 47750, "val_loss": 3.6378, "val_ppl": 38.0, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.121, 0.196, 0.154, 0.097, 0.057, 0.0, 0.001], "min": 107.0}
+{"step": 48000, "val_loss": 3.6229, "val_ppl": 37.4, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.121, 0.195, 0.156, 0.1, 0.058, 0.0, 0.001], "min": 108.1, "event": "FOLDED#5(a=0.000)->6L active,7 stored"}
+{"step": 48250, "val_loss": 3.6349, "val_ppl": 37.9, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.12, 0.195, 0.158, 0.099, 0.059, 0.0], "min": 109.1}
+{"step": 48500, "val_loss": 3.6397, "val_ppl": 38.1, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.122, 0.197, 0.159, 0.101, 0.059, 0.0], "min": 110.1, "event": "UNFOLDED stored->7L active,6 stored (gain -0.0%<3%)"}
+{"step": 48750, "val_loss": 3.638, "val_ppl": 38.0, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.121, 0.196, 0.16, 0.102, 0.062, 0.0, 0.0], "min": 111.3}
+{"step": 49000, "val_loss": 3.6546, "val_ppl": 38.7, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.121, 0.196, 0.161, 0.103, 0.063, 0.0, 0.0], "min": 112.4}
+{"step": 49250, "val_loss": 3.6189, "val_ppl": 37.3, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.122, 0.196, 0.163, 0.104, 0.065, 0.0, 0.0], "min": 113.5, "event": "FOLDED#5(a=0.000)->6L active,7 stored"}
+{"step": 49500, "val_loss": 3.6409, "val_ppl": 38.1, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.122, 0.197, 0.163, 0.106, 0.065, 0.001], "min": 114.5}
+{"step": 49750, "val_loss": 3.6379, "val_ppl": 38.0, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.122, 0.198, 0.164, 0.105, 0.066, 0.0], "min": 115.6, "event": "UNFOLDED stored->7L active,6 stored (gain 0.0%<3%)"}
+{"step": 50000, "val_loss": 3.6179, "val_ppl": 37.3, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.122, 0.199, 0.165, 0.108, 0.067, 0.001, 0.0], "min": 116.7}
+{"step": 50250, "val_loss": 3.6298, "val_ppl": 37.7, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.122, 0.199, 0.167, 0.108, 0.069, 0.0, 0.001], "min": 117.8}
+{"step": 50500, "val_loss": 3.6305, "val_ppl": 37.7, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.122, 0.199, 0.166, 0.109, 0.07, 0.0, 0.0], "min": 119.0, "event": "FOLDED#5(a=0.000)->6L active,7 stored"}
+{"step": 50750, "val_loss": 3.6192, "val_ppl": 37.3, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.122, 0.199, 0.17, 0.112, 0.071, 0.001], "min": 120.0}
+{"step": 51000, "val_loss": 3.6121, "val_ppl": 37.0, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.122, 0.199, 0.17, 0.112, 0.072, 0.001], "min": 121.0, "event": "UNFOLDED stored->7L active,6 stored (gain 0.2%<3%)"}
+{"step": 51250, "val_loss": 3.6177, "val_ppl": 37.3, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.123, 0.201, 0.171, 0.114, 0.073, 0.0, 0.0], "min": 122.1}
+{"step": 51500, "val_loss": 3.6182, "val_ppl": 37.3, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.122, 0.2, 0.172, 0.114, 0.075, 0.0, 0.0], "min": 123.3}
+{"step": 51750, "val_loss": 3.6133, "val_ppl": 37.1, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.123, 0.201, 0.173, 0.115, 0.076, 0.0, 0.0], "min": 124.4, "event": "FOLDED#5(a=0.000)->6L active,7 stored"}
+{"step": 52000, "val_loss": 3.6072, "val_ppl": 36.9, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.123, 0.201, 0.174, 0.118, 0.077, 0.0], "min": 125.4}
+{"step": 52250, "val_loss": 3.6051, "val_ppl": 36.8, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.122, 0.202, 0.175, 0.118, 0.078, 0.0], "min": 126.4, "event": "UNFOLDED stored->7L active,6 stored (gain 0.3%<3%)"}
+{"step": 52500, "val_loss": 3.6147, "val_ppl": 37.1, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.123, 0.202, 0.176, 0.119, 0.079, 0.0, 0.001], "min": 127.6}
+{"step": 52750, "val_loss": 3.6009, "val_ppl": 36.6, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.123, 0.202, 0.177, 0.12, 0.082, 0.0, 0.0], "min": 128.7}
+{"step": 53000, "val_loss": 3.6024, "val_ppl": 36.7, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.123, 0.203, 0.179, 0.122, 0.082, 0.0, 0.0], "min": 129.8, "event": "FOLDED#5(a=0.000)->6L active,7 stored"}
+{"step": 53250, "val_loss": 3.6129, "val_ppl": 37.1, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.123, 0.203, 0.179, 0.124, 0.083, 0.0], "min": 130.9}
+{"step": 53500, "val_loss": 3.5991, "val_ppl": 36.6, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.123, 0.203, 0.18, 0.124, 0.084, 0.001], "min": 131.9, "event": "UNFOLDED stored->7L active,6 stored (gain 0.4%<3%)"}
+{"step": 53750, "val_loss": 3.5967, "val_ppl": 36.5, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.122, 0.204, 0.18, 0.126, 0.086, 0.0, 0.0], "min": 133.0}
+{"step": 54000, "val_loss": 3.6029, "val_ppl": 36.7, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.204, 0.181, 0.127, 0.086, 0.0, 0.001], "min": 134.2}
+{"step": 54250, "val_loss": 3.5945, "val_ppl": 36.4, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.205, 0.182, 0.128, 0.089, 0.0, 0.001], "min": 135.3, "event": "FOLDED#5(a=0.000)->6L active,7 stored"}
+{"step": 54500, "val_loss": 3.6001, "val_ppl": 36.6, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.123, 0.205, 0.183, 0.128, 0.088, 0.0], "min": 136.3}
+{"step": 54750, "val_loss": 3.5898, "val_ppl": 36.2, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.204, 0.184, 0.131, 0.091, 0.0], "min": 137.3, "event": "UNFOLDED stored->7L active,6 stored (gain 0.2%<3%)"}
+{"step": 55000, "val_loss": 3.6009, "val_ppl": 36.6, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.204, 0.185, 0.133, 0.093, 0.001, 0.0], "min": 138.5}
+{"step": 55250, "val_loss": 3.5872, "val_ppl": 36.1, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.123, 0.205, 0.185, 0.136, 0.094, 0.0, 0.0], "min": 139.6}
+{"step": 55500, "val_loss": 3.5991, "val_ppl": 36.6, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.206, 0.186, 0.135, 0.095, 0.0, 0.001], "min": 140.7, "event": "FOLDED#5(a=0.000)->6L active,7 stored"}
+{"step": 55750, "val_loss": 3.574, "val_ppl": 35.7, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.205, 0.187, 0.137, 0.095, 0.001], "min": 141.7}
+{"step": 56000, "val_loss": 3.5938, "val_ppl": 36.4, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.206, 0.188, 0.138, 0.098, 0.0], "min": 142.8, "event": "UNFOLDED stored->7L active,6 stored (gain 0.2%<3%)"}
+{"step": 56250, "val_loss": 3.5897, "val_ppl": 36.2, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.207, 0.189, 0.14, 0.098, 0.001, 0.0], "min": 143.9}
+{"step": 56500, "val_loss": 3.5935, "val_ppl": 36.4, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.207, 0.189, 0.14, 0.1, 0.0, 0.001], "min": 145.0}
+{"step": 56750, "val_loss": 3.5931, "val_ppl": 36.3, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.125, 0.207, 0.192, 0.143, 0.1, 0.0, 0.001], "min": 146.2, "event": "FOLDED#5(a=0.000)->6L active,7 stored"}
+{"step": 57000, "val_loss": 3.5781, "val_ppl": 35.8, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.207, 0.192, 0.145, 0.102, 0.0], "min": 147.2}
+{"step": 57250, "val_loss": 3.5808, "val_ppl": 35.9, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.207, 0.193, 0.145, 0.104, 0.001], "min": 148.2, "event": "UNFOLDED stored->7L active,6 stored (gain 0.2%<3%)"}
+{"step": 57500, "val_loss": 3.5814, "val_ppl": 35.9, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.208, 0.193, 0.147, 0.105, 0.001, 0.0], "min": 149.3}
+{"step": 57750, "val_loss": 3.5896, "val_ppl": 36.2, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.208, 0.193, 0.149, 0.107, 0.001, 0.001], "min": 150.5}
+{"step": 58000, "val_loss": 3.5708, "val_ppl": 35.5, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.125, 0.208, 0.196, 0.15, 0.108, 0.001, 0.0], "min": 151.6, "event": "FOLDED#5(a=0.001)->6L active,7 stored"}
+{"step": 58250, "val_loss": 3.5928, "val_ppl": 36.3, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.208, 0.195, 0.152, 0.11, 0.001], "min": 152.6}
+{"step": 58500, "val_loss": 3.5819, "val_ppl": 35.9, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.125, 0.208, 0.196, 0.154, 0.111, 0.0], "min": 153.6, "event": "UNFOLDED stored->7L active,6 stored (gain -0.0%<3%)"}
+{"step": 58750, "val_loss": 3.582, "val_ppl": 35.9, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.209, 0.197, 0.155, 0.112, 0.0, 0.0], "min": 154.8}
+{"step": 59000, "val_loss": 3.5884, "val_ppl": 36.2, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.21, 0.197, 0.158, 0.115, 0.0, 0.0], "min": 155.9}
+{"step": 59250, "val_loss": 3.5766, "val_ppl": 35.8, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.209, 0.198, 0.159, 0.116, 0.001, 0.001], "min": 157.0, "event": "FOLDED#5(a=0.001)->6L active,7 stored"}
+{"step": 59500, "val_loss": 3.5658, "val_ppl": 35.4, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.21, 0.198, 0.162, 0.117, 0.001], "min": 158.1}
+{"step": 59750, "val_loss": 3.5743, "val_ppl": 35.7, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.21, 0.2, 0.163, 0.12, 0.001], "min": 159.1, "event": "UNFOLDED stored->7L active,6 stored (gain 0.2%<3%)"}
+{"step": 59750, "val_loss": 3.5535, "val_ppl": 34.9, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.21, 0.199, 0.163, 0.119, 0.0], "min": 1.2}
+{"step": 60000, "val_loss": 3.5784, "val_ppl": 35.8, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.125, 0.21, 0.2, 0.165, 0.122, 0.0], "min": 2.3}
+{"step": 60250, "val_loss": 3.5491, "val_ppl": 34.8, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.211, 0.2, 0.167, 0.122, 0.0], "min": 3.4}
+{"step": 60500, "val_loss": 3.5467, "val_ppl": 34.7, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.21, 0.201, 0.168, 0.124, 0.001], "min": 4.5}
+{"step": 60750, "val_loss": 3.552, "val_ppl": 34.9, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.21, 0.201, 0.171, 0.125, 0.001], "min": 5.5, "event": "UNFOLDED stored->7L active,6 stored (gain 0.0%<3%)"}
+{"step": 61000, "val_loss": 3.5583, "val_ppl": 35.1, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.125, 0.21, 0.202, 0.172, 0.128, 0.001, 0.0], "min": 6.7}
+{"step": 61250, "val_loss": 3.5602, "val_ppl": 35.2, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.125, 0.21, 0.203, 0.175, 0.129, 0.0, 0.0], "min": 7.9}
+{"step": 61500, "val_loss": 3.5463, "val_ppl": 34.7, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.211, 0.203, 0.177, 0.13, 0.001, 0.0], "min": 9.1, "event": "FOLDED#5(a=0.001)->6L active,7 stored"}
+{"step": 61750, "val_loss": 3.5574, "val_ppl": 35.1, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.125, 0.211, 0.202, 0.179, 0.131, 0.001], "min": 10.2}
+{"step": 62000, "val_loss": 3.576, "val_ppl": 35.7, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.212, 0.205, 0.18, 0.134, 0.0], "min": 11.3, "event": "UNFOLDED stored->7L active,6 stored (gain -0.5%<3%)"}
+{"step": 62250, "val_loss": 3.5324, "val_ppl": 34.2, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.125, 0.212, 0.205, 0.182, 0.136, 0.001, 0.001], "min": 12.5}
+{"step": 62500, "val_loss": 3.5288, "val_ppl": 34.1, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.125, 0.211, 0.206, 0.183, 0.136, 0.0, 0.001], "min": 13.8}
+{"step": 62750, "val_loss": 3.5644, "val_ppl": 35.3, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.211, 0.207, 0.186, 0.139, 0.001, 0.001], "min": 15.0, "event": "FOLDED#5(a=0.001)->6L active,7 stored"}
+{"step": 63000, "val_loss": 3.5441, "val_ppl": 34.6, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.212, 0.207, 0.19, 0.14, 0.002], "min": 16.0}
+{"step": 63250, "val_loss": 3.5612, "val_ppl": 35.2, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.125, 0.211, 0.206, 0.19, 0.143, 0.001], "min": 17.1, "event": "UNFOLDED stored->7L active,6 stored (gain -0.8%<3%)"}
+{"step": 63500, "val_loss": 3.5572, "val_ppl": 35.1, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.212, 0.206, 0.193, 0.145, 0.003, 0.001], "min": 18.3}
+{"step": 63750, "val_loss": 3.5308, "val_ppl": 34.2, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.125, 0.211, 0.207, 0.195, 0.144, 0.002, 0.0], "min": 19.5}
+{"step": 64000, "val_loss": 3.5557, "val_ppl": 35.0, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.125, 0.212, 0.208, 0.197, 0.146, 0.002, 0.0], "min": 20.7, "event": "FOLDED#5(a=0.002)->6L active,7 stored"}
+{"step": 64250, "val_loss": 3.5416, "val_ppl": 34.5, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.125, 0.213, 0.209, 0.199, 0.15, 0.001], "min": 21.8}
+{"step": 64500, "val_loss": 3.5457, "val_ppl": 34.7, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.212, 0.208, 0.201, 0.152, 0.0], "min": 22.8, "event": "UNFOLDED stored->7L active,6 stored (gain 0.3%<3%)"}
+{"step": 64750, "val_loss": 3.5428, "val_ppl": 34.6, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.213, 0.211, 0.204, 0.152, 0.0, 0.003], "min": 24.0}
+{"step": 65000, "val_loss": 3.5281, "val_ppl": 34.1, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.125, 0.213, 0.211, 0.208, 0.156, 0.0, 0.006], "min": 25.2}
+{"step": 65250, "val_loss": 3.5683, "val_ppl": 35.5, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.213, 0.211, 0.208, 0.158, 0.001, 0.006], "min": 26.4, "event": "FOLDED#5(a=0.001)->6L active,7 stored"}
+{"step": 65500, "val_loss": 3.5203, "val_ppl": 33.8, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.213, 0.212, 0.212, 0.159, 0.006], "min": 27.5}
+{"step": 65750, "val_loss": 3.5419, "val_ppl": 34.5, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.213, 0.211, 0.212, 0.159, 0.007], "min": 28.6, "event": "UNFOLDED stored->7L active,6 stored (gain 0.0%<3%)"}
+{"step": 66000, "val_loss": 3.5298, "val_ppl": 34.1, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.214, 0.211, 0.214, 0.162, 0.009, 0.001], "min": 29.8}
+{"step": 66250, "val_loss": 3.5198, "val_ppl": 33.8, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.125, 0.214, 0.212, 0.219, 0.165, 0.009, 0.0], "min": 31.0}
+{"step": 66500, "val_loss": 3.5491, "val_ppl": 34.8, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.125, 0.214, 0.212, 0.22, 0.169, 0.011, 0.001], "min": 32.4, "event": "FOLDED#5(a=0.011)->6L active,7 stored"}
+{"step": 66750, "val_loss": 3.5481, "val_ppl": 34.7, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.214, 0.213, 0.223, 0.17, 0.001], "min": 33.7}
+{"step": 67000, "val_loss": 3.5338, "val_ppl": 34.3, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.214, 0.214, 0.225, 0.173, 0.0], "min": 35.0, "event": "UNFOLDED stored->7L active,6 stored (gain -0.1%<3%)"}
+{"step": 67250, "val_loss": 3.5333, "val_ppl": 34.2, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.214, 0.215, 0.227, 0.175, 0.001, 0.011], "min": 36.5}
+{"step": 67500, "val_loss": 3.5416, "val_ppl": 34.5, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.215, 0.215, 0.23, 0.177, 0.002, 0.012], "min": 38.0}
+{"step": 67750, "val_loss": 3.5358, "val_ppl": 34.3, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.215, 0.214, 0.232, 0.178, 0.001, 0.014], "min": 39.3, "event": "FOLDED#5(a=0.001)->6L active,7 stored"}
+{"step": 68000, "val_loss": 3.5163, "val_ppl": 33.7, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.214, 0.216, 0.232, 0.18, 0.016], "min": 40.4}
+{"step": 68250, "val_loss": 3.5199, "val_ppl": 33.8, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.215, 0.216, 0.235, 0.182, 0.017], "min": 41.7, "event": "UNFOLDED stored->7L active,6 stored (gain 0.4%<3%)"}
+{"step": 68500, "val_loss": 3.5297, "val_ppl": 34.1, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.214, 0.215, 0.239, 0.185, 0.018, 0.002], "min": 43.2}
+{"step": 68750, "val_loss": 3.5068, "val_ppl": 33.3, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.215, 0.215, 0.241, 0.188, 0.02, 0.0], "min": 44.7}
+{"step": 69000, "val_loss": 3.522, "val_ppl": 33.9, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.215, 0.215, 0.24, 0.189, 0.022, 0.001], "min": 46.2, "event": "FOLDED#5(a=0.022)->6L active,7 stored"}
+{"step": 69250, "val_loss": 3.5353, "val_ppl": 34.3, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.215, 0.215, 0.245, 0.193, 0.001], "min": 47.6}
+{"step": 69500, "val_loss": 3.5354, "val_ppl": 34.3, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.214, 0.217, 0.248, 0.196, 0.002], "min": 48.8, "event": "UNFOLDED stored->7L active,6 stored (gain -0.2%<3%)"}
+{"step": 69750, "val_loss": 3.5253, "val_ppl": 34.0, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.214, 0.217, 0.249, 0.197, 0.003, 0.021], "min": 50.0}
+{"step": 70000, "val_loss": 3.5269, "val_ppl": 34.0, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.215, 0.217, 0.251, 0.199, 0.002, 0.023], "min": 51.2}
+{"step": 70250, "val_loss": 3.5038, "val_ppl": 33.2, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.124, 0.216, 0.217, 0.251, 0.201, 0.003, 0.027], "min": 52.4, "event": "FOLDED#5(a=0.003)->6L active,7 stored"}
+{"step": 70500, "val_loss": 3.5087, "val_ppl": 33.4, "n_layers": 6, "n_folded": 7, "n_params_M": 49.6, "alphas": [0.123, 0.215, 0.218, 0.253, 0.206, 0.027], "min": 53.4}
+{"step": 70750, "val_loss": 3.5242, "val_ppl": 33.9, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.123, 0.215, 0.217, 0.256, 0.205, 0.031], "min": 54.5, "event": "UNFOLDED stored->7L active,6 stored (gain 0.0%<3%)"}
+{"step": 71000, "val_loss": 3.5076, "val_ppl": 33.4, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.123, 0.215, 0.218, 0.258, 0.207, 0.033, 0.004], "min": 55.9}
+{"step": 71250, "val_loss": 3.5148, "val_ppl": 33.6, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.215, 0.218, 0.259, 0.211, 0.035, 0.004], "min": 57.4}
+{"step": 71500, "val_loss": 3.5117, "val_ppl": 33.5, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.124, 0.215, 0.218, 0.261, 0.214, 0.036, 0.004], "min": 58.9}
+{"step": 71750, "val_loss": 3.5052, "val_ppl": 33.3, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.123, 0.215, 0.218, 0.262, 0.215, 0.039, 0.004], "min": 60.4}
+{"step": 72000, "val_loss": 3.5001, "val_ppl": 33.1, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.123, 0.215, 0.218, 0.265, 0.221, 0.042, 0.005], "min": 61.9, "event": "UNFOLDED stored->8L active,5 stored (gain 0.2%<3%)"}
+{"step": 72250, "val_loss": 3.5163, "val_ppl": 33.7, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.123, 0.215, 0.219, 0.266, 0.223, 0.041, 0.006, 0.001], "min": 63.5}
+{"step": 72500, "val_loss": 3.5049, "val_ppl": 33.3, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.123, 0.216, 0.219, 0.267, 0.224, 0.045, 0.006, 0.001], "min": 64.8}
+{"step": 72750, "val_loss": 3.4989, "val_ppl": 33.1, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.123, 0.216, 0.22, 0.268, 0.228, 0.044, 0.007, 0.0], "min": 66.1, "event": "FOLDED#6(a=0.007)->7L active,6 stored"}
+{"step": 73000, "val_loss": 3.5169, "val_ppl": 33.7, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.122, 0.216, 0.22, 0.271, 0.231, 0.046, 0.001], "min": 67.3}
+{"step": 73250, "val_loss": 3.5108, "val_ppl": 33.5, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.123, 0.216, 0.219, 0.273, 0.233, 0.05, 0.001], "min": 68.5, "event": "UNFOLDED stored->8L active,5 stored (gain 0.2%<3%)"}
+{"step": 73500, "val_loss": 3.4938, "val_ppl": 32.9, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.123, 0.216, 0.22, 0.273, 0.235, 0.05, 0.0, 0.009], "min": 69.9}
+{"step": 73750, "val_loss": 3.5081, "val_ppl": 33.4, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.123, 0.216, 0.22, 0.276, 0.238, 0.052, 0.001, 0.01], "min": 71.2}
+{"step": 74000, "val_loss": 3.5146, "val_ppl": 33.6, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.123, 0.217, 0.221, 0.279, 0.237, 0.054, 0.0, 0.01], "min": 72.6, "event": "FOLDED#6(a=0.000)->7L active,6 stored"}
+{"step": 74250, "val_loss": 3.5179, "val_ppl": 33.7, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.122, 0.216, 0.221, 0.279, 0.24, 0.055, 0.012], "min": 73.8}
+{"step": 74500, "val_loss": 3.4983, "val_ppl": 33.1, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.123, 0.216, 0.222, 0.281, 0.245, 0.057, 0.013], "min": 75.0, "event": "UNFOLDED stored->8L active,5 stored (gain -0.1%<3%)"}
+{"step": 74750, "val_loss": 3.5024, "val_ppl": 33.2, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.122, 0.217, 0.221, 0.281, 0.249, 0.061, 0.014, 0.0], "min": 76.4}
+{"step": 75000, "val_loss": 3.5046, "val_ppl": 33.3, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.123, 0.216, 0.221, 0.283, 0.251, 0.06, 0.016, 0.0], "min": 77.7}
+{"step": 75250, "val_loss": 3.4997, "val_ppl": 33.1, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.122, 0.216, 0.22, 0.285, 0.253, 0.063, 0.018, 0.0], "min": 79.1, "event": "FOLDED#6(a=0.018)->7L active,6 stored"}
+{"step": 75500, "val_loss": 3.5209, "val_ppl": 33.8, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.122, 0.216, 0.223, 0.285, 0.256, 0.066, 0.0], "min": 80.2}
+{"step": 75750, "val_loss": 3.5039, "val_ppl": 33.2, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.123, 0.217, 0.223, 0.286, 0.259, 0.066, 0.0], "min": 81.4, "event": "UNFOLDED stored->8L active,5 stored (gain -0.0%<3%)"}
+{"step": 76000, "val_loss": 3.5144, "val_ppl": 33.6, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.122, 0.216, 0.222, 0.288, 0.261, 0.067, 0.0, 0.018], "min": 82.7}
+{"step": 76250, "val_loss": 3.4846, "val_ppl": 32.6, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.123, 0.216, 0.222, 0.29, 0.263, 0.069, 0.0, 0.021], "min": 84.1}
+{"step": 76500, "val_loss": 3.495, "val_ppl": 33.0, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.122, 0.216, 0.223, 0.293, 0.264, 0.069, 0.0, 0.025], "min": 85.4, "event": "FOLDED#6(a=0.000)->7L active,6 stored"}
+{"step": 76750, "val_loss": 3.5093, "val_ppl": 33.4, "n_layers": 7, "n_folded": 6, "n_params_M": 49.6, "alphas": [0.122, 0.217, 0.222, 0.292, 0.263, 0.073, 0.025], "min": 86.6}
+{"step": 77000, "val_loss": 3.4913, "val_ppl": 32.8, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.122, 0.217, 0.223, 0.293, 0.267, 0.073, 0.028], "min": 87.7, "event": "UNFOLDED stored->8L active,5 stored (gain 0.7%<3%)"}
+{"step": 77250, "val_loss": 3.4881, "val_ppl": 32.7, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.122, 0.216, 0.223, 0.294, 0.269, 0.075, 0.029, 0.0], "min": 89.1}
+{"step": 77500, "val_loss": 3.5126, "val_ppl": 33.5, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.122, 0.216, 0.223, 0.295, 0.273, 0.079, 0.033, 0.001], "min": 90.4}
+{"step": 77750, "val_loss": 3.4909, "val_ppl": 32.8, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.122, 0.216, 0.224, 0.297, 0.274, 0.078, 0.035, 0.001], "min": 91.8}
+{"step": 78000, "val_loss": 3.4751, "val_ppl": 32.3, "n_layers": 8, "n_folded": 5, "n_params_M": 49.6, "alphas": [0.122, 0.217, 0.224, 0.299, 0.276, 0.077, 0.036, 0.0], "min": 93.1}
+{"step": 78250, "val_loss": 3.4899, "val_ppl": 32.8, "n_layers": 9, "n_folded": 4, "n_params_M": 49.6, "alphas": [0.122, 0.216, 0.224, 0.299, 0.278, 0.082, 0.037, 0.0], "min": 94.4, "event": "UNFOLDED stored->9L active,4 stored (gain -0.1%<3%)"}
