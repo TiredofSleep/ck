@@ -1,3 +1,8 @@
+> **⚠️ RETIRED (2026-09-23).** This document is kept as part of the workstation's full history, and
+> its claims are no longer made. They rest on the table-based TIG program, or on readings built from it.
+> That program was retired after an audit found that no table-specific result survives. What was
+> retired, why, and what was salvaged: [`RETIRED.md`](RETIRED.md).
+
 # META-SYNTHESIS — What This Project Can Honestly Be Good For (Help-Humanity Edition)
 
 **For Brayden.  Composed overnight 2026-05-19 after the CLAUDECODE_HANDOFF was applied (TORUS EXCLUDED, CRT relocation, three corrections plus the D-ledger audit).  The canon is now small, plural, computed-not-pictured.  This file asks: of what remains, what is genuinely useful to humans?  Where is each piece actually load-bearing for someone other than the project's authors?  And — crucially — what are the seams that are NOT yet apparent, that the next session must guard against?**

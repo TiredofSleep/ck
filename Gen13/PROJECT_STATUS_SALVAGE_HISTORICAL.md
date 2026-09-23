@@ -1,5 +1,21 @@
 # Project status — fresh-eyes scrutiny, salvage, historical marking
 
+> **Correction (2026-09-23).** Part of section B below was overturned by the September foundation
+> audit and drift census (see [`../RETIRED.md`](../RETIRED.md)).
+>
+> **The σ-magma / ETP "taxonomy trilogy," re-examined:**
+> - the paper on ETP profiles of linear magmas is correct but not new;
+> - another is generic;
+> - the "fossil variety" proof is invalid — its claim is still open, and can be tested.
+>
+> **These are not salvage:**
+> - the joint-closure 4-core chain and attractor — a readout of how the tables were built;
+> - the prime-11 characteristic polynomial — computed on a transcription typo;
+> - the Clifford ladder — correct, but only a dimension count;
+> - the so(8)/so(10) identifications — generic: random tables give them too.
+>
+> Sections A and C stand.
+
 **2026-06-14.** Brayden: *"this whole project seems like it's going to the dumps …
 fresh eyes scrutiny, salvage what you can and mark historical in the repos, save the
 trail of our work."* Done — honestly. This is the capstone: what survived scrutiny,

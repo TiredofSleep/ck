@@ -1,3 +1,10 @@
+> **HISTORICAL — Coherence Keeper software (2026-09-23).** This document describes the CK software as it
+> stood then. It is kept as history and is not maintained. Where it presents the TIG composition tables as
+> giving CK proved or special properties — coherence, truth, a white-box self-explanation — those claims
+> are retired. The tables were AI renderings with no surviving table-specific results, and a June 2026
+> probe found that CK's later language model organizes itself by English grammar, not by the tables.
+> See [`RETIRED.md`](RETIRED.md).
+
 # CK Architecture Guide -- For Engineers & Python Developers
 ## Gen9: N-Dimensional Coherence Field + Universal Translator
 ### (c) 2026 Brayden Sanders / 7Site LLC -- TIG Unified Theory

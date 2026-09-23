@@ -1,3 +1,10 @@
+> **HISTORICAL — Coherence Keeper software (2026-09-23).** This document describes the CK software as it
+> stood then. It is kept as history and is not maintained. Where it presents the TIG composition tables as
+> giving CK proved or special properties — coherence, truth, a white-box self-explanation — those claims
+> are retired. The tables were AI renderings with no surviving table-specific results, and a June 2026
+> probe found that CK's later language model organizes itself by English grammar, not by the tables.
+> See [`RETIRED.md`](RETIRED.md).
+
 # CK Anomaly Detector — Content-Blind Signature Matching Prototype
 
 **Purpose**: A working demonstration of "content moderation without content retention" using CK's operator-path signature mechanism.

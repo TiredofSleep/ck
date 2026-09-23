@@ -1,3 +1,9 @@
+> **The author's story, kept as written (2026-09-23).** The living work grew from the poem that opens it:
+> each integer its own expression of 1; a thing and its opposite, 1 and 0; a vortex spinning on a
+> quarter; three that must triangulate to stop wobbling. It became the book's integers read as shapes,
+> and the flagship's coin — two sides and an edge. The table below the poem maps it onto the retired TIG
+> program, and those mappings are retired. See [`RETIRED.md`](RETIRED.md).
+
 # The Story — How CK Came to Be
 
 *Brayden Ross Sanders · 7Site LLC · Hot Springs, Arkansas · 2026*

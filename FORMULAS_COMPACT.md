@@ -1,3 +1,8 @@
+> **⚠️ RETIRED (2026-09-23).** This document is kept as part of the workstation's full history, and
+> its claims are no longer made. They rest on the table-based TIG program, or on readings built from it.
+> That program was retired after an audit found that no table-specific result survives. What was
+> retired, why, and what was salvaged: [`RETIRED.md`](RETIRED.md).
+
 # TIG CANON — COMPACT DIGEST (D1–D182)
 
 > **AUTO-GENERATED** from `FORMULAS_AND_TABLES.md` by `make_compact_canon.py`. Do not edit by hand — edit the full doc and regenerate.

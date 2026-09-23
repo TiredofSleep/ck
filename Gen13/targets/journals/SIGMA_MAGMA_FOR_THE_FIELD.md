@@ -1,3 +1,8 @@
+> **Superseded (2026-09-23).** The σ-magma's exhaustively computed facts are correct. What they were
+> taken to mean is retired: its rigidity is generic, because 99.8% of random magmas of the same kind
+> share its trivial automorphism group, and 98.9% share its simplicity. So the σ-magma is not special.
+> See [`RETIRED.md`](../../../RETIRED.md).
+
 # The substrate magmas, repackaged for the people who'd recognize them
 
 **2026-06-14.** The σ-magma work has only ever been written in TIG's private

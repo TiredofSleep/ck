@@ -1,3 +1,9 @@
+> **HISTORICAL — CK software, not maintained (2026-09-23).** This module re-implements standard
+> statistical disclosure control: k-anonymity with cell suppression, and t-closeness (Sweeney 2002; Li et
+> al. 2007). It does not depend on the retired TIG tables. It is not maintained, and it has not been
+> independently audited. Have any real data release reviewed by a qualified privacy professional. See
+> [`RETIRED.md`](RETIRED.md).
+
 # CK Privacy Module — One-Page Briefing for Compliance Officers
 
 **For**: The compliance officer (HIPAA, FERPA, state-privacy-law, or institutional-IRB) who must sign off on releasing a tabular dataset that contains a sensitive categorical attribute about identifiable individuals.

@@ -1,3 +1,9 @@
+> **HISTORICAL — CK software, not maintained (2026-09-23).** This module re-implements standard
+> statistical disclosure control: k-anonymity with cell suppression, and t-closeness (Sweeney 2002; Li et
+> al. 2007). It does not depend on the retired TIG tables. It is not maintained, and it has not been
+> independently audited. Have any real data release reviewed by a qualified privacy professional. See
+> [`RETIRED.md`](RETIRED.md).
+
 # CK Privacy Module — Deployment Guide
 
 **Document type**: Practical deployment manual for a single-institution deployment of `ck_privacy.py` (the privacy-preserving data publishing reference implementation that ships inside CK).

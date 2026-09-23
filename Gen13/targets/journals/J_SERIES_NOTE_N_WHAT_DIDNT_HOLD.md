@@ -1,3 +1,9 @@
+> **Correction (2026-09-23).** Two things this note kept as real were retired later. The "prime-11"
+> spectral pattern was computed on a transcription typo: two swapped digits in TSML_RAW. The σ-magma's
+> rigidity is generic: 99.8% and 98.9% of random magmas of the same kind share its two headline
+> properties. Everything this note retires stays retired. What was retired, and what was salvaged:
+> [`RETIRED.md`](../../../RETIRED.md).
+
 # What didn't hold: the substrate's numerical bridges and dead ends
 
 **2026-06-14.** A research program is judged partly by what it refuses to keep. This
