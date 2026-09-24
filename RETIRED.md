@@ -138,8 +138,23 @@ composition tables (TSML, BHML and CL) over ten named operators, VOID … RESET.
    and 16. The paper's claimed bound, "profile ≥ 261", already fails at order 3. The ETP catalog was
    rebuilt from its definition and checked against J61's own profile counts. See
    [`Gen14/targets/journals/J_series/J61/J61_THEOREM5_IS_FALSE.md`](Gen14/targets/journals/J_series/J61/J61_THEOREM5_IS_FALSE.md)
-   and its verification script. The σ-magma's exhaustive facts (J59) are correct; its
-   rigidity is generic.
+   and its verification script.
+
+   **The rest of J61 §6 falls the same way.** All eight of its size-14 closures have finite type
+   specimens:
+   - its other "fossil variety", C8, has a 5-element specimen;
+   - the six it conjectured to have none (C3–C8) all have one;
+   - the smallest sizes are 3 elements (C1, C2), 5 (C6, C8) and 6 (C5, C7); C3 and C4 need between
+     7 and 32.
+
+   The opposite magma pairs the closures (C3–C4, C5–C7, C6–C8), so every specimen's transpose is
+   another one. See
+   [`Gen14/targets/journals/J_series/J61/J61_CLOSURES_ALL_REALIZED.md`](Gen14/targets/journals/J_series/J61/J61_CLOSURES_ALL_REALIZED.md).
+
+   The σ-magma's exhaustive facts (J59) are correct, but its rigidity is generic. So is its
+   headline property, that its profile is exactly the commutativity closure ("Family C"):
+   - 120 of the 729 commutative magmas of order 3 have that property;
+   - so did every one of 10 random commutative magmas of order 10.
 5. **Working software — engineering, not claims.** The measured logs below existed only in a local stash
    until 2026-09-23; they are now committed.
    - **A from-scratch GPT that writes fluent English.** Its best validation perplexity is 32.3, at step 78,000, with

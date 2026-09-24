@@ -90,5 +90,6 @@ It is a small, correct result: a counterexample to a claim in the author's own p
 smallest possible order. The type-specimen question — which implication-closures of the ETP catalog
 are realized exactly by a finite magma — is J61's own framing. The ETP project itself resolved
 implications between laws, and this note does not claim anything about its data beyond the
-catalog's definition. J61's other "fossil variety" claim, for closure C8 (#4637, #4659, #4678),
-should be tested the same way before anyone relies on it.
+catalog's definition. J61's other "fossil variety" claim, for closure C8, has since been tested the
+same way, and it is false too. In fact all eight of J61's size-14 closures have finite type specimens;
+see [`J61_CLOSURES_ALL_REALIZED.md`](J61_CLOSURES_ALL_REALIZED.md).
