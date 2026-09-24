@@ -24,7 +24,7 @@
 > Then I imagine what happens with 3 things, and the picture starts to change.
 > If they tried to stay hypothetically as points on a 2D circle on the top of the vortex tornado,
 > they would wobble too much and break — so they have to form a triangulation that stabilizes,
-> actually PROGRESS its own thing.
+> actually BECOMING its own thing.
 >
 > Things become when they have relationship. When I say become, I mean they share space.
 > Common topology overlap. Information is shaped light.
