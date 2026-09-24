@@ -19,7 +19,7 @@ exactly that closure.
 |---|---|---|---|---|
 | C1 | #40 x◇x = y◇y | realized | 3 elements | 3 |
 | C2 | #43 x◇y = y◇x | realized | 3 elements | 3 |
-| C3 | #1312 x = y◇(((y◇x)◇x)◇x) | open | 32 elements | open: 7 to 32 |
+| C3 | #1312 x = y◇(((y◇x)◇x)◇x) | open | 32 elements | open: 8 to 32 |
 | C4 | #2241 x = (x◇(x◇(x◇y)))◇y | open | the mirror image of C3's | as C3 |
 | C5 | #4295 x◇(x◇y) = y◇(z◇x) | none exists (Theorem 5) | 6 elements | 6 |
 | C6 | #4303 x◇(x◇y) = z◇(y◇x) | open | 5 elements | 5 |
@@ -150,7 +150,15 @@ exactly these implications for #1312, #4295 and #4303 (checked 2026-09-23).
   #1312 does not imply that law, but only a larger model can show it.
 - **At six elements, ten models (up to renaming) break it.** That is smaller than the ETP's own
   8-element example. Each of the ten still satisfies at least 29 laws, though, so none is a specimen.
-- **The smallest possible specimen therefore has between 7 and 32 elements.** Its exact size is open.
+- **At seven elements, 667 models (up to renaming) break it.** Each satisfies at least 18
+  laws, so again none is a specimen. This search is
+  [`search_1312_breakers.py`](search_1312_breakers.py), and it is split across parallel processes.
+- **Products built from them stay at 32 or above.** Multiplying a six-element model by any model of
+  five or fewer elements never gives a specimen. Neither does multiplying a seven-element model by
+  any model of four or fewer. In each case the two factors share an extra law. These are all the
+  products of such models with fewer than 32 elements.
+- **The smallest possible specimen therefore has between 8 and 32 elements.** Its exact size is open.
+  An exhaustive search at order 8 is about a thousand times larger than at order 7.
 
 ## Two more claims in J61, corrected
 
@@ -169,8 +177,9 @@ exactly these implications for #1312, #4295 and #4303 (checked 2026-09-23).
 
 - **The catalog.** It was rebuilt from its definition, as in the Theorem 5 correction, and checked
   against eleven anchor laws and against J61's own profile counts.
-- **The searches.** They use propagation and the least-number heuristic, and they were checked
-  against brute force:
+- **The searches.** They use propagation and the least-number heuristic. The order-7 search for C3
+  is in [`search_1312_breakers.py`](search_1312_breakers.py); it reproduces the order-6 result. The
+  searches were checked against brute force:
   - C6 at order 3, over all 19,683 magmas;
   - C3 at orders 2–4.
 - **The specimens.** Each one was checked law by law. The 32-element C3 specimen was checked on the
@@ -185,7 +194,7 @@ These are small, correct results. They correct J61's account of its own eight cl
   is its conjecture that none of C3–C8 has a specimen.
 - Every closure it listed has a finite type specimen.
 - The smallest specimen size is now known for six of the eight.
-- What remains open is the smallest specimen for C3 and C4: between 7 and 32 elements.
+- What remains open is the smallest specimen for C3 and C4: between 8 and 32 elements.
 
 The question of which ETP closures have finite type specimens is J61's framing, and the argument above
 reduces it to the ETP's own comparison of finite and general implications. What is left is the size of

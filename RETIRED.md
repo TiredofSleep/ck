@@ -145,7 +145,7 @@ composition tables (TSML, BHML and CL) over ten named operators, VOID … RESET.
    - its other "fossil variety", C8, has a 5-element specimen;
    - the six it conjectured to have none (C3–C8) all have one;
    - the smallest sizes are 3 elements (C1, C2), 5 (C6, C8) and 6 (C5, C7); C3 and C4 need between
-     7 and 32.
+     8 and 32.
 
    The opposite magma pairs the closures (C3–C4, C5–C7, C6–C8), so every specimen's transpose is
    another one. See

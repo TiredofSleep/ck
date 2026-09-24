@@ -4,7 +4,10 @@ x = y◇(y◇x), with its ETP profile. A type specimen of C3 must break that law
 specimen from below.
 
     python search_1312_breakers.py 6            # seconds: 10 models up to renaming, profiles >= 29
-    python search_1312_breakers.py 7 16         # order 7 on 16 processes
+    python search_1312_breakers.py 7 16         # order 7 on 16 processes: 667 models, profiles >= 18
+    add --products to check every product of the models found with a smaller model of #1312 that has
+    fewer than 32 elements in all (none is a type specimen); add --save FILE / --load FILE to keep the
+    models found and skip the search next time
 
 Needs only numpy. In a finite model of #1312 every row of the table is a permutation (x = y◇(...) makes
 each left multiplication onto, hence one-to-one). A model that breaks x = y◇(y◇x) at (y, x) can be
@@ -126,7 +129,7 @@ def canonical(T):
 
 class Search:
     def __init__(self, n, w):
-        self.n, self.w = n, w                      # witness: 0◇(0◇w) != w
+        self.n, self.w = n, w                      # witness: 0◇(0◇w) != w; None = every model
         self.T, self.inv, self.cnt = [-1] * n * n, [-1] * n * n, [0] * n
         self.order = sorted(range(n * n), key=lambda c: (max(divmod(c, n)), c))
         self.trail, self.found, self.nodes = [], [], 0
@@ -160,7 +163,7 @@ class Search:
                     return False
             elif c >= 0 and not self.assign(y * n + c, x, queue):
                 return False
-        return not (T[self.w] >= 0 and T[T[self.w]] == self.w)
+        return self.w is None or not (T[self.w] >= 0 and T[T[self.w]] == self.w)
 
     def undo(self, mark):
         n, T = self.n, self.T
@@ -190,7 +193,7 @@ class Search:
         if depth_limit is not None and len(path) == depth_limit:
             frontier.append(list(path))
             return
-        m = max([self.w] + [max(*divmod(c, n), self.T[c]) for c in self.trail])
+        m = max([-1 if self.w is None else self.w] + [max(*divmod(c, n), self.T[c]) for c in self.trail])
         i, j = divmod(cell, n)
         for v in range(min(n - 1, max(m, i, j) + 1) + 1):
             mark, q = len(self.trail), []
@@ -199,6 +202,37 @@ class Search:
                 self.search(path, depth_limit, frontier)
                 path.pop()
             self.undo(mark)
+
+
+C3 = {1, 8, 411, 1020, 1223, 1312, 1629, 1832, 2035, 3253, 3319, 3862, 3915, 4065}
+
+
+def satisfied(T):
+    """the catalog laws the table satisfies"""
+    global LAWS
+    if LAWS is None:
+        LAWS = [(l, r, max(leaves(l) + leaves(r)) + 1) for l, r in build_catalog()]
+    T = np.asarray(T)
+    n = len(T)
+    if n not in GRIDS:
+        GRIDS[n] = {k: [g.ravel() for g in np.indices((n,) * k)] for k in range(1, 7)}
+    g = GRIDS[n]
+    return {i for i, (l, r, k) in enumerate(LAWS, start=1) if np.array_equal(ev(l, T, g[k]), ev(r, T, g[k]))}
+
+
+def all_models(n):
+    """every model of #1312 of order n, up to renaming"""
+    s = Search(n, None)
+    if s.start():
+        s.search([])
+    return sorted({canonical(np.array(t).reshape(n, n)) for t in s.found})
+
+
+def exact_partners(args):
+    """the smaller models M for which B x M has profile exactly C3: M must break every extra law of B"""
+    B, smalls = args
+    extra = sorted(satisfied(B) - C3)
+    return [len(M) for M in smalls if extra and not (satisfied(M) & set(extra))]
 
 
 def work(args):
@@ -216,7 +250,8 @@ if __name__ == "__main__":
     save = sys.argv[sys.argv.index("--save") + 1] if "--save" in sys.argv else None
     t0 = time.time()
     found, nodes = [], 0
-    for w in (1, 0):
+    load = sys.argv[sys.argv.index("--load") + 1] if "--load" in sys.argv else None
+    for w in ((1, 0) if load is None else ()):
         s = Search(n, w)
         frontier = []
         if s.start():
@@ -232,8 +267,11 @@ if __name__ == "__main__":
                           f"{time.time() - t0:.0f}s", flush=True)
     with Pool(workers) as pool:
         classes = sorted(set(pool.map(canonical, [np.array(t).reshape(n, n) for t in found], chunksize=64)))
-    print(f"order {n}: {len(found)} tables found, {len(classes)} up to renaming ({nodes:,} nodes, "
-          f"{time.time() - t0:.0f}s)", flush=True)
+    if load is not None:
+        classes = [tuple(int(v) for v in c.ravel()) for c in np.load(load)]
+    print(f"order {n}: " + (f"{len(classes)} models loaded from {load}" if load is not None else
+                             f"{len(found)} tables found, {len(classes)} up to renaming ({nodes:,} nodes, "
+                             f"{time.time() - t0:.0f}s)"), flush=True)
     if save:
         np.save(save, np.array(classes, dtype=np.int8).reshape(-1, n, n))
     if classes:
@@ -246,3 +284,12 @@ if __name__ == "__main__":
         low = [c for c, z in zip(classes, sizes) if z == min(sizes)][:3]
         for c in low:
             print("   ", np.array(c).reshape(n, n).tolist())
+    if "--products" in sys.argv and classes:
+        smalls = [np.array(c).reshape(m, m) for m in range(2, 31 // n + 1) for c in all_models(m)]
+        with Pool(workers) as pool:
+            hits = pool.map(exact_partners, [(np.array(c).reshape(n, n), smalls) for c in classes])
+        orders = sorted(n * m for h in hits for m in h)
+        print(f"  products with the {len(smalls)} models of #1312 of order 2-{max(len(M) for M in smalls)} "
+              f"(all products below 32 elements): "
+              + (f"{len(orders)} are type specimens, the smallest of order {orders[0]}" if orders
+                 else "none is a type specimen"))

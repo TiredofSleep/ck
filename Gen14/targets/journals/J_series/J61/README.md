@@ -6,7 +6,7 @@
 >
 > **⚠️ §6's other "fossil" claims are false too.** Every one of the eight size-14 closures in §6 has a
 > finite type specimen, including C8, which the table calls a "fossil variety". The smallest specimens
-> have 3 elements (C1, C2), 5 (C6, C8) and 6 (C5, C7); C3 and C4 need between 7 and 32. §3's claim that
+> have 3 elements (C1, C2), 5 (C6, C8) and 6 (C5, C7); C3 and C4 need between 8 and 32. §3's claim that
 > no 3-element magma realizes Family C is false as well. See
 > [`J61_CLOSURES_ALL_REALIZED.md`](J61_CLOSURES_ALL_REALIZED.md) and
 > [`verify_j61_closures.py`](verify_j61_closures.py).

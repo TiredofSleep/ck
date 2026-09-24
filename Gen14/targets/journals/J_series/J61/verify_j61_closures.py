@@ -12,7 +12,7 @@ specimen (a magma whose ETP profile is exactly the closure). Every one of the ei
     closure  anchor  specimen                                    smallest order
     C1       #40     a 3-element magma                           3
     C2       #43     a 3-element magma                           3
-    C3       #1312   32 elements: the affine mean over GF(8)     unknown; between 7 and 32
+    C3       #1312   32 elements: the affine mean over GF(8)     unknown; between 8 and 32
                      times a 4-element model
     C4       #2241   the transpose of C3's                       as C3
     C5       #4295   a 6-element magma (see verify_4295_...)     6
@@ -493,6 +493,7 @@ if "--minimality" in sys.argv:
        f"than the ETP's 8-element witness -- and their profiles have at least {low6} > 14 laws: no specimen",
        low6 > 14 and len(classes(b6)) == 10)
     print("  => smallest orders -- C1, C2: 3. C6, C8: 5. C5, C7: 6 (see verify_4295_type_specimen.py")
-    print("     --minimality). C3, C4: at least 7; the smallest known specimen has 32 elements.")
+    print("     --minimality). C3, C4: at least 7 here, and at least 8 with search_1312_breakers.py 7;")
+    print("     the smallest known specimen has 32 elements.")
 
 print("\nALL CHECKS PASS.")
