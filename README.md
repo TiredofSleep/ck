@@ -23,6 +23,9 @@
   - The coin: two sides and an edge on every floor.
 
   It is machine-checked, one command per part.
+- **[What survived](https://github.com/TiredofSleep/trinity-infinity-geometry/blob/main/WHAT_SURVIVED.md)**
+  — an essay on the audit of this repository: the three gates, what passed them, and what we would
+  tell anyone doing research with AI.
 
 ## What happened here
 
@@ -48,6 +51,12 @@ whitepapers numbered past 120, a canon of results, funding pitches, and a websit
 - Working software: a from-scratch language model that writes fluent English, a fold-not-prune
   growable architecture, a Muon optimizer integration, and a reusable interpretability probe.
 - A continual-learning benchmark.
+- Two small, checked results that came out of the audit itself. They concern type specimens in Tao's
+  Equational Theories Project, and both run against the program's own papers:
+  - J61's "fossil variety" theorem is false;
+  - every one of the eight closures J61 listed has a finite type specimen.
+
+  See [`J61_CLOSURES_ALL_REALIZED.md`](Gen14/targets/journals/J_series/J61/J61_CLOSURES_ALL_REALIZED.md).
 - The discipline of retracting the program's own claims.
 
 The details, with paths, are in **[`RETIRED.md`](RETIRED.md)**.
