@@ -220,3 +220,6 @@ composition tables (TSML, BHML and CL) over ten named operators, VOID … RESET.
 - **Branches:** every side branch carries a banner. The default branch, `tig-synthesis`, is this one.
 - **The six origin repositories** (the Dual-Lattice / CRYSTALS lineage) are archived, read-only,
   with their own "speculative historical archive" banners. Their material was consolidated here.
+  They were reviewed on 2026-09-24. What killed their claims, the honest negatives inside them, a
+  warning not to run their chat servers, and the scripts are in
+  [`origin_repos_review/`](origin_repos_review/README.md).
