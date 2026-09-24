@@ -41,6 +41,26 @@ the other side, and C4, C7 and C8 come for free.
 In this program's language, the mirror is a coin: two sides and an edge. It settles nothing by itself.
 What it does is show which questions are really the same question.
 
+## When does a closure have a finite type specimen?
+
+A short, standard argument answers this for every closure in the catalog:
+
+- **If some law outside the closure holds in every *finite* model of the anchor, no finite type
+  specimen exists.** Every finite model satisfies that extra law, so no finite profile can equal the
+  closure.
+- **Otherwise one exists.** For each law outside the closure, take a finite model of the anchor that
+  violates it. There are finitely many such laws. The product of all these models is a finite model
+  of the anchor, and it violates every law outside the closure, because a law holds in a product only
+  when it holds in every factor.
+
+So a closure has a finite type specimen exactly when its anchor implies nothing more for finite magmas
+than it does for all magmas. The ETP studied both kinds of implication (its Equation Explorer can show
+"the finite graph"), so J61's question comes down to comparing the ETP's two graphs.
+
+For the eight closures of §6, the specimens below show directly that nothing extra holds in finite
+models. The product argument only guarantees an enormous specimen, though. The real work was finding
+small ones, and for C3 and C4 the smallest size is still open.
+
 ## The specimens
 
 **C1 (all squares equal).** Every square is 0:
@@ -167,6 +187,7 @@ These are small, correct results. They correct J61's account of its own eight cl
 - The smallest specimen size is now known for six of the eight.
 - What remains open is the smallest specimen for C3 and C4: between 7 and 32 elements.
 
-The question of which ETP closures have finite type specimens is J61's framing. The ETP itself settles
-implications between laws, and this note uses nothing from the ETP beyond the catalog's definition and
-its explorer's implication lists.
+The question of which ETP closures have finite type specimens is J61's framing, and the argument above
+reduces it to the ETP's own comparison of finite and general implications. What is left is the size of
+the smallest specimen. This note uses nothing from the ETP beyond the catalog's definition and its
+explorer's implication lists.
