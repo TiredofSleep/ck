@@ -126,6 +126,57 @@ had to learn most of those lessons again, the hard way.
 6. Keep one definition per object. The series had two definitions of CL, and scrambled operator names
    in the Q17 files.
 
+## Change the lighting: methods worth reusing
+
+The claims are dead, but some of the machinery is not. Ranked by promise:
+
+1. **An algorithm's symmetries fix its statistics.**
+   - *Where it came from.* The gate-rate "law" says that every base with the same number of
+     non-units gets the same rate. That is not arithmetic. It is a clean, measured instance of a
+     general and useful fact: if a procedure sees its inputs only through some invariant, then the
+     statistics of its outputs depend on that invariant alone.
+   - *The technique.* In software this is *metamorphic testing*: change the inputs in a way the
+     program should not be able to see, and the results must not change.
+   - *Where it fits.*
+     - countycommons: reordering records, or relabeling categories, must not change any published
+       total. That is a cheap, automatic audit.
+     - Custom-POS: reordering a cart must not change the bill.
+   - *Smallest test.* A script that shuffles the record order and category labels of one
+     countycommons dataset, and asserts that every derived number is unchanged.
+2. **A coarse code cannot bound a magnitude.**
+   - *Where it came from.* Q17_C2's counterexample: e^t·sin(2πt/6) has a perfectly periodic
+     symbolic code while its size grows without bound.
+   - *The lesson.* A categorical summary (a rank, a sign pattern, a status) carries no information
+     about amounts.
+   - *Where it fits.* countycommons, where a category or rank should never stand in for a figure;
+     and the book's honest-failures chapter, as an exercise.
+3. **Count before you embed.**
+   - *Where it came from.* The σ-embedding obstruction reduces to a one-line check: a code with k
+     symbols cannot follow a cycle longer than k.
+   - *The lesson.* Any proposal to map data onto a symbolic model should pass this count first.
+4. **The ten decimal digits as a 2 × 5 grid.**
+   - *Where it came from.* The series' CRT coordinates, (x mod 2, x mod 5), are standard
+     mathematics. They are kept apart here from TIG's ten symbols, which are an alphabet, not
+     residues.
+   - *As a classroom picture of the ordinary digits:* the last digit settles divisibility by 2 and
+     by 5 at once.
+   - *Two coins on the ten digits:*
+     - the flip x ↦ −x has the edge {0, 5};
+     - x ↦ x + 5 swaps even and odd and has no edge at all, a flip with no fixed point, like the
+       Liar.
+   - *Where it fits.* An exercise for the companion unit, *Two Sides and an Edge*.
+5. **A roots-of-unity filter.**
+   - *Where it came from.* G8's three levels come from 1 + ω³ + ω⁶ = 0 (ω = e^{2πi/9}): summing
+     against roots of unity cancels whole periods.
+   - *The lesson.* That is the discrete Fourier idea in miniature.
+   - *Where it fits.* An exercise for the book's Fourier chapter.
+6. **Peak versus climb** (Q16).
+   - *The lesson.* Where the optimum is, and how hard it is to find, are separate questions. It is
+     standard in optimization, and it is worth one line wherever the book talks about search.
+
+None of these is new mathematics. They are tools and exercises, moved out of a claim that failed and
+into places where they can work.
+
 **And one credit.** Q2's alarm was the right instinct: two things that should agree, didn't. The
 mistake was to settle the disagreement with a hidden operator, instead of asking where each value came
 from. Tracing each value to its source is what the program does now. It *classifies* a disagreement,
