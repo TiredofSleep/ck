@@ -1,3 +1,9 @@
+> **⚠️ AUDITED AND RETIRED (2026-09-24).** The Q series was audited with the census's gates; see
+> [`Q_SERIES_AUDIT_2026-09-24.md`](Q_SERIES_AUDIT_2026-09-24.md). Nothing in it is at once correct, table-free and
+> non-generic; its honest negatives and lessons are kept there. One correction applies throughout:
+> the stored success rate at b = 10 is 0.09%, not 4.6% (4.6% is the rate of other bases, such as
+> b = 22). This file is kept unchanged as history.
+
 # Questions for Luther
 ## Two Open Problems — C→D Promotion Path
 

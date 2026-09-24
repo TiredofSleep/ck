@@ -2,6 +2,7 @@
 > its claims are no longer made. They rest on the table-based TIG program, or on readings built from it.
 > That program was retired after an audit found that no table-specific result survives. What was
 > retired, why, and what was salvaged: [`RETIRED.md`](RETIRED.md).
+> The Q series itself was audited on 2026-09-24: [`papers/Q_SERIES_AUDIT_2026-09-24.md`](papers/Q_SERIES_AUDIT_2026-09-24.md).
 
 # The Q-Series Integrated Synthesis
 

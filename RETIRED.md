@@ -57,6 +57,14 @@ composition tables (TSML, BHML and CL) over ten named operators, VOID … RESET.
     wobble.
   - so(8) and so(10): generic — random tables give them too. The 54-irrep / Pati–Salam "alignment".
   - The "6-DOF meta-layer", the "lens" registries, and the April 2026 meta-lens atlas.
+- **The Q series** (`papers/Q2`–`Q17`, April 2026, with C. A. Luther's G6–G8).
+  - It was audited separately on 2026-09-24, because the census had covered only the J-series.
+    Nothing in it is at once correct, table-free and non-generic.
+  - Its central "gate-rate paradox" modelled the wrong number. The stored runs give 0.09% at
+    b = 10, not 4.6%, which belongs to bases such as b = 22.
+  - The rates follow from the search algorithm's own symmetry.
+  - Its honest negatives and six lessons, with scripts that reproduce every check, are kept in
+    [`papers/Q_SERIES_AUDIT_2026-09-24.md`](papers/Q_SERIES_AUDIT_2026-09-24.md).
 - **The physics, cosmology and number-theory readings.**
   - "27+ Standard Model and ΛCDM observables recovered": α, Ω_b, the Yukawas, PMNS, n_s (Sprint 18).
   - ξ-field cosmology and the DESI fit; microtubule *Q*_c = *T*\*; the Riemann, BSD, Yang–Mills and
